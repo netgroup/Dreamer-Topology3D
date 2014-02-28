@@ -1,0 +1,37 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<title>JS Graph Editor</title>
+    <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />	
+    <link type="text/css" href="css/graph_editor.css" rel="Stylesheet" />	
+    <script src="js/jquery-1.4.2.min.js"></script>
+    <script src="js/jquery-ui-1.8.1.custom.min.js"></script>
+    <script src="js/json2.js"></script>
+    <script src="build/graph_editor.js"></script>
+    <script src="js/index.js"></script>
+
+</head>
+<body>
+    <h2>Graph Editor</h2>
+    Click 'Tweaks' to set Nodes and Edge properties.<br>
+    Click 'Live' to see a real-time spring-charge physical interaction.<br>
+    Click '?' for a help menu.<br>
+    Pink node = COSHI node<br>
+    Green node = AOSHI node<br>
+<div id='graph_ed'></div>
+<p id='rest'>
+Use the following <a href="json_data.sage">Sage file</a> in Sage to get JSON string represenation of a graph. Paste it in the box below.<br>
+<input type="button" id="set_json" value="Parse JSON Data"><br>
+<textarea id="json" rows="5" cols="100">
+</textarea><br>
+Using the same <a href="json_data.sage">Sage file</a>, paste this JSON graph data in Sage to obtain a graph.<br>
+<input type="button" id="get_sage" value="Get JSON Data"><br>
+<br>
+<textarea id="sage" rows="5" cols="100">
+</textarea><br>
+Copy/Paste this code to produce this graph in Latex using the tkz-brege package.<br>
+<input type="button" id="get_latex" value="Get Latex Code"><br>
+<textarea id="latex" rows="5" cols="100">
+</textarea></p>
+</body>
+</html>
