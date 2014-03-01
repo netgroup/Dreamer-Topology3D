@@ -251,7 +251,7 @@ Vertex.prototype = {
             ctx.font = (NODE_RADIUS / 2)+"pt Helvetica"
             ctx.textAlign ="center"
             node_number = nodes.indexOf(this).toString();
-            ctx.fillText(node_number, this.pos.x  * node_number.length, this.pos.y+(NODE_RADIUS / 4));
+            ctx.fillText(node_number, this.pos.x , this.pos.y+(NODE_RADIUS / 4));
         }
     },
     vector_from: function (v) {
@@ -429,6 +429,11 @@ function remove_node(node){
     if (index !== -1) {
         removed_node = nodes.splice(index, 1)[0];
     }
+    //realign labels and index
+    for (i = nodes.length - 1; i > -1; i -= 1) {
+        nodes[i].label = nodes[i].label.split("#")[0]+"#"+i;
+    }
+
     $('#undo_button').removeClass('graph_editor_undo_disabled');
     draw();
 }
