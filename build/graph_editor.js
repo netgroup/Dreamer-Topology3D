@@ -219,7 +219,8 @@ Vertex.prototype = {
     },
     display: function () {
         var imageObj = new Image();
-        imageObj.src = 'http://www.i2clipart.com/cliparts/6/e/d/b/clipart-router-6edb.png';
+//        imageObj.src = 'http://www.i2clipart.com/cliparts/6/e/d/b/clipart-router-6edb.png';
+        imageObj.src = 'img/clipart-router-6edb.png';        
         var node_number;
         ctx.strokeStyle = "#808080";
         ctx.lineWidth = 1;
