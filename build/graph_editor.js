@@ -16,7 +16,7 @@ var edge_list = [], nodes = [], removed_edges = [],
     NODE_RADIUS = options.node_radius || 10.0,
     LIVE = false,
     AUTO_MAXIMIZE = true,
-    NODE_NUMBERS = true,
+    NODE_NUMBERS = false,
     SPRING = 0.999,
     SPEED = 2.0,
     FIXED_LENGTH = 100.0,
@@ -93,7 +93,7 @@ function line2(x1,y1,x2,y2,label){
     ctx.textAlign = "end"
    // ctx.fillText("text", x1,y1)
     //ctx.textAlign = "start"
-
+    ctx.strokeStyle = 'white'
    ctx.fillText(label, x2,y2)
     ctx.stroke();
 }
@@ -218,12 +218,31 @@ Vertex.prototype = {
         return angle;
     },
     display: function () {
+        var imageObj = new Image();
+        imageObj.src = 'http://www.i2clipart.com/cliparts/6/e/d/b/clipart-router-6edb.png';
         var node_number;
         ctx.strokeStyle = "#808080";
-        if (this.selected) {
-            ctx.fillStyle = "#FF0000";
+        ctx.lineWidth = 1;
+        if (this.selected) {  //TODO: make a function!!!!!!!!! , split if!!!!!!!!!!!
+            ctx.strokeStyle = 'black'; 
+            ctx.lineWidth = NODE_RADIUS/4;
+            if (this.label.split("#")[0]=="AOSHI"){
+                ctx.fillStyle = "#00FF00";
+            }else if (this.label.split("#")[0]=="COSHI"){
+                ctx.fillStyle = "#FF00FF";
+            }else{
+                ctx.fillStyle = "#808080";
+            }
+            // ctx.fillStyle = "#FF0000";
         } else if (this.closest){
-            ctx.fillStyle = "#CCC000";
+            if (this.label.split("#")[0]=="AOSHI"){
+                ctx.fillStyle = "#99FF99";
+            }else if (this.label.split("#")[0]=="COSHI"){
+                ctx.fillStyle = "#FF99FF";
+            }else{
+                ctx.fillStyle = "#898989";
+            }
+            // ctx.fillStyle = "#CCC000";
         } else {
             if (NODE_NUMBERS) {
                 if (this.label.split("#")[0]=="AOSHI"){
@@ -231,7 +250,7 @@ Vertex.prototype = {
                 }else if (this.label.split("#")[0]=="COSHI"){
                     ctx.fillStyle = "#FF00FF";
                 }else{
-                ctx.fillStyle = "#808080";
+                    ctx.fillStyle = "#808080";
                 }
             } else if (this.frozen){
                 ctx.fillStyle = "#C0C0C0";
@@ -241,11 +260,13 @@ Vertex.prototype = {
                 }else if (this.label.split("#")[0]=="COSHI"){
                     ctx.fillStyle = "#FF00FF";
                 }else{
-                ctx.fillStyle = "#808080";
+                    ctx.fillStyle = "#808080";
                 }
             }
         }
         circle(this.pos.x, this.pos.y, NODE_RADIUS);
+        ctx.drawImage(imageObj, this.pos.x-NODE_RADIUS/1.45,this.pos.y-NODE_RADIUS/1.45,1.4*NODE_RADIUS,1.4*NODE_RADIUS)
+
         if (NODE_NUMBERS) {
             ctx.fillStyle = "#000000";
             ctx.font = (NODE_RADIUS / 2)+"pt Helvetica"
@@ -699,13 +720,15 @@ Controller = function(){
             } else if (closest){ 
                 this.select_object(closest);
             } else {
-                new_v = new Vertex(mouse); 
-                //careful for edge case of user not moving mouse afterclick
-                //if live the vertex flies off 
-                if(!LIVE){
-                    this.update_closest(new_v);
+                if (SHIFT){
+                    new_v = new Vertex(mouse); 
+                    //careful for edge case of user not moving mouse afterclick
+                    //if live the vertex flies off 
+                    if(!LIVE){
+                        this.update_closest(new_v);
+                    }
+                    nodes.push(new_v);
                 }
-                nodes.push(new_v);
             }
             hit_node = undefined;
             if (!LIVE) draw();
@@ -1037,7 +1060,7 @@ function create_controls(div){
     add_slider('Orientation', 0, tweaks, 0, 360, change_orientation);
     $(tweaks).append('</table>').hide();    
 
-    $(div).append("<div id='help_dialog'> <ul><li><h3>create vertex</h3>Click on empty space not too close to existing vertices. <li><h3>create/erase edge</h3>Hold 'SHIFT' and select the first vertex. Click on another vertex (different than the selected one) to turn on/off (toggle) the edge between them. <li><h3>increase/decrease multiplicity</h3> Use +/-. When multiplicity is 0 the edge disappears.<li><h3>remove a vertex</h3>Press '-' when vertex is selected.<li><h3>split an edge</h3> press 's' when esge is selected<li><h3>freeze a vertex</h3> pressing 'r' freezes the selected vertex (it will not move in live mode)<li><h3>add/remove loop</h3> press 'o'<li><h3>undo vertex deletion</h3>Click on the Undo button. Only the last deleted vertex can be recovered.  <li><h3>turn on realtime spring-charge model</h3>Press 'l' or click on the live checkbox.  </ul> </div>");
+    $(div).append("<div id='help_dialog'> <ul><li><h3>create vertex</h3>Hold 'SHIFT' and click on empty space not too close to existing vertices. <li><h3>create/erase edge</h3>Hold 'SHIFT' and select the first vertex. Click on another vertex (different than the selected one) to turn on/off (toggle) the edge between them. <li><h3>increase/decrease multiplicity</h3> Use +/-. When multiplicity is 0 the edge disappears.<li><h3>remove a vertex</h3>Press '-' when vertex is selected.<li><h3>split an edge</h3> press 's' when esge is selected<li><h3>freeze a vertex</h3> pressing 'r' freezes the selected vertex (it will not move in live mode)<li><h3>add/remove loop</h3> press 'o'<li><h3>undo vertex deletion</h3>Click on the Undo button. Only the last deleted vertex can be recovered.  <li><h3>turn on realtime spring-charge model</h3>Press 'l' or click on the live checkbox.  </ul> </div>");
     $('#help_dialog').dialog({
         autoOpen : false,
         width : 700,
