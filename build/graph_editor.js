@@ -187,12 +187,13 @@ function next_label(){
     return i.toString();
 }
 
-Vertex = function(pos, label){
+Vertex = function(pos, label, loopback){
     //copy for objects would be nice
     this.pos = pos? Point(pos.x, pos.y) : Point();
     this.v = Point();
     this.frozen = false;
-    this.label = label || next_label(); 
+    this.label = label || next_label();
+    this.loopback = loopback; 
 };
 
 Vertex.prototype = {
@@ -219,8 +220,12 @@ Vertex.prototype = {
     },
     display: function () {
         var imageObj = new Image();
-//        imageObj.src = 'http://www.i2clipart.com/cliparts/6/e/d/b/clipart-router-6edb.png';
-        imageObj.src = 'img/clipart-router-6edb.png';        
+        // if (this.frozen)
+        // else    
+        //     imageObj.src = 'http://www.i2clipart.com/cliparts/6/e/d/b/clipart-router-6edb.png';
+        imageObj.src = 'http://www.i2clipart.com/cliparts/6/e/d/b/clipart-router-6edb.png';
+
+        // imageObj.src = 'img/clipart-router-6edb.png';        
         var node_number;
         ctx.strokeStyle = "#808080";
         ctx.lineWidth = 1;
@@ -254,6 +259,8 @@ Vertex.prototype = {
                     ctx.fillStyle = "#808080";
                 }
             } else if (this.frozen){
+                imageObj.src = 'img/clipart-router-6edb.png';
+
                 ctx.fillStyle = "#C0C0C0";
             } else {
                 if (this.label.split("#")[0]=="AOSHI"){
@@ -453,7 +460,11 @@ function remove_node(node){
     }
     //realign labels and index
     for (i = nodes.length - 1; i > -1; i -= 1) {
-        nodes[i].label = nodes[i].label.split("#")[0]+"#"+i;
+        if(i<10)
+            nodes[i].label = nodes[i].label.split("#")[0]+"#0"+i;
+        else
+            nodes[i].label = nodes[i].label.split("#")[0]+"#0"+i;
+
     }
 
     $('#undo_button').removeClass('graph_editor_undo_disabled');
@@ -536,6 +547,22 @@ function centerize(maximize){
         }
     }
 }
+
+function node_repos(a, b) {
+    var i;
+    var oldX;
+    var oldY;
+    for (i = 0; i < nodes.length; i += 1) {
+        oldX=nodes[i].pos.x;
+        oldY=nodes[i].pos.y;
+        nodes[i].set_pos({
+            x : a*oldX,
+            y : b*oldY
+            });
+    }
+    draw();
+}
+
 
 function circular_layout() {
     var i;
@@ -804,8 +831,9 @@ function import_from_JSON(JSONdata) {
     var i, data = JSON.parse(JSONdata), dict = {}, new_v, pos, vertex;
     erase_graph();
     for (i = 0; i < data.vertices.length; i += 1){
-        new_v = new Vertex({x:0,y:0}, data.vertices[i]);
+        new_v = new Vertex({x:0,y:0}, data.vertices[i], data.loopbacks[i]);
         dict[data.vertices[i]] = new_v;
+        dict[data.loopbacks[i]] = new_v;
         nodes.push(new_v);
     }
 	if(data.pos){
@@ -903,6 +931,9 @@ function export_sage(){
         pos = nodes[i].get_pos();
         data.pos[nodes[i].label] = [pos.x, pos.y];
     }
+    data.loopbacks = nodes.map(function (n){
+        return n.loopback;
+    });
     data.name = graph_name;
     return JSON.stringify(data);
 }
@@ -987,6 +1018,20 @@ function create_controls(div){
         ,"menubar=false,toolba=false,location=false,width="
         + SIZE.x + ",height=" + SIZE.y);
     });
+    // $('<div id="size_slider" class="graph_editor_button_container"></div>').prependTo("#graph_ed")
+    // add_slider('X Size', SIZE.y, "#size_slider", 0, 1000, function (newval) {
+    //     var oldsize = SIZE.x;
+    //     SIZE.x, ctx.canvas.width = newval;
+    //     center.x = newval/2;
+    //     node_repos(newval/oldsize,1);
+    // });
+
+    // add_slider('Y Size', SIZE.y, "#size_slider", 0, 1000, function (newval) {
+    //     var oldsize = SIZE.y;
+    //     SIZE.y, ctx.canvas.height = newval;
+    //     center.y = newval/2;
+    //     node_repos(1,newval/oldsize);
+    // });
 
     $(div).append('<div id="graph_editor_tweaks"></div>');
     tweaks = div+' #graph_editor_tweaks';
@@ -1002,6 +1047,9 @@ function create_controls(div){
     <input type='text' id='v2_label'></br>\
     <button type='text' id='edge_inf_button'>Set edge label!</button></div>\
     <div id='node_inf'>\
+    Node loopback: <span id='loopback'></span> </br>\
+    <input type='text' id='node_loopback'></br>\
+    <button type='text' id='loopback_button'>Set node loopback!</button></br>\
     Select Node Type: <select id='s_label' >\
     <option value=''></option>\
     <option value='COSHI'>COSHI</option>\
@@ -1015,23 +1063,74 @@ function create_controls(div){
         var index = $(div + ' .infobox #index').html(),
         title = $(div + ' .infobox #title').html();
         if (title === "Vertex Info"){
-            nodes[index].label = $(div + ' .infobox #s_label').val()+"#"+index;
+            if (index < 10)
+                nodes[index].label = $(div + ' .infobox #s_label').val()+"#0"+index;
+            else
+                nodes[index].label = $(div + ' .infobox #s_label').val()+"#"+index;
+
             $('.infobox #n_type').html(nodes[index].label.split("#")[0])
 
         } else if (title === "Edge Info"){
             //non entro piu qui!
             edge_list[index].label = $(div + ' .infobox #label').val();
         }
+        draw();
+    });
+
+     $(div + ' .infobox #loopback_button').click(function (){
+        var index = $(div + ' .infobox #index').html();
+        // title = $(div + ' .infobox #title').html();
+        nodes[index].loopback = $(div + ' .infobox #node_loopback').val();
+        update_infobox(nodes[index]);
     });
 
     $(div + ' .infobox #edge_inf_button').click(function (){
         var index = $(div + ' .infobox #index').html(),
         title = $(div + ' .infobox #title').html();
         edge_list[index].label = $(div + ' .infobox #v1_label').val()+"::"+$(div + ' .infobox #v2_label').val();
+        draw();
+
     });
 
 
     $(tweaks).append("<h4>Tweaks</h4>");
+
+    add_button('small ', tweaks, function (){ 
+        var old_x = SIZE.x;
+        var old_y = SIZE.y;
+        SIZE = { x : 600, y : 550 };
+        center = {x: SIZE.x/2, y: SIZE.y/2};
+        ctx.canvas.height = SIZE.y;
+        ctx.canvas.width = SIZE.x;
+        node_repos(SIZE.x/old_x,SIZE.y/old_y);
+
+    });
+
+    add_button('medium ', tweaks, function (){ 
+        var old_x = SIZE.x;
+        var old_y = SIZE.y;
+        SIZE = { x : 900, y : 700 };
+        center = {x: SIZE.x/2, y: SIZE.y/2};
+        ctx.canvas.height = SIZE.y;
+        ctx.canvas.width = SIZE.x;
+        node_repos(SIZE.x/old_x,SIZE.y/old_y);
+
+    });
+
+    add_button('full ', tweaks, function (){ 
+        var old_x = SIZE.x;
+        var old_y = SIZE.y;
+        SIZE = { x : 1100, y : 800 };
+        center = {x: SIZE.x/2, y: SIZE.y/2};
+        ctx.canvas.height = SIZE.y;
+        ctx.canvas.width = SIZE.x;
+        node_repos(SIZE.x/old_x,SIZE.y/old_y);
+
+    });
+    
+    $(tweaks).append("</br>");
+
+
     add_button('Circular layout', tweaks, function (){
         if (confirm("All vertices will be irrevesably moved. This operation cannot be undone.")) {
             circular_layout();
@@ -1086,6 +1185,8 @@ function update_infobox(obj){
         $(div + ' .infobox #edge_inf').hide();
         $(div + ' .infobox #vert').hide();
         $(div + ' .infobox #label').html(node.label);
+        $(div + ' .infobox #loopback').html(node.loopback);
+        $(div + ' .infobox #node_loopback').val(node.loopback);
         $(div + ' .infobox #n_type').html(node.label.split("#")[0]);
         $(div + ' .infobox #none_selected').hide();
         $(div + ' .infobox #info').show();
@@ -1102,7 +1203,7 @@ function update_infobox(obj){
 
         //$(div + ' .infobox #v1').html(nodes.indexOf(enodes.node1));
         //$(div + ' .infobox #v2').html(nodes.indexOf(enodes.node2));
-        $(div + ' .infobox #v1').html(enodes.node1.label);
+        $(div + ' .infobox #v1').html(enodes.node1.label.replace("#",""));
         $(div + ' .infobox #v2').html(enodes.node2.label);
         $(div + ' .infobox #v1_label').val(edge.label.split("::")[0]||"none")
         $(div + ' .infobox #v2_label').val(edge.label.split("::")[1]||"none")
@@ -1195,6 +1296,7 @@ function init(){
 }
 
 init();
+
 
 //an global object graph_editor is created containing all global functions
 return { 

@@ -1,13 +1,13 @@
 (function (){
 
-var cube = '{"vertices":["COSHI#0","COSHI#1","COSHI#2","AOSHI#3","AOSHI#4","COSHI#5","COSHI#6","COSHI#7"],"edges":[["COSHI#0","COSHI#2","::"],["COSHI#0","AOSHI#4","::"],["COSHI#1","COSHI#5","::"],["COSHI#2","AOSHI#3","::"],["COSHI#2","COSHI#6","::"],["AOSHI#3","COSHI#7","::"],["AOSHI#4","COSHI#5","::"],["COSHI#5","COSHI#7","::"],["AOSHI#4","COSHI#6","::"],["AOSHI#3","COSHI#1","::"],["COSHI#1","COSHI#0","::"],["COSHI#6","COSHI#7","::"]],"pos":{"COSHI#0":[603.1959235622934,133.4427000251026],"COSHI#1":[397.1946851783363,133.34158743667223],"COSHI#2":[401.7441405169235,349.9457920653282],"AOSHI#3":[217.93485403394905,349.8359380538811],"AOSHI#4":[782.1716957132389,350.16404856886214],"COSHI#5":[598.3680371169276,350.0542004622606],"COSHI#6":[602.9076403480741,566.6588847248378],"COSHI#7":[396.90640759431665,566.5568057527363]},"name":"G"}';
+var cube = '{"vertices":["COSHI#00","COSHI#01","COSHI#02","AOSHI#03","AOSHI#04","COSHI#05","COSHI#06","COSHI#07"],"edges":[["COSHI#00","COSHI#02","::"],["COSHI#00","AOSHI#04","::"],["COSHI#01","COSHI#05","::"],["COSHI#02","AOSHI#03","::"],["COSHI#02","COSHI#06","::"],["AOSHI#03","COSHI#07","::"],["AOSHI#04","COSHI#05","::"],["COSHI#05","COSHI#07","::"],["AOSHI#04","COSHI#06","::"],["AOSHI#03","COSHI#01","::"],["COSHI#01","COSHI#00","::"],["COSHI#06","COSHI#07","::"]],"pos":{"COSHI#00":[710.8642402291878,80.14934104177337],"COSHI#01":[395,80.1875],"COSHI#02":[396.67424768579156,399.9195874014464],"AOSHI#03":[110,399.7573354725108],"AOSHI#04":[990,400.2419473975414],"COSHI#05":[703.334529728049,400.0797041899313],"COSHI#06":[710.414625440196,720],"COSHI#07":[389.12918033566314,719.8492316310616]},"loopbacks":["127.0.0.1","127.0.0.1","127.0.0.1","127.0.0.1","127.0.0.1","127.0.0.1","127.0.0.1","127.0.0.1"],"name":"G"}';
 
 
 $(document).ready(function () {
     my_graph_editor = new GraphEditor('#graph_ed', { JSONdata : cube, 
-    width : 1000,
-    height : 700,
-    node_radius : 30.0,
+    width : 1100,
+    height : 800,
+    node_radius : 18.0,
     multigraph: true});
         $('#set_json').click( function () {
             my_graph_editor.import_from_JSON($('#json').val());
