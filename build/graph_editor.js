@@ -203,7 +203,6 @@ Vertex = function(pos, label, node_properties){
         this.vertex_info = new Vertex_info("",false);
 
     this.label = label || next_label();
-
 };
 
 Vertex.prototype = {
@@ -229,6 +228,8 @@ Vertex.prototype = {
         return angle;
     },
     display: function () {
+        if(this.label.split("#")[0] == "L2SW")
+            remove_illegal_edges(this.label);
         var imageObj = new Image();
         var node_number;
         ctx.strokeStyle = "#808080";
@@ -284,6 +285,9 @@ Vertex.prototype = {
         var euh_color ="#FFFF99";
         var euh_hov_color ="#FFFFCC";
         var euh_img = 'img/clipart-router-6edb.png';
+        var l2sw_color ="#0066FF";
+        var l2sw_hov_color ="#0099FF";
+        var l2sw_img = 'img/clipart-router-6edb.png';
         var empty_color="#808080";
         var img = 'img/clipart-router-6edb.png';
 
@@ -307,6 +311,13 @@ Vertex.prototype = {
             else
                 ctx.fillStyle = euh_color;
             return euh_img;
+
+        }else if (this.label.split("#")[0]=="L2SW"){
+            if (is_closest)
+                ctx.fillStyle = l2sw_hov_color;
+            else
+                ctx.fillStyle = l2sw_color;
+            return l2sw_img;
 
         }else{
             ctx.fillStyle = empty_color;
@@ -471,6 +482,23 @@ function get_closest_node(v){
     }), function (a,b){
         return a.d < b.d;
     });
+}
+
+
+function remove_illegal_edges(node_label){
+    var counter=0;
+    for(var i=0 ;i<edge_list.length;i++){
+       // alert(edge_list[i].node1.label);
+        if (edge_list[i].node1.label == node_label || edge_list[i].node2.label == node_label) {
+            if( edge_list[i].node1.label.split("#")[0] != "EUH" && edge_list[i].node2.label.split("#")[0] != "EUH"){
+                counter += 1;
+            }
+            if(counter>1){
+                // alert(edge_list[i].node1.label.split("#")[0]+" "+edge_list[i].node2.label.split("#")[0]);
+                remove_edge(edge_list[i]);
+            }
+        }
+    }
 }
 
 function remove_edge(edge){
@@ -1078,7 +1106,7 @@ function create_controls(div){
     $(tweaks).append("<div class='infobox'><h4 id='title'>Info</h4>\
     <div id='info'>Index: <span id='index'></span><br>\
     <span id='pos'>Position: (<span id='posx'></span>, <span id='posy'></span>)<br></span>\
-    <span id='vert'>Vertices: <span id='v1'></span>-><span id='v2'></span><br></span>\
+    <span id='vert'>Vertices: <span id='v1'></span> -- <span id='v2'></span><br></span>\
     <div id='edge_inf'>\
     Node <span id='v1'></span> label</br>\
     <input type='text' id='v1_label'></br>\
@@ -1086,17 +1114,19 @@ function create_controls(div){
     <input type='text' id='v2_label'></br>\
     <button type='text' id='edge_inf_button'>Set edge label!</button></div>\
     <div id='node_inf'>\
+    <div id='COSHI_node_inf'>\
     Node loopback: <span id='loopback'></span> </br>\
     <input type='text' id='node_loopback'></br>\
     <button type='text' id='loopback_button'>Set node loopback!</button></br>\
+    </div>\
     Select Node Type: <select id='s_label' >\
     <option value=''></option>\
     <option value='COSHI'>COSHI</option>\
     <option value='AOSHI'>AOSHI</option>\
     <option value='EUH'>EUH</option>\
+    <option value='L2SW'>L2SW</option>\
     </select>\<br>\
-    Node Type: <span id='n_type'></span><br>\
-    Node index: <span id='index'></span><br></div> </div>\
+    Node Type: <span id='n_type'></span><br>\</div>\
     <div id='none_selected'>No node is selected</div></div>");
     $(div + ' .infobox #info').hide();
     $(div + ' .infobox #s_label').click(function (){
@@ -1108,7 +1138,7 @@ function create_controls(div){
             else
                 nodes[index].label = $(div + ' .infobox #s_label').val()+"#"+(parseInt(index)+1);
 
-            $('.infobox #n_type').html(nodes[index].label.split("#")[0])
+            // $('.infobox #n_type').html(nodes[index].label.split("#")[0])
 
         } else if (title === "Edge Info"){
             //non entro piu qui!
@@ -1223,6 +1253,10 @@ function update_infobox(obj){
         $(div + ' .infobox #posx').html(pos.x.toFixed(1));
         $(div + ' .infobox #posy').html(pos.y.toFixed(1));
         $(div + ' .infobox #node_inf').show();
+        if(node.label.split("#")[0]=="COSHI" || node.label.split("#")[0]=="AOSHI")
+            $(div + ' .infobox #COSHI_node_inf').show();
+        else
+            $(div + ' .infobox #COSHI_node_inf').hide();
         $(div + ' .infobox #edge_inf').hide();
         $(div + ' .infobox #vert').hide();
         $(div + ' .infobox #label').html(node.label);
@@ -1239,7 +1273,9 @@ function update_infobox(obj){
         $(div + ' .infobox #index').html(index);
         $(div + ' .infobox #pos').hide();
         $(div + ' .infobox #vert').show();
-        $(div + ' .infobox #edge_inf').show();
+        // $(div + ' .infobox #edge_inf').show(); in attesa di sapere i dati da associare 
+        $(div + ' .infobox #edge_inf').hide();
+
         $(div + ' .infobox #node_inf').hide();
 
         //$(div + ' .infobox #v1').html(nodes.indexOf(enodes.node1));
