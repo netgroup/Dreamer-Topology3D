@@ -187,13 +187,23 @@ function next_label(){
     return i.toString();
 }
 
-Vertex = function(pos, label, loopback){
+var Vertex_info = function(loopback, frozen){
+    this.frozen = frozen;
+    this.loopback = loopback;
+};
+
+Vertex = function(pos, label, node_properties){
     //copy for objects would be nice
     this.pos = pos? Point(pos.x, pos.y) : Point();
     this.v = Point();
-    this.frozen = false;
+    
+    if (node_properties)
+        this.vertex_info = node_properties;
+    else
+        this.vertex_info = new Vertex_info("",false);
+
     this.label = label || next_label();
-    this.loopback = loopback; 
+
 };
 
 Vertex.prototype = {
@@ -220,60 +230,31 @@ Vertex.prototype = {
     },
     display: function () {
         var imageObj = new Image();
-        // if (this.frozen)
-        // else    
-        //     imageObj.src = 'http://www.i2clipart.com/cliparts/6/e/d/b/clipart-router-6edb.png';
-        imageObj.src = 'http://www.i2clipart.com/cliparts/6/e/d/b/clipart-router-6edb.png';
-
-        // imageObj.src = 'img/clipart-router-6edb.png';        
         var node_number;
         ctx.strokeStyle = "#808080";
         ctx.lineWidth = 1;
-        if (this.selected) {  //TODO: make a function!!!!!!!!! , split if!!!!!!!!!!!
+        
+        if (this.selected) { 
             ctx.strokeStyle = 'black'; 
             ctx.lineWidth = NODE_RADIUS/4;
-            if (this.label.split("#")[0]=="AOSHI"){
-                ctx.fillStyle = "#00FF00";
-            }else if (this.label.split("#")[0]=="COSHI"){
-                ctx.fillStyle = "#FF00FF";
-            }else{
-                ctx.fillStyle = "#808080";
-            }
-            // ctx.fillStyle = "#FF0000";
+            imageObj.src = this.fill_vert(0);
         } else if (this.closest){
-            if (this.label.split("#")[0]=="AOSHI"){
-                ctx.fillStyle = "#99FF99";
-            }else if (this.label.split("#")[0]=="COSHI"){
-                ctx.fillStyle = "#FF99FF";
-            }else{
-                ctx.fillStyle = "#898989";
-            }
-            // ctx.fillStyle = "#CCC000";
+            imageObj.src = this.fill_vert(1);
         } else {
             if (NODE_NUMBERS) {
-                if (this.label.split("#")[0]=="AOSHI"){
-                    ctx.fillStyle = "#00FF00";
-                }else if (this.label.split("#")[0]=="COSHI"){
-                    ctx.fillStyle = "#FF00FF";
-                }else{
-                    ctx.fillStyle = "#808080";
-                }
-            } else if (this.frozen){
-                imageObj.src = 'img/clipart-router-6edb.png';
-
-                ctx.fillStyle = "#C0C0C0";
+                imageObj.src = this.fill_vert(0);
             } else {
-                if (this.label.split("#")[0]=="AOSHI"){
-                    ctx.fillStyle = "#00FF00";
-                }else if (this.label.split("#")[0]=="COSHI"){
-                    ctx.fillStyle = "#FF00FF";
-                }else{
-                    ctx.fillStyle = "#808080";
-                }
+                imageObj.src = this.fill_vert(0);  
             }
         }
         circle(this.pos.x, this.pos.y, NODE_RADIUS);
         ctx.drawImage(imageObj, this.pos.x-NODE_RADIUS/1.45,this.pos.y-NODE_RADIUS/1.45,1.4*NODE_RADIUS,1.4*NODE_RADIUS)
+        
+        if (this.vertex_info.frozen){
+            imageObj.src = 'img/clipart-router-6edb-fixed.png'
+            ctx.drawImage(imageObj, this.pos.x-NODE_RADIUS/1.45,this.pos.y-NODE_RADIUS/1.45,1.4*NODE_RADIUS,1.4*NODE_RADIUS)
+            // ctx.drawImage(imageObj, this.pos.x-NODE_RADIUS/3,this.pos.y-NODE_RADIUS,NODE_RADIUS,NODE_RADIUS)
+        }
 
         if (NODE_NUMBERS) {
             ctx.fillStyle = "#000000";
@@ -287,10 +268,51 @@ Vertex.prototype = {
         return {x: this.pos.x-v.x, y: this.pos.y - v.y};
     },
     change_vel: function (deltax,deltay) {
-        if(!this.frozen){
+        if(!this.vertex_info.frozen){
             this.v.x += deltax;
             this.v.y += deltay;            
         }
+    },
+    fill_vert: function (is_closest){
+        
+        var aoshi_color = "#00FF00";
+        var aoshi_hov_color = "#99FF99";
+        var aoshi_img = 'img/clipart-router-6edb.png';
+        var coshi_color ="#FF00FF";
+        var coshi_hov_color ="#FF99FF";
+        var coshi_img ='img/clipart-router-6edb.png';
+        var euh_color ="#FFFF99";
+        var euh_hov_color ="#FFFFCC";
+        var euh_img = 'img/clipart-router-6edb.png';
+        var empty_color="#808080";
+        var img = 'img/clipart-router-6edb.png';
+
+        if (this.label.split("#")[0]=="AOSHI"){
+            if (is_closest)
+                ctx.fillStyle = aoshi_hov_color;
+            else
+                ctx.fillStyle = aoshi_color;
+            return aoshi_img;
+
+        }else if (this.label.split("#")[0]=="COSHI"){
+            if (is_closest)
+                ctx.fillStyle = coshi_hov_color;
+            else
+                ctx.fillStyle = coshi_color;
+            return coshi_img;
+
+        }else if (this.label.split("#")[0]=="EUH"){
+            if (is_closest)
+                ctx.fillStyle = euh_hov_color;
+            else
+                ctx.fillStyle = euh_color;
+            return euh_img;
+
+        }else{
+            ctx.fillStyle = empty_color;
+            return img;
+        }
+    
     },
     get_pos: function (){
         return this.pos;
@@ -299,10 +321,10 @@ Vertex.prototype = {
         this.pos = new_pos;
     },
     toggle_freeze: function(){
-        this.frozen = !this.frozen;
+        this.vertex_info.frozen = !this.vertex_info.frozen;
     },
     get_frozen: function(){
-        return this.frozen;
+        return this.vertex_info.frozen;
     },
     draw_loop: function (){
         var angle = this.node_loop_angle();
@@ -316,11 +338,21 @@ Vertex.prototype = {
     }
 };
 
+var Edge_info = function (edge_label,labe_to_node1,labe_to_node2) {
+    this.labe_to_node1 = labe_to_node1;
+    this.labe_to_node2 = labe_to_node2;
+    this.edge_label = edge_label;
+};
+
 Edge = function (node1, node2, multi, label) {
     this.node1 = node1;
     this.node2 = node2;
     this.multi = multi || 1;
-    this.label = label || '::';
+    // this.label = label || '::';
+    if(label)
+        this.edge_info = label;
+    else
+        this.edge_info = new Edge_info("","","");
 };
 
 Edge.prototype = {
@@ -356,8 +388,8 @@ Edge.prototype = {
         line(pos1.x,pos1.y,pos2.x,pos2.y);
        // this.label
         if (DIRECTED){
-            this.draw_arrow_tips(pos1,pos2,this.label.split("::")[0]);
-            this.draw_arrow_tips(pos2,pos1,this.label.split("::")[1]);
+            this.draw_arrow_tips(pos1,pos2,this.edge_info.labe_to_node1);
+            this.draw_arrow_tips(pos2,pos1,this.edge_info.labe_to_node2);
 
         }
     },
@@ -370,9 +402,9 @@ Edge.prototype = {
             control = vectoradd(mid, scalarm(norm(dx)*i/10, normal));
             bezier(pos1.x, pos1.y, control.x, control.y, control.x, control.y, pos2.x, pos2.y);
             if (DIRECTED){
-                this.draw_arrow_tips(control,pos2,this.label.split("::")[1]);
+                this.draw_arrow_tips(control,pos2,this.edge_info.labe_to_node1);
                 bezier(pos2.x, pos2.y, control.x, control.y, control.x, control.y, pos1.x, pos1.y);
-                this.draw_arrow_tips(control,pos1,this.label.split("::")[0]);
+                this.draw_arrow_tips(control,pos1,this.edge_info.labe_to_node2);
  //               this.draw_arrow_tips(control,pos2);
             }
         }
@@ -460,10 +492,10 @@ function remove_node(node){
     }
     //realign labels and index
     for (i = nodes.length - 1; i > -1; i -= 1) {
-        if(i<10)
-            nodes[i].label = nodes[i].label.split("#")[0]+"#0"+i;
+        if(i<9)
+            nodes[i].label = nodes[i].label.split("#")[0]+"#0"+(i+1);
         else
-            nodes[i].label = nodes[i].label.split("#")[0]+"#0"+i;
+            nodes[i].label = nodes[i].label.split("#")[0]+"#"+i;
 
     }
 
@@ -831,9 +863,9 @@ function import_from_JSON(JSONdata) {
     var i, data = JSON.parse(JSONdata), dict = {}, new_v, pos, vertex;
     erase_graph();
     for (i = 0; i < data.vertices.length; i += 1){
-        new_v = new Vertex({x:0,y:0}, data.vertices[i], data.loopbacks[i]);
+        new_v = new Vertex({x:0,y:0}, data.vertices[i], data.node_properties[data.vertices[i]]);
         dict[data.vertices[i]] = new_v;
-        dict[data.loopbacks[i]] = new_v;
+        dict[data.node_properties[i]] = new_v;
         nodes.push(new_v);
     }
 	if(data.pos){
@@ -859,8 +891,9 @@ function import_from_JSON(JSONdata) {
 	} else {
 	    circular_layout();
 	}
+
     for (i = 0; i < data.edges.length; i += 1) {
-        edge_list.push(new Edge(dict[data.edges[i][0]], dict[data.edges[i][1]], 1, dict[data.edges[i][2]]));
+        edge_list.push(new Edge(dict[data.edges[i][0]], dict[data.edges[i][1]], 1, data.edges[i][2]));
     }
     graph_name = data.name;
     draw();
@@ -919,21 +952,27 @@ function export_tkz(){
 }
 
 function export_sage(){
-    var data = {}, pos, i, exec = '';
+    var data = {}, node_properties, pos, i, exec = '';
     data.vertices = nodes.map(function (n){
         return n.label;
     }); 
     data.edges = edge_list.map(function (e){
-        return [e.node1.label, e.node2.label, e.label];
+        return [e.node1.label, e.node2.label, e.edge_info];
     }); 
     data.pos = {};
     for (i = 0; i < nodes.length; i++){
         pos = nodes[i].get_pos();
         data.pos[nodes[i].label] = [pos.x, pos.y];
     }
-    data.loopbacks = nodes.map(function (n){
-        return n.loopback;
-    });
+        
+    data.node_properties = {};
+    for (i = 0; i < nodes.length; i++){
+        node_properties = nodes[i].vertex_info;
+        data.node_properties[nodes[i].label] = nodes[i].vertex_info;
+    }
+    // data.node_properties = nodes.map(function (n){
+    //     return n.loopback;
+    // });
     data.name = graph_name;
     return JSON.stringify(data);
 }
@@ -1054,6 +1093,7 @@ function create_controls(div){
     <option value=''></option>\
     <option value='COSHI'>COSHI</option>\
     <option value='AOSHI'>AOSHI</option>\
+    <option value='EUH'>EUH</option>\
     </select>\<br>\
     Node Type: <span id='n_type'></span><br>\
     Node index: <span id='index'></span><br></div> </div>\
@@ -1063,10 +1103,10 @@ function create_controls(div){
         var index = $(div + ' .infobox #index').html(),
         title = $(div + ' .infobox #title').html();
         if (title === "Vertex Info"){
-            if (index < 10)
-                nodes[index].label = $(div + ' .infobox #s_label').val()+"#0"+index;
+            if (index < 9)
+                nodes[index].label = $(div + ' .infobox #s_label').val()+"#0"+(parseInt(index)+1);
             else
-                nodes[index].label = $(div + ' .infobox #s_label').val()+"#"+index;
+                nodes[index].label = $(div + ' .infobox #s_label').val()+"#"+(parseInt(index)+1);
 
             $('.infobox #n_type').html(nodes[index].label.split("#")[0])
 
@@ -1080,14 +1120,15 @@ function create_controls(div){
      $(div + ' .infobox #loopback_button').click(function (){
         var index = $(div + ' .infobox #index').html();
         // title = $(div + ' .infobox #title').html();
-        nodes[index].loopback = $(div + ' .infobox #node_loopback').val();
+        nodes[index].vertex_info.loopback = $(div + ' .infobox #node_loopback').val();
         update_infobox(nodes[index]);
     });
 
     $(div + ' .infobox #edge_inf_button').click(function (){
         var index = $(div + ' .infobox #index').html(),
         title = $(div + ' .infobox #title').html();
-        edge_list[index].label = $(div + ' .infobox #v1_label').val()+"::"+$(div + ' .infobox #v2_label').val();
+        edge_list[index].edge_info.labe_to_node1 = $(div + ' .infobox #v1_label').val();
+        edge_list[index].edge_info.labe_to_node2 = $(div + ' .infobox #v2_label').val();
         draw();
 
     });
@@ -1185,8 +1226,8 @@ function update_infobox(obj){
         $(div + ' .infobox #edge_inf').hide();
         $(div + ' .infobox #vert').hide();
         $(div + ' .infobox #label').html(node.label);
-        $(div + ' .infobox #loopback').html(node.loopback);
-        $(div + ' .infobox #node_loopback').val(node.loopback);
+        $(div + ' .infobox #loopback').html(node.vertex_info.loopback);
+        $(div + ' .infobox #node_loopback').val(node.vertex_info.loopback);
         $(div + ' .infobox #n_type').html(node.label.split("#")[0]);
         $(div + ' .infobox #none_selected').hide();
         $(div + ' .infobox #info').show();
@@ -1204,9 +1245,9 @@ function update_infobox(obj){
         //$(div + ' .infobox #v1').html(nodes.indexOf(enodes.node1));
         //$(div + ' .infobox #v2').html(nodes.indexOf(enodes.node2));
         $(div + ' .infobox #v1').html(enodes.node1.label.replace("#",""));
-        $(div + ' .infobox #v2').html(enodes.node2.label);
-        $(div + ' .infobox #v1_label').val(edge.label.split("::")[0]||"none")
-        $(div + ' .infobox #v2_label').val(edge.label.split("::")[1]||"none")
+        $(div + ' .infobox #v2').html(enodes.node2.label.replace("#",""));
+        $(div + ' .infobox #v1_label').val(edge.edge_info.labe_to_node1||"")
+        $(div + ' .infobox #v2_label').val(edge.edge_info.labe_to_node2||"")
         $(div + ' .infobox #label').val(edge.label||"none");
         $(div + ' .infobox #none_selected').hide();
         $(div + ' .infobox #info').show();
