@@ -229,8 +229,8 @@ Vertex.prototype = {
     },
     display: function () {
         
-        
-        remove_illegal_edges(this.label);
+        if (SHIFT)
+            remove_illegal_edges(this.label);
         var imageObj = new Image();
         var node_number;
         ctx.strokeStyle = "#808080";
@@ -495,14 +495,18 @@ function remove_illegal_edges(node_label){
                 // alert(edge_list[i].node1.label);
             if(edge_list[i].node2.label.split("#")[0] !="L2SW" && node_label.split("#")[0] =="EUH")
                 counter = 2;
-
+            if(edge_list[i].node2.label.split("#")[0] =="COSHI" && node_label.split("#")[0] =="L2SW")
+                counter = 2;
             if(counter>1)
                 remove_edge(edge_list[i]);
+            
             }else if (edge_list[i].node2.label == node_label) {
                 if (node_label.split("#")[0] == "L2SW"){
-                    if ( edge_list[i].node1.label.split("#")[0] !="L2SW" && edge_list[i].node1.label.split("#")[0] !="EUH"){
+                    if ( edge_list[i].node1.label.split("#")[0] !="L2SW" && edge_list[i].node1.label.split("#")[0] !="EUH")
                         remove_edge(edge_list[i]);
-                    }   
+                } else if (node_label.split("#")[0] == "EUH"){
+                    if ( edge_list[i].node2.label.split("#")[0] =="EUH" )
+                        remove_edge(edge_list[i]); 
                 }
             }
         }
