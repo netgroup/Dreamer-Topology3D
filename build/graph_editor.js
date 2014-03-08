@@ -228,8 +228,9 @@ Vertex.prototype = {
         return angle;
     },
     display: function () {
-        if(this.label.split("#")[0] == "L2SW")
-            remove_illegal_edges(this.label);
+        
+        
+        remove_illegal_edges(this.label);
         var imageObj = new Image();
         var node_number;
         ctx.strokeStyle = "#808080";
@@ -487,15 +488,22 @@ function get_closest_node(v){
 
 function remove_illegal_edges(node_label){
     var counter=0;
-    for(var i=0 ;i<edge_list.length;i++){
-       // alert(edge_list[i].node1.label);
-        if (edge_list[i].node1.label == node_label || edge_list[i].node2.label == node_label) {
-            if( edge_list[i].node1.label.split("#")[0] != "EUH" && edge_list[i].node2.label.split("#")[0] != "EUH"){
+    if(node_label.split("#")[0] == "L2SW" || node_label.split("#")[0] == "EUH"){
+        for(var i=0 ;i<edge_list.length;i++){
+            if (edge_list[i].node1.label == node_label ) {
                 counter += 1;
-            }
-            if(counter>1){
-                // alert(edge_list[i].node1.label.split("#")[0]+" "+edge_list[i].node2.label.split("#")[0]);
+                // alert(edge_list[i].node1.label);
+            if(edge_list[i].node2.label.split("#")[0] !="L2SW" && node_label.split("#")[0] =="EUH")
+                counter = 2;
+
+            if(counter>1)
                 remove_edge(edge_list[i]);
+            }else if (edge_list[i].node2.label == node_label) {
+                if (node_label.split("#")[0] == "L2SW"){
+                    if ( edge_list[i].node1.label.split("#")[0] !="L2SW" && edge_list[i].node1.label.split("#")[0] !="EUH"){
+                        remove_edge(edge_list[i]);
+                    }   
+                }
             }
         }
     }
@@ -1126,10 +1134,11 @@ function create_controls(div){
     <option value='EUH'>EUH</option>\
     <option value='L2SW'>L2SW</option>\
     </select>\<br>\
-    Node Type: <span id='n_type'></span><br>\</div>\
+    Node Type: <span id='n_type'></span><br>\
+    </div>\
     <div id='none_selected'>No node is selected</div></div>");
     $(div + ' .infobox #info').hide();
-    $(div + ' .infobox #s_label').click(function (){
+    $(div + ' .infobox #s_label').mouseup(function (){
         var index = $(div + ' .infobox #index').html(),
         title = $(div + ' .infobox #title').html();
         if (title === "Vertex Info"){
@@ -1137,7 +1146,7 @@ function create_controls(div){
                 nodes[index].label = $(div + ' .infobox #s_label').val()+"#0"+(parseInt(index)+1);
             else
                 nodes[index].label = $(div + ' .infobox #s_label').val()+"#"+(parseInt(index)+1);
-
+            $(div + ' .infobox #s_label').val('');
             // $('.infobox #n_type').html(nodes[index].label.split("#")[0])
 
         } else if (title === "Edge Info"){
