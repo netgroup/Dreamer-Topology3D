@@ -1097,7 +1097,7 @@ function create_controls(div){
         ,"menubar=false,toolba=false,location=false,width="
         + SIZE.x + ",height=" + SIZE.y);
     });
-$('<div id="select_file" class="fileSelect"><input type="file" id="fileElem"><button id="fileSelect">Import Json file...</button></div>').appendTo(buttondiv).click(function (e){
+$('<div id="select_file" class="fileSelect" style=" width: 160px; height: 30px"><input type="file" id="fileElem" style=" width: 0px; height: 0px; "><button id="fileSelect">Import JSON file</button></div>').appendTo(buttondiv).click(function (e){
 
   // Use the native click() of the file input.
   document.querySelector('#fileElem').click();
@@ -1106,19 +1106,19 @@ $('<div id="select_file" class="fileSelect"><input type="file" id="fileElem"><bu
    $('input[id="fileElem"]').bind("change", function(){
    // Get a reference to the fileList
     var files = !!this.files ? this.files : [];
-console.log('PUPPAAA1')
+
     // If no files were selected, or no FileReader support, return
     if ( !files.length || !window.FileReader ) return;
-    console.log('PUPPAAA2 '+ files[0].type )
+
     // Only proceed if the selected file is a text 
-    if ( /text.*/.test( files[0].type ) ) {
-console.log('PUPPAAA3')
+    if ( /json.*/.test( files[0].type ) ) {
+
         // Create a new instance of the FileReader
 	var reader = new FileReader();
 
 	//Read local file as text
 	reader.readAsText(files[0]);
-        console.log('PUPPAAA')
+
 	reader.onloadend = function(){
             import_from_JSON(this.result)
             console.log(this.result)
@@ -1129,14 +1129,23 @@ console.log('PUPPAAA3')
     }
 
     });
-$('<div id="exp_file" class="fileSelect"><input id="fileExp"><button id="fileSelect" >Create JSON file</button></div>').appendTo(buttondiv).click(function (e){
+$('<div id="exp_file" class="fileSelect" style=" width: 160px; height: 30px; margin-top: 0px; margin-left: 160px; "><input id="fileExp" type="button" style=" margin-top: 0px; height: 2px; padding-right: 0px; padding-left: 0px; border-top-width: 0px; border-left-width: 0px; border-bottom-width: 0px; border-right-width: 0px; "><button id="fileSelect" >Create JSON file</button></div>').appendTo(buttondiv).click(function (e){
 
 var data = 'text/json;charset=utf-8, ' + encodeURIComponent(export_sage());
- $('<a id = "linkfake" href="data:' + data + '" download="data.json" >Download ready</a>').appendTo(buttondiv);
+
+ var fake = document.getElementById('linkfake');
+ if(fake){
+ fake.parentNode.removeChild(fake);
+ }
+
+var d = new Date();
+
+ $('<a id = "linkfake" href="data:' + data + '" download="data.json" >Download ready/'+d.toTimeString()+' </a>').appendTo(buttondiv);
 
 document.getElementById('linkfake').onclick = function() {
         //this.href = "data: "+data
-	this.remove()
+this.parentNode.removeChild(this);
+	//buttondiv.removeChild(this)
         return true;
     };
 
