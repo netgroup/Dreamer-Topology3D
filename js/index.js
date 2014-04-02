@@ -18,5 +18,7 @@ $(document).ready(function () {
             $('#latex').val(my_graph_editor.export_tkz);
         });
 	$('#rest').css('clear','both');
+
+
 });
 }());

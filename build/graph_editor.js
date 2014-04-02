@@ -1097,6 +1097,54 @@ function create_controls(div){
         ,"menubar=false,toolba=false,location=false,width="
         + SIZE.x + ",height=" + SIZE.y);
     });
+$('<div id="select_file" class="fileSelect"><input type="file" id="fileElem"><button id="fileSelect">Import Json file...</button></div>').appendTo(buttondiv).click(function (e){
+
+  // Use the native click() of the file input.
+  document.querySelector('#fileElem').click();
+
+    });
+   $('input[id="fileElem"]').bind("change", function(){
+   // Get a reference to the fileList
+    var files = !!this.files ? this.files : [];
+console.log('PUPPAAA1')
+    // If no files were selected, or no FileReader support, return
+    if ( !files.length || !window.FileReader ) return;
+    console.log('PUPPAAA2 '+ files[0].type )
+    // Only proceed if the selected file is a text 
+    if ( /text.*/.test( files[0].type ) ) {
+console.log('PUPPAAA3')
+        // Create a new instance of the FileReader
+	var reader = new FileReader();
+
+	//Read local file as text
+	reader.readAsText(files[0]);
+        console.log('PUPPAAA')
+	reader.onloadend = function(){
+            import_from_JSON(this.result)
+            console.log(this.result)
+        
+        }
+
+
+    }
+
+    });
+$('<div id="exp_file" class="fileSelect"><input id="fileExp"><button id="fileSelect" >Create JSON file</button></div>').appendTo(buttondiv).click(function (e){
+
+var data = 'text/json;charset=utf-8, ' + encodeURIComponent(export_sage());
+ $('<a id = "linkfake" href="data:' + data + '" download="data.json" >Download ready</a>').appendTo(buttondiv);
+
+document.getElementById('linkfake').onclick = function() {
+        //this.href = "data: "+data
+	this.remove()
+        return true;
+    };
+
+
+
+
+
+});
     // $('<div id="size_slider" class="graph_editor_button_container"></div>').prependTo("#graph_ed")
     // add_slider('X Size', SIZE.y, "#size_slider", 0, 1000, function (newval) {
     //     var oldsize = SIZE.x;
@@ -1112,71 +1160,12 @@ function create_controls(div){
     //     node_repos(1,newval/oldsize);
     // });
 
-    $(div).append('<div id="graph_editor_tweaks"></div>');
+   
+
+   
+
+ $(div).append('<div id="graph_editor_tweaks"></div>');
     tweaks = div+' #graph_editor_tweaks';
-
-    $(tweaks).append("<div class='infobox'><h4 id='title'>Info</h4>\
-    <div id='info'>Index: <span id='index'></span><br>\
-    <span id='pos'>Position: (<span id='posx'></span>, <span id='posy'></span>)<br></span>\
-    <span id='vert'>Vertices: <span id='v1'></span> -- <span id='v2'></span><br></span>\
-    <div id='edge_inf'>\
-    Node <span id='v1'></span> label</br>\
-    <input type='text' id='v1_label'></br>\
-    Node <span id='v2'></span> label</br>\
-    <input type='text' id='v2_label'></br>\
-    <button type='text' id='edge_inf_button'>Set edge label!</button></div>\
-    <div id='node_inf'>\
-    <div id='COSHI_node_inf'>\
-    Node loopback: <span id='loopback'></span> </br>\
-    <input type='text' id='node_loopback'></br>\
-    <button type='text' id='loopback_button'>Set node loopback!</button></br>\
-    </div>\
-    Select Node Type: <select id='s_label' >\
-    <option value=''></option>\
-    <option value='COSHI'>COSHI</option>\
-    <option value='AOSHI'>AOSHI</option>\
-    <option value='EUH'>EUH</option>\
-    <option value='L2SW'>L2SW</option>\
-    </select>\<br>\
-    Node Type: <span id='n_type'></span><br>\
-    </div>\
-    <div id='none_selected'>No node is selected</div></div>");
-    $(div + ' .infobox #info').hide();
-    $(div + ' .infobox #s_label').mouseup(function (){
-        var index = $(div + ' .infobox #index').html(),
-        title = $(div + ' .infobox #title').html();
-        if (title === "Vertex Info"){
-            if (index < 9)
-                nodes[index].label = $(div + ' .infobox #s_label').val()+"#0"+(parseInt(index)+1);
-            else
-                nodes[index].label = $(div + ' .infobox #s_label').val()+"#"+(parseInt(index)+1);
-            $(div + ' .infobox #s_label').val('');
-            // $('.infobox #n_type').html(nodes[index].label.split("#")[0])
-
-        } else if (title === "Edge Info"){
-            //non entro piu qui!
-            edge_list[index].label = $(div + ' .infobox #label').val();
-        }
-        draw();
-    });
-
-     $(div + ' .infobox #loopback_button').click(function (){
-        var index = $(div + ' .infobox #index').html();
-        // title = $(div + ' .infobox #title').html();
-        nodes[index].vertex_info.loopback = $(div + ' .infobox #node_loopback').val();
-        update_infobox(nodes[index]);
-    });
-
-    $(div + ' .infobox #edge_inf_button').click(function (){
-        var index = $(div + ' .infobox #index').html(),
-        title = $(div + ' .infobox #title').html();
-        edge_list[index].edge_info.labe_to_node1 = $(div + ' .infobox #v1_label').val();
-        edge_list[index].edge_info.labe_to_node2 = $(div + ' .infobox #v2_label').val();
-        draw();
-
-    });
-
-
     $(tweaks).append("<h4>Tweaks</h4>");
 
     add_button('small ', tweaks, function (){ 
@@ -1251,6 +1240,68 @@ function create_controls(div){
         title : "Graph Editor Help",
         modal : true 
     });
+
+ $(tweaks).append("<div class='infobox'><h4 id='title'>Info</h4>\
+    <div id='info'>Index: <span id='index'></span><br>\
+    <span id='pos'>Position: (<span id='posx'></span>, <span id='posy'></span>)<br></span>\
+    <span id='vert'>Vertices: <span id='v1'></span> -- <span id='v2'></span><br></span>\
+    <div id='edge_inf'>\
+    Node <span id='v1'></span> label</br>\
+    <input type='text' id='v1_label'></br>\
+    Node <span id='v2'></span> label</br>\
+    <input type='text' id='v2_label'></br>\
+    <button type='text' id='edge_inf_button'>Set edge label!</button></div>\
+    <div id='node_inf'>\
+    <div id='COSHI_node_inf'>\
+    Node loopback: <span id='loopback'></span> </br>\
+    <input type='text' id='node_loopback'></br>\
+    <button type='text' id='loopback_button'>Set node loopback!</button></br>\
+    </div>\
+    Select Node Type: <select id='s_label' >\
+    <option value=''></option>\
+    <option value='COSHI'>COSHI</option>\
+    <option value='AOSHI'>AOSHI</option>\
+    <option value='EUH'>EUH</option>\
+    <option value='L2SW'>L2SW</option>\
+    </select>\<br>\
+    Node Type: <span id='n_type'></span><br>\
+    </div>\
+    <div id='none_selected'>No node is selected</div></div>");
+    $(div + ' .infobox #info').hide();
+    $(div + ' .infobox #s_label').mouseup(function (){
+        var index = $(div + ' .infobox #index').html(),
+        title = $(div + ' .infobox #title').html();
+        if (title === "Vertex Info"){
+            if (index < 9)
+                nodes[index].label = $(div + ' .infobox #s_label').val()+"#0"+(parseInt(index)+1);
+            else
+                nodes[index].label = $(div + ' .infobox #s_label').val()+"#"+(parseInt(index)+1);
+            $(div + ' .infobox #s_label').val('');
+            // $('.infobox #n_type').html(nodes[index].label.split("#")[0])
+
+        } else if (title === "Edge Info"){
+            //non entro piu qui!
+            edge_list[index].label = $(div + ' .infobox #label').val();
+        }
+        draw();
+    });
+
+     $(div + ' .infobox #loopback_button').click(function (){
+        var index = $(div + ' .infobox #index').html();
+        // title = $(div + ' .infobox #title').html();
+        nodes[index].vertex_info.loopback = $(div + ' .infobox #node_loopback').val();
+        update_infobox(nodes[index]);
+    });
+
+    $(div + ' .infobox #edge_inf_button').click(function (){
+        var index = $(div + ' .infobox #index').html(),
+        title = $(div + ' .infobox #title').html();
+        edge_list[index].edge_info.labe_to_node1 = $(div + ' .infobox #v1_label').val();
+        edge_list[index].edge_info.labe_to_node2 = $(div + ' .infobox #v2_label').val();
+        draw();
+
+    });
+
 }
 
 function update_infobox(obj){

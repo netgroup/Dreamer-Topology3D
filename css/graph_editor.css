@@ -25,6 +25,10 @@ div.graph_editor_button{
     /*text-shadow: 1px 1px white;*/
 }
 
+div.graph_editor_button input{
+    display: block !important;
+    overflow: hidden !important;
+}
 
 div.graph_editor_button:hover{
     text-decoration: underline;
@@ -57,3 +61,30 @@ div h4{
     padding : 0px;
     margin: 12px 0px 0px 0px;
 }
+
+#fileElem {
+  /* Note: display:none on the input won't trigger the click event in WebKit.
+    Setting visibility: hidden and height/width:0 works great. */
+  visibility: hidden;
+  width: 0;
+position : relative;
+  height: 0;
+}
+
+#fileExp {
+  /* Note: display:none on the input won't trigger the click event in WebKit.
+    Setting visibility: hidden and height/width:0 works great. */
+  visibility: hidden;
+  width: 0;
+position : relative;
+  height: 0;
+}
+fileSelect {
+
+    position : relative;
+    float : left;
+    cursor : pointer;
+    padding: 5px 5px;
+}
+
+
