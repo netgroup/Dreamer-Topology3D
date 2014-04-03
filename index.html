@@ -1,39 +1,148 @@
-<!DOCTYPE html> 
-<html>
-<head>
-<title>JS Graph Editor</title>
-    <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />	
-    <link type="text/css" href="css/graph_editor.css" rel="Stylesheet" />	
-    <script src="js/jquery-1.4.2.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+    <title>Topology Designer</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+   <link rel="stylesheet" href="css/font-awesome.min.css">
+   <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />	
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">OSHI</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" data-toggle="modal" data-target="#myModal">Help</a></li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">Topology Designer</h1>
+
+	  <div class="container-canvas">
+ 	  	<div id='graph_ed'></div>
+          </div><!--container-canvas-->
+
+        </div><!--end col-sm-9...-->
+
+        <div class="col-sm-3 col-md-2 sidebar"><!--sidebar-->
+
+          <ul id="tweaks_sidebar" class="nav nav-sidebar"><!--tweaks_sidebar-->
+	  		
+          </ul>
+	<hr>
+          <ul id="info_sidebar" class="nav nav-sidebar"><!--info_sidebar-->
+		
+          </ul>
+        </div><!--end col-sm-3...-->
+
+
+      </div><!--end row-->
+
+      <div class="row">
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+	Paste it in the box below the JSON string represenation of a graph.<br>
+	<input type="button" id="set_json" value="Parse JSON Data"><br>
+	<textarea id="json" rows="5" cols="100">
+	</textarea><br>
+	Copy from the box below the JSON string represenation of a graph.<br>
+	<input type="button" id="get_sage" value="Get JSON Data"><br>
+	<br>
+	<textarea id="sage" rows="5" cols="100">
+	</textarea>
+
+	<hr>
+	<div id="footer"><!--ooter-->
+  		<div class="container">
+    			<p class="text-muted">OSHI 2014.</p>
+  		</div>
+	</div><!--end footer-->
+
+
+
+
+
+
+
+ 	</div><!--end col-sm-9..-->
+
+		<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabel">Topology Designer Help</h4>
+	      </div>
+	      <div id ="help_body" class="modal-body">
+		
+	      </div>
+	      <div class="modal-footer">
+		<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- End Modal -->
+
+
+      </div><!--end row-->
+
+
+
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<!<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+   <script src="js/json2.js"></script>
+    <!<script src="js/jquery-1.4.2.min.js"></script>
     <script src="js/jquery-ui-1.8.1.custom.min.js"></script>
-    <script src="js/json2.js"></script>
     <script src="build/graph_editor.js"></script>
     <script src="js/index.js"></script>
-
-</head>
-<body>
-    <h2>Graph Editor</h2>
-    Click 'Tweaks' to set Nodes and Edge properties.<br>
-    Click 'Live' to see a real-time spring-charge physical interaction.<br>
-    Click '?' for a help menu.<br>
-    Pink node = Core OSHI node<br>
-    Green node = Aacces OSHI node<br>
-    Yellow node = End User Host node<br>
-    Blue node = L2 Switch node<br>
-    Grey node = undefined <br>
-<div id='graph_ed'></div>
-<p id='rest'>
-Import the JSON string represenation of a graph from file.
-<br>
-
-Paste it in the box below the JSON string represenation of a graph.<br>
-<input type="button" id="set_json" value="Parse JSON Data"><br>
-<textarea id="json" rows="5" cols="100">
-</textarea><br>
-Copy from the box below the JSON string represenation of a graph.<br>
-<input type="button" id="get_sage" value="Get JSON Data"><br>
-<br>
-<textarea id="sage" rows="5" cols="100">
-</textarea><br>
-</body>
+    
+  </body>
 </html>
+

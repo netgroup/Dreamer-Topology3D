@@ -739,6 +739,7 @@ Controller = function(){
             }
             selected_object = obj;
             obj.selected = true;
+
             update_infobox(obj);
         },
         set_mouse: function(e){
@@ -817,7 +818,7 @@ Controller = function(){
                     toggle_edge(selected_object, hit_node); //whr
                     this.unselect_object();
                 }
-            } else if (closest){ 
+            } else if (closest){
                 this.select_object(closest);
             } else {
                 if (SHIFT){
@@ -830,8 +831,8 @@ Controller = function(){
                     nodes.push(new_v);
                 }
             }
-            hit_node = undefined;
-            if (!LIVE) draw();
+	    hit_node = undefined;
+            if (!LIVE){ draw(); }
         },
         mousemove: function (e) {
             this.set_mouse(e);
@@ -1037,8 +1038,8 @@ s += '/>';
 }
 
 function add_slider(name, variable, container_id, min, max, onchangef){
-    var s = '<tr><td>'+name+'</td>';
-    s += '<td><div class="slider"></div></td></tr>';    
+    var s = '<li><tr><td>'+name+'</td>';
+    s += '<td><div class="slider"></div></td></tr></li>';    
     $(container_id).append(s);
     $(container_id+' div.slider:last').slider({
         min: min,
@@ -1054,106 +1055,197 @@ function create_controls(div){
     //Create controls and attach click functions 
     var tweaks, canvaspos = $(div +' canvas').offset(), buttondiv = div + ' #graph_editor_button_container',
     canvas = $(div +' canvas')[0];
-    $(div).prepend('<div id="graph_editor_button_container"></div>');
-    $('<div id="live_button" class="graph_editor_button">live</div>').appendTo(buttondiv).click(toggle_live);
-    $('<div id="tweaks_button" class="graph_editor_button">tweaks</div>').appendTo(buttondiv)
-    .toggle(function () {
-        $(div).animate({'width': SIZE.x + 310 + 'px'},
-            {queue: true, duration: 'fast', easing: 'linear', complete: function (){
-                $(div + ' #graph_editor_tweaks').slideToggle('fast');
-                UIside_panel_opened = true;
-            }
-        });
-        $(div+' #tweaks_button').toggleClass('graph_editor_button_on');
-    },
-    function () {
-        $(div + ' #graph_editor_tweaks').slideToggle('fast', function (){
-            $(div).animate({'width': SIZE.x +'px'},
-            {queue: true, duration: 'fast', easing: 'linear'});
-            UIside_panel_opened = undefined;
-        });
-        $(div+' #tweaks_button').toggleClass('graph_editor_button_on');
-    });
+    
+    $(div).prepend('<div id="graph_editor_button_container" class="btn-toolbar" role="toolbar"> </div>');
+    $(div).prepend('<input type="file" id="fileElem" style=" width: 0px; height: 0px; ">');
+    $('<div id="graph_editor_button_group" class="btn-group"></div>').appendTo(buttondiv);
+    $('<button id="live_button" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-play"></span> Live</button>').appendTo('#graph_editor_button_group');
+    $('<button id="undo_button" type="button" class="btn btn-default"><span class="fa fa-undo"></span> Undo</button>').appendTo('#graph_editor_button_group');
+    $('<button id="reset_button" type="button" class="btn btn-default"><span class="fa fa-eraser"></span> Reset</button>').appendTo('#graph_editor_button_group');
+    $('<button id="image_button" type="button" class="btn btn-default"><span class="fa fa-picture-o"></span> GetImage</button>').appendTo('#graph_editor_button_group');
+    $('<button id="imp_button" type="button" class="btn btn-default"><span class="fa fa-folder-open"></span> Import from file</button>').appendTo('#graph_editor_button_group');
+    $('<button id="exp_button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."><span class="fa fa-floppy-o"></span> Export to file </button>').appendTo('#graph_editor_button_group');
+    $('<button id="help_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"><span class="fa fa-question"></span> Help</button>').appendTo('#graph_editor_button_group');
 
-    $('<div id="help_button" class="graph_editor_button">?</div>').appendTo(buttondiv)
-    .click(function(){
-        $('#help_dialog').dialog('open');
-    });
 
-    $('<div id="undo_button" class="graph_editor_button">undo</div>').appendTo(buttondiv)
-    .click(undo_remove).toggleClass('graph_editor_undo_disabled');
 
-    $('<div id="reset_button" class="graph_editor_button">reset</div>').appendTo(buttondiv)
-    .click(function (){
+    $('#live_button').click(toggle_live);
+    
+
+
+    $('#undo_button').click(undo_remove).toggleClass('graph_editor_undo_disabled');
+
+    $('#reset_button').click(function (){
         if (confirm("The graph will be irreversibly erased. This operation cannot be undone.")) {
             erase_graph();
         }
     });
 
-    $('<div id="image_button" class="graph_editor_button">image</div>').appendTo(buttondiv)
-    .click(function (){
+    $('#image_button').click(function (){
         var img = canvas.toDataURL("image/png");
         window.open(img, "Graph Editor Image"
         ,"menubar=false,toolba=false,location=false,width="
         + SIZE.x + ",height=" + SIZE.y);
     });
-$('<div id="select_file" class="fileSelect" style=" width: 160px; height: 30px"><input type="file" id="fileElem" style=" width: 0px; height: 0px; "><button id="fileSelect">Import JSON file</button></div>').appendTo(buttondiv).click(function (e){
 
-  // Use the native click() of the file input.
-  document.querySelector('#fileElem').click();
+    $('#imp_button').click(function (e){
+  	// Use the native click() of the file input.
+  	document.querySelector('#fileElem').click();
 
-    });
-   $('input[id="fileElem"]').bind("change", function(){
-   // Get a reference to the fileList
-    var files = !!this.files ? this.files : [];
+    	});
+   	$('input[id="fileElem"]').bind("change", function(){
+   		// Get a reference to the fileList
+    		var files = !!this.files ? this.files : [];
 
-    // If no files were selected, or no FileReader support, return
-    if ( !files.length || !window.FileReader ) return;
+    		// If no files were selected, or no FileReader support, return
+    		if ( !files.length || !window.FileReader ) return;
 
-    // Only proceed if the selected file is a text 
-    if ( /json.*/.test( files[0].type ) ) {
+    		// Only proceed if the selected file is a text 
+    		if ( /json.*/.test( files[0].type ) ) {
 
-        // Create a new instance of the FileReader
-	var reader = new FileReader();
+        	// Create a new instance of the FileReader
+		var reader = new FileReader();
 
-	//Read local file as text
-	reader.readAsText(files[0]);
+		//Read local file as text
+		reader.readAsText(files[0]);
 
-	reader.onloadend = function(){
-            import_from_JSON(this.result)
-            console.log(this.result)
+		reader.onloadend = function(){
+            	import_from_JSON(this.result)
+            	onsole.log(this.result)
         
-        }
-
-
-    }
+        	}
+    	}
 
     });
-$('<div id="exp_file" class="fileSelect" style=" width: 160px; height: 30px; margin-top: 0px; margin-left: 160px; "><input id="fileExp" type="button" style=" margin-top: 0px; height: 2px; padding-right: 0px; padding-left: 0px; border-top-width: 0px; border-left-width: 0px; border-bottom-width: 0px; border-right-width: 0px; "><button id="fileSelect" >Create JSON file</button></div>').appendTo(buttondiv).click(function (e){
 
-var data = 'text/json;charset=utf-8, ' + encodeURIComponent(export_sage());
-
- var fake = document.getElementById('linkfake');
- if(fake){
- fake.parentNode.removeChild(fake);
- }
-
-var d = new Date();
-
- $('<a id = "linkfake" href="data:' + data + '" download="data.json" >Download ready/'+d.toTimeString()+' </a>').appendTo(buttondiv);
-
-document.getElementById('linkfake').onclick = function() {
-        //this.href = "data: "+data
-this.parentNode.removeChild(this);
-	//buttondiv.removeChild(this)
-        return true;
-    };
+    $('#exp_button').click(function (e){
+        
+       
 
 
+ 
+
+	var data = 'text/json;charset=utf-8, ' + encodeURIComponent(export_sage());
+
+ 	var fake = document.getElementById('linkfake');
+ 	if(fake){
+ 		fake.parentNode.removeChild(fake);
+ 	}
+
+	var d = new Date();
+	$('#exp_button').attr('data-content', '<a id = "linkfake" href="data:' + data + '" download="data.json" >Download ready/'+d.toTimeString()+' </a>');
+// 	$('<a id = "linkfake" href="data:' + data + '" download="data.json" >Download ready/'+d.toTimeString()+' </a>').appendTo(buttondiv);
+
+//	document.getElementById('linkfake').onclick = function() {
+//        //this.href = "data: "+data
+//	this.parentNode.removeChild(this);
+//	//buttondiv.removeChild(this)
+//        return true;
+//    	};
+
+    });
+
+//    $(div).prepend('<div id="graph_editor_button_container"></div>');
+//    //$('<div id="live_button" class="graph_editor_button">live</div>').appendTo(buttondiv).click(toggle_live);
+//    $('<div id="tweaks_button" class="graph_editor_button">tweaks</div>').appendTo(buttondiv)
+//    .toggle(function () {
+//        $(div).animate({'width': SIZE.x + 310 + 'px'},
+//            {queue: true, duration: 'fast', easing: 'linear', complete: function (){
+//                $(div + ' #graph_editor_tweaks').slideToggle('fast');
+//                UIside_panel_opened = true;
+//            }
+//        });
+//        $(div+' #tweaks_button').toggleClass('graph_editor_button_on');
+//    },
+//    function () {
+//        $(div + ' #graph_editor_tweaks').slideToggle('fast', function (){
+//            $(div).animate({'width': SIZE.x +'px'},
+//            {queue: true, duration: 'fast', easing: 'linear'});
+//            UIside_panel_opened = undefined;
+//        });
+//        $(div+' #tweaks_button').toggleClass('graph_editor_button_on');
+//    });
+
+//    $('<div id="help_button" class="graph_editor_button">?</div>').appendTo(buttondiv)
+//    .click(function(){
+//        $('#help_dialog').dialog('open');
+//    });
+
+//    $('<div id="undo_button" class="graph_editor_button">undo</div>').appendTo(buttondiv)
+//    .click(undo_remove).toggleClass('graph_editor_undo_disabled');
+
+//    $('<div id="reset_button" class="graph_editor_button">reset</div>').appendTo(buttondiv)
+//    .click(function (){
+//        if (confirm("The graph will be irreversibly erased. This operation cannot be undone.")) {
+//            erase_graph();
+//        }
+//    });
+
+//    $('<div id="image_button" class="graph_editor_button">image</div>').appendTo(buttondiv)
+//    .click(function (){
+//        var img = canvas.toDataURL("image/png");
+//        window.open(img, "Graph Editor Image"
+//        ,"menubar=false,toolba=false,location=false,width="
+//        + SIZE.x + ",height=" + SIZE.y);
+//    });
+
+//$('<div id="select_file" class="fileSelect" style=" width: 160px; height: 30px"><input type="file" id="fileElem" style=" width: 0px; height: 0px; "><button id="fileSelect">Import JSON file</button></div>').appendTo(buttondiv).click(function (e){
+
+//  // Use the native click() of the file input.
+//  document.querySelector('#fileElem').click();
+
+//    });
+//   $('input[id="fileElem"]').bind("change", function(){
+//   // Get a reference to the fileList
+//    var files = !!this.files ? this.files : [];
+
+//    // If no files were selected, or no FileReader support, return
+//    if ( !files.length || !window.FileReader ) return;
+
+//    // Only proceed if the selected file is a text 
+//    if ( /json.*/.test( files[0].type ) ) {
+
+//        // Create a new instance of the FileReader
+//	var reader = new FileReader();
+
+//	//Read local file as text
+//	reader.readAsText(files[0]);
+
+//	reader.onloadend = function(){
+//            import_from_JSON(this.result)
+//            console.log(this.result)
+//        
+//        }
+
+
+//    }
+
+//    });
+//$('<div id="exp_file" class="fileSelect" style=" width: 160px; height: 30px; margin-top: 0px; margin-left: 160px; "><input id="fileExp" type="button" style=" margin-top: 0px; height: 2px; padding-right: 0px; padding-left: 0px; border-top-width: 0px; border-left-width: 0px; border-bottom-width: 0px; border-right-width: 0px; "><button id="fileSelect" >Create JSON file</button></div>').appendTo(buttondiv).click(function (e){
+
+//var data = 'text/json;charset=utf-8, ' + encodeURIComponent(export_sage());
+
+// var fake = document.getElementById('linkfake');
+// if(fake){
+// fake.parentNode.removeChild(fake);
+// }
+
+//var d = new Date();
+
+// $('<a id = "linkfake" href="data:' + data + '" download="data.json" >Download ready/'+d.toTimeString()+' </a>').appendTo(buttondiv);
+
+//document.getElementById('linkfake').onclick = function() {
+//        //this.href = "data: "+data
+//this.parentNode.removeChild(this);
+//	//buttondiv.removeChild(this)
+//        return true;
+//    };
 
 
 
-});
+
+
+//});
     // $('<div id="size_slider" class="graph_editor_button_container"></div>').prependTo("#graph_ed")
     // add_slider('X Size', SIZE.y, "#size_slider", 0, 1000, function (newval) {
     //     var oldsize = SIZE.x;
@@ -1171,13 +1263,15 @@ this.parentNode.removeChild(this);
 
    
 
-   
 
- $(div).append('<div id="graph_editor_tweaks"></div>');
-    tweaks = div+' #graph_editor_tweaks';
-    $(tweaks).append("<h4>Tweaks</h4>");
+	$(' <li><div id="sidebar_dim_button_group" class="btn-group"></div> </li>').appendTo('#tweaks_sidebar');
+    	$('#sidebar_dim_button_group').append('<button id="small" type="button" class="btn btn-default">Small</button>');
+	$('#sidebar_dim_button_group').append('<button id="medium" type="button" class="btn btn-default">Medium</button>');
+ 	$('#sidebar_dim_button_group').append('<button id="full" type="button" class="btn btn-default">Full</button>');
+	$('<div id="sidebar_layout_button_group" class="btn-group"></div>').appendTo('#tweaks_sidebar');
+	$('#sidebar_dim_button_group').append('<button id="circular" type="button" class="btn btn-default">Circular</button>'); 	
 
-    add_button('small ', tweaks, function (){ 
+	$('#small').click(function (){ 
         var old_x = SIZE.x;
         var old_y = SIZE.y;
         SIZE = { x : 600, y : 550 };
@@ -1186,9 +1280,9 @@ this.parentNode.removeChild(this);
         ctx.canvas.width = SIZE.x;
         node_repos(SIZE.x/old_x,SIZE.y/old_y);
 
-    });
+    	});
 
-    add_button('medium ', tweaks, function (){ 
+ 	$('#medium').click(function (){ 
         var old_x = SIZE.x;
         var old_y = SIZE.y;
         SIZE = { x : 900, y : 700 };
@@ -1197,9 +1291,9 @@ this.parentNode.removeChild(this);
         ctx.canvas.width = SIZE.x;
         node_repos(SIZE.x/old_x,SIZE.y/old_y);
 
-    });
+    	}); 
 
-    add_button('full ', tweaks, function (){ 
+	$('#full').click(function (){ 
         var old_x = SIZE.x;
         var old_y = SIZE.y;
         SIZE = { x : 1100, y : 800 };
@@ -1208,49 +1302,89 @@ this.parentNode.removeChild(this);
         ctx.canvas.width = SIZE.x;
         node_repos(SIZE.x/old_x,SIZE.y/old_y);
 
-    });
-    
-    $(tweaks).append("</br>");
+    	}); 
 
-
-    add_button('Circular layout', tweaks, function (){
+	$('#circular').click(function (){
         if (confirm("All vertices will be irrevesably moved. This operation cannot be undone.")) {
             circular_layout();
         }
-    });
+    	});
 
-    $(tweaks).append('<table>');    
-    add_checkbox('Vertex numbers', NODE_NUMBERS, tweaks, function (){
+// $(div).append('<div id="graph_editor_tweaks"></div>');
+//    tweaks = div+' #graph_editor_tweaks';
+//    $(tweaks).append("<h4>Tweaks</h4>");
+
+//    add_button('small ', tweaks, function (){ 
+//        var old_x = SIZE.x;
+//        var old_y = SIZE.y;
+//        SIZE = { x : 600, y : 550 };
+//        center = {x: SIZE.x/2, y: SIZE.y/2};
+//        ctx.canvas.height = SIZE.y;
+//        ctx.canvas.width = SIZE.x;
+//        node_repos(SIZE.x/old_x,SIZE.y/old_y);
+
+//    });
+
+//    add_button('medium ', tweaks, function (){ 
+//        var old_x = SIZE.x;
+//        var old_y = SIZE.y;
+//        SIZE = { x : 900, y : 700 };
+//        center = {x: SIZE.x/2, y: SIZE.y/2};
+//        ctx.canvas.height = SIZE.y;
+//        ctx.canvas.width = SIZE.x;
+//        node_repos(SIZE.x/old_x,SIZE.y/old_y);
+
+//    });
+
+//    add_button('full ', tweaks, function (){ 
+//        var old_x = SIZE.x;
+//        var old_y = SIZE.y;
+//        SIZE = { x : 1100, y : 800 };
+//        center = {x: SIZE.x/2, y: SIZE.y/2};
+//        ctx.canvas.height = SIZE.y;
+//        ctx.canvas.width = SIZE.x;
+//        node_repos(SIZE.x/old_x,SIZE.y/old_y);
+
+//    });
+//    
+//    $(tweaks).append("</br>");
+
+
+//    add_button('Circular layout', tweaks, function (){
+//        if (confirm("All vertices will be irrevesably moved. This operation cannot be undone.")) {
+//            circular_layout();
+//        }
+//    });
+
+
+
+//    $(tweaks).append('<table>');    
+    add_checkbox('Vertex numbers', NODE_NUMBERS, '#tweaks_sidebar', function (){
                 NODE_NUMBERS = !NODE_NUMBERS;
                 draw();
                 }); 
 
-    add_slider('Vertex Size', NODE_RADIUS, tweaks, 0, 30, function (newval) {
+    add_slider('Vertex Size', NODE_RADIUS, '#tweaks_sidebar', 0, 30, function (newval) {
         NODE_RADIUS = newval; 
         draw();
         });
     
-    add_slider('Edge Strength', 50, tweaks, 0, 100, function (newval){
+    add_slider('Edge Strength', 50, '#tweaks_sidebar', 0, 100, function (newval){
         SPRING = (1 - 1e-2) + 1e-4 * (100 - newval);
         SPEED = newval / 50.0;
         SPEED *= 2 * SPEED;
     });
-    add_slider('Edge Length', FIXED_LENGTH, tweaks, 0, 200, function (newval){
+    add_slider('Edge Length', FIXED_LENGTH, '#tweaks_sidebar', 0, 200, function (newval){
         FIXED_LENGTH = newval; 
     });
     
-    add_slider('Orientation', 0, tweaks, 0, 360, change_orientation);
-    $(tweaks).append('</table>').hide();    
+    add_slider('Orientation', 0, '#tweaks_sidebar', 0, 360, change_orientation);
+    //$(tweaks).append('</table>').hide();    
 
-    $(div).append("<div id='help_dialog'> <ul><li><h3>create vertex</h3>Hold 'SHIFT' and click on empty space not too close to existing vertices. <li><h3>create/erase edge</h3>Hold 'SHIFT' and select the first vertex. Click on another vertex (different than the selected one) to turn on/off (toggle) the edge between them. <li><h3>increase/decrease multiplicity</h3> Use +/-. When multiplicity is 0 the edge disappears.<li><h3>remove a vertex</h3>Press '-' when vertex is selected.<li><h3>split an edge</h3> press 's' when esge is selected<li><h3>freeze a vertex</h3> pressing 'r' freezes the selected vertex (it will not move in live mode)<li><h3>add/remove loop</h3> press 'o'<li><h3>undo vertex deletion</h3>Click on the Undo button. Only the last deleted vertex can be recovered.  <li><h3>turn on realtime spring-charge model</h3>Press 'l' or click on the live checkbox.  </ul> </div>");
-    $('#help_dialog').dialog({
-        autoOpen : false,
-        width : 700,
-        title : "Graph Editor Help",
-        modal : true 
-    });
+    $('#help_body').append("<div id='help_summary'> <ul><li><h3>create vertex</h3>Hold 'SHIFT' and click on empty space not too close to existing vertices. <li><h3>create/erase edge</h3>Hold 'SHIFT' and select the first vertex. Click on another vertex (different than the selected one) to turn on/off (toggle) the edge between them. <li><h3>increase/decrease multiplicity</h3> Use +/-. When multiplicity is 0 the edge disappears.<li><h3>remove a vertex</h3>Press '-' when vertex is selected.<li><h3>split an edge</h3> press 's' when esge is selected<li><h3>freeze a vertex</h3> pressing 'r' freezes the selected vertex (it will not move in live mode)<li><h3>add/remove loop</h3> press 'o'<li><h3>undo vertex deletion</h3>Click on the Undo button. Only the last deleted vertex can be recovered.  <li><h3>turn on realtime spring-charge model</h3>Press 'l' or click on the live checkbox.  </ul> </div>");
 
- $(tweaks).append("<div class='infobox'><h4 id='title'>Info</h4>\
+var info_sidebar = '#info_sidebar'
+ $(info_sidebar).append("<div class='infobox'><h4 id='title'>Info</h4>\
     <div id='info'>Index: <span id='index'></span><br>\
     <span id='pos'>Position: (<span id='posx'></span>, <span id='posy'></span>)<br></span>\
     <span id='vert'>Vertices: <span id='v1'></span> -- <span id='v2'></span><br></span>\
@@ -1276,37 +1410,37 @@ this.parentNode.removeChild(this);
     Node Type: <span id='n_type'></span><br>\
     </div>\
     <div id='none_selected'>No node is selected</div></div>");
-    $(div + ' .infobox #info').hide();
-    $(div + ' .infobox #s_label').mouseup(function (){
-        var index = $(div + ' .infobox #index').html(),
-        title = $(div + ' .infobox #title').html();
+    $(info_sidebar + ' .infobox #info').hide();
+    $(info_sidebar + ' .infobox #s_label').mouseup(function (){
+        var index = $(info_sidebar + ' .infobox #index').html(),
+        title = $(info_sidebar + ' .infobox #title').html();
         if (title === "Vertex Info"){
             if (index < 9)
-                nodes[index].label = $(div + ' .infobox #s_label').val()+"#0"+(parseInt(index)+1);
+                nodes[index].label = $(info_sidebar + ' .infobox #s_label').val()+"#0"+(parseInt(index)+1);
             else
-                nodes[index].label = $(div + ' .infobox #s_label').val()+"#"+(parseInt(index)+1);
-            $(div + ' .infobox #s_label').val('');
+                nodes[index].label = $(info_sidebar + ' .infobox #s_label').val()+"#"+(parseInt(index)+1);
+            $(info_sidebar + ' .infobox #s_label').val('');
             // $('.infobox #n_type').html(nodes[index].label.split("#")[0])
 
         } else if (title === "Edge Info"){
             //non entro piu qui!
-            edge_list[index].label = $(div + ' .infobox #label').val();
+            edge_list[index].label = $(info_sidebar + ' .infobox #label').val();
         }
         draw();
     });
 
-     $(div + ' .infobox #loopback_button').click(function (){
-        var index = $(div + ' .infobox #index').html();
+     $(info_sidebar + ' .infobox #loopback_button').click(function (){
+        var index = $(info_sidebar + ' .infobox #index').html();
         // title = $(div + ' .infobox #title').html();
-        nodes[index].vertex_info.loopback = $(div + ' .infobox #node_loopback').val();
+        nodes[index].vertex_info.loopback = $(info_sidebar + ' .infobox #node_loopback').val();
         update_infobox(nodes[index]);
     });
 
-    $(div + ' .infobox #edge_inf_button').click(function (){
-        var index = $(div + ' .infobox #index').html(),
-        title = $(div + ' .infobox #title').html();
-        edge_list[index].edge_info.labe_to_node1 = $(div + ' .infobox #v1_label').val();
-        edge_list[index].edge_info.labe_to_node2 = $(div + ' .infobox #v2_label').val();
+    $(info_sidebar + ' .infobox #edge_inf_button').click(function (){
+        var index = $(info_sidebar + ' .infobox #index').html(),
+        title = $(info_sidebar + ' .infobox #title').html();
+        edge_list[index].edge_info.labe_to_node1 = $(info_sidebar + ' .infobox #v1_label').val();
+        edge_list[index].edge_info.labe_to_node2 = $(info_sidebar + ' .infobox #v2_label').val();
         draw();
 
     });
@@ -1314,56 +1448,56 @@ this.parentNode.removeChild(this);
 }
 
 function update_infobox(obj){
-    if (!UIside_panel_opened){
-        return;
-    }
+var info_sidebar = '#info_sidebar'
+
     var pos, index, node, edge;
     if (obj && obj instanceof Vertex){
+
         node = obj, pos = node.get_pos(), index = nodes.indexOf(node);
-        $(div + ' .infobox #title').html('Vertex Info');
-        $(div + ' .infobox #index').html(index);
-        $(div + ' .infobox #pos').show();
-        $(div + ' .infobox #posx').html(pos.x.toFixed(1));
-        $(div + ' .infobox #posy').html(pos.y.toFixed(1));
-        $(div + ' .infobox #node_inf').show();
+        $(info_sidebar + ' .infobox #title').html('Vertex Info');
+        $(info_sidebar + ' .infobox #index').html(index);
+        $(info_sidebar + ' .infobox #pos').show();
+        $(info_sidebar + ' .infobox #posx').html(pos.x.toFixed(1));
+        $(info_sidebar + ' .infobox #posy').html(pos.y.toFixed(1));
+        $(info_sidebar + ' .infobox #node_inf').show();
         if(node.label.split("#")[0]=="COSHI" || node.label.split("#")[0]=="AOSHI")
-            $(div + ' .infobox #COSHI_node_inf').show();
+            $(info_sidebar + ' .infobox #COSHI_node_inf').show();
         else
-            $(div + ' .infobox #COSHI_node_inf').hide();
-        $(div + ' .infobox #edge_inf').hide();
-        $(div + ' .infobox #vert').hide();
-        $(div + ' .infobox #label').html(node.label);
-        $(div + ' .infobox #loopback').html(node.vertex_info.loopback);
-        $(div + ' .infobox #node_loopback').val(node.vertex_info.loopback);
-        $(div + ' .infobox #n_type').html(node.label.split("#")[0]);
-        $(div + ' .infobox #none_selected').hide();
-        $(div + ' .infobox #info').show();
+            $(info_sidebar + ' .infobox #COSHI_node_inf').hide();
+        $(info_sidebar + ' .infobox #edge_inf').hide();
+        $(info_sidebar + ' .infobox #vert').hide();
+        $(info_sidebar + ' .infobox #label').html(node.label);
+        $(info_sidebar + ' .infobox #loopback').html(node.vertex_info.loopback);
+        $(info_sidebar + ' .infobox #node_loopback').val(node.vertex_info.loopback);
+        $(info_sidebar + ' .infobox #n_type').html(node.label.split("#")[0]);
+        $(info_sidebar + ' .infobox #none_selected').hide();
+        $(info_sidebar + ' .infobox #info').show();
     } else if (obj && obj instanceof Edge){
         edge = obj;
         var enodes = edge.get_nodes();
         index = edge_list.indexOf(edge);
-        $(div + ' .infobox #title').html('Edge Info');
-        $(div + ' .infobox #index').html(index);
-        $(div + ' .infobox #pos').hide();
-        $(div + ' .infobox #vert').show();
-        // $(div + ' .infobox #edge_inf').show(); in attesa di sapere i dati da associare 
-        $(div + ' .infobox #edge_inf').hide();
+        $(info_sidebar + ' .infobox #title').html('Edge Info');
+        $(info_sidebar + ' .infobox #index').html(index);
+        $(info_sidebar + ' .infobox #pos').hide();
+        $(info_sidebar + ' .infobox #vert').show();
+        // $(info_sidebar + ' .infobox #edge_inf').show(); in attesa di sapere i dati da associare 
+        $(info_sidebar + ' .infobox #edge_inf').hide();
 
-        $(div + ' .infobox #node_inf').hide();
+        $(info_sidebar + ' .infobox #node_inf').hide();
 
-        //$(div + ' .infobox #v1').html(nodes.indexOf(enodes.node1));
-        //$(div + ' .infobox #v2').html(nodes.indexOf(enodes.node2));
-        $(div + ' .infobox #v1').html(enodes.node1.label.replace("#",""));
-        $(div + ' .infobox #v2').html(enodes.node2.label.replace("#",""));
-        $(div + ' .infobox #v1_label').val(edge.edge_info.labe_to_node1||"")
-        $(div + ' .infobox #v2_label').val(edge.edge_info.labe_to_node2||"")
-        $(div + ' .infobox #label').val(edge.label||"none");
-        $(div + ' .infobox #none_selected').hide();
-        $(div + ' .infobox #info').show();
+        //$(info_sidebar + ' .infobox #v1').html(nodes.indexOf(enodes.node1));
+        //$(info_sidebar + ' .infobox #v2').html(nodes.indexOf(enodes.node2));
+        $(info_sidebar + ' .infobox #v1').html(enodes.node1.label.replace("#",""));
+        $(info_sidebar + ' .infobox #v2').html(enodes.node2.label.replace("#",""));
+        $(info_sidebar + ' .infobox #v1_label').val(edge.edge_info.labe_to_node1||"")
+        $(info_sidebar + ' .infobox #v2_label').val(edge.edge_info.labe_to_node2||"")
+        $(info_sidebar + ' .infobox #label').val(edge.label||"none");
+        $(info_sidebar + ' .infobox #none_selected').hide();
+        $(info_sidebar + ' .infobox #info').show();
     } else {
-        $(div + ' .infobox #title').html('Info');
-        $(div + ' .infobox #none_selected').show();
-        $(div + ' .infobox #info').hide();
+        $(info_sidebar + ' .infobox #title').html('Info');
+        $(info_sidebar + ' .infobox #none_selected').show();
+        $(info_sidebar + ' .infobox #info').hide();
     }
 }
 function display_graph() {

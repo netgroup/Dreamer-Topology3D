@@ -14,11 +14,11 @@ $(document).ready(function () {
         $('#get_sage').click( function () {
             $('#sage').val(my_graph_editor.export_sage);
         });
-        $('#get_latex').click( function () {
-            $('#latex').val(my_graph_editor.export_tkz);
+        $('#help_button').click( function () {
+            $('#myModal').modal('show');
         });
 	$('#rest').css('clear','both');
-
+	$("[data-toggle=popover]").popover({container: 'body', html:'true'})
 
 });
 }());
