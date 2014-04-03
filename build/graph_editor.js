@@ -1019,13 +1019,13 @@ function export_sage(){
 }
 var UIside_panel_opened;
 function add_checkbox(name, variable, container_id, onclickf){
-    var s ='<tr><td>'+name+'</td>';
-    s +='<td><input type="checkbox"'; //+' id="'+name+'_check"'
+    var s ='<li><div class="checkbox"><label>'+name+"  ";
+    s +='<input type="checkbox"'; //+' id="'+name+'_check"'
     s +=' value="'+variable+'"';
     if (variable){
         s+='checked';
     }
-    s += '/></td></tr>';
+    s += '/></label></div></li>';
     $(container_id).append(s);
     $(container_id+' input:last').click(onclickf);
 }    
@@ -1038,7 +1038,7 @@ s += '/>';
 }
 
 function add_slider(name, variable, container_id, min, max, onchangef){
-    var s = '<li><tr><td>'+name+'</td>';
+    var s = '<li><tr><td><label>'+name+'</label></td>';
     s += '<td><div class="slider"></div></td></tr></li>';    
     $(container_id).append(s);
     $(container_id+' div.slider:last').slider({
@@ -1134,134 +1134,10 @@ function create_controls(div){
 
 	var d = new Date();
 	$('#exp_button').attr('data-content', '<a id = "linkfake" href="data:' + data + '" download="data.json" >Download ready/'+d.toTimeString()+' </a>');
-// 	$('<a id = "linkfake" href="data:' + data + '" download="data.json" >Download ready/'+d.toTimeString()+' </a>').appendTo(buttondiv);
 
-//	document.getElementById('linkfake').onclick = function() {
-//        //this.href = "data: "+data
-//	this.parentNode.removeChild(this);
-//	//buttondiv.removeChild(this)
-//        return true;
-//    	};
 
     });
 
-//    $(div).prepend('<div id="graph_editor_button_container"></div>');
-//    //$('<div id="live_button" class="graph_editor_button">live</div>').appendTo(buttondiv).click(toggle_live);
-//    $('<div id="tweaks_button" class="graph_editor_button">tweaks</div>').appendTo(buttondiv)
-//    .toggle(function () {
-//        $(div).animate({'width': SIZE.x + 310 + 'px'},
-//            {queue: true, duration: 'fast', easing: 'linear', complete: function (){
-//                $(div + ' #graph_editor_tweaks').slideToggle('fast');
-//                UIside_panel_opened = true;
-//            }
-//        });
-//        $(div+' #tweaks_button').toggleClass('graph_editor_button_on');
-//    },
-//    function () {
-//        $(div + ' #graph_editor_tweaks').slideToggle('fast', function (){
-//            $(div).animate({'width': SIZE.x +'px'},
-//            {queue: true, duration: 'fast', easing: 'linear'});
-//            UIside_panel_opened = undefined;
-//        });
-//        $(div+' #tweaks_button').toggleClass('graph_editor_button_on');
-//    });
-
-//    $('<div id="help_button" class="graph_editor_button">?</div>').appendTo(buttondiv)
-//    .click(function(){
-//        $('#help_dialog').dialog('open');
-//    });
-
-//    $('<div id="undo_button" class="graph_editor_button">undo</div>').appendTo(buttondiv)
-//    .click(undo_remove).toggleClass('graph_editor_undo_disabled');
-
-//    $('<div id="reset_button" class="graph_editor_button">reset</div>').appendTo(buttondiv)
-//    .click(function (){
-//        if (confirm("The graph will be irreversibly erased. This operation cannot be undone.")) {
-//            erase_graph();
-//        }
-//    });
-
-//    $('<div id="image_button" class="graph_editor_button">image</div>').appendTo(buttondiv)
-//    .click(function (){
-//        var img = canvas.toDataURL("image/png");
-//        window.open(img, "Graph Editor Image"
-//        ,"menubar=false,toolba=false,location=false,width="
-//        + SIZE.x + ",height=" + SIZE.y);
-//    });
-
-//$('<div id="select_file" class="fileSelect" style=" width: 160px; height: 30px"><input type="file" id="fileElem" style=" width: 0px; height: 0px; "><button id="fileSelect">Import JSON file</button></div>').appendTo(buttondiv).click(function (e){
-
-//  // Use the native click() of the file input.
-//  document.querySelector('#fileElem').click();
-
-//    });
-//   $('input[id="fileElem"]').bind("change", function(){
-//   // Get a reference to the fileList
-//    var files = !!this.files ? this.files : [];
-
-//    // If no files were selected, or no FileReader support, return
-//    if ( !files.length || !window.FileReader ) return;
-
-//    // Only proceed if the selected file is a text 
-//    if ( /json.*/.test( files[0].type ) ) {
-
-//        // Create a new instance of the FileReader
-//	var reader = new FileReader();
-
-//	//Read local file as text
-//	reader.readAsText(files[0]);
-
-//	reader.onloadend = function(){
-//            import_from_JSON(this.result)
-//            console.log(this.result)
-//        
-//        }
-
-
-//    }
-
-//    });
-//$('<div id="exp_file" class="fileSelect" style=" width: 160px; height: 30px; margin-top: 0px; margin-left: 160px; "><input id="fileExp" type="button" style=" margin-top: 0px; height: 2px; padding-right: 0px; padding-left: 0px; border-top-width: 0px; border-left-width: 0px; border-bottom-width: 0px; border-right-width: 0px; "><button id="fileSelect" >Create JSON file</button></div>').appendTo(buttondiv).click(function (e){
-
-//var data = 'text/json;charset=utf-8, ' + encodeURIComponent(export_sage());
-
-// var fake = document.getElementById('linkfake');
-// if(fake){
-// fake.parentNode.removeChild(fake);
-// }
-
-//var d = new Date();
-
-// $('<a id = "linkfake" href="data:' + data + '" download="data.json" >Download ready/'+d.toTimeString()+' </a>').appendTo(buttondiv);
-
-//document.getElementById('linkfake').onclick = function() {
-//        //this.href = "data: "+data
-//this.parentNode.removeChild(this);
-//	//buttondiv.removeChild(this)
-//        return true;
-//    };
-
-
-
-
-
-//});
-    // $('<div id="size_slider" class="graph_editor_button_container"></div>').prependTo("#graph_ed")
-    // add_slider('X Size', SIZE.y, "#size_slider", 0, 1000, function (newval) {
-    //     var oldsize = SIZE.x;
-    //     SIZE.x, ctx.canvas.width = newval;
-    //     center.x = newval/2;
-    //     node_repos(newval/oldsize,1);
-    // });
-
-    // add_slider('Y Size', SIZE.y, "#size_slider", 0, 1000, function (newval) {
-    //     var oldsize = SIZE.y;
-    //     SIZE.y, ctx.canvas.height = newval;
-    //     center.y = newval/2;
-    //     node_repos(1,newval/oldsize);
-    // });
-
-   
 
 
 	$(' <li><div id="sidebar_dim_button_group" class="btn-group"></div> </li>').appendTo('#tweaks_sidebar');
@@ -1274,7 +1150,7 @@ function create_controls(div){
 	$('#small').click(function (){ 
         var old_x = SIZE.x;
         var old_y = SIZE.y;
-        SIZE = { x : 600, y : 550 };
+        SIZE = { x : 550, y : 500 };
         center = {x: SIZE.x/2, y: SIZE.y/2};
         ctx.canvas.height = SIZE.y;
         ctx.canvas.width = SIZE.x;
@@ -1285,7 +1161,7 @@ function create_controls(div){
  	$('#medium').click(function (){ 
         var old_x = SIZE.x;
         var old_y = SIZE.y;
-        SIZE = { x : 900, y : 700 };
+        SIZE = { x : 850, y : 650 };
         center = {x: SIZE.x/2, y: SIZE.y/2};
         ctx.canvas.height = SIZE.y;
         ctx.canvas.width = SIZE.x;
@@ -1296,7 +1172,7 @@ function create_controls(div){
 	$('#full').click(function (){ 
         var old_x = SIZE.x;
         var old_y = SIZE.y;
-        SIZE = { x : 1100, y : 800 };
+        SIZE = { x : 1050, y : 750 };
         center = {x: SIZE.x/2, y: SIZE.y/2};
         ctx.canvas.height = SIZE.y;
         ctx.canvas.width = SIZE.x;
@@ -1384,10 +1260,10 @@ function create_controls(div){
     $('#help_body').append("<div id='help_summary'> <ul><li><h3>create vertex</h3>Hold 'SHIFT' and click on empty space not too close to existing vertices. <li><h3>create/erase edge</h3>Hold 'SHIFT' and select the first vertex. Click on another vertex (different than the selected one) to turn on/off (toggle) the edge between them. <li><h3>increase/decrease multiplicity</h3> Use +/-. When multiplicity is 0 the edge disappears.<li><h3>remove a vertex</h3>Press '-' when vertex is selected.<li><h3>split an edge</h3> press 's' when esge is selected<li><h3>freeze a vertex</h3> pressing 'r' freezes the selected vertex (it will not move in live mode)<li><h3>add/remove loop</h3> press 'o'<li><h3>undo vertex deletion</h3>Click on the Undo button. Only the last deleted vertex can be recovered.  <li><h3>turn on realtime spring-charge model</h3>Press 'l' or click on the live checkbox.  </ul> </div>");
 
 var info_sidebar = '#info_sidebar'
- $(info_sidebar).append("<div class='infobox'><h4 id='title'>Info</h4>\
-    <div id='info'>Index: <span id='index'></span><br>\
-    <span id='pos'>Position: (<span id='posx'></span>, <span id='posy'></span>)<br></span>\
-    <span id='vert'>Vertices: <span id='v1'></span> -- <span id='v2'></span><br></span>\
+ $(info_sidebar).append("<div class='infobox'><h4 id='title'>Select node for info!</h4>\
+    <div id='info'><label>Index:</label> <span id='index'></span><br>\
+    <label id='pos'>Position: (<span id='posx'></span>, <span id='posy'></span>)<br></label>\
+    <label id='vert'>Vertices: <span id='v1'></span> -- <span id='v2'></span><br></label>\
     <div id='edge_inf'>\
     Node <span id='v1'></span> label</br>\
     <input type='text' id='v1_label'></br>\
@@ -1396,18 +1272,18 @@ var info_sidebar = '#info_sidebar'
     <button type='text' id='edge_inf_button'>Set edge label!</button></div>\
     <div id='node_inf'>\
     <div id='COSHI_node_inf'>\
-    Node loopback: <span id='loopback'></span> </br>\
+    <label>Node loopback:  </label><span id='loopback'></span> </br>\
     <input type='text' id='node_loopback'></br>\
     <button type='text' id='loopback_button'>Set node loopback!</button></br>\
     </div>\
-    Select Node Type: <select id='s_label' >\
+    <label>Select Node Type:</label> <select id='s_label' >\
     <option value=''></option>\
     <option value='COSHI'>COSHI</option>\
     <option value='AOSHI'>AOSHI</option>\
     <option value='EUH'>EUH</option>\
     <option value='L2SW'>L2SW</option>\
     </select>\<br>\
-    Node Type: <span id='n_type'></span><br>\
+    <label>Node Type:</label> <span id='n_type'></span><br>\
     </div>\
     <div id='none_selected'>No node is selected</div></div>");
     $(info_sidebar + ' .infobox #info').hide();
@@ -1495,7 +1371,7 @@ var info_sidebar = '#info_sidebar'
         $(info_sidebar + ' .infobox #none_selected').hide();
         $(info_sidebar + ' .infobox #info').show();
     } else {
-        $(info_sidebar + ' .infobox #title').html('Info');
+        $(info_sidebar + ' .infobox #title').html('Select node for info!');
         $(info_sidebar + ' .infobox #none_selected').show();
         $(info_sidebar + ' .infobox #info').hide();
     }
