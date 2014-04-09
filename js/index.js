@@ -4,8 +4,8 @@ var cube = '{"vertices":["COSHI#01","AOSHI#02","COSHI#03","AOSHI#04","AOSHI#05",
 
 $(document).ready(function () {
     my_graph_editor = new GraphEditor('#graph_ed', { JSONdata : cube, 
-    width : 1100,
-    height : 800,
+    width : 850,
+    height : 650,
     node_radius : 18.0,
     multigraph: true});
         $('#set_json').click( function () {

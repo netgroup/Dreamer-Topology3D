@@ -233,13 +233,14 @@ Vertex.prototype = {
             remove_illegal_edges(this.label);
         var imageObj = new Image();
         var node_number;
-        ctx.strokeStyle = "#808080";
+        ctx.strokeStyle = "#000000";
         ctx.lineWidth = 1;
         
         if (this.selected) { 
             ctx.strokeStyle = 'black'; 
-            ctx.lineWidth = NODE_RADIUS/4;
-            imageObj.src = this.fill_vert(0);
+            ctx.lineWidth = NODE_RADIUS/5;
+ 
+            imageObj.src = this.fill_vert(1);
         } else if (this.closest){
             imageObj.src = this.fill_vert(1);
         } else {
@@ -253,7 +254,7 @@ Vertex.prototype = {
         ctx.drawImage(imageObj, this.pos.x-NODE_RADIUS/1.45,this.pos.y-NODE_RADIUS/1.45,1.4*NODE_RADIUS,1.4*NODE_RADIUS)
         
         if (this.vertex_info.frozen){
-            imageObj.src = 'img/clipart-router-6edb-fixed.png'
+            //imageObj.src = 'img/clipart-router-6edb-fixed.png'
             ctx.drawImage(imageObj, this.pos.x-NODE_RADIUS/1.45,this.pos.y-NODE_RADIUS/1.45,1.4*NODE_RADIUS,1.4*NODE_RADIUS)
             // ctx.drawImage(imageObj, this.pos.x-NODE_RADIUS/3,this.pos.y-NODE_RADIUS,NODE_RADIUS,NODE_RADIUS)
         }
@@ -277,47 +278,42 @@ Vertex.prototype = {
     },
     fill_vert: function (is_closest){
         
-        var aoshi_color = "#00FF00";
-        var aoshi_hov_color = "#99FF99";
-        var aoshi_img = 'img/clipart-router-6edb.png';
-        var coshi_color ="#FF00FF";
-        var coshi_hov_color ="#FF99FF";
-        var coshi_img ='img/clipart-router-6edb.png';
-        var euh_color ="#FFFF99";
-        var euh_hov_color ="#FFFFCC";
-        var euh_img = 'img/clipart-router-6edb.png';
-        var l2sw_color ="#0066FF";
-        var l2sw_hov_color ="#0099FF";
-        var l2sw_img = 'img/clipart-router-6edb.png';
+	var b_color = "#FFFFFF";
+        var h_color = "#A8A8A8";
+
+        var aoshi_img = 'img/access.png';
+        var coshi_img ='img/core.png';
+        var euh_img = 'img/euh.png';
+        var l2sw_img = 'img/l2.png';
         var empty_color="#808080";
         var img = 'img/clipart-router-6edb.png';
 
         if (this.label.split("#")[0]=="AOSHI"){
             if (is_closest)
-                ctx.fillStyle = aoshi_hov_color;
+                ctx.fillStyle = h_color;
             else
-                ctx.fillStyle = aoshi_color;
+                ctx.fillStyle = b_color;
             return aoshi_img;
 
         }else if (this.label.split("#")[0]=="COSHI"){
             if (is_closest)
-                ctx.fillStyle = coshi_hov_color;
+                ctx.fillStyle = h_color;
             else
-                ctx.fillStyle = coshi_color;
+                ctx.fillStyle = b_color;
             return coshi_img;
 
         }else if (this.label.split("#")[0]=="EUH"){
             if (is_closest)
-                ctx.fillStyle = euh_hov_color;
+                ctx.fillStyle = h_color;
             else
-                ctx.fillStyle = euh_color;
+                ctx.fillStyle = b_color;
             return euh_img;
 
         }else if (this.label.split("#")[0]=="L2SW"){
             if (is_closest)
-                ctx.fillStyle = l2sw_hov_color;
+                ctx.fillStyle = h_color;
             else
-                ctx.fillStyle = l2sw_color;
+                ctx.fillStyle = b_color;
             return l2sw_img;
 
         }else{
@@ -1037,13 +1033,13 @@ s += '/>';
     $(container_id+' input:last').click(onclickf);
 }
 
-function add_slider(name, variable, container_id, min, max, onchangef){
+function add_slider(name, variable, container_id, min_, max_, onchangef){
     var s = '<li><tr><td><label>'+name+'</label></td>';
     s += '<td><div class="slider"></div></td></tr></li>';    
     $(container_id).append(s);
     $(container_id+' div.slider:last').slider({
-        min: min,
-        max: max,
+        min: min_,
+        max: max_,
         value: variable,
         slide: function (event, ui) {
             onchangef(ui.value);
@@ -1056,15 +1052,18 @@ function create_controls(div){
     var tweaks, canvaspos = $(div +' canvas').offset(), buttondiv = div + ' #graph_editor_button_container',
     canvas = $(div +' canvas')[0];
     
-    $(div).prepend('<div id="graph_editor_button_container" class="btn-toolbar" role="toolbar"> </div>');
-    $(div).prepend('<input type="file" id="fileElem" style=" width: 0px; height: 0px; ">');
-    $('<div id="graph_editor_button_group" class="btn-group"></div>').appendTo(buttondiv);
+   //$('#canvas_cont').prepend('<div id="graph_editor_button_container" class="btn-toolbar" role="toolbar"> </div>');
+  // $('#canvas_cont').prepend('<input type="file" id="fileElem" style=" width: 0px; height: 0px; ">');
+    $('<div id="graph_editor_button_container" class="btn-toolbar" role="toolbar"> </div>').appendTo('#panel_head');
+$('<input type="file" id="fileElem" style=" width: 0px; height: 0px; ">').appendTo('#panel_head');
+    $('<div id="graph_editor_button_group" class="btn-group"></div>').appendTo('#graph_editor_button_container');
     $('<button id="live_button" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-play"></span> Live</button>').appendTo('#graph_editor_button_group');
     $('<button id="undo_button" type="button" class="btn btn-default"><span class="fa fa-undo"></span> Undo</button>').appendTo('#graph_editor_button_group');
     $('<button id="reset_button" type="button" class="btn btn-default"><span class="fa fa-eraser"></span> Reset</button>').appendTo('#graph_editor_button_group');
     $('<button id="image_button" type="button" class="btn btn-default"><span class="fa fa-picture-o"></span> GetImage</button>').appendTo('#graph_editor_button_group');
     $('<button id="imp_button" type="button" class="btn btn-default"><span class="fa fa-folder-open"></span> Import from file</button>').appendTo('#graph_editor_button_group');
     $('<button id="exp_button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."><span class="fa fa-floppy-o"></span> Export to file </button>').appendTo('#graph_editor_button_group');
+    $('<button id="credits_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalCredits"><span class="fa fa-info"></span> Credits</button>').appendTo('#graph_editor_button_group');
     $('<button id="help_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"><span class="fa fa-question"></span> Help</button>').appendTo('#graph_editor_button_group');
 
 
@@ -1186,55 +1185,7 @@ function create_controls(div){
         }
     	});
 
-// $(div).append('<div id="graph_editor_tweaks"></div>');
-//    tweaks = div+' #graph_editor_tweaks';
-//    $(tweaks).append("<h4>Tweaks</h4>");
-
-//    add_button('small ', tweaks, function (){ 
-//        var old_x = SIZE.x;
-//        var old_y = SIZE.y;
-//        SIZE = { x : 600, y : 550 };
-//        center = {x: SIZE.x/2, y: SIZE.y/2};
-//        ctx.canvas.height = SIZE.y;
-//        ctx.canvas.width = SIZE.x;
-//        node_repos(SIZE.x/old_x,SIZE.y/old_y);
-
-//    });
-
-//    add_button('medium ', tweaks, function (){ 
-//        var old_x = SIZE.x;
-//        var old_y = SIZE.y;
-//        SIZE = { x : 900, y : 700 };
-//        center = {x: SIZE.x/2, y: SIZE.y/2};
-//        ctx.canvas.height = SIZE.y;
-//        ctx.canvas.width = SIZE.x;
-//        node_repos(SIZE.x/old_x,SIZE.y/old_y);
-
-//    });
-
-//    add_button('full ', tweaks, function (){ 
-//        var old_x = SIZE.x;
-//        var old_y = SIZE.y;
-//        SIZE = { x : 1100, y : 800 };
-//        center = {x: SIZE.x/2, y: SIZE.y/2};
-//        ctx.canvas.height = SIZE.y;
-//        ctx.canvas.width = SIZE.x;
-//        node_repos(SIZE.x/old_x,SIZE.y/old_y);
-
-//    });
-//    
-//    $(tweaks).append("</br>");
-
-
-//    add_button('Circular layout', tweaks, function (){
-//        if (confirm("All vertices will be irrevesably moved. This operation cannot be undone.")) {
-//            circular_layout();
-//        }
-//    });
-
-
-
-//    $(tweaks).append('<table>');    
+   
     add_checkbox('Vertex numbers', NODE_NUMBERS, '#tweaks_sidebar', function (){
                 NODE_NUMBERS = !NODE_NUMBERS;
                 draw();
@@ -1260,7 +1211,7 @@ function create_controls(div){
     $('#help_body').append("<div id='help_summary'> <ul><li><h3>create vertex</h3>Hold 'SHIFT' and click on empty space not too close to existing vertices. <li><h3>create/erase edge</h3>Hold 'SHIFT' and select the first vertex. Click on another vertex (different than the selected one) to turn on/off (toggle) the edge between them. <li><h3>increase/decrease multiplicity</h3> Use +/-. When multiplicity is 0 the edge disappears.<li><h3>remove a vertex</h3>Press '-' when vertex is selected.<li><h3>split an edge</h3> press 's' when esge is selected<li><h3>freeze a vertex</h3> pressing 'r' freezes the selected vertex (it will not move in live mode)<li><h3>add/remove loop</h3> press 'o'<li><h3>undo vertex deletion</h3>Click on the Undo button. Only the last deleted vertex can be recovered.  <li><h3>turn on realtime spring-charge model</h3>Press 'l' or click on the live checkbox.  </ul> </div>");
 
 var info_sidebar = '#info_sidebar'
- $(info_sidebar).append("<div class='infobox'><h4 id='title'>Select node for info!</h4>\
+ $(info_sidebar).append("<div class='infobox'><h4 id='title'>Select node or edge for info!</h4>\
     <div id='info'><label>Index:</label> <span id='index'></span><br>\
     <label id='pos'>Position: (<span id='posx'></span>, <span id='posy'></span>)<br></label>\
     <label id='vert'>Vertices: <span id='v1'></span> -- <span id='v2'></span><br></label>\
@@ -1417,11 +1368,15 @@ function toggle_live() {
         if (LIVE) {
             LIVE = false;
             stop_loop();
+	    $('#live_button').text('   Live')
+            $('#live_button').prepend('<span class="glyphicon glyphicon-play"></span>')
         } else {
             LIVE = true;
             start_loop();
+            $('#live_button').text(' Static')
+            $('#live_button').prepend('<span class="glyphicon glyphicon-pause"></span>')
         }
-        $(div+' #live_button').toggleClass('graph_editor_button_on');
+       // $(div+' #live_button').toggleClass('graph_editor_button_on');
     }
 
 

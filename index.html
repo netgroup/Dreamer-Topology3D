@@ -11,8 +11,8 @@
     <title>Topology Designer</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="css/dashboard.css" rel="stylesheet">
    <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -39,9 +39,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">OSHI</a>
+          <a class="navbar-brand" href="http://netgroup.uniroma2.it/OSHI" target="_blank">OSHI</a>
         </div>
         <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav ">
+            <li><a href="#"><font size="4">Topology Designer</font> </a></li>
+          </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#" data-toggle="modal" data-target="#myModal">Help</a></li>
           </ul>
@@ -54,11 +57,18 @@
       <div class="row">
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Topology Designer</h1>
-
-	  <div class="container-canvas">
+         <img src="img/legenda.png" width="500" height="50" border="1px black solid">
+         <div class="panel panel-default">
+           <div class="panel-heading" id="panel_head">
+           </div>
+           <div class="panel-body">
+              <div class="container-canvas" id="canvas_cont" style="overflow: auto;">
  	  	<div id='graph_ed'></div>
-          </div><!--container-canvas-->
+              </div><!--container-canvas-->
+           </div>
+         </div>
+	  
+          
 
         </div><!--end col-sm-9...-->
 
@@ -71,20 +81,22 @@
           <ul id="info_sidebar" class="nav nav-sidebar"><!--info_sidebar-->
 		
           </ul>
-        </div><!--end col-sm-3...-->
+        </div><!--end col-sm-3 col-md-2 sidebar-->
 
 
       </div><!--end row-->
 
       <div class="row">
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
          	<div class="col-md-5">
+
 	Paste it in the box below the JSON string represenation of a graph.<br>
 	<input type="button" id="set_json" value="Parse JSON Data"><br>
 	<textarea id="json" rows="5" cols="50">
 	</textarea><br>
                 </div>
-                 	<div class="col-md-5">
+               <div class="col-md-5">
 	Copy from the box below the JSON string represenation of a graph.<br>
 	<input type="button" id="get_sage" value="Get JSON Data"><br>
 	<textarea id="sage" rows="5" cols="50">
@@ -128,6 +140,30 @@
 	  </div>
 	</div>
 	<!-- End Modal -->
+
+		<!-- Modal -->
+	<div class="modal fade" id="myModalCredits" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabelCredits">Topology Designer Credits</h4>
+	      </div>
+	      <div id ="help_body" class="modal-body">
+		Dreamer-Topology-Designer
+
+Simple topology designer, a customization of JS GRAPH EDITOR
+
+Based JS GRAPH EDITOR  written by Radoslav Kirov
+	      </div>
+	      <div class="modal-footer">
+		<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- End Modal -->
+
       </div>
 
 
@@ -135,17 +171,15 @@
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+
+    <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <!<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-<!<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-   <script src="js/json2.js"></script>
-    <!<script src="js/jquery-1.4.2.min.js"></script>
-    <script src="js/jquery-ui-1.8.1.custom.min.js"></script>
+    <script src="js/json2.js"></script>  
     <script src="build/graph_editor.js"></script>
     <script src="js/index.js"></script>
-    
+
   </body>
 </html>
 
