@@ -11,9 +11,7 @@ $(document).ready(function () {
         $('#set_json').click( function () {
             my_graph_editor.import_from_JSON($('#json').val());
         });
-        $('#get_sage').click( function () {
-            $('#sage').val(my_graph_editor.export_sage);
-        });
+        
         $('#help_button').click( function () {
             $('#myModal').modal('show');
         });

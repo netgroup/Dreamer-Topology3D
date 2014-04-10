@@ -57,12 +57,12 @@
       <div class="row">
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-         <img src="img/legenda.png" width="500" height="50" border="1px black solid">
-         <div class="panel panel-default">
+         <center><img src="img/legenda.png" width="500" height="50" border="1px black solid"></center>
+         <div class="panel panel-default" >
            <div class="panel-heading" id="panel_head">
            </div>
            <div class="panel-body">
-              <div class="container-canvas" id="canvas_cont" style="overflow: auto;">
+              <div class="container-canvas" id="canvas_cont" height="200" style="overflow-y: scroll;max-height: 500px;">
  	  	<div id='graph_ed'></div>
               </div><!--container-canvas-->
            </div>
@@ -86,26 +86,6 @@
 
       </div><!--end row-->
 
-      <div class="row">
-	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
-         	<div class="col-md-5">
-
-	Paste it in the box below the JSON string represenation of a graph.<br>
-	<input type="button" id="set_json" value="Parse JSON Data"><br>
-	<textarea id="json" rows="5" cols="50">
-	</textarea><br>
-                </div>
-               <div class="col-md-5">
-	Copy from the box below the JSON string represenation of a graph.<br>
-	<input type="button" id="get_sage" value="Get JSON Data"><br>
-	<textarea id="sage" rows="5" cols="50">
-	</textarea>
-               	</div>
-
-
-
-      </div><!--end row-->
       
       <div class="row">
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -163,6 +143,73 @@ Based JS GRAPH EDITOR  written by Radoslav Kirov
 	  </div>
 	</div>
 	<!-- End Modal -->
+
+
+		<!-- Modal -->
+	<div class="modal fade" id="myModalDownload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabelDownload">Download Json file</h4>
+	      </div>
+	      <div id ="download_body" class="modal-body">
+		
+	      </div>
+	      <div class="modal-footer">
+		<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- End Modal -->
+
+
+		<!-- Modal -->
+	<div class="modal fade" id="myModalCopy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabelCopy">Copy Json data</h4>
+	      </div>
+	      <div id ="copy_body" class="modal-body">
+			Copy from the box below the JSON string represenation of a graph.<br>
+	
+	<textarea id="sage" rows="5" cols="50">
+	</textarea>
+	      </div>
+	      <div class="modal-footer">
+		<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- End Modal -->
+
+		<!-- Modal -->
+	<div class="modal fade" id="myModalPaste" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalLabelPaste">Import Json data</h4>
+	      </div>
+	      <div id ="paste_body" class="modal-body">
+		  	Paste it in the box below the JSON string represenation of a graph.<br>
+	<br>
+	<textarea id="json" rows="5" cols="50">
+	</textarea>
+	      </div>
+	      <div class="modal-footer">
+                <button type="button" id="set_json" class="btn btn-success" >Parse</button>
+		<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- End Modal -->
+
 
       </div>
 

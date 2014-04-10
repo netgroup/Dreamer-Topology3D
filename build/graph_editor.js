@@ -1061,8 +1061,13 @@ $('<input type="file" id="fileElem" style=" width: 0px; height: 0px; ">').append
     $('<button id="undo_button" type="button" class="btn btn-default"><span class="fa fa-undo"></span> Undo</button>').appendTo('#graph_editor_button_group');
     $('<button id="reset_button" type="button" class="btn btn-default"><span class="fa fa-eraser"></span> Reset</button>').appendTo('#graph_editor_button_group');
     $('<button id="image_button" type="button" class="btn btn-default"><span class="fa fa-picture-o"></span> GetImage</button>').appendTo('#graph_editor_button_group');
-    $('<button id="imp_button" type="button" class="btn btn-default"><span class="fa fa-folder-open"></span> Import from file</button>').appendTo('#graph_editor_button_group');
-    $('<button id="exp_button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."><span class="fa fa-floppy-o"></span> Export to file </button>').appendTo('#graph_editor_button_group');
+
+    $('<div class="btn-group"><button id="import_button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Import JSON...<span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li><a href="#" id="imp_button"><span class="fa fa-folder-open"></span> Import from file</a></li><li><a href="#" id="imp_paste_button"  data-toggle="modal" data-target="#myModalPaste"><span class="fa fa-clipboard "></span> Paste from clipboard</a></li></ul></div">').appendTo('#graph_editor_button_group');
+
+$('<div class="btn-group"><button id="export_button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Export JSON...<span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li><a href="#" id="exp_button" data-toggle="modal" data-target="#myModalDownload"><span class="fa fa fa-floppy-o"></span> Export to file</a></li><li><a href="#" id="exp_copy_button" data-toggle="modal" data-target="#myModalCopy"><span class="fa fa-clipboard "></span> Copy to clipboard</a></li></ul></div">').appendTo('#graph_editor_button_group');
+ 
+   
+
     $('<button id="credits_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalCredits"><span class="fa fa-info"></span> Credits</button>').appendTo('#graph_editor_button_group');
     $('<button id="help_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"><span class="fa fa-question"></span> Help</button>').appendTo('#graph_editor_button_group');
 
@@ -1117,9 +1122,13 @@ $('<input type="file" id="fileElem" style=" width: 0px; height: 0px; ">').append
 
     });
 
+    $('#exp_copy_button').click(function (e){
+	$('#sage').val(export_sage());
+    });
+
     $('#exp_button').click(function (e){
         
-       
+       console.log('ciao')
 
 
  
@@ -1132,52 +1141,26 @@ $('<input type="file" id="fileElem" style=" width: 0px; height: 0px; ">').append
  	}
 
 	var d = new Date();
-	$('#exp_button').attr('data-content', '<a id = "linkfake" href="data:' + data + '" download="data.json" >Download ready/'+d.toTimeString()+' </a>');
+	$('#download_body').append('<a id = "linkfake" href="data:' + data + '" download="data.json" >Download ready - '+d.toTimeString()+' </a>');
 
 
     });
 
-
-
-	$(' <li><div id="sidebar_dim_button_group" class="btn-group"></div> </li>').appendTo('#tweaks_sidebar');
-    	$('#sidebar_dim_button_group').append('<button id="small" type="button" class="btn btn-default">Small</button>');
-	$('#sidebar_dim_button_group').append('<button id="medium" type="button" class="btn btn-default">Medium</button>');
- 	$('#sidebar_dim_button_group').append('<button id="full" type="button" class="btn btn-default">Full</button>');
-	$('<div id="sidebar_layout_button_group" class="btn-group"></div>').appendTo('#tweaks_sidebar');
-	$('#sidebar_dim_button_group').append('<button id="circular" type="button" class="btn btn-default">Circular</button>'); 	
-
-	$('#small').click(function (){ 
+        add_slider('Canvas Dimension:', 0, '#tweaks_sidebar', 0, 300, function (newval) {
         var old_x = SIZE.x;
         var old_y = SIZE.y;
-        SIZE = { x : 550, y : 500 };
+        SIZE = { x : 850 + newval, y :  650 + newval };
         center = {x: SIZE.x/2, y: SIZE.y/2};
         ctx.canvas.height = SIZE.y;
         ctx.canvas.width = SIZE.x;
         node_repos(SIZE.x/old_x,SIZE.y/old_y);
+        });
 
-    	});
 
- 	$('#medium').click(function (){ 
-        var old_x = SIZE.x;
-        var old_y = SIZE.y;
-        SIZE = { x : 850, y : 650 };
-        center = {x: SIZE.x/2, y: SIZE.y/2};
-        ctx.canvas.height = SIZE.y;
-        ctx.canvas.width = SIZE.x;
-        node_repos(SIZE.x/old_x,SIZE.y/old_y);
+	$('<br><div id="sidebar_layout_button_group" class="btn-group"></div>').appendTo('#tweaks_sidebar');
+	$('#sidebar_layout_button_group').append('<button id="circular" type="button" class="btn btn-default">Circular layout</button>'); 	
 
-    	}); 
 
-	$('#full').click(function (){ 
-        var old_x = SIZE.x;
-        var old_y = SIZE.y;
-        SIZE = { x : 1050, y : 750 };
-        center = {x: SIZE.x/2, y: SIZE.y/2};
-        ctx.canvas.height = SIZE.y;
-        ctx.canvas.width = SIZE.x;
-        node_repos(SIZE.x/old_x,SIZE.y/old_y);
-
-    	}); 
 
 	$('#circular').click(function (){
         if (confirm("All vertices will be irrevesably moved. This operation cannot be undone.")) {

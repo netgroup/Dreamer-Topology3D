@@ -51,9 +51,9 @@ body {
 
 /* Sidebar navigation */
 .nav-sidebar {
-  margin-right: -21px; /* 20px padding + 1px border */
+  margin-right: -0px; 
   margin-bottom: 20px;
-  margin-left: -20px;
+  margin-left: -0px;
 }
 .nav-sidebar > li > a {
   padding-right: 20px;
