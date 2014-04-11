@@ -1367,7 +1367,7 @@ function init(){
     //construction of GraphEditor
     controller = Controller();
     $(div).addClass('graph_editor_container');
-    $(div).append('<canvas class="graph_editor_canvas" width = "'+SIZE.x+'" height = "'+SIZE.y+'" >Your browser does not support canvas.</canvas>');
+    $(div).append('<canvas class="graph_editor_canvas" width = "'+SIZE.x+'" height = "'+SIZE.y+'" style="border: 2px black solid">Your browser does not support canvas.</canvas>');
     canvastag = $(div+' canvas');
     $(div).css({'width' : SIZE.x+'px'}); 
     ctx = canvastag[0].getContext('2d');
