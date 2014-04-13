@@ -5,10 +5,12 @@ var edge_list = [], nodes = [], removed_edges = [],
     controller,
     Controller, Vertex, Edge, 
     graph_name,
-    removed_node, 
+    removed_node,
+    MIN_X = 600,
+    MIN_Y = 600,
     SIZE = { 
-        x : options.width || 500,
-        y : options.height || 500
+        x : options.width || MIN_X,
+        y : options.height || MIN_Y
     },
     center = {x: SIZE.x/2, y: SIZE.y/2},
     DIRECTED = options.directed || true,
@@ -1146,10 +1148,10 @@ $('<div class="btn-group"><button id="export_button" type="button" class="btn bt
 
     });
 
-        add_slider('Canvas Dimension:', 0, '#tweaks_sidebar', 0, 300, function (newval) {
+        add_slider('Canvas Dimension:', 0, '#tweaks_sidebar', 0, 600, function (newval) {
         var old_x = SIZE.x;
         var old_y = SIZE.y;
-        SIZE = { x : 850 + newval, y :  650 + newval };
+        SIZE = { x : MIN_X + newval, y :  MIN_Y + newval };
         center = {x: SIZE.x/2, y: SIZE.y/2};
         ctx.canvas.height = SIZE.y;
         ctx.canvas.width = SIZE.x;
