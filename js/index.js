@@ -46,7 +46,7 @@ $(document).ready(function () {
 
 	$('#start_random_button').click( function () {
             n = $("#coreslider").slider("option", "value");
-	    p = $("#probslider").slider("option", "value");
+	    p = $("#probslider").slider("option", "value")/10;
 		$.ajax({
 			url: "/cgi-bin/nxbuilder.py?n="+n+"&p="+p,
 		

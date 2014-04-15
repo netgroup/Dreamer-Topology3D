@@ -1039,7 +1039,7 @@ s += '/>';
 }
 
 function add_slider(name, variable, container_id, min_, max_, disabled_, onchangef){
-    var s = '<li><tr><td><label>'+name+'</label></td>';
+    var s = '<li><tr><td><label id="'+name.replace(/\s/g, '')+'_label">'+name+'</label></td>';
     s += '<td><div id="'+name.replace(/\s/g, '')+'" class="slider"></div></td></tr></li>';    
     $(container_id).append(s);
     $(container_id+' div.slider:last').slider({
@@ -1050,8 +1050,10 @@ function add_slider(name, variable, container_id, min_, max_, disabled_, onchang
             onchangef(ui.value);
         }
     });
-    if(disabled_)
+    if(disabled_){
 	 $(container_id+' div.slider:last').slider( 'disable' )
+    	 $('#'+name.replace(/\s/g, '')+'_label').css("color", "grey");
+     }
 }
 
 function create_controls(div){
@@ -1069,7 +1071,7 @@ $('#panel_head').prepend('<div id="graph_editor_button_container" class="btn-too
 
     $('<div class="btn-group"><button id="import_button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">JSON...<span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li><a href="#" id="imp_button"><span class="fa fa-folder-open"></span> Import from file</a></li><li><a href="#" id="imp_paste_button"  data-toggle="modal" data-target="#myModalPaste"><span class="fa fa-clipboard "></span> Paste from clipboard</a><li><a href="#" id="exp_button" data-toggle="modal" data-target="#myModalDownload"><span class="fa fa fa-floppy-o"></span> Export to file</a></li><li><a href="#" id="exp_copy_button" data-toggle="modal" data-target="#myModalCopy"><span class="fa fa-clipboard "></span> Copy to clipboard</a></li></li></ul></div">').appendTo('#graph_editor_button_group');
 
-    $('<button id="random_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalRandom"><span class="fa  fa-random"></span> New Random</button>').appendTo('#graph_editor_button_group');
+    $('<button id="random_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalRandom"><span class="fa  fa-random"></span> Random</button>').appendTo('#graph_editor_button_group');
 
     $('<button id="live_button" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-play"></span> Live</button>').appendTo('#graph_editor_button_group');
 
@@ -1363,6 +1365,8 @@ function toggle_live() {
             $('#live_button').prepend('<span class="glyphicon glyphicon-play"></span>')
 	    $('#EdgeLength').slider('disable');
  	    $('#EdgeStrength').slider('disable');
+	    $('#EdgeLength_label').css("color", "grey");
+ 	    $('#EdgeStrength_label').css("color", "grey");
 
         } else {
             LIVE = true;
@@ -1371,6 +1375,8 @@ function toggle_live() {
             $('#live_button').prepend('<span class="glyphicon glyphicon-pause"></span>')
 	    $('#EdgeLength').slider('enable');
  	    $('#EdgeStrength').slider('enable');
+	    $('#EdgeLength_label').css("color", "rgb(51,51,51)");
+ 	    $('#EdgeStrength_label').css("color", "rgb(51,51,51)");
         }
        // $(div+' #live_button').toggleClass('graph_editor_button_on');
     }
