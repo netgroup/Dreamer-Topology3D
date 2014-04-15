@@ -6,8 +6,8 @@ var edge_list = [], nodes = [], removed_edges = [],
     Controller, Vertex, Edge, 
     graph_name,
     removed_node,
-    MIN_X = 600,
-    MIN_Y = 600,
+    MIN_X = 800,
+    MIN_Y = 400,
     SIZE = { 
         x : options.width || MIN_X,
         y : options.height || MIN_Y
@@ -898,7 +898,7 @@ Controller = function(){
 //"pos"" : [ [v0x, v0y], [v1x, v1y], ... ],
 //"name" : "a_graph"
 //} 
-function import_from_JSON(JSONdata) {
+function import_from_JSON(JSONdata, live) {
     var i, data = JSON.parse(JSONdata), dict = {}, new_v, pos, vertex;
     erase_graph();
     for (i = 0; i < data.vertices.length; i += 1){
@@ -936,6 +936,9 @@ function import_from_JSON(JSONdata) {
     }
     graph_name = data.name;
     draw();
+    if(live){
+	toggle_live();
+    }
 }
 
 function positions_dict() {
@@ -1035,9 +1038,9 @@ s += '/>';
     $(container_id+' input:last').click(onclickf);
 }
 
-function add_slider(name, variable, container_id, min_, max_, onchangef){
+function add_slider(name, variable, container_id, min_, max_, disabled_, onchangef){
     var s = '<li><tr><td><label>'+name+'</label></td>';
-    s += '<td><div class="slider"></div></td></tr></li>';    
+    s += '<td><div id="'+name.replace(/\s/g, '')+'" class="slider"></div></td></tr></li>';    
     $(container_id).append(s);
     $(container_id+' div.slider:last').slider({
         min: min_,
@@ -1047,6 +1050,8 @@ function add_slider(name, variable, container_id, min_, max_, onchangef){
             onchangef(ui.value);
         }
     });
+    if(disabled_)
+	 $(container_id+' div.slider:last').slider( 'disable' )
 }
 
 function create_controls(div){
@@ -1056,28 +1061,34 @@ function create_controls(div){
     
    //$('#canvas_cont').prepend('<div id="graph_editor_button_container" class="btn-toolbar" role="toolbar"> </div>');
   // $('#canvas_cont').prepend('<input type="file" id="fileElem" style=" width: 0px; height: 0px; ">');
-    $('<div id="graph_editor_button_container" class="btn-toolbar" role="toolbar"> </div>').appendTo('#panel_head');
-$('<input type="file" id="fileElem" style=" width: 0px; height: 0px; ">').appendTo('#panel_head');
+
+$('#panel_head').prepend('<div id="graph_editor_button_container" class="btn-toolbar" role="toolbar"> </div>')
+  //  $('<div id="graph_editor_button_container" class="btn-toolbar" role="toolbar"> </div>').appendTo('#panel_head');
+    $('<input type="file" id="fileElem" style=" width: 0px; height: 0px; ">').appendTo('#panel_head');
     $('<div id="graph_editor_button_group" class="btn-group"></div>').appendTo('#graph_editor_button_container');
+
+    $('<div class="btn-group"><button id="import_button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">JSON...<span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li><a href="#" id="imp_button"><span class="fa fa-folder-open"></span> Import from file</a></li><li><a href="#" id="imp_paste_button"  data-toggle="modal" data-target="#myModalPaste"><span class="fa fa-clipboard "></span> Paste from clipboard</a><li><a href="#" id="exp_button" data-toggle="modal" data-target="#myModalDownload"><span class="fa fa fa-floppy-o"></span> Export to file</a></li><li><a href="#" id="exp_copy_button" data-toggle="modal" data-target="#myModalCopy"><span class="fa fa-clipboard "></span> Copy to clipboard</a></li></li></ul></div">').appendTo('#graph_editor_button_group');
+
+    $('<button id="random_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalRandom"><span class="fa  fa-random"></span> New Random</button>').appendTo('#graph_editor_button_group');
+
     $('<button id="live_button" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-play"></span> Live</button>').appendTo('#graph_editor_button_group');
+
+
     $('<button id="undo_button" type="button" class="btn btn-default"><span class="fa fa-undo"></span> Undo</button>').appendTo('#graph_editor_button_group');
     $('<button id="reset_button" type="button" class="btn btn-default"><span class="fa fa-eraser"></span> Reset</button>').appendTo('#graph_editor_button_group');
     $('<button id="image_button" type="button" class="btn btn-default"><span class="fa fa-picture-o"></span> GetImage</button>').appendTo('#graph_editor_button_group');
 
-    $('<div class="btn-group"><button id="import_button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Import JSON...<span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li><a href="#" id="imp_button"><span class="fa fa-folder-open"></span> Import from file</a></li><li><a href="#" id="imp_paste_button"  data-toggle="modal" data-target="#myModalPaste"><span class="fa fa-clipboard "></span> Paste from clipboard</a></li></ul></div">').appendTo('#graph_editor_button_group');
-
-$('<div class="btn-group"><button id="export_button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"> Export JSON...<span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li><a href="#" id="exp_button" data-toggle="modal" data-target="#myModalDownload"><span class="fa fa fa-floppy-o"></span> Export to file</a></li><li><a href="#" id="exp_copy_button" data-toggle="modal" data-target="#myModalCopy"><span class="fa fa-clipboard "></span> Copy to clipboard</a></li></ul></div">').appendTo('#graph_editor_button_group');
- 
-   
+    $('<button id="legend_button" type="button" class="btn btn-default"> <span class="fa fa-minus-square-o "></span>Hide Legend</button>').appendTo('#graph_editor_button_group');   
 
     $('<button id="credits_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalCredits"><span class="fa fa-info"></span> Credits</button>').appendTo('#graph_editor_button_group');
+    
     $('<button id="help_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"><span class="fa fa-question"></span> Help</button>').appendTo('#graph_editor_button_group');
 
 
 
     $('#live_button').click(toggle_live);
     
-
+    $('#legend_button').click(toggle_visibility_legend);
 
     $('#undo_button').click(undo_remove).toggleClass('graph_editor_undo_disabled');
 
@@ -1105,10 +1116,8 @@ $('<div class="btn-group"><button id="export_button" type="button" class="btn bt
 
     		// If no files were selected, or no FileReader support, return
     		if ( !files.length || !window.FileReader ) return;
-
     		// Only proceed if the selected file is a text 
-    		if ( /json.*/.test( files[0].type ) ) {
-
+    		if (files[0].type == "application/json" ) {
         	// Create a new instance of the FileReader
 		var reader = new FileReader();
 
@@ -1116,8 +1125,8 @@ $('<div class="btn-group"><button id="export_button" type="button" class="btn bt
 		reader.readAsText(files[0]);
 
 		reader.onloadend = function(){
-            	import_from_JSON(this.result)
-            	onsole.log(this.result)
+            	import_from_JSON(this.result, false)
+            	//console.log(this.result)
         
         	}
     	}
@@ -1130,10 +1139,6 @@ $('<div class="btn-group"><button id="export_button" type="button" class="btn bt
 
     $('#exp_button').click(function (e){
         
-       console.log('ciao')
-
-
- 
 
 	var data = 'text/json;charset=utf-8, ' + encodeURIComponent(export_sage());
 
@@ -1148,7 +1153,7 @@ $('<div class="btn-group"><button id="export_button" type="button" class="btn bt
 
     });
 
-        add_slider('Canvas Dimension:', 0, '#tweaks_sidebar', 0, 600, function (newval) {
+        add_slider('Canvas Dimension:', 0, '#tweaks_sidebar', 0, 600, false, function (newval) {
         var old_x = SIZE.x;
         var old_y = SIZE.y;
         SIZE = { x : MIN_X + newval, y :  MIN_Y + newval };
@@ -1176,22 +1181,23 @@ $('<div class="btn-group"><button id="export_button" type="button" class="btn bt
                 draw();
                 }); 
 
-    add_slider('Vertex Size', NODE_RADIUS, '#tweaks_sidebar', 0, 30, function (newval) {
+    add_slider('Orientation', 0, '#tweaks_sidebar', 0, 360,false, change_orientation);
+
+    add_slider('Vertex Size', NODE_RADIUS, '#tweaks_sidebar', 0, 30, false, function (newval) {
         NODE_RADIUS = newval; 
         draw();
         });
     
-    add_slider('Edge Strength', 50, '#tweaks_sidebar', 0, 100, function (newval){
+    add_slider('Edge Strength', 50, '#tweaks_sidebar', 0, 100, true, function (newval){
         SPRING = (1 - 1e-2) + 1e-4 * (100 - newval);
         SPEED = newval / 50.0;
         SPEED *= 2 * SPEED;
     });
-    add_slider('Edge Length', FIXED_LENGTH, '#tweaks_sidebar', 0, 200, function (newval){
+    add_slider('Edge Length', FIXED_LENGTH, '#tweaks_sidebar', 0, 200, true, function (newval){
         FIXED_LENGTH = newval; 
     });
     
-    add_slider('Orientation', 0, '#tweaks_sidebar', 0, 360, change_orientation);
-    //$(tweaks).append('</table>').hide();    
+
 
     $('#help_body').append("<div id='help_summary'> <ul><li><h3>create vertex</h3>Hold 'SHIFT' and click on empty space not too close to existing vertices. <li><h3>create/erase edge</h3>Hold 'SHIFT' and select the first vertex. Click on another vertex (different than the selected one) to turn on/off (toggle) the edge between them. <li><h3>increase/decrease multiplicity</h3> Use +/-. When multiplicity is 0 the edge disappears.<li><h3>remove a vertex</h3>Press '-' when vertex is selected.<li><h3>split an edge</h3> press 's' when esge is selected<li><h3>freeze a vertex</h3> pressing 'r' freezes the selected vertex (it will not move in live mode)<li><h3>add/remove loop</h3> press 'o'<li><h3>undo vertex deletion</h3>Click on the Undo button. Only the last deleted vertex can be recovered.  <li><h3>turn on realtime spring-charge model</h3>Press 'l' or click on the live checkbox.  </ul> </div>");
 
@@ -1355,15 +1361,43 @@ function toggle_live() {
             stop_loop();
 	    $('#live_button').text('   Live')
             $('#live_button').prepend('<span class="glyphicon glyphicon-play"></span>')
+	    $('#EdgeLength').slider('disable');
+ 	    $('#EdgeStrength').slider('disable');
+
         } else {
             LIVE = true;
             start_loop();
             $('#live_button').text(' Static')
             $('#live_button').prepend('<span class="glyphicon glyphicon-pause"></span>')
+	    $('#EdgeLength').slider('enable');
+ 	    $('#EdgeStrength').slider('enable');
         }
        // $(div+' #live_button').toggleClass('graph_editor_button_on');
     }
 
+function toggle_visibility_legend() {
+	if($('#legend_button').text() == 'Show Legend'){
+		$('#legend_button').text('Hide Legend')
+        	$('#legend_button').prepend('<span class="fa fa-minus-square-o "></span>')
+	}
+	else{
+		$('#legend_button').text('Show Legend')
+        	$('#legend_button').prepend('<span class="fa fa-plus-square-o "></span>')
+	}
+	
+	toggle_visibility('legenda')
+}
+
+function toggle_visibility(id) {
+
+    	var e = document.getElementById(id);
+
+    	if(e.style.display == 'block') {
+    		e.style.display = 'none';
+    	} else {
+    		e.style.display = 'block';
+    	}
+    }
 
 function init(){
     //construction of GraphEditor
@@ -1386,7 +1420,7 @@ function init(){
     //fixes a problem where double clicking causes text to get selected on the canvas
     canvastag[0].onselectstart = function () { return false; }
     if(options.JSONdata){
-        import_from_JSON(options.JSONdata);
+        import_from_JSON(options.JSONdata, false);
         draw();
     }
     if (options.controls !== false){

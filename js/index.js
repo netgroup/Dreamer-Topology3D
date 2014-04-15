@@ -8,15 +8,72 @@ $(document).ready(function () {
     //height : 650,
     node_radius : 18.0,
     multigraph: true});
+
         $('#set_json').click( function () {
-            my_graph_editor.import_from_JSON($('#json').val());
+            my_graph_editor.import_from_JSON($('#json').val(), true);
+	    $('#myModalPaste').modal('hide');
         });
         
         $('#help_button').click( function () {
             $('#myModal').modal('show');
         });
+
 	$('#rest').css('clear','both');
 	$("[data-toggle=popover]").popover({container: 'body', html:'true'})
+	
+	$("#coreslider").slider({
+        	min: 1,
+        	max: 10,
+        	value: 5,
+        	slide: function (event, ui) {
+			$("#corenum").val(" " + ui.value);
+            		//onchangef(ui.value);
+        	}
+    	});
+
+	$("#probslider").slider({
+        	min: 1,
+        	max: 10,
+        	value: 5,
+        	slide: function (event, ui) {
+			$("#prob").val(" " + ui.value /10);
+            		//onchangef(ui.value);
+        	}
+    	});
+
+	$("#prob").val($("#coreslider").slider("option", "value")/10);
+	$("#corenum").val($("#probslider").slider("option", "value"));
+
+	$('#start_random_button').click( function () {
+            n = $("#coreslider").slider("option", "value");
+	    p = $("#probslider").slider("option", "value");
+		$.ajax({
+			url: "/cgi-bin/nxbuilder.py?n="+n+"&p="+p,
+		
+			beforeSend : function() {
+		    		$('#randomprogbar').show();
+			},
+			success: function(result){
+				console.log(result)
+				my_graph_editor.import_from_JSON(JSON.stringify(result), true);
+				$('#randomprogbar').hide();
+				$('#myModalRandom').modal('hide');
+			},
+			error: function(xhr, status, errore) {
+				console.log("Errrrore " + errore )
+				$('#randomprogbar').hide();
+				$('#erRandomAlert').append('<div id="alertdiv" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>There was an error! Please try again!</span></div>')
+
+    			}
+					
+		});
+
+
+        });
+	
 
 });
+
+
+
 }());

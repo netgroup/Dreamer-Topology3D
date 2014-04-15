@@ -57,10 +57,13 @@
       <div class="row">
 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-         <center><img src="img/legenda.png" width="500" height="50"></center>
+        
          <div class="panel panel-default" >
            <div class="panel-heading" id="panel_head" >
-           </div>
+            	<div id="legenda" align="right" style="display: block; padding-top: 5px;">
+			<img src="img/legenda.png" width="500" height="50">
+		</div>
+	   </div>
            <div class="panel-body" >
               <div class="container-canvas" id="canvas_cont" height="200" style="overflow-y: scroll;max-height: 500px;">
  	  	<div id='graph_ed'></div>
@@ -121,6 +124,43 @@
 	</div>
 	<!-- End Modal -->
 
+
+		<!-- Modal -->
+	<div class="modal fade" id="myModalRandom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h4 class="modal-title" id="myModalRandomLabel">Select Parameter for random topology</h4>
+	      </div>
+	      <div id ="random_body" class="modal-body">
+		<div id="erRandomAlert">
+		</div>
+
+	        <label for="corenum">Total number of nodes CORE:</label>
+		<input type="text" id="corenum" style="border:0; color:#f6931f; font-weight:bold;" />
+		<div class="slider" id="coreslider"></div>
+		<br>
+	        <label for="prob">Interconnection Probability:</label>
+		<input type="text" id="prob" style="border:0; color:#f6931f; font-weight:bold;" />
+		<div class="slider" id="probslider"></div>
+		<br>
+		<div class="progress progress-striped active" id="randomprogbar" hidden="true">
+  			<div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+  			</div>
+		</div>
+
+	      </div>
+	      <div class="modal-footer">
+		<button type="button" id="start_random_button" class="btn btn-success" >Generate</button>
+		<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- End Modal -->
+
+
 		<!-- Modal -->
 	<div class="modal fade" id="myModalCredits" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
@@ -174,8 +214,8 @@ Based JS GRAPH EDITOR  written by Radoslav Kirov
 		<h4 class="modal-title" id="myModalLabelCopy">Copy Json data</h4>
 	      </div>
 	      <div id ="copy_body" class="modal-body">
-			Copy from the box below the JSON string represenation of a graph.<br>
-	
+			 Copy the JSON represenation of the graph from the box below.
+		<br>	
 	<textarea id="sage" rows="5" cols="50">
 	</textarea>
 	      </div>
@@ -196,7 +236,7 @@ Based JS GRAPH EDITOR  written by Radoslav Kirov
 		<h4 class="modal-title" id="myModalLabelPaste">Import Json data</h4>
 	      </div>
 	      <div id ="paste_body" class="modal-body">
-		  	Paste it in the box below the JSON string represenation of a graph.<br>
+		  	 Paste the JSON representation of a graph in the box below<br>
 	<br>
 	<textarea id="json" rows="5" cols="50">
 	</textarea>
