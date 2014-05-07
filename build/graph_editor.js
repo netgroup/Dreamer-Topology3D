@@ -26,6 +26,7 @@ var edge_list = [], nodes = [], removed_edges = [],
     SHOWFPS = false,
     SHIFT = false,
     LOOP = false,
+    VLLVIEW = false,
     FPS = options.fps || 60,
     canvastag,
     ctx,
@@ -38,6 +39,20 @@ function rand(a, b) {
 
 function sort_num(a,b){
     return a-b;
+}
+
+function toggle_vllView(){
+	VLLVIEW = !VLLVIEW
+	
+	if(VLLVIEW){
+		$('#vll_button').text(' Hide VllView')
+	}
+	else{
+		$('#vll_button').text(' Show VllView')
+	}
+	$('#vll_button').prepend('<span class="fa fa-sitemap "></span>')
+
+	draw();
 }
 
 // first element in array such that f(i) is true;
@@ -348,10 +363,11 @@ Vertex.prototype = {
     }
 };
 
-var Edge_info = function (edge_label,labe_to_node1,labe_to_node2) {
+var Edge_info = function (edge_label,labe_to_node1,labe_to_node2, vll) {
     this.labe_to_node1 = labe_to_node1;
     this.labe_to_node2 = labe_to_node2;
     this.edge_label = edge_label;
+    this.vll = vll;
 };
 
 Edge = function (node1, node2, multi, label) {
@@ -359,8 +375,9 @@ Edge = function (node1, node2, multi, label) {
     this.node2 = node2;
     this.multi = multi || 1;
     // this.label = label || '::';
-    if(label)
+    if(label){
         this.edge_info = label;
+    }
     else
         this.edge_info = new Edge_info("","","");
 };
@@ -471,6 +488,9 @@ Edge.prototype = {
         if(this.multi === 0){
             remove_edge(this);
         }
+    },
+    set_vll: function(){
+	this.edge_info.vll = true;
     }
 };
 
@@ -485,9 +505,13 @@ function get_closest_node(v){
 
 
 function remove_illegal_edges(node_label){
+
     var counter=0;
     if(node_label.split("#")[0] == "L2SW" || node_label.split("#")[0] == "EUH"){
         for(var i=0 ;i<edge_list.length;i++){
+            if(edge_list[i].edge_info.vll){//TODO da confermare
+		break;
+	    }
             if (edge_list[i].node1.label == node_label ) {
                 counter += 1;
                 // alert(edge_list[i].node1.label);
@@ -495,13 +519,16 @@ function remove_illegal_edges(node_label){
                 counter = 2;
             if(edge_list[i].node2.label.split("#")[0] =="COSHI" && node_label.split("#")[0] =="L2SW")
                 counter = 2;
-            if(counter>1)
-                remove_edge(edge_list[i]);
+            if(counter>1){
+			remove_edge(edge_list[i]);
+	    }
+                
             
             }else if (edge_list[i].node2.label == node_label) {
                 if (node_label.split("#")[0] == "L2SW"){
-                    if ( edge_list[i].node1.label.split("#")[0] !="L2SW" && edge_list[i].node1.label.split("#")[0] !="EUH")
+                    if ( edge_list[i].node1.label.split("#")[0] !="L2SW" && edge_list[i].node1.label.split("#")[0] !="EUH"){
                         remove_edge(edge_list[i]);
+			}
                 } else if (node_label.split("#")[0] == "EUH"){
                     if ( edge_list[i].node2.label.split("#")[0] =="EUH" )
                         remove_edge(edge_list[i]); 
@@ -512,6 +539,7 @@ function remove_illegal_edges(node_label){
 }
 
 function remove_edge(edge){
+
     edge_list.splice(edge_list.indexOf(edge),1);
 }
 
@@ -561,6 +589,7 @@ function toggle_loop(node){
     if (existing) {
         edge_list.splice(edge_list.indexOf(existing), 1);
     } else {
+
         edge_list.push(new Edge(node, node));
     }
 }
@@ -582,9 +611,12 @@ function toggle_edge(node1, node2) {
     if (existing){
             edge_list.splice(i, 1);
         } else {
-            edge_list.push(new Edge(node1, node2));
+	    var newEdge = new Edge(node1, node2);
+	    if(VLLVIEW)
+	    	newEdge.set_vll()	
+            edge_list.push(newEdge);
         }
-}
+} 
 
 function centerize(maximize){
     var min_x = 10000,
@@ -894,7 +926,6 @@ Controller = function(){
 
 
 function import_catalog_top(id){
-		console.log("topocatalogjson/cat"+eval(id)+".json")
 $.getJSON("topocatalogjson/cat"+id+".json", function(data) {
     //console.log(data);
     import_from_JSON(data, true, true);
@@ -1092,6 +1123,8 @@ $('#panel_head').prepend('<div id="graph_editor_button_container" class="btn-too
 
     $('<button id="live_button" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-play"></span> Live</button>').appendTo('#graph_editor_button_group');
 
+    $('<button id="vll_button" type="button" class="btn btn-default"> <span class="fa fa-sitemap"></span> Show VLLVIEW</button>').appendTo('#graph_editor_button_group');
+
 
     $('<button id="undo_button" type="button" class="btn btn-default"><span class="fa fa-undo"></span> Undo</button>').appendTo('#graph_editor_button_group');
     $('<button id="reset_button" type="button" class="btn btn-default"><span class="fa fa-eraser"></span> Reset</button>').appendTo('#graph_editor_button_group');
@@ -1106,6 +1139,8 @@ $('#panel_head').prepend('<div id="graph_editor_button_container" class="btn-too
 
 
     $('#live_button').click(toggle_live);
+   
+    $('#vll_button').click(toggle_vllView);
     
     $('#legend_button').click(toggle_visibility_legend);
 
@@ -1351,14 +1386,30 @@ var info_sidebar = '#info_sidebar'
 }
 function display_graph() {
     var i;
-    if (LIVE) {
+    if (LIVE & !VLLVIEW) {
         run_physics();
     }
     for (i = 0; i < edge_list.length; i += 1) {
-        edge_list[i].display();
+	if(VLLVIEW){
+		if(edge_list[i].edge_info.vll){
+			edge_list[i].display();
+		}
+	}
+	else{
+		if(edge_list[i].edge_info.vll != true){
+			edge_list[i].display();
+		}
+	}        
+
     }
     for (i = 0; i < nodes.length; i += 1) {
-        nodes[i].display();
+	if(VLLVIEW){
+		if(nodes[i].label.split("#")[0]=="EUH")
+			nodes[i].display();
+	}
+	else{
+		nodes[i].display();
+	}  
     }
 }
 
@@ -1473,6 +1524,7 @@ return {
     import_catalog_top: import_catalog_top,
     export_tkz: export_tkz,
     export_sage: export_sage,
+    toggle_vllView: toggle_vllView,
     get_raw_data : function (){
         return {
             nodes: nodes,
