@@ -891,6 +891,18 @@ Controller = function(){
         }
     };
 };
+
+
+function import_catalog_top(id){
+		console.log("topocatalogjson/cat"+eval(id)+".json")
+$.getJSON("topocatalogjson/cat"+id+".json", function(data) {
+    //console.log(data);
+    import_from_JSON(data, true, true);
+    $('#myModalTopoCatalog').modal('hide');
+});
+
+}
+
 //JSONdata has the format
 //This format is compatible with sage
 //{"vertices" : [v0.label, v1.label, .... , vn.label],
@@ -898,8 +910,13 @@ Controller = function(){
 //"pos"" : [ [v0x, v0y], [v1x, v1y], ... ],
 //"name" : "a_graph"
 //} 
-function import_from_JSON(JSONdata, live) {
-    var i, data = JSON.parse(JSONdata), dict = {}, new_v, pos, vertex;
+function import_from_JSON(JSONdata, live, catalog) {
+    var i, dict = {}, new_v, pos, vertex;
+    if(catalog){
+	var data = JSONdata;
+    }else{
+ data = JSON.parse(JSONdata)
+}
     erase_graph();
     for (i = 0; i < data.vertices.length; i += 1){
         new_v = new Vertex({x:0,y:0}, data.vertices[i], data.node_properties[data.vertices[i]]);
@@ -1069,7 +1086,7 @@ $('#panel_head').prepend('<div id="graph_editor_button_container" class="btn-too
     $('<input type="file" id="fileElem" style=" width: 0px; height: 0px; ">').appendTo('#panel_head');
     $('<div id="graph_editor_button_group" class="btn-group"></div>').appendTo('#graph_editor_button_container');
 
-    $('<div class="btn-group"><button id="import_button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">JSON...<span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li><a href="#" id="imp_button"><span class="fa fa-folder-open"></span> Import from file</a></li><li><a href="#" id="imp_paste_button"  data-toggle="modal" data-target="#myModalPaste"><span class="fa fa-clipboard "></span> Paste from clipboard</a><li><a href="#" id="exp_button" data-toggle="modal" data-target="#myModalDownload"><span class="fa fa fa-floppy-o"></span> Export to file</a></li><li><a href="#" id="exp_copy_button" data-toggle="modal" data-target="#myModalCopy"><span class="fa fa-clipboard "></span> Copy to clipboard</a></li></li></ul></div">').appendTo('#graph_editor_button_group');
+    $('<div class="btn-group"><button id="topology_button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Topology <span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li><a href="#" id="catalog_button" data-toggle="modal" data-target="#myModalTopoCatalog"><span class="fa fa-archive"></span> Open from catalog...</a></li><li><a href="#" id="imp_button"><span class="fa fa-folder-open"></span> Import from file</a></li><li><a href="#" id="imp_paste_button"  data-toggle="modal" data-target="#myModalPaste"><span class="fa fa-clipboard "></span> Paste from clipboard</a><li><a href="#" id="exp_button" data-toggle="modal" data-target="#myModalDownload"><span class="fa fa fa-floppy-o"></span> Export to file</a></li><li><a href="#" id="exp_copy_button" data-toggle="modal" data-target="#myModalCopy"><span class="fa fa-clipboard "></span> Copy to clipboard</a></li></li></ul></div">').appendTo('#graph_editor_button_group');
 
     $('<button id="random_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalRandom"><span class="fa  fa-random"></span> Random</button>').appendTo('#graph_editor_button_group');
 
@@ -1101,7 +1118,19 @@ $('#panel_head').prepend('<div id="graph_editor_button_container" class="btn-too
     });
 
     $('#image_button').click(function (){
-        var img = canvas.toDataURL("image/png");
+	//create a dummy CANVAS
+	var destinationCanvas = document.createElement("canvas");
+	destinationCanvas.width = canvas.width;
+	destinationCanvas.height = canvas.height;
+	var destCtx = destinationCanvas.getContext('2d');
+	//create a rectangle with the desired color
+	destCtx.fillStyle = "#FFFFFF";
+	destCtx.fillRect(0,0,canvas.width,canvas.height);
+	
+	//draw the original canvas onto the destination canvas
+	destCtx.drawImage(canvas, 0, 0);
+	
+        var img = destinationCanvas.toDataURL("image/png");
         window.open(img, "Graph Editor Image"
         ,"menubar=false,toolba=false,location=false,width="
         + SIZE.x + ",height=" + SIZE.y);
@@ -1441,6 +1470,7 @@ init();
 //an global object graph_editor is created containing all global functions
 return { 
     import_from_JSON: import_from_JSON,
+    import_catalog_top: import_catalog_top,
     export_tkz: export_tkz,
     export_sage: export_sage,
     get_raw_data : function (){
