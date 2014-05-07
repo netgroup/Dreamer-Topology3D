@@ -95,7 +95,7 @@ function line2(x1,y1,x2,y2,label){
     ctx.textAlign = "end"
    // ctx.fillText("text", x1,y1)
     //ctx.textAlign = "start"
-    ctx.strokeStyle = 'white'
+    ctx.strokeStyle = 'transparent'
    ctx.fillText(label, x2,y2)
     ctx.stroke();
 }
