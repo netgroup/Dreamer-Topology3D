@@ -41,17 +41,9 @@ function sort_num(a,b){
     return a-b;
 }
 
-function toggle_vllView(){
-	VLLVIEW = !VLLVIEW
+function toggle_vllView(visible){
+	VLLVIEW = visible;
 	
-	if(VLLVIEW){
-		$('#vll_button').text(' Hide VllView')
-	}
-	else{
-		$('#vll_button').text(' Show VllView')
-	}
-	$('#vll_button').prepend('<span class="fa fa-sitemap "></span>')
-
 	draw();
 }
 
@@ -246,8 +238,10 @@ Vertex.prototype = {
     },
     display: function () {
         
-        if (SHIFT)
+        if (SHIFT){
             remove_illegal_edges(this.label);
+	}
+
         var imageObj = new Image();
         var node_number;
         ctx.strokeStyle = "#000000";
@@ -505,33 +499,39 @@ function get_closest_node(v){
 
 
 function remove_illegal_edges(node_label){
-
     var counter=0;
     if(node_label.split("#")[0] == "L2SW" || node_label.split("#")[0] == "EUH"){
+
         for(var i=0 ;i<edge_list.length;i++){
+		
             if(edge_list[i].edge_info.vll){//TODO da confermare
 		break;
 	    }
+
             if (edge_list[i].node1.label == node_label ) {
                 counter += 1;
                 // alert(edge_list[i].node1.label);
-            if(edge_list[i].node2.label.split("#")[0] !="L2SW" && node_label.split("#")[0] =="EUH")
-                counter = 2;
-            if(edge_list[i].node2.label.split("#")[0] =="COSHI" && node_label.split("#")[0] =="L2SW")
-                counter = 2;
-            if(counter>1){
+            	if(edge_list[i].node2.label.split("#")[0] !="L2SW" && node_label.split("#")[0] =="EUH")
+                	counter = 2;
+            	if(edge_list[i].node2.label.split("#")[0] =="COSHI" && node_label.split("#")[0] =="L2SW")
+                	counter = 2;
+            	if(counter>1){
 			remove_edge(edge_list[i]);
-	    }
+	    	}
                 
             
-            }else if (edge_list[i].node2.label == node_label) {
+            }
+	    else if (edge_list[i].node2.label == node_label) {
                 if (node_label.split("#")[0] == "L2SW"){
-                    if ( edge_list[i].node1.label.split("#")[0] !="L2SW" && edge_list[i].node1.label.split("#")[0] !="EUH"){
+                    if ( edge_list[i].node1.label.split("#")[0] !="L2SW" && 
+				edge_list[i].node1.label.split("#")[0] !="EUH"){
                         remove_edge(edge_list[i]);
-			}
-                } else if (node_label.split("#")[0] == "EUH"){
-                    if ( edge_list[i].node2.label.split("#")[0] =="EUH" )
+		     }
+                } 
+		else if (node_label.split("#")[0] == "EUH"){
+                    if ( edge_list[i].node2.label.split("#")[0] =="EUH" ){
                         remove_edge(edge_list[i]); 
+			}
                 }
             }
         }
@@ -539,7 +539,6 @@ function remove_illegal_edges(node_label){
 }
 
 function remove_edge(edge){
-
     edge_list.splice(edge_list.indexOf(edge),1);
 }
 
@@ -1117,18 +1116,19 @@ $('#panel_head').prepend('<div id="graph_editor_button_container" class="btn-too
     $('<input type="file" id="fileElem" style=" width: 0px; height: 0px; ">').appendTo('#panel_head');
     $('<div id="graph_editor_button_group" class="btn-group"></div>').appendTo('#graph_editor_button_container');
 
-    $('<div class="btn-group"><button id="topology_button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Topology <span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li><a href="#" id="catalog_button" data-toggle="modal" data-target="#myModalTopoCatalog"><span class="fa fa-archive"></span> Open from catalog...</a></li><li><a href="#" id="imp_button"><span class="fa fa-folder-open"></span> Import from file</a></li><li><a href="#" id="imp_paste_button"  data-toggle="modal" data-target="#myModalPaste"><span class="fa fa-clipboard "></span> Paste from clipboard</a><li><a href="#" id="exp_button" data-toggle="modal" data-target="#myModalDownload"><span class="fa fa fa-floppy-o"></span> Export to file</a></li><li><a href="#" id="exp_copy_button" data-toggle="modal" data-target="#myModalCopy"><span class="fa fa-clipboard "></span> Copy to clipboard</a></li></li></ul></div">').appendTo('#graph_editor_button_group');
+    $('<div class="btn-group"><button id="topology_button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Topology <span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li><a href="#" id="catalog_button" data-toggle="modal" data-target="#myModalTopoCatalog"><span class="fa fa-archive"></span> Open from catalog...</a></li><li><a href="#" id="imp_button"><span class="fa fa-folder-open"></span> Import from file</a></li><li><a href="#" id="imp_paste_button"  data-toggle="modal" data-target="#myModalPaste"><span class="fa fa-clipboard "></span> Paste from clipboard</a></li><li role="presentation" class="divider"></li><li><a href="#" id="exp_button" data-toggle="modal" data-target="#myModalDownload"><span class="fa fa fa-floppy-o"></span> Export to file</a></li><li><a href="#" id="exp_copy_button" data-toggle="modal" data-target="#myModalCopy"><span class="fa fa-clipboard "></span> Copy to clipboard</a></li><li><a href="#" id="image_button"><span class="fa fa-picture-o"></span> Get Image</a></li></ul></div">').appendTo('#graph_editor_button_group');
 
     $('<button id="random_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalRandom"><span class="fa  fa-random"></span> Random</button>').appendTo('#graph_editor_button_group');
 
     $('<button id="live_button" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-play"></span> Live</button>').appendTo('#graph_editor_button_group');
 
-    $('<button id="vll_button" type="button" class="btn btn-default"> <span class="fa fa-sitemap"></span> Show VLLVIEW</button>').appendTo('#graph_editor_button_group');
 
+$('<div class="btn-group"><button id="vll_button_group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">View <span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li><a href="#" id="vll_button" ><span class="fa fa-sitemap"></span> View VLL Services</a></li><li><a href="#" id="viewTopo_button" ><span class="fa fa-sitemap"></span> View Topology</a></li></ul></div">').appendTo('#graph_editor_button_group');
+
+ 
 
     $('<button id="undo_button" type="button" class="btn btn-default"><span class="fa fa-undo"></span> Undo</button>').appendTo('#graph_editor_button_group');
     $('<button id="reset_button" type="button" class="btn btn-default"><span class="fa fa-eraser"></span> Reset</button>').appendTo('#graph_editor_button_group');
-    $('<button id="image_button" type="button" class="btn btn-default"><span class="fa fa-picture-o"></span> GetImage</button>').appendTo('#graph_editor_button_group');
 
     $('<button id="legend_button" type="button" class="btn btn-default"> <span class="fa fa-minus-square-o "></span>Hide Legend</button>').appendTo('#graph_editor_button_group');   
 
@@ -1140,7 +1140,9 @@ $('#panel_head').prepend('<div id="graph_editor_button_container" class="btn-too
 
     $('#live_button').click(toggle_live);
    
-    $('#vll_button').click(toggle_vllView);
+    //$('#vll_button').click(toggle_vllView(true));
+
+    //$('#viewTopo_button').click(toggle_vllView(false));
     
     $('#legend_button').click(toggle_visibility_legend);
 

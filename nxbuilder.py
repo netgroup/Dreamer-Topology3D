@@ -72,7 +72,7 @@ for i in range(n):
 for i in range(n):
 	euh = ("EUH#%s" % (i+1))
 	euhs.append(euh)
-	addEdge(aoshis[i], euh)
+	addEdge(euh, aoshis[i])
 	#print "*** Connect", aoshis[i], "To", euh
 		
 getJson()
