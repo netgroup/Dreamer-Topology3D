@@ -41,11 +41,7 @@ function sort_num(a,b){
     return a-b;
 }
 
-function toggle_vllView(visible){
-	VLLVIEW = visible;
-	
-	draw();
-}
+
 
 // first element in array such that f(i) is true;
 // If f(i) is always false returns undefined
@@ -239,7 +235,7 @@ Vertex.prototype = {
     display: function () {
         
         if (SHIFT){
-            remove_illegal_edges(this.label);
+           // remove_illegal_edges(this.label);
 	}
 
         var imageObj = new Image();
@@ -1140,9 +1136,9 @@ $('<div class="btn-group"><button id="vll_button_group" type="button" class="btn
 
     $('#live_button').click(toggle_live);
    
-    //$('#vll_button').click(toggle_vllView(true));
+    $('#viewTopo_button').click(hide_vllView);
 
-    //$('#viewTopo_button').click(toggle_vllView(false));
+    $('#vll_button').click(show_vllView);
     
     $('#legend_button').click(toggle_visibility_legend);
 
@@ -1439,6 +1435,18 @@ function draw(){
     //}
 }
 
+function show_vllView(){
+	VLLVIEW = true;
+	
+	draw();
+}
+
+function hide_vllView(visible){
+	VLLVIEW = false;
+	
+	draw();
+}
+
 function toggle_live() {
         if (LIVE) {
             LIVE = false;
@@ -1526,7 +1534,6 @@ return {
     import_catalog_top: import_catalog_top,
     export_tkz: export_tkz,
     export_sage: export_sage,
-    toggle_vllView: toggle_vllView,
     get_raw_data : function (){
         return {
             nodes: nodes,
