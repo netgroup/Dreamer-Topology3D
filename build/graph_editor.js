@@ -1132,7 +1132,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         //     return n.loopback;
         // });
         data.name = graph_name;
-        return JSON.stringify(data);
+        return JSON.stringify(data, null, "\t");
     }
     var UIside_panel_opened;
 
