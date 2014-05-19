@@ -1,14 +1,11 @@
 var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     "use strict";
-    var Vertex = dreamer.Vertex;
-    var Edge = dreamer.Edge;
-
 
     var edge_list = [],
         nodes = [],
         removed_edges = [],
         controller,
-        Controller,
+        Controller, Vertex, Edge,
         graph_name,
         removed_node,
         MIN_X = 800,
@@ -120,113 +117,415 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         //ctx.closePath();
         ctx.stroke();
     }
-
-
-
-
-    ///#
-    function draw_arrow_tips(in1, in2, label) {
-        var dv = {
-                x: in2.x - in1.x,
-                y: in2.y - in1.y
-            },
-            lenv = norm(dv),
-            v1 = vectoradd(in1, {
-                x: dv.x * (1 - NODE_RADIUS / lenv),
-                y: dv.y * (1 - NODE_RADIUS / lenv)
-            }),
-            angle = Math.PI + Math.atan2(dv.y, dv.x),
-            newangle1 = angle + Math.PI / 6,
-            newangle2 = angle - Math.PI / 6,
-            smallv1 = {
-                x: (NODE_RADIUS + 10) * Math.cos(newangle1),
-                y: (NODE_RADIUS + 10) * Math.sin(newangle1)
-            },
-            smallv2 = {
-                x: NODE_RADIUS * Math.cos(newangle2),
-                y: NODE_RADIUS * Math.sin(newangle2)
-            },
-            tip1 = vectoradd(v1, smallv1),
-            tip2 = vectoradd(v1, smallv2);
-
-        line2(v1.x, v1.y, tip1.x, tip1.y, label);
-        // line2(v1.x,v1.y,tip2.x,tip2.y);
+    //Library for doing basic vector algebra in 2D
+    function Point(x, y) {
+        return {
+            x: x || 0,
+            y: y || 0
+        };
+    }
+    // Vector algebra operations
+    function scalarm(a, v) {
+        return {
+            x: a * v.x,
+            y: a * v.y
+        };
     }
 
-    function draw_simple(edg) {
-        var pos1 = edg.node1.get_pos(),
-            pos2 = edg.node2.get_pos();
-        line(pos1.x, pos1.y, pos2.x, pos2.y);
-        // this.label
-        // if (DIRECTED) {
-        //     this.draw_arrow_tips(pos1, pos2, this.edge_info.labe_to_node1);
-        //     this.draw_arrow_tips(pos2, pos1, this.edge_info.labe_to_node2);
-        // }
-
+    function vectoradd(v1, v2) {
+        return {
+            x: v1.x + v2.x,
+            y: v1.y + v2.y
+        };
     }
 
-    ///#
-    function draw_multi(edg) {
-        var pos1 = edg.node1.get_pos(),
-            pos2 = edg.node2.get_pos(),
-            mid = scalarm(1 / 2, vectoradd(pos1, pos2)),
-            dx = vectorsub(pos1, pos2),
-            normal, control, i;
-        normal = unit({
-            x: dx.y,
-            y: -dx.x
-        });
-        for (i = -(edg.multi - 1) / 2; i <= (edg.multi - 1) / 2; i += 1) {
-            control = vectoradd(mid, scalarm(norm(dx) * i / 10, normal));
-            bezier(pos1.x, pos1.y, control.x, control.y, control.x, control.y, pos2.x, pos2.y);
-            // if (DIRECTED) {
-
-            //     this.draw_arrow_tips(control, pos2, this.edge_info.labe_to_node1);
-            //     bezier(pos2.x, pos2.y, control.x, control.y, control.x, control.y, pos1.x, pos1.y);
-            //     this.draw_arrow_tips(control, pos1, this.edge_info.labe_to_node2);
-            //     //               this.draw_arrow_tips(control,pos2);
-            // }
-        }
+    function vectorsub(v1, v2) {
+        return {
+            x: v1.x - v2.x,
+            y: v1.y - v2.y
+        };
     }
-    ///#
-    function display_edge(edg) {
-        var dv;
-        if (edg.selected) {
-            ctx.strokeStyle = "#CC0000";
-        } else if (edg.closest) {
-            ctx.strokeStyle = "#CCC000";
-        } else if (edg.node1.selected || edg.node2.selected) {
-            ctx.strokeStyle = "#0000C0";
-        } else {
-            ctx.strokeStyle = "#000000";
-        }
-        if (edg.node1 === edg.node2) {
-            draw_loop(edg.node1);
-        } else {
-            if (edg.multi < 2) {
-                draw_simple(edg);
-            } else {
-                draw_multi(edg);
+    //in-place versions
+    function vectorsubi(v1, v2) {
+        v1.x -= v2.x;
+        v1.y -= v2.y;
+        return v1;
+    }
+
+    function scalarmi(a, v) {
+        v.x *= a;
+        v.y *= a;
+        return v;
+    }
+
+    function norm(v) {
+        return Math.sqrt(Math.pow(v.x, 2) + Math.pow(v.y, 2));
+    }
+
+    function unit(v) {
+        return scalarm(1 / norm(v), v);
+    }
+
+    function d(v, w) {
+        return norm(vectoradd(v, scalarm(-1, w)));
+    }
+
+    function dot(v, w) {
+        return v.x * w.x + v.y * w.y;
+    }
+
+    //project v onto w
+    function project(v, w) {
+        return scalarm(dot(v, w) / dot(w, w), w);
+    }
+
+    //shorest vector from point v to the line given by origin and w 
+    function normal_vector_point_to_line(v, w) {
+        return vectorsub(v, project(v, w));
+    }
+
+    //tests if p is in the tube defined along the segment v1-v2 of radius rad
+    function in_tube(p, v1, v2, rad) {
+        var v = vectorsub(p, v1),
+            w = vectorsub(v2, v1);
+        return norm(normal_vector_point_to_line(v, w)) < rad && dot(w, v) > 0 && dot(scalarm(-1, w), vectorsub(p, v2)) > 0;
+    }
+
+    function neighbors_of(node) {
+        var neighbor, neighbors_list = [],
+            i;
+        for (i = 0; i < edge_list.length; i += 1) {
+            neighbor = edge_list[i].connects_to(node);
+            if (neighbor && neighbor !== node) {
+                neighbors_list.push(neighbor);
             }
         }
+        return neighbors_list;
     }
 
-    function inc_mult(edg) {
-        if (MULTIGRAPH) {
-            edg.multi += 1;
+    function next_label() {
+        var i = 0,
+            j, good = false;
+        while (!good) {
+            good = true;
+            for (j = 0; j < nodes.length; j++) {
+                if (nodes[j].label === i.toString()) {
+                    i++;
+                    good = false;
+                    break;
+                }
+            }
         }
+        return i.toString();
     }
 
-    function dec_mult(edg) {
-        if (edg.multi > 0) {
-            edg.multi -= 1;
-        }
-        if (edg.multi === 0) {
-            remove_edge(edg);
-        }
-    }
+    var Vertex_info = function (loopback, frozen) {
+        this.frozen = frozen;
+        this.loopback = loopback;
+    };
 
+    Vertex = function (pos, label, node_properties) {
+        //copy for objects would be nice
+        this.pos = pos ? Point(pos.x, pos.y) : Point();
+        this.v = Point();
 
+        if (node_properties)
+            this.vertex_info = node_properties;
+        else
+            this.vertex_info = new Vertex_info("", false);
+
+        this.label = label || next_label();
+    };
+
+    Vertex.prototype = {
+        node_loop_angle: function () {
+            var angles = [],
+                angle = 0,
+                i, diff, bestdiff = 0,
+                edge, npos, thispos = this.pos,
+                neighbors_list = neighbors_of(this);
+            angles = neighbors_list.map(function (node) {
+                var npos = node.get_pos();
+                return Math.atan2(-npos.y + thispos.y, npos.x - thispos.x);
+            });
+            angles.sort(sort_num);
+            for (i = 0; i < angles.length - 1; i += 1) {
+                diff = angles[i + 1] - angles[i];
+                if (diff > bestdiff) {
+                    angle = angles[i] + diff / 2;
+                    bestdiff = diff;
+                }
+            }
+            diff = Math.PI * 2 + angles[0] - angles[angles.length - 1];
+            if (diff > bestdiff) {
+                angle = angles[angles.length - 1] + diff / 2;
+            }
+            return angle;
+        },
+        display: function () {
+
+            if (SHIFT) {
+                // remove_illegal_edges(this.label);
+            }
+
+            var imageObj = new Image();
+            var node_number;
+            ctx.strokeStyle = "#000000";
+            ctx.lineWidth = 1;
+
+            if (this.selected) {
+                ctx.strokeStyle = 'black';
+                ctx.lineWidth = NODE_RADIUS / 5;
+
+                imageObj.src = this.fill_vert(1);
+            } else if (this.closest) {
+                imageObj.src = this.fill_vert(1);
+            } else {
+                if (NODE_NUMBERS) {
+                    imageObj.src = this.fill_vert(0);
+                } else {
+                    imageObj.src = this.fill_vert(0);
+                }
+            }
+            circle(this.pos.x, this.pos.y, NODE_RADIUS);
+            ctx.drawImage(imageObj, this.pos.x - NODE_RADIUS / 1.45, this.pos.y - NODE_RADIUS / 1.45, 1.4 * NODE_RADIUS, 1.4 * NODE_RADIUS)
+
+            if (this.vertex_info.frozen) {
+                //imageObj.src = 'img/clipart-router-6edb-fixed.png'
+                ctx.drawImage(imageObj, this.pos.x - NODE_RADIUS / 1.45, this.pos.y - NODE_RADIUS / 1.45, 1.4 * NODE_RADIUS, 1.4 * NODE_RADIUS)
+                // ctx.drawImage(imageObj, this.pos.x-NODE_RADIUS/3,this.pos.y-NODE_RADIUS,NODE_RADIUS,NODE_RADIUS)
+            }
+
+            if (NODE_NUMBERS) {
+                ctx.fillStyle = "#000000";
+                ctx.font = (NODE_RADIUS / 2) + "pt Helvetica"
+                ctx.textAlign = "center"
+                node_number = nodes.indexOf(this).toString();
+                ctx.fillText(node_number, this.pos.x, this.pos.y + (NODE_RADIUS / 4));
+            }
+        },
+        vector_from: function (v) {
+            return {
+                x: this.pos.x - v.x,
+                y: this.pos.y - v.y
+            };
+        },
+        change_vel: function (deltax, deltay) {
+            if (!this.vertex_info.frozen) {
+                this.v.x += deltax;
+                this.v.y += deltay;
+            }
+        },
+        fill_vert: function (is_closest) {
+
+            var b_color = "#FFFFFF";
+            var h_color = "#A8A8A8";
+
+            var aoshi_img = 'img/oshiPE.png';
+            var coshi_img = 'img/oshiCR.png';
+            var euh_img = 'img/oshiCE.png';
+            var l2sw_img = 'img/l2.png';
+            var empty_color = "#FFFFFF";
+            var img = 'img/punto.png';
+
+            if (this.label.split("#")[0] == "AOSHI") {
+                if (is_closest)
+                    ctx.fillStyle = h_color;
+                else
+                    ctx.fillStyle = b_color;
+                return aoshi_img;
+
+            } else if (this.label.split("#")[0] == "COSHI") {
+                if (is_closest)
+                    ctx.fillStyle = h_color;
+                else
+                    ctx.fillStyle = b_color;
+                return coshi_img;
+
+            } else if (this.label.split("#")[0] == "EUH") {
+                if (is_closest)
+                    ctx.fillStyle = h_color;
+                else
+                    ctx.fillStyle = b_color;
+                return euh_img;
+
+            } else if (this.label.split("#")[0] == "L2SW") {
+                if (is_closest)
+                    ctx.fillStyle = h_color;
+                else
+                    ctx.fillStyle = b_color;
+                return l2sw_img;
+
+            } else {
+                ctx.fillStyle = empty_color;
+                return img;
+            }
+
+        },
+        get_pos: function () {
+            return this.pos;
+        },
+        set_pos: function (new_pos) {
+            this.pos = new_pos;
+        },
+        toggle_freeze: function () {
+            this.vertex_info.frozen = !this.vertex_info.frozen;
+        },
+        get_frozen: function () {
+            return this.vertex_info.frozen;
+        },
+        draw_loop: function () {
+            var angle = this.node_loop_angle();
+            circle(this.pos.x + 1.5 * Math.cos(angle) * NODE_RADIUS, this.pos.y - 1.5 * Math.sin(angle) * NODE_RADIUS, 2 * NODE_RADIUS, true);
+        },
+        run: function () {
+            this.pos.x += Math.min(Math.max(SPEED * this.v.x, -20), 20);
+            this.pos.y += Math.min(Math.max(SPEED * this.v.y, -20), 20);
+            this.v.x *= 0.5;
+            this.v.y *= 0.5;
+        }
+    };
+
+    var Edge_info = function (edge_label, labe_to_node1, labe_to_node2, vll) {
+        this.labe_to_node1 = labe_to_node1;
+        this.labe_to_node2 = labe_to_node2;
+        this.edge_label = edge_label;
+        this.vll = vll || false;
+    };
+
+    Edge = function (node1, node2, multi, label) {
+        this.node1 = node1;
+        this.node2 = node2;
+        this.multi = multi || 1;
+        // this.label = label || '::';
+        this.vll = false;
+        if (label) {
+            this.edge_info = label;
+        } else
+            this.edge_info = new Edge_info("", "", "");
+    };
+
+    Edge.prototype = {
+        draw_arrow_tips: function (in1, in2, label) {
+            var dv = {
+                    x: in2.x - in1.x,
+                    y: in2.y - in1.y
+                },
+                lenv = norm(dv),
+                v1 = vectoradd(in1, {
+                    x: dv.x * (1 - NODE_RADIUS / lenv),
+                    y: dv.y * (1 - NODE_RADIUS / lenv)
+                }),
+                angle = Math.PI + Math.atan2(dv.y, dv.x),
+                newangle1 = angle + Math.PI / 6,
+                newangle2 = angle - Math.PI / 6,
+                smallv1 = {
+                    x: (NODE_RADIUS + 10) * Math.cos(newangle1),
+                    y: (NODE_RADIUS + 10) * Math.sin(newangle1)
+                },
+                smallv2 = {
+                    x: NODE_RADIUS * Math.cos(newangle2),
+                    y: NODE_RADIUS * Math.sin(newangle2)
+                },
+                tip1 = vectoradd(v1, smallv1),
+                tip2 = vectoradd(v1, smallv2);
+
+            line2(v1.x, v1.y, tip1.x, tip1.y, label);
+            // line2(v1.x,v1.y,tip2.x,tip2.y);
+        },
+        draw_simple: function () {
+            var pos1 = this.node1.get_pos(),
+                pos2 = this.node2.get_pos();
+            line(pos1.x, pos1.y, pos2.x, pos2.y);
+            // this.label
+            // if (DIRECTED) {
+            //     this.draw_arrow_tips(pos1, pos2, this.edge_info.labe_to_node1);
+            //     this.draw_arrow_tips(pos2, pos1, this.edge_info.labe_to_node2);
+            // }
+
+        },
+        draw_multi: function () {
+            var pos1 = this.node1.get_pos(),
+                pos2 = this.node2.get_pos(),
+                mid = scalarm(1 / 2, vectoradd(pos1, pos2)),
+                dx = vectorsub(pos1, pos2),
+                normal, control, i;
+            normal = unit({
+                x: dx.y,
+                y: -dx.x
+            });
+            for (i = -(this.multi - 1) / 2; i <= (this.multi - 1) / 2; i += 1) {
+                control = vectoradd(mid, scalarm(norm(dx) * i / 10, normal));
+                bezier(pos1.x, pos1.y, control.x, control.y, control.x, control.y, pos2.x, pos2.y);
+                // if (DIRECTED) {
+
+                //     this.draw_arrow_tips(control, pos2, this.edge_info.labe_to_node1);
+                //     bezier(pos2.x, pos2.y, control.x, control.y, control.x, control.y, pos1.x, pos1.y);
+                //     this.draw_arrow_tips(control, pos1, this.edge_info.labe_to_node2);
+                //     //               this.draw_arrow_tips(control,pos2);
+                // }
+            }
+        },
+        display: function () {
+            var dv;
+            if (this.selected) {
+                ctx.strokeStyle = "#CC0000";
+            } else if (this.closest) {
+                ctx.strokeStyle = "#CCC000";
+            } else if (this.node1.selected || this.node2.selected) {
+                ctx.strokeStyle = "#0000C0";
+            } else {
+                ctx.strokeStyle = "#000000";
+            }
+            if (this.node1 === this.node2) {
+                this.node1.draw_loop();
+            } else {
+                if (this.multi < 2) {
+                    this.draw_simple();
+                } else {
+                    this.draw_multi();
+                }
+            }
+        },
+        is_touching: function (node) {
+            return node === this.node1 || node === this.node2;
+        },
+        is_loop: function (node) {
+            return node === this.node1 && node === this.node2;
+        },
+        connects_to: function (node) {
+            var neighbor;
+            if (this.node1 === node) {
+                neighbor = this.node2;
+            }
+            if (this.node2 === node) {
+                neighbor = this.node1;
+            }
+            return neighbor;
+        },
+        get_nodes: function () {
+            return {
+                node1: this.node1,
+                node2: this.node2
+            };
+        },
+        inc_mult: function () {
+            if (MULTIGRAPH) {
+                this.multi += 1;
+            }
+        },
+        dec_mult: function () {
+            if (this.multi > 0) {
+                this.multi -= 1;
+            }
+            if (this.multi === 0) {
+                remove_edge(this);
+            }
+        },
+        set_vll: function () {
+            this.edge_info.vll = true;
+        }
+    };
 
     //returns object {d: closest_distance, node: corresponding node}
     function get_closest_node(v) {
@@ -311,7 +610,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
     function undo_remove() {
         if (removed_node) {
-            removed_node.label = next_label(nodes);
+            removed_node.label = next_label();
             nodes.push(removed_node);
             edge_list = edge_list.concat(removed_edges);
             removed_node = undefined;
@@ -445,7 +744,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         var enodes = edge.get_nodes(),
             new_v,
             newpos = scalarmi(1 / 2, vectoradd(enodes.node1.get_pos(), enodes.node2.get_pos()));
-        new_v = new Vertex(nodes,newpos);
+        new_v = new Vertex(newpos);
         nodes.push(new_v);
         toggle_edge(new_v, enodes.node1);
         toggle_edge(new_v, enodes.node2);
@@ -611,7 +910,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     this.select_object(closest);
                 } else {
                     if (SHIFT) {
-                        new_v = new Vertex(nodes,mouse);
+                        new_v = new Vertex(mouse);
                         //careful for edge case of user not moving mouse afterclick
                         //if live the vertex flies off 
                         if (!LIVE) {
@@ -652,7 +951,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     if (selected_object instanceof Vertex) {
                         remove_node(selected_object);
                     } else if (selected_object instanceof Edge) {
-                        dec_mult(selected_object);
+                        selected_object.dec_mult();
                     }
                     this.unselect_object();
                 }
@@ -667,7 +966,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     this.unselect_object();
                 }
                 if (String.fromCharCode(e.charCode) === '+' && selected_object instanceof Edge) {
-                    inc_mult(selected_object);
+                    selected_object.inc_mult();
                 }
                 if (String.fromCharCode(e.charCode) === 'o' && selected_object instanceof Vertex) {
                     toggle_loop(selected_object);
@@ -711,7 +1010,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         }
         erase_graph();
         for (i = 0; i < data.vertices.length; i += 1) {
-            new_v = new Vertex(nodes,{
+            new_v = new Vertex({
                 x: 0,
                 y: 0
             }, data.vertices[i], data.node_properties[data.vertices[i]]);
@@ -1136,104 +1435,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         }
     }
 
-
-    ///#
-    function display_vertex(vert) {
-        if (SHIFT) {
-            // remove_illegal_edges(this.label);
-        }
-
-        var imageObj = new Image();
-        var node_number;
-        ctx.strokeStyle = "#000000";
-        ctx.lineWidth = 1;
-
-        if (vert.selected) {
-            ctx.strokeStyle = 'black';
-            ctx.lineWidth = NODE_RADIUS / 5;
-
-            imageObj.src = fill_vert(1, vert);
-        } else if (vert.closest) {
-            imageObj.src = fill_vert(1, vert);
-        } else {
-            if (NODE_NUMBERS) {
-                imageObj.src = fill_vert(0, vert);
-            } else {
-                imageObj.src = fill_vert(0, vert);
-            }
-        }
-        circle(vert.pos.x, vert.pos.y, NODE_RADIUS);
-        ctx.drawImage(imageObj, vert.pos.x - NODE_RADIUS / 1.45, vert.pos.y - NODE_RADIUS / 1.45, 1.4 * NODE_RADIUS, 1.4 * NODE_RADIUS)
-
-        if (vert.vertex_info.frozen) {
-            //imageObj.src = 'img/clipart-router-6edb-fixed.png'
-            ctx.drawImage(imageObj, vert.pos.x - NODE_RADIUS / 1.45, vert.pos.y - NODE_RADIUS / 1.45, 1.4 * NODE_RADIUS, 1.4 * NODE_RADIUS)
-            // ctx.drawImage(imageObj, this.pos.x-NODE_RADIUS/3,this.pos.y-NODE_RADIUS,NODE_RADIUS,NODE_RADIUS)
-        }
-
-        if (NODE_NUMBERS) {
-            ctx.fillStyle = "#000000";
-            ctx.font = (NODE_RADIUS / 2) + "pt Helvetica"
-            ctx.textAlign = "center"
-            node_number = nodes.indexOf(vert).toString();
-            ctx.fillText(node_number, vert.pos.x, this.pos.y + (NODE_RADIUS / 4));
-        }
-    }
-
-    ///#
-    function fill_vert(is_closest, vert) {
-
-        var b_color = "#FFFFFF";
-        var h_color = "#A8A8A8";
-
-        var aoshi_img = 'img/oshiPE.png';
-        var coshi_img = 'img/oshiCR.png';
-        var euh_img = 'img/oshiCE.png';
-        var l2sw_img = 'img/l2.png';
-        var empty_color = "#FFFFFF";
-        var img = 'img/punto.png';
-
-        if (vert.label.split("#")[0] == "AOSHI") {
-            if (is_closest)
-                ctx.fillStyle = h_color;
-            else
-                ctx.fillStyle = b_color;
-            return aoshi_img;
-
-        } else if (vert.label.split("#")[0] == "COSHI") {
-            if (is_closest)
-                ctx.fillStyle = h_color;
-            else
-                ctx.fillStyle = b_color;
-            return coshi_img;
-
-        } else if (vert.label.split("#")[0] == "EUH") {
-            if (is_closest)
-                ctx.fillStyle = h_color;
-            else
-                ctx.fillStyle = b_color;
-            return euh_img;
-
-        } else if (vert.label.split("#")[0] == "L2SW") {
-            if (is_closest)
-                ctx.fillStyle = h_color;
-            else
-                ctx.fillStyle = b_color;
-            return l2sw_img;
-
-        } else {
-            ctx.fillStyle = empty_color;
-            return img;
-        }
-
-    }
-
-    ///#
-    function draw_loop(vert) {
-        var angle = vert.node_loop_angle();
-        circle(vert.pos.x + 1.5 * Math.cos(angle) * NODE_RADIUS, this.pos.y - 1.5 * Math.sin(angle) * NODE_RADIUS, 2 * NODE_RADIUS, true);
-    }
-
     function display_graph() {
         var i;
         if (LIVE & !VLLVIEW) {
@@ -1242,11 +1443,11 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         for (i = 0; i < edge_list.length; i += 1) {
             if (VLLVIEW) {
                 if (edge_list[i].edge_info.vll) {
-                    display_edge(edge_list[i]);
+                    edge_list[i].display();
                 }
             } else {
                 if (edge_list[i].edge_info.vll != true) {
-                    display_edge(edge_list[i]);
+                    edge_list[i].display();
                 }
             }
 
@@ -1254,9 +1455,9 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         for (i = 0; i < nodes.length; i += 1) {
             if (VLLVIEW) {
                 if (nodes[i].label.split("#")[0] == "EUH")
-                    display_vertex(nodes[i]) //nodes[i].display();
+                    nodes[i].display();
             } else {
-                display_vertex(nodes[i]) // nodes[i].display();
+                nodes[i].display();
             }
         }
     }
@@ -1416,7 +1617,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             edge_list = [];
             var i, j;
             for (i = 0; i < n; i++) {
-                nodes.push(new Vertex(nodes));
+                nodes.push(new Vertex());
                 for (j = 0; j < i; j++) {
                     edge_list.push(new Edge(nodes[i], nodes[j]));
                 }
@@ -1430,7 +1631,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             edge_list = [];
             var i, j;
             for (i = 0; i < n * m; i++) {
-                nodes.push(new Vertex(nodes));
+                nodes.push(new Vertex());
             }
             for (i = 0; i < m; i++) {
                 for (j = 0; j < n; j++) {
