@@ -102,10 +102,10 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
         //ctx.closePath();
-        ctx.textAlign = "end"
+        //ctx.textAlign = "end"
         // ctx.fillText("text", x1,y1)
         //ctx.textAlign = "start"
-        ctx.strokeStyle = 'transparent'
+        ctx.strokeStyle = 'black'
         ctx.fillText(label, x2, y2)
         ctx.stroke();
     }
@@ -321,9 +321,9 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             var b_color = "#FFFFFF";
             var h_color = "#A8A8A8";
 
-            var aoshi_img = 'img/access.png';
-            var coshi_img = 'img/core.png';
-            var euh_img = 'img/euh.png';
+            var aoshi_img = 'img/oshiPE.png';
+            var coshi_img = 'img/oshiCR.png';
+            var euh_img = 'img/oshiCE.png';
             var l2sw_img = 'img/l2.png';
             var empty_color = "#FFFFFF";
             var img = 'img/punto.png';
@@ -390,7 +390,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         this.labe_to_node1 = labe_to_node1;
         this.labe_to_node2 = labe_to_node2;
         this.edge_label = edge_label;
-        this.vll = vll;
+        this.vll = vll || false;
     };
 
     Edge = function (node1, node2, multi, label) {
@@ -398,6 +398,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         this.node2 = node2;
         this.multi = multi || 1;
         // this.label = label || '::';
+        this.vll = false;
         if (label) {
             this.edge_info = label;
         } else
@@ -437,11 +438,11 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 pos2 = this.node2.get_pos();
             line(pos1.x, pos1.y, pos2.x, pos2.y);
             // this.label
-            if (DIRECTED) {
-                this.draw_arrow_tips(pos1, pos2, this.edge_info.labe_to_node1);
-                this.draw_arrow_tips(pos2, pos1, this.edge_info.labe_to_node2);
+            // if (DIRECTED) {
+            //     this.draw_arrow_tips(pos1, pos2, this.edge_info.labe_to_node1);
+            //     this.draw_arrow_tips(pos2, pos1, this.edge_info.labe_to_node2);
+            // }
 
-            }
         },
         draw_multi: function () {
             var pos1 = this.node1.get_pos(),
@@ -456,12 +457,13 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             for (i = -(this.multi - 1) / 2; i <= (this.multi - 1) / 2; i += 1) {
                 control = vectoradd(mid, scalarm(norm(dx) * i / 10, normal));
                 bezier(pos1.x, pos1.y, control.x, control.y, control.x, control.y, pos2.x, pos2.y);
-                if (DIRECTED) {
-                    this.draw_arrow_tips(control, pos2, this.edge_info.labe_to_node1);
-                    bezier(pos2.x, pos2.y, control.x, control.y, control.x, control.y, pos1.x, pos1.y);
-                    this.draw_arrow_tips(control, pos1, this.edge_info.labe_to_node2);
-                    //               this.draw_arrow_tips(control,pos2);
-                }
+                // if (DIRECTED) {
+
+                //     this.draw_arrow_tips(control, pos2, this.edge_info.labe_to_node1);
+                //     bezier(pos2.x, pos2.y, control.x, control.y, control.x, control.y, pos1.x, pos1.y);
+                //     this.draw_arrow_tips(control, pos1, this.edge_info.labe_to_node2);
+                //     //               this.draw_arrow_tips(control,pos2);
+                // }
             }
         },
         display: function () {
