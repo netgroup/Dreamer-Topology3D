@@ -156,7 +156,9 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     function draw_simple(edg) {
         var pos1 = edg.node1.get_pos(),
             pos2 = edg.node2.get_pos();
-        line(pos1.x, pos1.y, pos2.x, pos2.y);
+
+        if (edg.edge_info[0].vll === VLLVIEW) 
+            line(pos1.x, pos1.y, pos2.x, pos2.y);
         // this.label
         // if (DIRECTED) {
         //     this.draw_arrow_tips(pos1, pos2, this.edge_info.labe_to_node1);
@@ -176,9 +178,17 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             x: dx.y,
             y: -dx.x
         });
-        for (i = -(edg.multi - 1) / 2; i <= (edg.multi - 1) / 2; i += 1) {
-            control = vectoradd(mid, scalarm(norm(dx) * i / 10, normal));
-            bezier(pos1.x, pos1.y, control.x, control.y, control.x, control.y, pos2.x, pos2.y);
+        var y = 0;
+        for (i = -(edg.edge_info.length - 1) / 2; i <= (edg.edge_info.length - 1) / 2; i += 1) {
+                            console.log("draw_multi" + i)
+
+            if (edg.edge_info[y].vll === VLLVIEW) {
+                control = vectoradd(mid, scalarm(norm(dx) * i / 10, normal));
+                bezier(pos1.x, pos1.y, control.x, control.y, control.x, control.y, pos2.x, pos2.y);     
+            }
+
+            ++y;
+            
             // if (DIRECTED) {
 
             //     this.draw_arrow_tips(control, pos2, this.edge_info.labe_to_node1);
@@ -190,6 +200,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
     ///#
     function display_edge(edg) {
+
         var dv;
         if (edg.selected) {
             ctx.strokeStyle = "#CC0000";
@@ -203,9 +214,10 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         if (edg.node1 === edg.node2) {
             draw_loop(edg.node1);
         } else {
-            if (edg.multi < 2) {
+            if (edg.edge_info.length < 2) {
                 draw_simple(edg);
             } else {
+                console.log("draw_multi")
                 draw_multi(edg);
             }
         }
@@ -213,15 +225,16 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
     function inc_mult(edg) {
         if (MULTIGRAPH) {
-            edg.multi += 1;
+            edg.addConnection("", VLLVIEW);
         }
     }
 
     function dec_mult(edg) {
-        if (edg.multi > 0) {
-            edg.multi -= 1;
+        if (edg.edge_info.length > 1) {
+            //TODO gestione caso multilink
+            remove_edge(edg);
         }
-        if (edg.multi === 0) {
+        else if (edg.edge_info.length === 1) {
             remove_edge(edg);
         }
     }
@@ -352,9 +365,9 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         if (existing) {
             edge_list.splice(i, 1);
         } else {
-            var newEdge = new Edge(node1, node2);
-            if (VLLVIEW)
-                newEdge.set_vll()
+            
+            var newEdge = new Edge(node1, node2,VLLVIEW);
+            
             edge_list.push(newEdge);
         }
     }
@@ -507,9 +520,10 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         }
 
         for (i = 0, l = nodes.length; i < l; ++i) {
-            nodes[i].run();
+            nodes[i].run(SPEED);
         }
     }
+
     Controller = function () {
         var hit_node, selected_object, dragging_node, dragging_frozen_flag, closest, mouse = new Point(),
             lastcheck = 0;
@@ -667,6 +681,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     this.unselect_object();
                 }
                 if (String.fromCharCode(e.charCode) === '+' && selected_object instanceof Edge) {
+                    console.log('press +')
                     inc_mult(selected_object);
                 }
                 if (String.fromCharCode(e.charCode) === 'o' && selected_object instanceof Vertex) {
@@ -750,7 +765,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         }
 
         for (i = 0; i < data.edges.length; i += 1) {
-            edge_list.push(new Edge(dict[data.edges[i][0]], dict[data.edges[i][1]], 1, data.edges[i][2]));
+            edge_list.push(new Edge(dict[data.edges[i][0]], dict[data.edges[i][1]], false, data.edges[i][2]));
         }
         graph_name = data.name;
         draw();
@@ -759,15 +774,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         }
     }
 
-    function positions_dict() {
-        var i, out, pos;
-        out = "{";
-        out += nodes.map(function (n, i) {
-            var pos = n.get_pos();
-            return i + ":[" + [pos.x, (SIZE.y - pos.y)].join(',') + "]";
-        }).join(',');
-        return out + "}";
-    }
 
     function adjacency_lists_dict() {
         var edge, empty, i, j, node, out;
@@ -787,29 +793,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         return out + "}";
     }
 
-    function export_tkz() {
-        var pos, edge, i, j, out, px2pt;
-        px2pt = 0.75;
-        out = "";
-        out += "\\begin{tikzpicture}\n\n";
-        for (i = 0; i < nodes.length; i++) {
-            out += "\\Vertex";
-            pos = nodes[i].get_pos();
-            out += "[x=" + px2pt * pos.x + "pt,y=" + px2pt * (SIZE.y - pos.y) + "pt]";
-            out += "{" + i + "};\n";
-        }
-        out += "\n";
-        for (j = 0; j < edge_list.length; j++) {
-            out += "\\Edge";
-            edge = edge_list[j].get_nodes();
-            out += "(" + nodes.indexOf(edge.node1) + ")";
-            out += "(" + nodes.indexOf(edge.node2) + ")";
-            out += "\n";
-        }
-        out += "\n";
-        out += "\\end{tikzpicture}\n";
-        return out;
-    }
 
     function export_sage() {
         var data = {},
@@ -1240,16 +1223,18 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             run_physics();
         }
         for (i = 0; i < edge_list.length; i += 1) {
-            if (VLLVIEW) {
-                if (edge_list[i].edge_info.vll) {
-                    display_edge(edge_list[i]);
-                }
-            } else {
-                if (edge_list[i].edge_info.vll != true) {
-                    display_edge(edge_list[i]);
-                }
-            }
-
+            // if (VLLVIEW) {
+            //     for(var y = 0; y < edge_list[i].edge_info.length; y += 1)
+            //         if (edge_list[i].edge_info[y].vll) {
+            //             display_edge(edge_list[i]);
+            //         }
+            // } else {
+            //     for(var y = 0; y < edge_list[i].edge_info.length; y += 1)
+            //         if (edge_list[i].edge_info.vll != true) {
+            //             display_edge(edge_list[i]);
+            //         }
+            // }
+            display_edge(edge_list[i]);
         }
         for (i = 0; i < nodes.length; i += 1) {
             if (VLLVIEW) {
@@ -1401,7 +1386,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     return {
         import_from_JSON: import_from_JSON,
         import_catalog_top: import_catalog_top,
-        export_tkz: export_tkz,
         export_sage: export_sage,
         get_raw_data: function () {
             return {

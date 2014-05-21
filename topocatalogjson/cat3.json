@@ -1,1 +1,97 @@
- {"vertices":["COSHI#01","COSHI#02","AOSHI#03","AOSHI#04"],"edges":[["COSHI#01","AOSHI#04",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}],["AOSHI#03","COSHI#02",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}],["COSHI#02","AOSHI#04",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}],["COSHI#02","COSHI#01",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}],["COSHI#01","AOSHI#03",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}]],"pos":{"COSHI#01":[209.55465587044534,40],"COSHI#02":[577.48987854251,53.91304347826087],"AOSHI#03":[80,326.60869565217394],"AOSHI#04":[720,360]},"node_properties":{"COSHI#01":{"frozen":false,"loopback":""},"COSHI#02":{"frozen":false,"loopback":""},"AOSHI#03":{"frozen":false,"loopback":""},"AOSHI#04":{"frozen":false,"loopback":""}},"name":"G"}
+{
+	"vertices": [
+		"COSHI#01",
+		"COSHI#02",
+		"AOSHI#03",
+		"AOSHI#04"
+	],
+	"edges": [
+		[
+			"COSHI#01",
+			"AOSHI#04",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		],
+		[
+			"AOSHI#03",
+			"COSHI#02",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		],
+		[
+			"COSHI#02",
+			"AOSHI#04",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		],
+		[
+			"COSHI#02",
+			"COSHI#01",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		],
+		[
+			"COSHI#01",
+			"AOSHI#03",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		]
+	],
+	"pos": {
+		"COSHI#01": [
+			387.864099913506,
+			245.58203858952274
+		],
+		"COSHI#02": [
+			408.0480879884043,
+			153.4105421654837
+		],
+		"AOSHI#03": [
+			305.95789420280414,
+			179.33748921295242
+		],
+		"AOSHI#04": [
+			489.9560380573166,
+			219.628742107733
+		]
+	},
+	"node_properties": {
+		"COSHI#01": {
+			"frozen": false,
+			"loopback": ""
+		},
+		"COSHI#02": {
+			"frozen": false,
+			"loopback": ""
+		},
+		"AOSHI#03": {
+			"frozen": false,
+			"loopback": ""
+		},
+		"AOSHI#04": {
+			"frozen": false,
+			"loopback": ""
+		}
+	},
+	"name": "G"
+}

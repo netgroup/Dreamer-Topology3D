@@ -65,7 +65,7 @@ dreamer.Vertex = (function (global) {
     Vertex.prototype.get_frozen = function () {
         return this.vertex_info.frozen;
     };
-    Vertex.prototype.run = function () {
+    Vertex.prototype.run = function (SPEED) {
         this.pos.x += Math.min(Math.max(SPEED * this.v.x, -20), 20);
         this.pos.y += Math.min(Math.max(SPEED * this.v.y, -20), 20);
         this.v.x *= 0.5;

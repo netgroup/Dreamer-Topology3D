@@ -4,19 +4,27 @@ if (typeof dreamer === 'undefined') {
 
 dreamer.Edge = (function (global) {
     'use strict';
-
     // Constructor
-    function Edge(node1, node2, multi, label) {
+    function Edge(node1, node2, vll, connetion) {
         this.node1 = node1;
         this.node2 = node2;
-        this.multi = multi || 1;
-        // this.label = label || '::';
-        this.vll = false;
-        if (label) {
-            this.edge_info = label;
-        } else
-            this.edge_info = new Edge_info("", "", "");
+        this.edge_info = [];
+        
+        if(connetion && (connetion instanceof Array)){
+            this.edge_info = connetion;
+        }
+        else if (connetion && (typeof connetion  === "object")) {
+            var val = (connetion.vll==null || connetion.vll===false) ? false: true;
+            var edlab = (connetion.edge_label ==null || connetion.vll==="") ? "": connetion.edge_label;
+            this.edge_info.push( new dreamer.Connection("", val));
+        } 
+        else{
+            var val = (vll==null || vll===false) ? false: true;
+            this.edge_info.push( new dreamer.Connection("", val));
+        }
     }
+
+
 
     Edge.prototype.is_touching = function (node) {
         return node === this.node1 || node === this.node2;
@@ -42,18 +50,10 @@ dreamer.Edge = (function (global) {
             node2: this.node2
         };
     };
-
-    Edge.prototype.set_vll = function () {
-        this.edge_info.vll = true;
+    Edge.prototype.addConnection = function (edge_label, idnode1, idnode2, vll) {
+       this.edge_info.push(new dreamer.Connection(edge_label, vll));
     };
 
-
-    var Edge_info = function (edge_label, labe_to_node1, labe_to_node2, vll) {
-        this.labe_to_node1 = labe_to_node1;
-        this.labe_to_node2 = labe_to_node2;
-        this.edge_label = edge_label;
-        this.vll = vll || false;
-    };
 
 
     return Edge;

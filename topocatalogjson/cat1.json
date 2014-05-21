@@ -1,1 +1,240 @@
- {"vertices":["COSHI#01","COSHI#02","AOSHI#03","AOSHI#04","AOSHI#05","L2SW#06","L2SW#07","L2SW#08","EUH#09","EUH#9","EUH#10"],"edges":[["L2SW#08","AOSHI#05",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}],["AOSHI#03","COSHI#01",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}],["EUH#09","L2SW#08",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}],["L2SW#07","AOSHI#04",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}],["EUH#9","L2SW#07",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}],["EUH#10","L2SW#06",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}],["L2SW#06","AOSHI#03",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}],["COSHI#01","AOSHI#04",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}],["COSHI#01","COSHI#02",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}],["COSHI#02","AOSHI#03",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}],["AOSHI#04","COSHI#02",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}],["AOSHI#05","COSHI#01",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}],["AOSHI#05","COSHI#02",{"labe_to_node1":"","labe_to_node2":"","edge_label":""}]],"pos":{"COSHI#01":[386.583143385936,43.375703689638186],"COSHI#02":[477.5976265889085,101.63926697317639],"AOSHI#03":[532.8971110730678,40],"AOSHI#04":[237.12908804828191,60.72310834543853],"AOSHI#05":[430.24088084922204,192.71244084944877],"L2SW#06":[689.3176817526344,71.93255925585092],"L2SW#07":[99.4399149174622,116.57738313369514],"L2SW#08":[465.869352493684,305.4309764021054],"EUH#09":[363.78023529961587,360],"EUH#9":[80,206.84566341067097],"EUH#10":[720,162.2031028363953]},"node_properties":{"COSHI#01":{"frozen":false,"loopback":""},"COSHI#02":{"frozen":false,"loopback":""},"AOSHI#03":{"frozen":false,"loopback":""},"AOSHI#04":{"frozen":false,"loopback":""},"AOSHI#05":{"frozen":false,"loopback":""},"L2SW#06":{"frozen":false,"loopback":""},"L2SW#07":{"frozen":false,"loopback":""},"L2SW#08":{"frozen":false,"loopback":""},"EUH#09":{"frozen":false,"loopback":""},"EUH#9":{"frozen":false,"loopback":""},"EUH#10":{"frozen":false,"loopback":""}},"name":"G"}
+{
+	"vertices": [
+		"COSHI#01",
+		"COSHI#02",
+		"AOSHI#03",
+		"AOSHI#04",
+		"AOSHI#05",
+		"L2SW#06",
+		"L2SW#07",
+		"L2SW#08",
+		"EUH#09",
+		"EUH#9",
+		"EUH#10"
+	],
+	"edges": [
+		[
+			"L2SW#08",
+			"AOSHI#05",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		],
+		[
+			"AOSHI#03",
+			"COSHI#01",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		],
+		[
+			"EUH#09",
+			"L2SW#08",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		],
+		[
+			"L2SW#07",
+			"AOSHI#04",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		],
+		[
+			"EUH#9",
+			"L2SW#07",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		],
+		[
+			"EUH#10",
+			"L2SW#06",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		],
+		[
+			"L2SW#06",
+			"AOSHI#03",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		],
+		[
+			"COSHI#01",
+			"AOSHI#04",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		],
+		[
+			"COSHI#01",
+			"COSHI#02",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		],
+		[
+			"COSHI#02",
+			"AOSHI#03",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		],
+		[
+			"AOSHI#04",
+			"COSHI#02",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		],
+		[
+			"AOSHI#05",
+			"COSHI#01",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		],
+		[
+			"AOSHI#05",
+			"COSHI#02",
+			[
+				{
+					"edge_label": "",
+					"vll": false
+				}
+			]
+		]
+	],
+	"pos": {
+		"COSHI#01": [
+			396.51963103017357,
+			71.10357606750831
+		],
+		"COSHI#02": [
+			380.883188133506,
+			143.35587501892672
+		],
+		"AOSHI#03": [
+			496.43903802276066,
+			77.00774581244595
+		],
+		"AOSHI#04": [
+			279.74835812704475,
+			89.55240642626265
+		],
+		"AOSHI#05": [
+			438.4323832317988,
+			218.3027710398388
+		],
+		"L2SW#06": [
+			618.3196775133432,
+			92.58217176774708
+		],
+		"L2SW#07": [
+			156.66376904659094,
+			117.19443124428284
+		],
+		"L2SW#08": [
+			450.1143374969922,
+			330.71082977395054
+		],
+		"EUH#09": [
+			356.5241156117902,
+			349.5856905685974
+		],
+		"EUH#9": [
+			95.92629907273889,
+			204.35123419224902
+		],
+		"EUH#10": [
+			702.8384552984102,
+			157.97678212269886
+		]
+	},
+	"node_properties": {
+		"COSHI#01": {
+			"frozen": false,
+			"loopback": ""
+		},
+		"COSHI#02": {
+			"frozen": false,
+			"loopback": ""
+		},
+		"AOSHI#03": {
+			"frozen": false,
+			"loopback": ""
+		},
+		"AOSHI#04": {
+			"frozen": false,
+			"loopback": ""
+		},
+		"AOSHI#05": {
+			"frozen": false,
+			"loopback": ""
+		},
+		"L2SW#06": {
+			"frozen": false,
+			"loopback": ""
+		},
+		"L2SW#07": {
+			"frozen": false,
+			"loopback": ""
+		},
+		"L2SW#08": {
+			"frozen": false,
+			"loopback": ""
+		},
+		"EUH#09": {
+			"frozen": false,
+			"loopback": ""
+		},
+		"EUH#9": {
+			"frozen": false,
+			"loopback": ""
+		},
+		"EUH#10": {
+			"frozen": false,
+			"loopback": ""
+		}
+	},
+	"name": "G"
+}
