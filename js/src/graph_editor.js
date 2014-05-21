@@ -2,12 +2,15 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     "use strict";
     var Vertex = dreamer.Vertex;
     var Edge = dreamer.Edge;
-
+    var GraphParameters = dreamer.GraphParameters;
+    var View = dreamer.View;
 
     var edge_list = [],
         nodes = [],
+        graph_parameters,
         removed_edges = [],
         controller,
+        view,
         Controller,
         graph_name,
         removed_node,
@@ -48,8 +51,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     function sort_num(a, b) {
         return a - b;
     }
-
-
 
     // first element in array such that f(i) is true;
     // If f(i) is always false returns undefined
@@ -180,7 +181,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         });
         var y = 0;
         for (i = -(edg.edge_info.length - 1) / 2; i <= (edg.edge_info.length - 1) / 2; i += 1) {
-                            console.log("draw_multi" + i)
 
             if (edg.edge_info[y].vll === VLLVIEW) {
                 control = vectoradd(mid, scalarm(norm(dx) * i / 10, normal));
@@ -188,14 +188,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             }
 
             ++y;
-            
-            // if (DIRECTED) {
-
-            //     this.draw_arrow_tips(control, pos2, this.edge_info.labe_to_node1);
-            //     bezier(pos2.x, pos2.y, control.x, control.y, control.x, control.y, pos1.x, pos1.y);
-            //     this.draw_arrow_tips(control, pos1, this.edge_info.labe_to_node2);
-            //     //               this.draw_arrow_tips(control,pos2);
-            // }
         }
     }
     ///#
@@ -365,7 +357,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         if (existing) {
             edge_list.splice(i, 1);
         } else {
-            
+
             var newEdge = new Edge(node1, node2,VLLVIEW);
             
             edge_list.push(newEdge);
@@ -681,7 +673,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     this.unselect_object();
                 }
                 if (String.fromCharCode(e.charCode) === '+' && selected_object instanceof Edge) {
-                    console.log('press +')
                     inc_mult(selected_object);
                 }
                 if (String.fromCharCode(e.charCode) === 'o' && selected_object instanceof Vertex) {
@@ -710,12 +701,12 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
     //JSONdata has the format
-    //This format is compatible with sage
     //{"vertices" : [v0.label, v1.label, .... , vn.label],
-    //"edges" : [ [e0v0.label, e0v1label, edgelabel], ... ],
+    //"edges" : [ [ "COSHI#01", "COSHI#03", [ { "edge_label" : "","vll" : false} ] ],...],
     //"pos"" : [ [v0x, v0y], [v1x, v1y], ... ],
-    //"name" : "a_graph"
-    //} 
+    //"name" : "a_graph",
+    //"advanced" : { "tunneling" : "VXLAN" }
+
     function import_from_JSON(JSONdata, live, catalog) {
         var i, dict = {},
             new_v, pos, vertex;
@@ -768,29 +759,11 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             edge_list.push(new Edge(dict[data.edges[i][0]], dict[data.edges[i][1]], false, data.edges[i][2]));
         }
         graph_name = data.name;
+        graph_parameters = (data.advanced === undefined) ? new GraphParameters() : data.advanced;
         draw();
         if (live) {
             toggle_live();
         }
-    }
-
-
-    function adjacency_lists_dict() {
-        var edge, empty, i, j, node, out;
-        out = "{";
-        out += nodes.map(function (node, i) {
-            return i + ":[" + edge_list.map(function (e) {
-                var enodes = e.get_nodes();
-                if (enodes.node1 === node) {
-                    return nodes.indexOf(enodes.node2);
-                }
-                if (enodes.node2 === node) {
-                    return nodes.indexOf(enodes.node1);
-                }
-            }).filter(nonundef).join(',') + ']';
-            // add filter i>j to only get neighbors with smaller index. which was the old functionality.
-        });
-        return out + "}";
     }
 
 
@@ -814,13 +787,20 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             node_properties = nodes[i].vertex_info;
             data.node_properties[nodes[i].label] = nodes[i].vertex_info;
         }
-        // data.node_properties = nodes.map(function (n){
-        //     return n.loopback;
-        // });
+
+        data.advanced = graph_parameters;
+
         data.name = graph_name;
         return JSON.stringify(data, null, "\t");
     }
-    var UIside_panel_opened;
+    
+
+
+    function setupListener(){
+        view.tunmecmodified.attach(function (sender, args) {
+                graph_parameters.tunneling = args.tunmec;
+        });
+    }
 
     function add_checkbox(name, variable, container_id, onclickf) {
         var s = '<li><div class="checkbox"><label>' + name + "  ";
@@ -864,9 +844,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         var tweaks, canvaspos = $(div + ' canvas').offset(),
             buttondiv = div + ' #graph_editor_button_container',
             canvas = $(div + ' canvas')[0];
-
-        //$('#canvas_cont').prepend('<div id="graph_editor_button_container" class="btn-toolbar" role="toolbar"> </div>');
-        // $('#canvas_cont').prepend('<input type="file" id="fileElem" style=" width: 0px; height: 0px; ">');
 
         $('#panel_head').prepend('<div id="graph_editor_button_container" class="btn-toolbar" role="toolbar"> </div>')
         //  $('<div id="graph_editor_button_container" class="btn-toolbar" role="toolbar"> </div>').appendTo('#panel_head');
@@ -992,11 +969,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         });
 
 
-        $('<br><div id="sidebar_layout_button_group" class="btn-group"></div>').appendTo('#tweaks_sidebar');
-        $('#sidebar_layout_button_group').append('<button id="circular" type="button" class="btn btn-default">Circular layout</button>');
-
-
-
         $('#circular').click(function () {
             if (confirm("All vertices will be irrevesably moved. This operation cannot be undone.")) {
                 circular_layout();
@@ -1063,7 +1035,10 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
         });
 
+
+        
     }
+
 
     function update_infobox(obj) {
         var info_sidebar = '#info_sidebar'
@@ -1223,28 +1198,20 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             run_physics();
         }
         for (i = 0; i < edge_list.length; i += 1) {
-            // if (VLLVIEW) {
-            //     for(var y = 0; y < edge_list[i].edge_info.length; y += 1)
-            //         if (edge_list[i].edge_info[y].vll) {
-            //             display_edge(edge_list[i]);
-            //         }
-            // } else {
-            //     for(var y = 0; y < edge_list[i].edge_info.length; y += 1)
-            //         if (edge_list[i].edge_info.vll != true) {
-            //             display_edge(edge_list[i]);
-            //         }
-            // }
+  
             display_edge(edge_list[i]);
         }
         for (i = 0; i < nodes.length; i += 1) {
             if (VLLVIEW) {
                 if (nodes[i].label.split("#")[0] == "EUH")
-                    display_vertex(nodes[i]) //nodes[i].display();
+                    display_vertex(nodes[i]); 
             } else {
-                display_vertex(nodes[i]) // nodes[i].display();
+                display_vertex(nodes[i]); 
             }
         }
     }
+
+
 
     function start_loop(speed) {
         loop_interval = setInterval(draw, speed || 1000 / FPS);
@@ -1329,8 +1296,13 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         }
     }
 
+
+
+
     function init() {
         //construction of GraphEditor
+        
+
         controller = Controller();
         $(div).addClass('graph_editor_container');
         $(div).append('<canvas class="graph_editor_canvas" width = "' + SIZE.x + '" height = "' + SIZE.y + '" style="border: 2px black solid">Your browser does not support canvas.</canvas>');
@@ -1376,7 +1348,11 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         if (options.controls !== false) {
             create_controls(div);
         }
-        //$(div).dblclick(function (){return false;});
+
+        view = new View();
+
+        setupListener();
+        
     }
 
     init();

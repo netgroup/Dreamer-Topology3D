@@ -15,7 +15,7 @@ dreamer.Edge = (function (global) {
         }
         else if (connetion && (typeof connetion  === "object")) {
             var val = (connetion.vll==null || connetion.vll===false) ? false: true;
-            var edlab = (connetion.edge_label ==null || connetion.vll==="") ? "": connetion.edge_label;
+            var edlab = (connetion.edge_label == null || connetion.vll === "") ? "": connetion.edge_label;
             this.edge_info.push( new dreamer.Connection("", val));
         } 
         else{

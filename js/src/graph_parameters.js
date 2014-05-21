@@ -5,12 +5,15 @@ if (typeof dreamer === 'undefined') {
 dreamer.GraphParameters = (function (global) {
     'use strict';
 
-    function GraphParameters () {
-        this.tunneling = "";      
+    function GraphParameters (data) {
+        this.tunneling = "";
+
+              
     }
 
-    GraphParameters.prototype.tunneling = function (tuntype) {
+    GraphParameters.prototype.setTunneling = function (tuntype) {
         this.tunneling = tuntype;
+        
     };
 
     return GraphParameters;
