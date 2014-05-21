@@ -50,7 +50,7 @@ dreamer.Edge = (function (global) {
             node2: this.node2
         };
     };
-    Edge.prototype.addConnection = function (edge_label, idnode1, idnode2, vll) {
+    Edge.prototype.addConnection = function (edge_label, vll) {
        this.edge_info.push(new dreamer.Connection(edge_label, vll));
     };
 
