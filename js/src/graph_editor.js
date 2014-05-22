@@ -209,7 +209,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             if (edg.edge_info.length < 2) {
                 draw_simple(edg);
             } else {
-                console.log("draw_multi")
+                console.log("draw_multi" + edg.node1.label + "-" + edg.node2.label)
                 draw_multi(edg);
             }
         }
@@ -222,6 +222,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
     function dec_mult(edg) {
+        console.log("dec_mult");
         if (edg.edge_info.length > 1) {
             //TODO gestione caso multilink
             remove_edge(edg);
@@ -1134,7 +1135,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             ctx.font = (NODE_RADIUS / 2) + "pt Helvetica"
             ctx.textAlign = "center"
             node_number = nodes.indexOf(vert).toString();
-            ctx.fillText(node_number, vert.pos.x, this.pos.y + (NODE_RADIUS / 4));
+            ctx.fillText(node_number, vert.pos.x, vert.pos.y + (NODE_RADIUS / 4));
         }
     }
 
