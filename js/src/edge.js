@@ -50,9 +50,15 @@ dreamer.Edge = (function (global) {
             node2: this.node2
         };
     };
+    
     Edge.prototype.addConnection = function (edge_label, vll) {
        this.edge_info.push(new dreamer.Connection(edge_label, vll));
     };
+
+    Edge.prototype.setConnecionList = function(conlist){
+        if(conlist != undefined)
+            this.edge_info = conlist.slice(0);
+    }
 
 
 

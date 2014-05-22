@@ -16,7 +16,7 @@ dreamer.View = (function (global) {
 
         //
         $('#tun_option').click(function () {
-            $('#tun_type').html($('#tun_option').val());
+           // $('#tun_type').html($('#tun_option').val());
             self.tunmecmodified.notify({'tunmec': $('#tun_option').val()});
         });
 

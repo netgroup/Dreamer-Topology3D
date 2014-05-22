@@ -16,12 +16,12 @@ dreamer.Vertex = (function (global) {
         this.label = label || next_label(nodes);
     }
 
-    Vertex.prototype.node_loop_angle = function () {
+    Vertex.prototype.node_loop_angle = function (edge_list) {
         var angles = [],
             angle = 0,
             i, diff, bestdiff = 0,
             edge, npos, thispos = this.pos,
-            neighbors_list = neighbors_of(this);
+            neighbors_list = neighbors_of(this,edge_list);
         angles = neighbors_list.map(function (node) {
             var npos = node.get_pos();
             return Math.atan2(-npos.y + thispos.y, npos.x - thispos.x);

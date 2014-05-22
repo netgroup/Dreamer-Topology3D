@@ -6,7 +6,14 @@ dreamer.GraphParameters = (function (global) {
     'use strict';
 
     function GraphParameters (data) {
-        this.tunneling = "";
+
+        if(data != undefined){
+            if(data.tunneling != undefined)
+                this.tunneling = data.tunneling;
+            else
+                this.tunneling = "";
+        }
+        
 
               
     }

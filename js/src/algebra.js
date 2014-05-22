@@ -72,7 +72,7 @@
         return norm(normal_vector_point_to_line(v, w)) < rad && dot(w, v) > 0 && dot(scalarm(-1, w), vectorsub(p, v2)) > 0;
     }
 
-    function neighbors_of(node) {
+    function neighbors_of(node,edge_list) {
         var neighbor, neighbors_list = [],
             i;
         for (i = 0; i < edge_list.length; i += 1) {
@@ -98,4 +98,8 @@
             }
         }
         return i.toString();
+    }
+
+      function sort_num(a, b) {
+        return a - b;
     }

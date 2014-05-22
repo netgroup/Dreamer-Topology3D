@@ -48,9 +48,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         return a + Math.floor(Math.random() * (b - a));
     }
 
-    function sort_num(a, b) {
-        return a - b;
-    }
+  
 
     // first element in array such that f(i) is true;
     // If f(i) is always false returns undefined
@@ -247,43 +245,43 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
 
-    function remove_illegal_edges(node_label) {
-        var counter = 0;
-        if (node_label.split("#")[0] == "L2SW" || node_label.split("#")[0] == "EUH") {
+    // function remove_illegal_edges(node_label) {
+    //     var counter = 0;
+    //     if (node_label.split("#")[0] == "L2SW" || node_label.split("#")[0] == "EUH") {
 
-            for (var i = 0; i < edge_list.length; i++) {
+    //         for (var i = 0; i < edge_list.length; i++) {
 
-                if (edge_list[i].edge_info.vll) { //TODO da confermare
-                    break;
-                }
+    //             if (edge_list[i].edge_info.vll) { //TODO da confermare
+    //                 break;
+    //             }
 
-                if (edge_list[i].node1.label == node_label) {
-                    counter += 1;
-                    // alert(edge_list[i].node1.label);
-                    if (edge_list[i].node2.label.split("#")[0] != "L2SW" && node_label.split("#")[0] == "EUH")
-                        counter = 2;
-                    if (edge_list[i].node2.label.split("#")[0] == "COSHI" && node_label.split("#")[0] == "L2SW")
-                        counter = 2;
-                    if (counter > 1) {
-                        remove_edge(edge_list[i]);
-                    }
+    //             if (edge_list[i].node1.label == node_label) {
+    //                 counter += 1;
+    //                 // alert(edge_list[i].node1.label);
+    //                 if (edge_list[i].node2.label.split("#")[0] != "L2SW" && node_label.split("#")[0] == "EUH")
+    //                     counter = 2;
+    //                 if (edge_list[i].node2.label.split("#")[0] == "COSHI" && node_label.split("#")[0] == "L2SW")
+    //                     counter = 2;
+    //                 if (counter > 1) {
+    //                     remove_edge(edge_list[i]);
+    //                 }
 
 
-                } else if (edge_list[i].node2.label == node_label) {
-                    if (node_label.split("#")[0] == "L2SW") {
-                        if (edge_list[i].node1.label.split("#")[0] != "L2SW" &&
-                            edge_list[i].node1.label.split("#")[0] != "EUH") {
-                            remove_edge(edge_list[i]);
-                        }
-                    } else if (node_label.split("#")[0] == "EUH") {
-                        if (edge_list[i].node2.label.split("#")[0] == "EUH") {
-                            remove_edge(edge_list[i]);
-                        }
-                    }
-                }
-            }
-        }
-    }
+    //             } else if (edge_list[i].node2.label == node_label) {
+    //                 if (node_label.split("#")[0] == "L2SW") {
+    //                     if (edge_list[i].node1.label.split("#")[0] != "L2SW" &&
+    //                         edge_list[i].node1.label.split("#")[0] != "EUH") {
+    //                         remove_edge(edge_list[i]);
+    //                     }
+    //                 } else if (node_label.split("#")[0] == "EUH") {
+    //                     if (edge_list[i].node2.label.split("#")[0] == "EUH") {
+    //                         remove_edge(edge_list[i]);
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 
     function remove_edge(edge) {
         edge_list.splice(edge_list.indexOf(edge), 1);
@@ -327,42 +325,64 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         }
     }
 
-    function toggle_loop(node) {
-        var edge,
-            existing = first(edge_list, function (edge) {
-                return edge.is_loop(node);
-            });
-        if (existing) {
-            edge_list.splice(edge_list.indexOf(existing), 1);
-        } else {
-
-            edge_list.push(new Edge(node, node));
-        }
-    }
-
-    function toggle_edge(node1, node2) {
+    //#
+    function newEdgebetween(node1, node2){
         var edge, existing = false,
             i;
-
         if (node1 === node2) {
-            //maybe you want toggle_loop
+            //loop!!
             return;
         }
+
         for (i = edge_list.length - 1; i > -1; i -= 1) {
+
             edge = edge_list[i];
             if (edge.is_touching(node1) && edge.is_touching(node2)) {
                 existing = true;
                 break;
             }
         }
-        if (existing) {
-            edge_list.splice(i, 1);
-        } else {
 
+        if(existing){
+            //edge already existing!!
+            return;
+        }
+        else{
             var newEdge = new Edge(node1, node2,VLLVIEW);
-            
             edge_list.push(newEdge);
         }
+    }
+
+    function split(edge){
+
+
+        var enodes = edge.get_nodes(),
+            new_v,
+            newpos = scalarmi(1 / 2, vectoradd(enodes.node1.get_pos(), enodes.node2.get_pos()));
+        
+
+        new_v = new Vertex(nodes,newpos);
+        
+
+       var newedge1 = new Edge(new_v, enodes.node1);
+
+       var newedge2 = new Edge(new_v, enodes.node2);
+
+       newedge1.setConnecionList(edge.edge_info);
+       newedge2.setConnecionList(edge.edge_info);
+
+
+        // add new Vertex
+        nodes.push(new_v);
+
+        //remove edge
+        remove_edge(edge);
+        
+        //add new Edges
+        edge_list.push(newedge1);
+        edge_list.push(newedge2);
+
+        return new_v;
     }
 
     function centerize(maximize) {
@@ -447,21 +467,23 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         draw();
     }
 
-    function split(edge) {
-        var enodes = edge.get_nodes(),
-            new_v,
-            newpos = scalarmi(1 / 2, vectoradd(enodes.node1.get_pos(), enodes.node2.get_pos()));
-        new_v = new Vertex(nodes,newpos);
-        nodes.push(new_v);
-        toggle_edge(new_v, enodes.node1);
-        toggle_edge(new_v, enodes.node2);
-        remove_edge(edge);
-        return new_v;
-    }
+    // function setupListener(edge) {
+    //     console.log('split')
+    //     var enodes = edge.get_nodes(),
+    //         new_v,
+    //         newpos = scalarmi(1 / 2, vectoradd(enodes.node1.get_pos(), enodes.node2.get_pos()));
+    //     new_v = new Vertex(nodes,newpos);
+    //     nodes.push(new_v);
+    //     toggle_edge(new_v, enodes.node1);
+    //     toggle_edge(new_v, enodes.node2);
+    //     remove_edge(edge);
+    //     return new_v;
+    // }
 
     function erase_graph() {
         nodes = [];
         edge_list = [];
+        graph_parameters = new GraphParameters;
         draw();
     }
     //most time crucial function according to profiler, hand-optimized
@@ -609,10 +631,16 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 } else if (hit_node && (selected_object === undefined)) {
                     this.select_object(hit_node);
                 } else if (hit_node && selected_object instanceof Vertex && (selected_object !== hit_node)) {
-                    toggle_edge(selected_object, hit_node);
+                   console.log('mouseup1')
+                    //toggle_edge(selected_object, hit_node);
                     if (!SHIFT) {
-                        toggle_edge(selected_object, hit_node); //whr
+                                           console.log('mouseup2')
+
+                      //  toggle_edge(selected_object, hit_node); //whr
                         this.unselect_object();
+                    }
+                    else{
+                        newEdgebetween(selected_object, hit_node);
                     }
                 } else if (closest) {
                     this.select_object(closest);
@@ -675,9 +703,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 }
                 if (String.fromCharCode(e.charCode) === '+' && selected_object instanceof Edge) {
                     inc_mult(selected_object);
-                }
-                if (String.fromCharCode(e.charCode) === 'o' && selected_object instanceof Vertex) {
-                    toggle_loop(selected_object);
                 }
                 if (String.fromCharCode(e.charCode) === 's' && selected_object instanceof Edge) {
                     this.select_object(split(selected_object));
@@ -760,7 +785,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             edge_list.push(new Edge(dict[data.edges[i][0]], dict[data.edges[i][1]], false, data.edges[i][2]));
         }
         graph_name = data.name;
-        graph_parameters = (data.advanced === undefined) ? new GraphParameters() : data.advanced;
+        graph_parameters = (data.advanced === undefined) ? new GraphParameters() : new GraphParameters(data.advanced);
         draw();
         if (live) {
             toggle_live();
@@ -1027,16 +1052,8 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             update_infobox(nodes[index]);
         });
 
-        $(info_sidebar + ' .infobox #edge_inf_button').click(function () {
-            var index = $(info_sidebar + ' .infobox #index').html(),
-                title = $(info_sidebar + ' .infobox #title').html();
-            edge_list[index].edge_info.labe_to_node1 = $(info_sidebar + ' .infobox #v1_label').val();
-            edge_list[index].edge_info.labe_to_node2 = $(info_sidebar + ' .infobox #v2_label').val();
-            draw();
 
-        });
-
-
+        $('#tun_option').val(graph_parameters.tunneling);
         
     }
 
@@ -1083,8 +1100,8 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             //$(info_sidebar + ' .infobox #v2').html(nodes.indexOf(enodes.node2));
             $(info_sidebar + ' .infobox #v1').html(enodes.node1.label.replace("#", ""));
             $(info_sidebar + ' .infobox #v2').html(enodes.node2.label.replace("#", ""));
-            $(info_sidebar + ' .infobox #v1_label').val(edge.edge_info.labe_to_node1 || "")
-            $(info_sidebar + ' .infobox #v2_label').val(edge.edge_info.labe_to_node2 || "")
+            // $(info_sidebar + ' .infobox #v1_label').val(edge.edge_info.labe_to_node1 || "")
+            // $(info_sidebar + ' .infobox #v2_label').val(edge.edge_info.labe_to_node2 || "")
             $(info_sidebar + ' .infobox #label').val(edge.label || "none");
             $(info_sidebar + ' .infobox #none_selected').hide();
             $(info_sidebar + ' .infobox #info').show();
@@ -1189,8 +1206,8 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
     ///#
     function draw_loop(vert) {
-        var angle = vert.node_loop_angle();
-        circle(vert.pos.x + 1.5 * Math.cos(angle) * NODE_RADIUS, this.pos.y - 1.5 * Math.sin(angle) * NODE_RADIUS, 2 * NODE_RADIUS, true);
+        var angle = vert.node_loop_angle(edge_list);
+        circle(vert.pos.x + 1.5 * Math.cos(angle) * NODE_RADIUS, vert.pos.y - 1.5 * Math.sin(angle) * NODE_RADIUS, 2 * NODE_RADIUS, true);
     }
 
     function display_graph() {
@@ -1236,6 +1253,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         //    lastcheck = curtime;
         //    console.log('recomp');
         //}
+        //console.log(edge_list.length);
     }
 
     function show_vllView() {
@@ -1363,47 +1381,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     return {
         import_from_JSON: import_from_JSON,
         import_catalog_top: import_catalog_top,
-        export_sage: export_sage,
-        get_raw_data: function () {
-            return {
-                nodes: nodes,
-                edge_list: edge_list,
-                SIZE: SIZE
-            };
-        },
-        //destructive
-        complete_graph: function (n) {
-            nodes = [];
-            edge_list = [];
-            var i, j;
-            for (i = 0; i < n; i++) {
-                nodes.push(new Vertex(nodes));
-                for (j = 0; j < i; j++) {
-                    edge_list.push(new Edge(nodes[i], nodes[j]));
-                }
-            }
-            circular_layout();
-        },
-        //destructive
-        grid_graph: function (m, n) {
-            n = n || m;
-            nodes = [];
-            edge_list = [];
-            var i, j;
-            for (i = 0; i < n * m; i++) {
-                nodes.push(new Vertex(nodes));
-            }
-            for (i = 0; i < m; i++) {
-                for (j = 0; j < n; j++) {
-                    if (j != n - 1) {
-                        edge_list.push(new Edge(nodes[i * n + j], nodes[i * n + j + 1]));
-                    }
-                    if (i != m - 1) {
-                        edge_list.push(new Edge(nodes[i * n + j], nodes[i * n + j + n]));
-                    }
-                }
-            }
-            circular_layout();
-        }
+        export_sage: export_sage
     };
 };
