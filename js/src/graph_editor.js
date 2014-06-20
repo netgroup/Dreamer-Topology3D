@@ -4,6 +4,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     var Edge = dreamer.Edge;
     var GraphParameters = dreamer.GraphParameters;
     var View = dreamer.View;
+    var Plane = dreamer.Plane;
 
     var edge_list = [],
         nodes = [],
@@ -11,6 +12,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         removed_edges = [],
         controller,
         view,
+        plane,
         Controller,
         graph_name,
         removed_node,
@@ -37,7 +39,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         SHOWFPS = false,
         SHIFT = false,
         LOOP = false,
-        VLLVIEW = false,
+        //VLLVIEW = false,
         FPS = options.fps || 60,
         canvastag,
         ctx,
@@ -86,6 +88,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         if (!nofillFlag) {
             ctx.fill();
         }
+         ctx.closePath();
         ctx.stroke();
     }
 
@@ -94,7 +97,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
-        //ctx.closePath();
+        ctx.closePath();
         ctx.stroke();
     }
 
@@ -103,12 +106,13 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(x2, y2);
-        //ctx.closePath();
+        ctx.closePath();
         //ctx.textAlign = "end"
         // ctx.fillText("text", x1,y1)
         //ctx.textAlign = "start"
         ctx.strokeStyle = 'black'
         ctx.fillText(label, x2, y2)
+         ctx.closePath();
         ctx.stroke();
     }
 
@@ -116,7 +120,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.bezierCurveTo(cx1, cy1, cx2, cy2, x2, y2);
-        //ctx.closePath();
+        ctx.closePath();
         ctx.stroke();
     }
 
@@ -149,20 +153,16 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             tip2 = vectoradd(v1, smallv2);
 
         line2(v1.x, v1.y, tip1.x, tip1.y, label);
-        // line2(v1.x,v1.y,tip2.x,tip2.y);
+
     }
 
     function draw_simple(edg) {
         var pos1 = edg.node1.get_pos(),
             pos2 = edg.node2.get_pos();
 
-        if (edg.edge_info[0].vll === VLLVIEW) 
+        if (edg.connections[0].vll == plane.isVllPlane()) 
             line(pos1.x, pos1.y, pos2.x, pos2.y);
-        // this.label
-        // if (DIRECTED) {
-        //     this.draw_arrow_tips(pos1, pos2, this.edge_info.labe_to_node1);
-        //     this.draw_arrow_tips(pos2, pos1, this.edge_info.labe_to_node2);
-        // }
+
 
     }
 
@@ -178,9 +178,9 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             y: -dx.x
         });
         var y = 0;
-        for (i = -(edg.edge_info.length - 1) / 2; i <= (edg.edge_info.length - 1) / 2; i += 1) {
+        for (i = -(edg.connections.length - 1) / 2; i <= (edg.connections.length - 1) / 2; i += 1) {
 
-            if (edg.edge_info[y].vll === VLLVIEW) {
+            if (edg.connections[y].vll == plane.isVllPlane()) {
                 control = vectoradd(mid, scalarm(norm(dx) * i / 10, normal));
                 bezier(pos1.x, pos1.y, control.x, control.y, control.x, control.y, pos2.x, pos2.y);     
             }
@@ -204,7 +204,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         if (edg.node1 === edg.node2) {
             draw_loop(edg.node1);
         } else {
-            if (edg.edge_info.length < 2) {
+            if (edg.connections.length < 2) {
                 draw_simple(edg);
             } else {
                 console.log("draw_multi" + edg.node1.label + "-" + edg.node2.label)
@@ -215,17 +215,17 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
     function inc_mult(edg) {
         if (MULTIGRAPH) {
-            edg.addConnection("", VLLVIEW);
+            edg.addConnection("", plane.isVllPlane());
         }
     }
 
     function dec_mult(edg) {
         console.log("dec_mult");
-        if (edg.edge_info.length > 1) {
+        if (edg.connections.length > 1) {
             //TODO gestione caso multilink
             remove_edge(edg);
         }
-        else if (edg.edge_info.length === 1) {
+        else if (edg.connections.length === 1) {
             remove_edge(edg);
         }
     }
@@ -245,43 +245,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
 
-    // function remove_illegal_edges(node_label) {
-    //     var counter = 0;
-    //     if (node_label.split("#")[0] == "L2SW" || node_label.split("#")[0] == "EUH") {
 
-    //         for (var i = 0; i < edge_list.length; i++) {
-
-    //             if (edge_list[i].edge_info.vll) { //TODO da confermare
-    //                 break;
-    //             }
-
-    //             if (edge_list[i].node1.label == node_label) {
-    //                 counter += 1;
-    //                 // alert(edge_list[i].node1.label);
-    //                 if (edge_list[i].node2.label.split("#")[0] != "L2SW" && node_label.split("#")[0] == "EUH")
-    //                     counter = 2;
-    //                 if (edge_list[i].node2.label.split("#")[0] == "COSHI" && node_label.split("#")[0] == "L2SW")
-    //                     counter = 2;
-    //                 if (counter > 1) {
-    //                     remove_edge(edge_list[i]);
-    //                 }
-
-
-    //             } else if (edge_list[i].node2.label == node_label) {
-    //                 if (node_label.split("#")[0] == "L2SW") {
-    //                     if (edge_list[i].node1.label.split("#")[0] != "L2SW" &&
-    //                         edge_list[i].node1.label.split("#")[0] != "EUH") {
-    //                         remove_edge(edge_list[i]);
-    //                     }
-    //                 } else if (node_label.split("#")[0] == "EUH") {
-    //                     if (edge_list[i].node2.label.split("#")[0] == "EUH") {
-    //                         remove_edge(edge_list[i]);
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
 
     function remove_edge(edge) {
         edge_list.splice(edge_list.indexOf(edge), 1);
@@ -348,7 +312,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             return;
         }
         else{
-            var newEdge = new Edge(node1, node2,VLLVIEW);
+            var newEdge = new Edge(node1, node2,plane.isVllPlane());
             edge_list.push(newEdge);
         }
     }
@@ -368,8 +332,8 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
        var newedge2 = new Edge(new_v, enodes.node2);
 
-       newedge1.setConnecionList(edge.edge_info);
-       newedge2.setConnecionList(edge.edge_info);
+       newedge1.setConnecionList(edge.connections);
+       newedge2.setConnecionList(edge.connections);
 
 
         // add new Vertex
@@ -588,7 +552,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 }
             },
             drag_node_stop: function () {
-                if (dragging_frozen_flag === false) {
+                if (dragging_frozen_flag === false && dragging_node ){
                     dragging_node.toggle_freeze();
                 }
                 dragging_node = undefined;
@@ -629,6 +593,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 if (dragging_node) {
                     this.drag_node_stop();
                 } else if (hit_node && (selected_object === undefined)) {
+                    console.log('mouseup0')
                     this.select_object(hit_node);
                 } else if (hit_node && selected_object instanceof Vertex && (selected_object !== hit_node)) {
                    console.log('mouseup1')
@@ -797,22 +762,27 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         var data = {},
             node_properties, pos, i, exec = '';
         data.vertices = nodes.map(function (n) {
-            return n.label;
+            return n;
         });
         data.edges = edge_list.map(function (e) {
-            return [e.node1.label, e.node2.label, e.edge_info];
+            var edge = {};
+            edge.node1 = e.node1.label;
+            edge.node2 = e.node2.label;
+            edge.connections = e.connections;
+            return edge;
         });
-        data.pos = {};
-        for (i = 0; i < nodes.length; i++) {
-            pos = nodes[i].get_pos();
-            data.pos[nodes[i].label] = [pos.x, pos.y];
-        }
 
-        data.node_properties = {};
-        for (i = 0; i < nodes.length; i++) {
-            node_properties = nodes[i].vertex_info;
-            data.node_properties[nodes[i].label] = nodes[i].vertex_info;
-        }
+        // data.pos = {};
+        // for (i = 0; i < nodes.length; i++) {
+        //     pos = nodes[i].get_pos();
+        //     data.pos[nodes[i].label] = [pos.x, pos.y];
+        // }
+
+        // data.node_properties = {};
+        // for (i = 0; i < nodes.length; i++) {
+        //     node_properties = nodes[i].vertex_info;
+        //     data.node_properties[nodes[i].label] = nodes[i].vertex_info;
+        // }
 
         data.advanced = graph_parameters;
 
@@ -1100,8 +1070,8 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             //$(info_sidebar + ' .infobox #v2').html(nodes.indexOf(enodes.node2));
             $(info_sidebar + ' .infobox #v1').html(enodes.node1.label.replace("#", ""));
             $(info_sidebar + ' .infobox #v2').html(enodes.node2.label.replace("#", ""));
-            // $(info_sidebar + ' .infobox #v1_label').val(edge.edge_info.labe_to_node1 || "")
-            // $(info_sidebar + ' .infobox #v2_label').val(edge.edge_info.labe_to_node2 || "")
+            // $(info_sidebar + ' .infobox #v1_label').val(edge.connections.labe_to_node1 || "")
+            // $(info_sidebar + ' .infobox #v2_label').val(edge.connections.labe_to_node2 || "")
             $(info_sidebar + ' .infobox #label').val(edge.label || "none");
             $(info_sidebar + ' .infobox #none_selected').hide();
             $(info_sidebar + ' .infobox #info').show();
@@ -1212,7 +1182,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
     function display_graph() {
         var i;
-        if (LIVE & !VLLVIEW) {
+        if (LIVE & !plane.isVllPlane()) {
             run_physics();
         }
         for (i = 0; i < edge_list.length; i += 1) {
@@ -1220,7 +1190,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             display_edge(edge_list[i]);
         }
         for (i = 0; i < nodes.length; i += 1) {
-            if (VLLVIEW) {
+            if (plane.isVllPlane()) {
                 if (nodes[i].label.split("#")[0] == "EUH")
                     display_vertex(nodes[i]); 
             } else {
@@ -1240,31 +1210,27 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
     function draw() {
+        console.log('draw')
         var curtime = (new Date).getTime();
         ctx.clearRect(0, 0, SIZE.x, SIZE.y);
+        ctx.beginPath();
         display_graph();
         if (SHOWFPS) {
             ctx.fillText((1000 / (curtime - last_frame)).toFixed(1), 10, 10);
         }
         last_frame = curtime;
-        //function is time intensive don't do it too often
-        //if (lastcheck < curtime - 10000){
-        //    controller.find_closest();
-        //    lastcheck = curtime;
-        //    console.log('recomp');
-        //}
-        //console.log(edge_list.length);
+
     }
 
     function show_vllView() {
-        VLLVIEW = true;
-
+        //VLLVIEW = true;
+        plane.setVllPlane();
         draw();
     }
 
     function hide_vllView(visible) {
-        VLLVIEW = false;
-
+        //VLLVIEW = false;
+        plane.setDataPlane();
         draw();
     }
 
@@ -1320,7 +1286,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
     function init() {
         //construction of GraphEditor
-        
+        plane = new Plane();
 
         controller = Controller();
         $(div).addClass('graph_editor_container');
@@ -1369,6 +1335,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         }
 
         view = new View();
+        
 
         setupListener();
         

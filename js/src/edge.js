@@ -8,19 +8,19 @@ dreamer.Edge = (function (global) {
     function Edge(node1, node2, vll, connetion) {
         this.node1 = node1;
         this.node2 = node2;
-        this.edge_info = [];
+        this.connections = [];
         
         if(connetion && (connetion instanceof Array)){
-            this.edge_info = connetion;
+            this.connections = connetion;
         }
         else if (connetion && (typeof connetion  === "object")) {
             var val = (connetion.vll==null || connetion.vll===false) ? false: true;
             var edlab = (connetion.edge_label == null || connetion.vll === "") ? "": connetion.edge_label;
-            this.edge_info.push( new dreamer.Connection("", val));
+            this.connections.push( new dreamer.Connection("", val));
         } 
         else{
             var val = (vll==null || vll===false) ? false: true;
-            this.edge_info.push( new dreamer.Connection("", val));
+            this.connections.push( new dreamer.Connection("", val));
         }
     }
 
@@ -52,12 +52,12 @@ dreamer.Edge = (function (global) {
     };
     
     Edge.prototype.addConnection = function (edge_label, vll) {
-       this.edge_info.push(new dreamer.Connection(edge_label, vll));
+       this.connections.push(new dreamer.Connection(edge_label, vll));
     };
 
     Edge.prototype.setConnecionList = function(conlist){
         if(conlist != undefined)
-            this.edge_info = conlist.slice(0);
+            this.connections = conlist.slice(0);
     }
 
 

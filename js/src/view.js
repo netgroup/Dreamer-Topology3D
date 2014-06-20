@@ -11,19 +11,13 @@ dreamer.View = (function (global) {
         this.tunmecmodified = new dreamer.Event(this);
 
         var self = this;
-
-
-
         //
         $('#tun_option').click(function () {
            // $('#tun_type').html($('#tun_option').val());
             self.tunmecmodified.notify({'tunmec': $('#tun_option').val()});
         });
 
-        
-
     }
-
 
 
     return View;

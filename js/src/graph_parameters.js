@@ -15,7 +15,6 @@ dreamer.GraphParameters = (function (global) {
         }
         
 
-              
     }
 
     GraphParameters.prototype.setTunneling = function (tuntype) {
