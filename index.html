@@ -63,6 +63,60 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading" id="panel_head">
+                        <div id="graph_editor_button_container" class="btn-toolbar" role="toolbar">
+                            <div id="graph_editor_button_group" class="btn-group">
+                                <div class="btn-group">
+                                    <button id="topology_button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Topology <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#" id="catalog_button" data-toggle="modal" data-target="#myModalTopoCatalog"><span class="fa fa-archive"></span> Open from catalog...</a>
+                                        </li>
+                                        <li><a href="#" id="imp_button"><span class="fa fa-folder-open"></span> Import from file</a>
+                                        </li>
+                                        <li><a href="#" id="imp_paste_button" data-toggle="modal" data-target="#myModalPaste"><span class="fa fa-clipboard "></span> Paste from clipboard</a>
+                                        </li>
+                                        <li><a href="#" id="random_button" data-toggle="modal" data-target="#myModalRandom"><span class="fa  fa-random"></span> Random</a>
+                                        </li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li><a href="#" id="exp_button" data-toggle="modal" data-target="#myModalDownload"><span class="fa fa fa-floppy-o"></span> Export to file</a>
+                                        </li>
+                                        <li><a href="#" id="exp_copy_button" data-toggle="modal" data-target="#myModalCopy"><span class="fa fa-clipboard "></span> Copy to clipboard</a>
+                                        </li>
+                                        <li><a href="#" id="image_button"><span class="fa fa-picture-o"></span> Get Image</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <button id="live_button" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-play"></span> Live</button>
+
+                                <div class="btn-group" id = "layer-menu">
+                                    <button id="vll_button_group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">View <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" id ="dropdown-menu-layer" role="menu">
+                                        <!--<li><a href="#" id="vll_button" data-value="bar"><span class="fa fa-sitemap"></span> View VLL Services</a>
+                                        </li>
+                                        <li><a href="#" id="viewTopo_button" data-value="bar2"><span class="fa fa-sitemap"></span> View Topology</a>
+                                        </li>-->
+                                    </ul>
+                                </div>
+
+                                <button id="undo_button" type="button" class="btn btn-default"><span class="fa fa-undo"></span> Undo</button>
+
+                                <button id="reset_button" type="button" class="btn btn-default"><span class="fa fa-eraser"></span> Reset</button>
+
+                                <button id="validate_button" type="button" class="btn btn-default"><span class="fa fa-question"></span> Validate</button>
+
+                                <button id="legend_button" type="button" class="btn btn-default"> <span class="fa fa-minus-square-o "></span>Hide Legend</button>
+
+                                <button id="credits_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalCredits"><span class="fa fa-info"></span> Credits</button>
+
+                                <button id="help_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"><span class="fa fa-question"></span> Help</button>
+
+
+                            </div>
+
+                        </div>
+                        <input type="file" id="fileElem" style=" width: 0px; height: 0px; ">
                         <div id="legenda" align="left" style="display: block; padding-top: 5px;">
                             <img src="img/legenda.png" width="400" height="50">
                         </div>
@@ -85,20 +139,22 @@
 
                 <ul id="tweaks_sidebar" class="nav nav-sidebar">
                     <!--tweaks_sidebar-->
-                    
+
                     <div id="sidebar_layout_button_group" class="btn-group">
                         <button id="circular" type="button" class="btn btn-default">Circular layout</button>
 
-                    </div><!--end sidebar_layout_button_group-->
-                    <div id="tunneling_mechanism_sec">
-                    <label>Tunneling: </label>
-                    <select id='tun_option'>
-                    <option value=''></option>
-                    <option value='VXLAN'>VXLAN</option>
-                    <option value='OPENVPN'>OPENVPN</option>
-                    </select>
                     </div>
-                </ul><!--end tweaks_sidebar-->
+                    <!--end sidebar_layout_button_group-->
+                    <div id="tunneling_mechanism_sec">
+                        <label>Tunneling:</label>
+                        <select id='tun_option'>
+                            <option value=''></option>
+                            <option value='VXLAN'>VXLAN</option>
+                            <option value='OPENVPN'>OPENVPN</option>
+                        </select>
+                    </div>
+                </ul>
+                <!--end tweaks_sidebar-->
                 <hr>
                 <ul id="info_sidebar" class="nav nav-sidebar">
                     <div class='infobox'>
@@ -135,10 +191,6 @@
                                 <label>Change Node Type:</label>
                                 <select id='s_label'>
                                     <option value=''></option>
-                                    <option value='COSHI'>COSHI</option>
-                                    <option value='AOSHI'>AOSHI</option>
-                                    <option value='EUH'>EUH</option>
-                                    <option value='L2SW'>L2SW</option>\
                                 </select>
                                 <br>
                             </div>
@@ -180,31 +232,31 @@
                                     <td align='center'>
                                         <script type="text/javascript">
                                             <!--
-                                            // function OneStat_Pageview() {
-                                            //     var d = document;
-                                            //     var sid = "602569";
-                                            //     var CONTENTSECTION = "";
-                                            //     var osp_URL = d.URL;
-                                            //     var osp_Title = d.title;
-                                            //     var t = new Date();
-                                            //     var p = "http" + (d.URL.indexOf('https:') == 0 ? 's' : '') + "://stat.onestat.com/stat.aspx?tagver=2&sid=" + sid;
-                                            //     p += "&url=" + escape(osp_URL);
-                                            //     p += "&ti=" + escape(osp_Title);
-                                            //     p += "&section=" + escape(CONTENTSECTION);
-                                            //     p += "&rf=" + escape(parent == self ? document.referrer : top.document.referrer);
-                                            //     p += "&tz=" + escape(t.getTimezoneOffset());
-                                            //     p += "&ch=" + escape(t.getHours());
-                                            //     p += "&js=1";
-                                            //     p += "&ul=" + escape(navigator.appName == "Netscape" ? navigator.language : navigator.userLanguage);
-                                            //     if (typeof (screen) == "object") {
-                                            //         p += "&sr=" + screen.width + "x" + screen.height;
-                                            //         p += "&cd=" + screen.colorDepth;
-                                            //         p += "&jo=" + (navigator.javaEnabled() ? "Yes" : "No");
-                                            //     }
-                                            //     d.write('<a href="http://www.onestatfree.com/aspx/login.aspx?sid=' + sid + '" target=_blank><img id="ONESTAT_TAG" border="0" src="' + p + '" alt="This site tracked by OneStatFree.com. Get your own free site tracker."></' + 'a>');
-                                            // }
+                                             // function OneStat_Pageview() {
+                                             //     var d = document;
+                                             //     var sid = "602569";
+                                             //     var CONTENTSECTION = "";
+                                             //     var osp_URL = d.URL;
+                                             //     var osp_Title = d.title;
+                                             //     var t = new Date();
+                                             //     var p = "http" + (d.URL.indexOf('https:') == 0 ? 's' : '') + "://stat.onestat.com/stat.aspx?tagver=2&sid=" + sid;
+                                             //     p += "&url=" + escape(osp_URL);
+                                             //     p += "&ti=" + escape(osp_Title);
+                                             //     p += "&section=" + escape(CONTENTSECTION);
+                                             //     p += "&rf=" + escape(parent == self ? document.referrer : top.document.referrer);
+                                             //     p += "&tz=" + escape(t.getTimezoneOffset());
+                                             //     p += "&ch=" + escape(t.getHours());
+                                             //     p += "&js=1";
+                                             //     p += "&ul=" + escape(navigator.appName == "Netscape" ? navigator.language : navigator.userLanguage);
+                                             //     if (typeof (screen) == "object") {
+                                             //         p += "&sr=" + screen.width + "x" + screen.height;
+                                             //         p += "&cd=" + screen.colorDepth;
+                                             //         p += "&jo=" + (navigator.javaEnabled() ? "Yes" : "No");
+                                             //     }
+                                             //     d.write('<a href="http://www.onestatfree.com/aspx/login.aspx?sid=' + sid + '" target=_blank><img id="ONESTAT_TAG" border="0" src="' + p + '" alt="This site tracked by OneStatFree.com. Get your own free site tracker."></' + 'a>');
+                                             // }
 
-                                            // OneStat_Pageview();
+                                             // OneStat_Pageview();
                                              //-->
                                         </script>
                                         <noscript>
@@ -449,6 +501,32 @@
 
 
             <!-- Modal -->
+            <div class="modal fade" id="myModalLoading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            
+                            <h4 class="modal-title" id="myModalLoadingLabel">Topology Designer Loading...</h4>
+                        </div>
+                        <div id="loading_body" class="modal-body">
+                            
+                            <div class="progress">
+                                <div class="progress progress-striped active" id="loadingprogbar" >
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal -->
+
+
+            <!-- Modal -->
             <div class="modal fade" id="myModalCredits" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -459,7 +537,7 @@
                         <div id="credits_body" class="modal-body">
                             Dreamer-Topology-Designer Simple topology designer, a customization of JS GRAPH EDITOR Based JS GRAPH EDITOR written by Radoslav Kirov.
                             <br>
-                            <br>This activity has been partially funded by EU in the context of <a href="http://netgroup.uniroma2.it/DREAMER/" target="_blank">DREAMER</a>  , which is one of the beneficiary projects of the GÉANT Open Call research initiative, see <a href="http://www.geant.net" target="_blank">www.geant.net</a>. The partners of DREAMER are: CNIT, CREATE-NET and Consortium GARR.
+                            <br>This activity has been partially funded by EU in the context of <a href="http://netgroup.uniroma2.it/DREAMER/" target="_blank">DREAMER</a> , which is one of the beneficiary projects of the GÉANT Open Call research initiative, see <a href="http://www.geant.net" target="_blank">www.geant.net</a>. The partners of DREAMER are: CNIT, CREATE-NET and Consortium GARR.
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -546,22 +624,25 @@
     ================================================== -->
 
 
-    <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'></script>
+   <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+   <!--    <script src="js/jquery-1.9.1.min.js"></script>
+     <script src="js/jquery-ui-1.8.1.custom.min.js"></script>-->
+    
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script src="js/json2.js"></script>
-    <script src="js/src/plane.js"></script>
+    <script src="js/src/vertex.js"></script>
+    <script src="js/src/domaincontroller/domaincontroller.js"></script>
+    <script src="js/src/link.js"></script>
+    <script src="js/src/layer.js"></script>
     <script src="js/src/event.js"></script>
-    <script src="js/src/view.js"></script>
     <script src="js/src/algebra.js"></script>
     <script src="js/src/graph_parameters.js"></script>
     <script src="js/src/edge.js"></script>
-    <script src="js/src/connection.js"></script>
-    <script src="js/src/vertex.js"></script>
+    
     <script src="js/src/graph_editor.js"></script>
     <script src="js/src/index.js"></script>
 
 </body>
 
 </html>
-

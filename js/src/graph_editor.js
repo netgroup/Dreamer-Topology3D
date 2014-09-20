@@ -3,18 +3,22 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     var Vertex = dreamer.Vertex;
     var Edge = dreamer.Edge;
     var GraphParameters = dreamer.GraphParameters;
-    var View = dreamer.View;
-    var Plane = dreamer.Plane;
+    var CurLayer = dreamer.CurLayer;
+    var DomainController = dreamer.DomainController;
+    var EventHandeler = dreamer.Event;
+
+
+
 
     var edge_list = [],
         nodes = [],
         graph_parameters,
         removed_edges = [],
         controller,
-        view,
-        plane,
+        domainctrl,
+        curLayer,
+        eventHandeler,
         Controller,
-        graph_name,
         removed_node,
         MIN_X = 800,
         MIN_Y = 400,
@@ -39,18 +43,17 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         SHOWFPS = false,
         SHIFT = false,
         LOOP = false,
-        //VLLVIEW = false,
         FPS = options.fps || 60,
         canvastag,
         ctx,
         loop_interval,
         last_frame;
+
+
     //Miscellaneous functions  
     function rand(a, b) {
         return a + Math.floor(Math.random() * (b - a));
     }
-
-  
 
     // first element in array such that f(i) is true;
     // If f(i) is always false returns undefined
@@ -88,7 +91,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         if (!nofillFlag) {
             ctx.fill();
         }
-         ctx.closePath();
+        ctx.closePath();
         ctx.stroke();
     }
 
@@ -112,7 +115,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         //ctx.textAlign = "start"
         ctx.strokeStyle = 'black'
         ctx.fillText(label, x2, y2)
-         ctx.closePath();
+        ctx.closePath();
         ctx.stroke();
     }
 
@@ -123,8 +126,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         ctx.closePath();
         ctx.stroke();
     }
-
-
 
 
     ///#
@@ -160,35 +161,35 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         var pos1 = edg.node1.get_pos(),
             pos2 = edg.node2.get_pos();
 
-        if (edg.connections[0].vll == plane.isVllPlane()) 
+        if (edg.links[0].getLayer() == curLayer.getCurLayer())
             line(pos1.x, pos1.y, pos2.x, pos2.y);
-
 
     }
 
     ///#
     function draw_multi(edg) {
-        var pos1 = edg.node1.get_pos(),
-            pos2 = edg.node2.get_pos(),
-            mid = scalarm(1 / 2, vectoradd(pos1, pos2)),
-            dx = vectorsub(pos1, pos2),
-            normal, control, i;
-        normal = unit({
-            x: dx.y,
-            y: -dx.x
-        });
-        var y = 0;
-        for (i = -(edg.connections.length - 1) / 2; i <= (edg.connections.length - 1) / 2; i += 1) {
+            var pos1 = edg.node1.get_pos(),
+                pos2 = edg.node2.get_pos(),
+                mid = scalarm(1 / 2, vectoradd(pos1, pos2)),
+                dx = vectorsub(pos1, pos2),
+                normal, control, i;
+            normal = unit({
+                x: dx.y,
+                y: -dx.x
+            });
+            var y = 0;
+            for (i = -(edg.links.length - 1) / 2; i <= (edg.links.length - 1) / 2; i += 1) {
 
-            if (edg.connections[y].vll == plane.isVllPlane()) {
-                control = vectoradd(mid, scalarm(norm(dx) * i / 10, normal));
-                bezier(pos1.x, pos1.y, control.x, control.y, control.x, control.y, pos2.x, pos2.y);     
+                if (edg.links[0].getLayer() == curLayer.getCurLayer()) {
+                    control = vectoradd(mid, scalarm(norm(dx) * i / 10, normal));
+                    bezier(pos1.x, pos1.y, control.x, control.y, control.x, control.y, pos2.x, pos2.y);
+                }
+
+                ++y;
             }
-
-            ++y;
         }
-    }
-    ///#
+        ///#
+
     function display_edge(edg) {
 
         var dv;
@@ -204,7 +205,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         if (edg.node1 === edg.node2) {
             draw_loop(edg.node1);
         } else {
-            if (edg.connections.length < 2) {
+            if (edg.links.length < 2) {
                 draw_simple(edg);
             } else {
                 console.log("draw_multi" + edg.node1.label + "-" + edg.node2.label)
@@ -215,17 +216,16 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
     function inc_mult(edg) {
         if (MULTIGRAPH) {
-            edg.addConnection("", plane.isVllPlane());
+            edg.addLink("", curLayer.getCurLayer());
         }
     }
 
     function dec_mult(edg) {
         console.log("dec_mult");
-        if (edg.connections.length > 1) {
+        if (edg.links.length > 1) {
             //TODO gestione caso multilink
             remove_edge(edg);
-        }
-        else if (edg.connections.length === 1) {
+        } else if (edg.links.length === 1) {
             remove_edge(edg);
         }
     }
@@ -234,12 +234,13 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
     //returns object {d: closest_distance, node: corresponding node}
     function get_closest_node(v) {
-        return fmin(nodes.map(function (n) {
+        var availablenodes = domainctrl.getNodeCurrentLayer(curLayer, nodes);
+        return fmin(availablenodes.map(function(n) {
             return {
                 d: d(n.get_pos(), v),
                 node: n
             };
-        }), function (a, b) {
+        }), function(a, b) {
             return a.d < b.d;
         });
     }
@@ -284,13 +285,17 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             edge_list = edge_list.concat(removed_edges);
             removed_node = undefined;
             removed_edges = [];
-            $('#undo_button').addClass('graph_editor_undo_disabled');
             draw();
         }
     }
 
     //#
-    function newEdgebetween(node1, node2){
+    function newEdgebetween(node1, node2) {
+        if (! domainctrl.isValidEdge(node1.getType(), node2.getType(), curLayer.getCurLayer()) ) {
+            console.log("invalid edge!!")
+            return;
+        };
+
         var edge, existing = false,
             i;
         if (node1 === node2) {
@@ -307,33 +312,32 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             }
         }
 
-        if(existing){
+        if (existing) {
             //edge already existing!!
             return;
-        }
-        else{
-            var newEdge = new Edge(node1, node2,plane.isVllPlane());
+        } else {
+            var newEdge = new Edge(node1, node2, curLayer.getCurLayer());
             edge_list.push(newEdge);
         }
     }
 
-    function split(edge){
+    function split(edge) {
 
 
         var enodes = edge.get_nodes(),
             new_v,
             newpos = scalarmi(1 / 2, vectoradd(enodes.node1.get_pos(), enodes.node2.get_pos()));
-        
 
-        new_v = new Vertex(nodes,newpos);
-        
 
-       var newedge1 = new Edge(new_v, enodes.node1);
+        new_v = new Vertex(nodes, newpos);
 
-       var newedge2 = new Edge(new_v, enodes.node2);
 
-       newedge1.setConnecionList(edge.connections);
-       newedge2.setConnecionList(edge.connections);
+        var newedge1 = new Edge(new_v, enodes.node1, curLayer.getCurLayer());
+
+        var newedge2 = new Edge(new_v, enodes.node2, curLayer.getCurLayer());
+
+        newedge1.setConnecionList(edge.links);
+        newedge2.setConnecionList(edge.links);
 
 
         // add new Vertex
@@ -341,7 +345,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
         //remove edge
         remove_edge(edge);
-        
+
         //add new Edges
         edge_list.push(newedge1);
         edge_list.push(newedge2);
@@ -431,25 +435,15 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         draw();
     }
 
-    // function setupListener(edge) {
-    //     console.log('split')
-    //     var enodes = edge.get_nodes(),
-    //         new_v,
-    //         newpos = scalarmi(1 / 2, vectoradd(enodes.node1.get_pos(), enodes.node2.get_pos()));
-    //     new_v = new Vertex(nodes,newpos);
-    //     nodes.push(new_v);
-    //     toggle_edge(new_v, enodes.node1);
-    //     toggle_edge(new_v, enodes.node2);
-    //     remove_edge(edge);
-    //     return new_v;
-    // }
+
 
     function erase_graph() {
         nodes = [];
         edge_list = [];
-        graph_parameters = new GraphParameters;
+        graph_parameters = new GraphParameters();
         draw();
     }
+
     //most time crucial function according to profiler, hand-optimized
     function add_force(node1, node2, force_function, k) {
         var sqr_d, force, n1 = node1.get_pos(),
@@ -503,11 +497,11 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         }
     }
 
-    Controller = function () {
+    Controller = function() {
         var hit_node, selected_object, dragging_node, dragging_frozen_flag, closest, mouse = new Point(),
             lastcheck = 0;
         return {
-            select_object: function (obj) {
+            select_object: function(obj) {
                 if (selected_object === obj) {
                     this.unselect_object();
                     return;
@@ -517,10 +511,10 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 }
                 selected_object = obj;
                 obj.selected = true;
-
+                console.log('selected_object');
                 update_infobox(obj);
             },
-            set_mouse: function (e) {
+            set_mouse: function(e) {
                 var obj = e.currentTarget,
                     offset = $(obj).offset();
                 mouse = {
@@ -528,14 +522,14 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     y: e.pageY - offset.top
                 };
             },
-            unselect_object: function () {
+            unselect_object: function() {
                 if (selected_object) {
                     selected_object.selected = false;
                     selected_object = undefined;
                     update_infobox();
                 }
             },
-            drag_node_start: function (node) {
+            drag_node_start: function(node) {
                 dragging_node = node;
                 dragging_frozen_flag = node.get_frozen();
                 if (!node.get_frozen()) {
@@ -545,14 +539,14 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     start_loop();
                 }
             },
-            update_drag: function (m) {
+            update_drag: function(m) {
                 dragging_node.set_pos(m);
                 if (dragging_node === selected_object) {
                     update_infobox(dragging_node);
                 }
             },
-            drag_node_stop: function () {
-                if (dragging_frozen_flag === false && dragging_node ){
+            drag_node_stop: function() {
+                if (dragging_frozen_flag === false && dragging_node) {
                     dragging_node.toggle_freeze();
                 }
                 dragging_node = undefined;
@@ -560,20 +554,21 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     stop_loop();
                 }
             },
-            find_closest: function () {
+            find_closest: function() {
                 var closest_data, edge;
                 closest_data = get_closest_node(mouse);
                 if (closest_data && closest_data.d < NODE_RADIUS) {
                     this.update_closest(closest_data.node);
                     return;
                 }
-                edge = first(edge_list, function (edge) {
+                var availableedges = domainctrl.getEdgeCurrentLayer(curLayer, edge_list);
+                edge = first(availableedges, function(edge) {
                     var v = edge.get_nodes();
                     return in_tube(mouse, v.node1.get_pos(), v.node2.get_pos(), 15);
                 });
                 this.update_closest(edge);
             },
-            update_closest: function (object) {
+            update_closest: function(object) {
                 if (closest && (closest !== object)) {
                     closest.closest = false;
                 }
@@ -582,42 +577,43 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     object.closest = true;
                 }
             },
-            mousedown: function () {
+            mousedown: function() {
                 if (closest && closest instanceof Vertex) {
                     hit_node = closest;
                 }
                 if (!LIVE) draw();
             },
-            mouseup: function (e) {
+            mouseup: function(e) {
                 var new_v;
                 if (dragging_node) {
                     this.drag_node_stop();
                 } else if (hit_node && (selected_object === undefined)) {
-                    console.log('mouseup0')
+                    console.log('mouseup1')
                     this.select_object(hit_node);
                 } else if (hit_node && selected_object instanceof Vertex && (selected_object !== hit_node)) {
-                   console.log('mouseup1')
                     //toggle_edge(selected_object, hit_node);
                     if (!SHIFT) {
-                                           console.log('mouseup2')
 
-                      //  toggle_edge(selected_object, hit_node); //whr
+                        //  toggle_edge(selected_object, hit_node); //whr
                         this.unselect_object();
-                    }
-                    else{
+                    } else {
                         newEdgebetween(selected_object, hit_node);
                     }
                 } else if (closest) {
+                    console.log('mouseup1')
                     this.select_object(closest);
                 } else {
                     if (SHIFT) {
-                        new_v = new Vertex(nodes,mouse);
+                        if(domainctrl.isInsertEnabled(curLayer.getCurLayer())){
+                            new_v = new Vertex(nodes, mouse);
                         //careful for edge case of user not moving mouse afterclick
                         //if live the vertex flies off 
                         if (!LIVE) {
                             this.update_closest(new_v);
                         }
                         nodes.push(new_v);
+                        }
+                        
                     }
                 }
                 hit_node = undefined;
@@ -625,7 +621,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     draw();
                 }
             },
-            mousemove: function (e) {
+            mousemove: function(e) {
                 this.set_mouse(e);
                 if (hit_node && !dragging_node) {
                     this.drag_node_start(hit_node);
@@ -636,15 +632,15 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 this.find_closest();
                 if (!LIVE) draw();
             },
-            keydown: function (e) {
+            keydown: function(e) {
                 if (e.keyCode === 16) {
                     SHIFT = true;
                 }
             },
-            keyup: function (e) {
+            keyup: function(e) {
                 SHIFT = false;
             },
-            keypress: function (e) {
+            keypress: function(e) {
                 var pos, canvaspos, dialog;
                 //charCode has browser problems, check with http://www.quirksmode.org/js/keys.html
                 //console.log(e.charCode,String.fromCharCode(e.charCode));
@@ -674,29 +670,14 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 }
                 if (!LIVE) draw();
             },
-            mouseleave: function () {
+            mouseleave: function() {
                 this.drag_node_stop();
             },
-            dblclick: function () {}
+            dblclick: function() {}
         };
     };
 
 
-    function import_catalog_top(id) {
-        $.getJSON("topocatalogjson/cat" + id + ".json", function (data) {
-            //console.log(data);
-            import_from_JSON(data, true, true);
-            $('#myModalTopoCatalog').modal('hide');
-        });
-
-    }
-
-    //JSONdata has the format
-    //{"vertices" : [v0.label, v1.label, .... , vn.label],
-    //"edges" : [ [ "COSHI#01", "COSHI#03", [ { "edge_label" : "","vll" : false} ] ],...],
-    //"pos"" : [ [v0x, v0y], [v1x, v1y], ... ],
-    //"name" : "a_graph",
-    //"advanced" : { "tunneling" : "VXLAN" }
 
     function import_from_JSON(JSONdata, live, catalog) {
         var i, dict = {},
@@ -707,50 +688,13 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             data = JSON.parse(JSONdata)
         }
         erase_graph();
-        for (i = 0; i < data.vertices.length; i += 1) {
-            new_v = new Vertex(nodes,{
-                x: 0,
-                y: 0
-            }, data.vertices[i], data.node_properties[data.vertices[i]]);
-            dict[data.vertices[i]] = new_v;
-            dict[data.node_properties[i]] = new_v;
-            nodes.push(new_v);
-        }
-        if (data.pos) {
-            var maxx = -Infinity,
-                minx = Infinity,
-                maxy = -Infinity,
-                miny = Infinity,
-                newx, newy, dx, dy;
-            for (i in data.pos) {
-                maxx = Math.max(maxx, data.pos[i][0]);
-                maxy = Math.max(maxy, data.pos[i][1]);
-                minx = Math.min(minx, data.pos[i][0]);
-                miny = Math.min(miny, data.pos[i][1]);
-            }
-            dx = maxx - minx;
-            dy = maxy - miny;
-            for (i in data.pos) {
-                pos = data.pos[i];
-                vertex = dict[i];
-                newx = (data.pos[i][0] - minx) / dx;
-                newx = newx * 8 * SIZE.x / 10 + SIZE.x / 10;
-                newy = (data.pos[i][1] - miny) / dy;
-                newy = newy * 8 * SIZE.y / 10 + SIZE.y / 10;
-                vertex.set_pos({
-                    x: newx,
-                    y: newy
-                });
-            }
-        } else {
-            circular_layout();
-        }
 
-        for (i = 0; i < data.edges.length; i += 1) {
-            edge_list.push(new Edge(dict[data.edges[i][0]], dict[data.edges[i][1]], false, data.edges[i][2]));
-        }
-        graph_name = data.name;
-        graph_parameters = (data.advanced === undefined) ? new GraphParameters() : new GraphParameters(data.advanced);
+        var resimport = domainctrl.import_from_JSON(data, SIZE);
+
+        nodes = resimport.vertices;
+        edge_list = resimport.edges;
+        graph_parameters = resimport.graph_parameters;
+
         draw();
         if (live) {
             toggle_live();
@@ -758,45 +702,15 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
 
-    function export_sage() {
-        var data = {},
-            node_properties, pos, i, exec = '';
-        data.vertices = nodes.map(function (n) {
-            return n;
-        });
-        data.edges = edge_list.map(function (e) {
-            var edge = {};
-            edge.node1 = e.node1.label;
-            edge.node2 = e.node2.label;
-            edge.connections = e.connections;
-            return edge;
-        });
+    function export_json() {
 
-        // data.pos = {};
-        // for (i = 0; i < nodes.length; i++) {
-        //     pos = nodes[i].get_pos();
-        //     data.pos[nodes[i].label] = [pos.x, pos.y];
-        // }
-
-        // data.node_properties = {};
-        // for (i = 0; i < nodes.length; i++) {
-        //     node_properties = nodes[i].vertex_info;
-        //     data.node_properties[nodes[i].label] = nodes[i].vertex_info;
-        // }
-
-        data.advanced = graph_parameters;
-
-        data.name = graph_name;
-        return JSON.stringify(data, null, "\t");
-    }
-    
-
-
-    function setupListener(){
-        view.tunmecmodified.attach(function (sender, args) {
-                graph_parameters.tunneling = args.tunmec;
+        return domainctrl.exportJson({
+            edges: edge_list,
+            vertices: nodes,
+            graph_parameters: graph_parameters
         });
     }
+
 
     function add_checkbox(name, variable, container_id, onclickf) {
         var s = '<li><div class="checkbox"><label>' + name + "  ";
@@ -810,12 +724,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         $(container_id + ' input:last').click(onclickf);
     }
 
-    function add_button(name, container_id, onclickf) {
-        var s = '<input type="button" id="' + name + '_button" value="' + name + '"';
-        s += '/>';
-        $(container_id).append(s);
-        $(container_id + ' input:last').click(onclickf);
-    }
+
 
     function add_slider(name, variable, container_id, min_, max_, disabled_, onchangef) {
         var s = '<li><tr><td><label id="' + name.replace(/\s/g, '') + '_label">' + name + '</label></td>';
@@ -825,7 +734,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             min: min_,
             max: max_,
             value: variable,
-            slide: function (event, ui) {
+            slide: function(event, ui) {
                 onchangef(ui.value);
             }
         });
@@ -841,114 +750,9 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             buttondiv = div + ' #graph_editor_button_container',
             canvas = $(div + ' canvas')[0];
 
-        $('#panel_head').prepend('<div id="graph_editor_button_container" class="btn-toolbar" role="toolbar"> </div>')
-        //  $('<div id="graph_editor_button_container" class="btn-toolbar" role="toolbar"> </div>').appendTo('#panel_head');
-        $('<input type="file" id="fileElem" style=" width: 0px; height: 0px; ">').appendTo('#panel_head');
-        $('<div id="graph_editor_button_group" class="btn-group"></div>').appendTo('#graph_editor_button_container');
-
-        $('<div class="btn-group"><button id="topology_button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Topology <span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li><a href="#" id="catalog_button" data-toggle="modal" data-target="#myModalTopoCatalog"><span class="fa fa-archive"></span> Open from catalog...</a></li><li><a href="#" id="imp_button"><span class="fa fa-folder-open"></span> Import from file</a></li><li><a href="#" id="imp_paste_button"  data-toggle="modal" data-target="#myModalPaste"><span class="fa fa-clipboard "></span> Paste from clipboard</a></li><li><a href="#" id="random_button" data-toggle="modal" data-target="#myModalRandom"><span class="fa  fa-random"></span> Random</a></li><li role="presentation" class="divider"></li><li><a href="#" id="exp_button" data-toggle="modal" data-target="#myModalDownload"><span class="fa fa fa-floppy-o"></span> Export to file</a></li><li><a href="#" id="exp_copy_button" data-toggle="modal" data-target="#myModalCopy"><span class="fa fa-clipboard "></span> Copy to clipboard</a></li><li><a href="#" id="image_button"><span class="fa fa-picture-o"></span> Get Image</a></li></ul></div">').appendTo('#graph_editor_button_group');
 
 
-        $('<button id="live_button" type="button" class="btn btn-default"> <span class="glyphicon glyphicon-play"></span> Live</button>').appendTo('#graph_editor_button_group');
-
-
-        $('<div class="btn-group"><button id="vll_button_group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">View <span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li><a href="#" id="vll_button" ><span class="fa fa-sitemap"></span> View VLL Services</a></li><li><a href="#" id="viewTopo_button" ><span class="fa fa-sitemap"></span> View Topology</a></li></ul></div">').appendTo('#graph_editor_button_group');
-
-
-
-        $('<button id="undo_button" type="button" class="btn btn-default"><span class="fa fa-undo"></span> Undo</button>').appendTo('#graph_editor_button_group');
-        $('<button id="reset_button" type="button" class="btn btn-default"><span class="fa fa-eraser"></span> Reset</button>').appendTo('#graph_editor_button_group');
-
-        $('<button id="legend_button" type="button" class="btn btn-default"> <span class="fa fa-minus-square-o "></span>Hide Legend</button>').appendTo('#graph_editor_button_group');
-
-        $('<button id="credits_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalCredits"><span class="fa fa-info"></span> Credits</button>').appendTo('#graph_editor_button_group');
-
-        $('<button id="help_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"><span class="fa fa-question"></span> Help</button>').appendTo('#graph_editor_button_group');
-
-
-
-        $('#live_button').click(toggle_live);
-
-        $('#viewTopo_button').click(hide_vllView);
-
-        $('#vll_button').click(show_vllView);
-
-        $('#legend_button').click(toggle_visibility_legend);
-
-        $('#undo_button').click(undo_remove).toggleClass('graph_editor_undo_disabled');
-
-        $('#reset_button').click(function () {
-            if (confirm("The graph will be irreversibly erased. This operation cannot be undone.")) {
-                erase_graph();
-            }
-        });
-
-        $('#image_button').click(function () {
-            //create a dummy CANVAS
-            var destinationCanvas = document.createElement("canvas");
-            destinationCanvas.width = canvas.width;
-            destinationCanvas.height = canvas.height;
-            var destCtx = destinationCanvas.getContext('2d');
-            //create a rectangle with the desired color
-            destCtx.fillStyle = "#FFFFFF";
-            destCtx.fillRect(0, 0, canvas.width, canvas.height);
-
-            //draw the original canvas onto the destination canvas
-            destCtx.drawImage(canvas, 0, 0);
-
-            var img = destinationCanvas.toDataURL("image/png");
-            window.open(img, "Graph Editor Image", "menubar=false,toolba=false,location=false,width=" + SIZE.x + ",height=" + SIZE.y);
-        });
-
-        $('#imp_button').click(function (e) {
-            // Use the native click() of the file input.
-            document.querySelector('#fileElem').click();
-
-        });
-        $('input[id="fileElem"]').bind("change", function () {
-            // Get a reference to the fileList
-            var files = !!this.files ? this.files : [];
-
-            // If no files were selected, or no FileReader support, return
-            if (!files.length || !window.FileReader) return;
-            // Only proceed if the selected file is a text 
-            if (files[0].type == "application/json") {
-                // Create a new instance of the FileReader
-                var reader = new FileReader();
-
-                //Read local file as text
-                reader.readAsText(files[0]);
-
-                reader.onloadend = function () {
-                    import_from_JSON(this.result, false)
-                    //console.log(this.result)
-
-                }
-            }
-
-        });
-
-        $('#exp_copy_button').click(function (e) {
-            $('#sage').val(export_sage());
-        });
-
-        $('#exp_button').click(function (e) {
-
-
-            var data = 'text/json;charset=utf-8, ' + encodeURIComponent(export_sage());
-
-            var fake = document.getElementById('linkfake');
-            if (fake) {
-                fake.parentNode.removeChild(fake);
-            }
-
-            var d = new Date();
-            $('#download_body').append('<a id = "linkfake" href="data:' + data + '" download="data.json" >Download ready - ' + d.toTimeString() + ' </a>');
-
-
-        });
-
-        add_slider('Canvas Dimension:', 0, '#tweaks_sidebar', 0, 600, false, function (newval) {
+        add_slider('Canvas Dimension:', 0, '#tweaks_sidebar', 0, 600, false, function(newval) {
             var old_x = SIZE.x;
             var old_y = SIZE.y;
             SIZE = {
@@ -965,121 +769,30 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         });
 
 
-        $('#circular').click(function () {
-            if (confirm("All vertices will be irrevesably moved. This operation cannot be undone.")) {
-                circular_layout();
-            }
-        });
 
 
-        add_checkbox('Vertex numbers', NODE_NUMBERS, '#tweaks_sidebar', function () {
+        add_checkbox('Vertex numbers', NODE_NUMBERS, '#tweaks_sidebar', function() {
             NODE_NUMBERS = !NODE_NUMBERS;
             draw();
         });
 
         add_slider('Orientation', 0, '#tweaks_sidebar', 0, 360, false, change_orientation);
 
-        add_slider('Vertex Size', NODE_RADIUS, '#tweaks_sidebar', 0, 30, false, function (newval) {
+        add_slider('Vertex Size', NODE_RADIUS, '#tweaks_sidebar', 0, 30, false, function(newval) {
             NODE_RADIUS = newval;
             draw();
         });
 
-        add_slider('Edge Strength', 50, '#tweaks_sidebar', 0, 100, true, function (newval) {
+        add_slider('Edge Strength', 50, '#tweaks_sidebar', 0, 100, true, function(newval) {
             SPRING = (1 - 1e-2) + 1e-4 * (100 - newval);
             SPEED = newval / 50.0;
             SPEED *= 2 * SPEED;
         });
-        add_slider('Edge Length', FIXED_LENGTH, '#tweaks_sidebar', 0, 200, true, function (newval) {
+        add_slider('Edge Length', FIXED_LENGTH, '#tweaks_sidebar', 0, 200, true, function(newval) {
             FIXED_LENGTH = newval;
         });
 
 
-        var info_sidebar = '#info_sidebar'
-        $(info_sidebar).append("");
-        $(info_sidebar + ' .infobox #info').hide();
-        $(info_sidebar + ' .infobox #s_label').mouseup(function () {
-            var index = $(info_sidebar + ' .infobox #index').html(),
-                title = $(info_sidebar + ' .infobox #title').html();
-            if (title === "Vertex Info") {
-                if (index < 9)
-                    nodes[index].label = $(info_sidebar + ' .infobox #s_label').val() + "#0" + (parseInt(index) + 1);
-                else
-                    nodes[index].label = $(info_sidebar + ' .infobox #s_label').val() + "#" + (parseInt(index) + 1);
-                $(info_sidebar + ' .infobox #s_label').val('');
-                // $('.infobox #n_type').html(nodes[index].label.split("#")[0])
-
-            } else if (title === "Edge Info") {
-                //non entro piu qui!
-                edge_list[index].label = $(info_sidebar + ' .infobox #label').val();
-            }
-            draw();
-        });
-
-        $(info_sidebar + ' .infobox #loopback_button').click(function () {
-            var index = $(info_sidebar + ' .infobox #index').html();
-            // title = $(div + ' .infobox #title').html();
-            nodes[index].vertex_info.loopback = $(info_sidebar + ' .infobox #node_loopback').val();
-            update_infobox(nodes[index]);
-        });
-
-
-        $('#tun_option').val(graph_parameters.tunneling);
-        
-    }
-
-
-    function update_infobox(obj) {
-        var info_sidebar = '#info_sidebar'
-
-        var pos, index, node, edge;
-        if (obj && obj instanceof Vertex) {
-
-            node = obj, pos = node.get_pos(), index = nodes.indexOf(node);
-            $(info_sidebar + ' .infobox #title').html('Vertex Info');
-            $(info_sidebar + ' .infobox #index').html(index);
-            $(info_sidebar + ' .infobox #pos').show();
-            $(info_sidebar + ' .infobox #posx').html(pos.x.toFixed(1));
-            $(info_sidebar + ' .infobox #posy').html(pos.y.toFixed(1));
-            $(info_sidebar + ' .infobox #node_inf').show();
-            if (node.label.split("#")[0] == "COSHI" || node.label.split("#")[0] == "AOSHI")
-                $(info_sidebar + ' .infobox #COSHI_node_inf').show();
-            else
-                $(info_sidebar + ' .infobox #COSHI_node_inf').hide();
-            $(info_sidebar + ' .infobox #edge_inf').hide();
-            $(info_sidebar + ' .infobox #vert').hide();
-            $(info_sidebar + ' .infobox #label').html(node.label);
-            $(info_sidebar + ' .infobox #loopback').html(node.vertex_info.loopback);
-            $(info_sidebar + ' .infobox #node_loopback').val(node.vertex_info.loopback);
-            $(info_sidebar + ' .infobox #n_type').html(node.label.split("#")[0]);
-            $(info_sidebar + ' .infobox #none_selected').hide();
-            $(info_sidebar + ' .infobox #info').show();
-        } else if (obj && obj instanceof Edge) {
-            edge = obj;
-            var enodes = edge.get_nodes();
-            index = edge_list.indexOf(edge);
-            $(info_sidebar + ' .infobox #title').html('Edge Info');
-            $(info_sidebar + ' .infobox #index').html(index);
-            $(info_sidebar + ' .infobox #pos').hide();
-            $(info_sidebar + ' .infobox #vert').show();
-            // $(info_sidebar + ' .infobox #edge_inf').show(); in attesa di sapere i dati da associare 
-            $(info_sidebar + ' .infobox #edge_inf').hide();
-
-            $(info_sidebar + ' .infobox #node_inf').hide();
-
-            //$(info_sidebar + ' .infobox #v1').html(nodes.indexOf(enodes.node1));
-            //$(info_sidebar + ' .infobox #v2').html(nodes.indexOf(enodes.node2));
-            $(info_sidebar + ' .infobox #v1').html(enodes.node1.label.replace("#", ""));
-            $(info_sidebar + ' .infobox #v2').html(enodes.node2.label.replace("#", ""));
-            // $(info_sidebar + ' .infobox #v1_label').val(edge.connections.labe_to_node1 || "")
-            // $(info_sidebar + ' .infobox #v2_label').val(edge.connections.labe_to_node2 || "")
-            $(info_sidebar + ' .infobox #label').val(edge.label || "none");
-            $(info_sidebar + ' .infobox #none_selected').hide();
-            $(info_sidebar + ' .infobox #info').show();
-        } else {
-            $(info_sidebar + ' .infobox #title').html('Select node for info!');
-            $(info_sidebar + ' .infobox #none_selected').show();
-            $(info_sidebar + ' .infobox #info').hide();
-        }
     }
 
 
@@ -1114,7 +827,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         if (vert.vertex_info.frozen) {
             //imageObj.src = 'img/clipart-router-6edb-fixed.png'
             ctx.drawImage(imageObj, vert.pos.x - NODE_RADIUS / 1.45, vert.pos.y - NODE_RADIUS / 1.45, 1.4 * NODE_RADIUS, 1.4 * NODE_RADIUS)
-            // ctx.drawImage(imageObj, this.pos.x-NODE_RADIUS/3,this.pos.y-NODE_RADIUS,NODE_RADIUS,NODE_RADIUS)
+                // ctx.drawImage(imageObj, this.pos.x-NODE_RADIUS/3,this.pos.y-NODE_RADIUS,NODE_RADIUS,NODE_RADIUS)
         }
 
         if (NODE_NUMBERS) {
@@ -1132,45 +845,13 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         var b_color = "#FFFFFF";
         var h_color = "#A8A8A8";
 
-        var aoshi_img = 'img/oshiPE.png';
-        var coshi_img = 'img/oshiCR.png';
-        var euh_img = 'img/oshiCE.png';
-        var l2sw_img = 'img/l2.png';
-        var empty_color = "#FFFFFF";
-        var img = 'img/punto.png';
+        if (is_closest)
+            ctx.fillStyle = h_color;
+        else
+            ctx.fillStyle = b_color;
 
-        if (vert.label.split("#")[0] == "AOSHI") {
-            if (is_closest)
-                ctx.fillStyle = h_color;
-            else
-                ctx.fillStyle = b_color;
-            return aoshi_img;
+        return domainctrl.getNodeIcon(vert);
 
-        } else if (vert.label.split("#")[0] == "COSHI") {
-            if (is_closest)
-                ctx.fillStyle = h_color;
-            else
-                ctx.fillStyle = b_color;
-            return coshi_img;
-
-        } else if (vert.label.split("#")[0] == "EUH") {
-            if (is_closest)
-                ctx.fillStyle = h_color;
-            else
-                ctx.fillStyle = b_color;
-            return euh_img;
-
-        } else if (vert.label.split("#")[0] == "L2SW") {
-            if (is_closest)
-                ctx.fillStyle = h_color;
-            else
-                ctx.fillStyle = b_color;
-            return l2sw_img;
-
-        } else {
-            ctx.fillStyle = empty_color;
-            return img;
-        }
 
     }
 
@@ -1182,19 +863,21 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
     function display_graph() {
         var i;
-        if (LIVE & !plane.isVllPlane()) {
+        if (LIVE) {
             run_physics();
         }
         for (i = 0; i < edge_list.length; i += 1) {
-  
+
             display_edge(edge_list[i]);
         }
+
+
+
         for (i = 0; i < nodes.length; i += 1) {
-            if (plane.isVllPlane()) {
-                if (nodes[i].label.split("#")[0] == "EUH")
-                    display_vertex(nodes[i]); 
-            } else {
-                display_vertex(nodes[i]); 
+
+            if (domainctrl.isVisible(nodes[i], curLayer)) {
+                // if (nodes[i].label.split("#")[0] == "EUH")
+                display_vertex(nodes[i]);
             }
         }
     }
@@ -1210,7 +893,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
     function draw() {
-        console.log('draw')
         var curtime = (new Date).getTime();
         ctx.clearRect(0, 0, SIZE.x, SIZE.y);
         ctx.beginPath();
@@ -1222,72 +904,129 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
     }
 
-    function show_vllView() {
-        //VLLVIEW = true;
-        plane.setVllPlane();
-        draw();
+
+
+    //////////////////////////
+
+    function addListener(type, listener) {
+        eventHandeler.addL(type, listener);
     }
 
-    function hide_vllView(visible) {
-        //VLLVIEW = false;
-        plane.setDataPlane();
-        draw();
-    }
 
     function toggle_live() {
+        LIVE = !LIVE;
         if (LIVE) {
-            LIVE = false;
-            stop_loop();
-            $('#live_button').text('   Live')
-            $('#live_button').prepend('<span class="glyphicon glyphicon-play"></span>')
-            $('#EdgeLength').slider('disable');
-            $('#EdgeStrength').slider('disable');
-            $('#EdgeLength_label').css("color", "grey");
-            $('#EdgeStrength_label').css("color", "grey");
-
-        } else {
-            LIVE = true;
             start_loop();
-            $('#live_button').text(' Static')
-            $('#live_button').prepend('<span class="glyphicon glyphicon-pause"></span>')
-            $('#EdgeLength').slider('enable');
-            $('#EdgeStrength').slider('enable');
-            $('#EdgeLength_label').css("color", "rgb(51,51,51)");
-            $('#EdgeStrength_label').css("color", "rgb(51,51,51)");
-        }
-        // $(div+' #live_button').toggleClass('graph_editor_button_on');
-    }
-
-    function toggle_visibility_legend() {
-        if ($('#legend_button').text() == 'Show Legend') {
-            $('#legend_button').text('Hide Legend')
-            $('#legend_button').prepend('<span class="fa fa-minus-square-o "></span>')
         } else {
-            $('#legend_button').text('Show Legend')
-            $('#legend_button').prepend('<span class="fa fa-plus-square-o "></span>')
+            stop_loop();
         }
-
-        toggle_visibility('legenda')
+        eventHandeler.fire("LiveStatus", {
+            live: LIVE
+        });
     }
 
-    function toggle_visibility(id) {
+    function set_layer(layer) {
+        if (domainctrl.isValidLayers(layer)) {
+            curLayer.setCurLayer(layer);
+        }
+        draw();
+    }
 
-        var e = document.getElementById(id);
+    function update_infobox(obj) {
 
-        if (e.style.display == 'block') {
-            e.style.display = 'none';
+
+        var pos, index, node, edge;
+        if (obj && obj instanceof Vertex) {
+
+
+            var data = {
+                selected: "Vertex",
+                pos: {
+                    x: obj.get_pos().x.toFixed(1),
+                    y: obj.get_pos().y.toFixed(1)
+                },
+                index: nodes.indexOf(obj),
+                node_type: obj.vertex_info["node-type"] || "none",
+                domain_spec: domainctrl.getNodeSpecDomine(obj),
+            };
+
+            eventHandeler.fire("update_infobox", data);
+
+        } else if (obj && obj instanceof Edge) {
+            edge = obj;
+            var enodes = edge.get_nodes();
+
+            var data = {
+                selected: "Edge",
+                index: edge_list.indexOf(edge),
+                nodes: {
+                    node1: enodes.node1.label.replace("#", ""),
+                    node2: enodes.node2.label.replace("#", "")
+                },
+                label: edge.label,
+                domain_spec: domainctrl.getNodeSpecDomine(obj),
+            };
+
+            eventHandeler.fire("update_infobox", data);
+
         } else {
-            e.style.display = 'block';
+
+            var data = {
+                selected: "none"
+            };
+            eventHandeler.fire("update_infobox", data);
+
         }
     }
 
+    function export_image() {
+        //create a dummy CANVAS
+        var canvas = $(div + ' canvas')[0];
+        var destinationCanvas = document.createElement("canvas");
+        destinationCanvas.width = canvas.width;
+        destinationCanvas.height = canvas.height;
+        var destCtx = destinationCanvas.getContext('2d');
+        //create a rectangle with the desired color
+        destCtx.fillStyle = "#FFFFFF";
+        destCtx.fillRect(0, 0, canvas.width, canvas.height);
 
+        //draw the original canvas onto the destination canvas
+        destCtx.drawImage(canvas, 0, 0);
+
+        var img = destinationCanvas.toDataURL("image/png");
+        window.open(img, "Graph Editor Image", "menubar=false,toolba=false,location=false,width=" + SIZE.x + ",height=" + SIZE.y);
+    }
+
+    function set_properties(args) {
+        var resimport = domainctrl.setProperties({
+            edges: edge_list,
+            vertices: nodes,
+            graph_parameters: graph_parameters
+        }, args, curLayer.getCurLayer());
+        if (args.node) {
+            update_infobox(nodes[args.node.index]);
+        } else if (args.edge) {}
+        console.log(JSON.stringify(graph_parameters))
+
+        draw();
+    }
+
+    function get_layers() {
+        return domainctrl.getAllLayers();
+    }
+
+    function get_nodeTypes() {
+        return domainctrl.getNodeTypes();
+    }
+
+    //////////////////////////
 
 
     function init() {
         //construction of GraphEditor
-        plane = new Plane();
-
+        eventHandeler = new EventHandeler();
+        curLayer = new CurLayer();
+        domainctrl = new DomainController();
         controller = Controller();
         $(div).addClass('graph_editor_container');
         $(div).append('<canvas class="graph_editor_canvas" width = "' + SIZE.x + '" height = "' + SIZE.y + '" style="border: 2px black solid">Your browser does not support canvas.</canvas>');
@@ -1298,56 +1037,94 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         ctx = canvastag[0].getContext('2d');
         ctx.translate(0.5, 0.5); //makes everything prettier
         canvastag.attr('tabindex', '0');
-        canvastag.keydown(function (e) {
+        canvastag.keydown(function(e) {
             controller.keydown(e);
         });
-        canvastag.keypress(function (e) {
+        canvastag.keypress(function(e) {
             controller.keypress(e);
         });
-        canvastag.keyup(function (e) {
+        canvastag.keyup(function(e) {
             controller.keyup(e);
         });
-        canvastag.dblclick(function (e) {
+        canvastag.dblclick(function(e) {
             controller.dblclick(e);
         });
-        canvastag.mousedown(function (e) {
+        canvastag.mousedown(function(e) {
             controller.mousedown(e);
         });
-        canvastag.mouseup(function (e) {
+        canvastag.mouseup(function(e) {
             controller.mouseup(e);
         });
-        canvastag.mousemove(function (e) {
+        canvastag.mousemove(function(e) {
             controller.mousemove(e);
         });
-        canvastag.mouseleave(function (e) {
+        canvastag.mouseleave(function(e) {
             controller.mouseleave(e);
         });
         //fixes a problem where double clicking causes text to get selected on the canvas
-        canvastag[0].onselectstart = function () {
-            return false;
-        }
-        if (options.JSONdata) {
-            import_from_JSON(options.JSONdata, false);
-            draw();
-        }
+        canvastag[0].onselectstart = function() {
+                return false;
+            }
+            /* if (options.JSONdata) {
+                 import_from_JSON(options.JSONdata, false);
+                 draw();
+             }*/
         if (options.controls !== false) {
             create_controls(div);
         }
 
-        view = new View();
-        
+    }
 
-        setupListener();
+    function load(modelname) {
+        domainctrl.loadSpec(modelname, function(resload){
+        if (resload['error'] == undefined || resload['error'] == true) {
+            console.log("erroreeeeeeeeeeeeee")
+        } else if(resload['error'] == false) {
+            if (options.JSONdata) {
+                import_from_JSON(options.JSONdata, false);
+                draw();
+            }
+            eventHandeler.fire("editor_ready");
+        }
+        });
         
     }
+
+    function validate(){
+        domainctrl.validateTopology({
+            edges: edge_list,
+            vertices: nodes,
+            graph_parameters: graph_parameters
+        }, function(resvalidate){
+            console.log(resvalidate['error'])
+            if (resvalidate['error'] == undefined || resvalidate['error'] == true) {
+            console.log("erroreeeeeeeeeeeeee")
+        } else  {
+           console.log(resvalidate)
+            eventHandeler.fire("VALID_TOPOLOGY");
+        }
+        });
+    }
+
 
     init();
 
 
     //an global object graph_editor is created containing all global functions
     return {
+        set_properties: set_properties,
         import_from_JSON: import_from_JSON,
-        import_catalog_top: import_catalog_top,
-        export_sage: export_sage
+        export_json: export_json,
+        addListener: addListener,
+        toggle_live: toggle_live,
+        set_layer: set_layer,
+        get_layers: get_layers,
+        get_nodeTypes: get_nodeTypes,
+        undo_remove: undo_remove,
+        erase_graph: erase_graph,
+        export_image: export_image,
+        circular_layout: circular_layout,
+        load: load,
+        validate: validate
     };
 };
