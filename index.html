@@ -120,6 +120,9 @@
                         <div id="legenda" align="left" style="display: block; padding-top: 5px;">
                             <img src="img/legenda.png" width="400" height="50">
                         </div>
+                        <div id="alert_div">
+
+                        </div>
                     </div>
                     <div class="panel-body">
                         <div class="container-canvas" id="canvas_cont" height="200" style="overflow-y: scroll;max-height: 500px;">
@@ -178,14 +181,6 @@
                                 <button type='text' id='edge_inf_button'>Set edge label!</button>
                             </div>
                             <div id='node_inf'>
-                                <div id='COSHI_node_inf'>
-                                    <label>Node loopback:</label><span id='loopback'></span> 
-                                    </br>
-                                    <input type='text' id='node_loopback'>
-                                    </br>
-                                    <button type='text' id='loopback_button'>Set node loopback!</button>
-                                    </br>
-                                </div>
                                 <label>Node Type:</label> <span id='n_type'></span>
                                 <br>
                                 <label>Change Node Type:</label>
@@ -499,6 +494,29 @@
             </div>
             <!-- End Modal -->
 
+            <!-- Modal -->
+            <div class="modal fade" id="myModalValidationError" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalValidationErrorLabel">Select the item to see the detail of the errors</h4>
+                        </div>
+                        <div id="validationError_body" class="modal-body">
+
+
+                        <div class="panel-group" id="validationError_list">
+  
+                        </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal -->
 
             <!-- Modal -->
             <div class="modal fade" id="myModalLoading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">

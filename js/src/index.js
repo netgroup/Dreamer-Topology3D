@@ -35,33 +35,33 @@
 
             if (args.selected == "Vertex") {
 
-
+                var base_info = args.base_info;
 
                 $(info_sidebar + ' .infobox #title').html('Vertex Info');
-                $(info_sidebar + ' .infobox #index').html(args.index);
+                $(info_sidebar + ' .infobox #index').html(base_info.index);
                 $(info_sidebar + ' .infobox #pos').show();
-                $(info_sidebar + ' .infobox #posx').html(args.pos.x);
-                $(info_sidebar + ' .infobox #posy').html(args.pos.y);
+                $(info_sidebar + ' .infobox #posx').html(base_info.pos.x);
+                $(info_sidebar + ' .infobox #posy').html(base_info.pos.y);
                 $(info_sidebar + ' .infobox #node_inf').show();
-                if (args.label == "COSHI" || args.label == "AOSHI")
-                    $(info_sidebar + ' .infobox #COSHI_node_inf').show();
-                else
-                    $(info_sidebar + ' .infobox #COSHI_node_inf').hide();
+               // if (base_info.label == "COSHI" || base_info.label == "AOSHI")
+                //    $(info_sidebar + ' .infobox #COSHI_node_inf').show();
+                //else
+                //    $(info_sidebar + ' .infobox #COSHI_node_inf').hide();
                 $(info_sidebar + ' .infobox #edge_inf').hide();
                 $(info_sidebar + ' .infobox #vert').hide();
                 $(info_sidebar + ' .infobox #label').html(args.label);
                 //$(info_sidebar + ' .infobox #loopback').html(node.vertex_info.loopback);
                 //$(info_sidebar + ' .infobox #node_loopback').val(node.vertex_info.loopback);
-                $(info_sidebar + ' .infobox #n_type').html(args.node_type);
+                $(info_sidebar + ' .infobox #n_type').html(base_info.node_type);
                 $(info_sidebar + ' .infobox #none_selected').hide();
                 $(info_sidebar + ' .infobox #info').show();
                 $('#s_label').val('')
 
             } else if (args.selected == "Edge") {
-
+                var base_info = args.base_info;
 
                 $(info_sidebar + ' .infobox #title').html('Edge Info');
-                $(info_sidebar + ' .infobox #index').html(args.index);
+                $(info_sidebar + ' .infobox #index').html(base_info.index);
                 $(info_sidebar + ' .infobox #pos').hide();
                 $(info_sidebar + ' .infobox #vert').show();
 
@@ -69,10 +69,10 @@
 
                 $(info_sidebar + ' .infobox #node_inf').hide();
 
-                $(info_sidebar + ' .infobox #v1').html(args.nodes.node1);
-                $(info_sidebar + ' .infobox #v2').html(args.nodes.node2);
+                $(info_sidebar + ' .infobox #v1').html(base_info.nodes.node1);
+                $(info_sidebar + ' .infobox #v2').html(base_info.nodes.node2);
 
-                $(info_sidebar + ' .infobox #label').val(args.label || "none");
+                $(info_sidebar + ' .infobox #label').val(base_info.label || "none");
                 $(info_sidebar + ' .infobox #none_selected').hide();
                 $(info_sidebar + ' .infobox #info').show();
             } else if (args.selected == "none") {
@@ -84,9 +84,49 @@
         });
 
 
+        my_graph_editor.addListener("INVALID_TOPOLOGY", function(a, args) {
+            console.log('INVALID_TOPOLOGY');
+            console.log(args);
+         
+            $('#myModalLoading').modal('hide');
+           // for()
+           $('#validationError_list').empty();
+           var counter = 0;
+            for(i in args){
+                for (k in args[i]){
+
+                    $('#validationError_list').append('<div class="panel panel-default"><div class="panel-heading"> <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#validationError_list" href="#collapse'+counter+'"> '+k+' </a> </h4> </div> <div id="collapse'+counter+'" class="panel-collapse collapse"> <div class="panel-body">'+args[i][k]+'</div></div></div>');
+                    counter++;
+                }
+
+            }
+
+
+             $('#myModalValidationError').modal('show');
+            
+            
+        });
+
         my_graph_editor.addListener("VALID_TOPOLOGY", function(a, args) {
             console.log('VALID_TOPOLOGY')
+                     $('#alert_div').append('<div class=\"alert alert-success alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button><strong>Well done!</strong> The topology is ready to be executed on the testbed.</div>'); 
             $('#myModalLoading').modal('hide');
+        });
+
+         my_graph_editor.addListener("RANDOM_TOPOLOGY", function(a, args) {
+             console.log('RANDOM_TOPOLOGY')
+            if(args.error == true){
+                
+                $('#erRandomAlert').append('<div id="alertdiv" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>There was an error! Please try again!</span></div>')
+                $('#randomprogbar').hide();
+            }
+            else{
+                
+                $('#myModalRandom').modal('hide');
+                $('#randomprogbar').hide();
+                $('.modal-backdrop').remove();
+            }
+           return false;
         });
 
 
@@ -328,33 +368,13 @@
             $("#prob").val($("#coreslider").slider("option", "value") / 10);
             $("#corenum").val($("#probslider").slider("option", "value"));
 
-            $('#start_random_button').click(function() {
-                n = $("#coreslider").slider("option", "value");
-                p = $("#probslider").slider("option", "value") / 10;
-                $.ajax({
-                    url: "/cgi-bin/nxbuilder.py?n=" + n + "&p=" + p,
-
-                    beforeSend: function() {
-                        $('#randomprogbar').show();
-                    },
-                    success: function(result) {
-                        console.log(result)
-                        my_graph_editor.import_from_JSON(JSON.stringify(result), true);
-                        $('#randomprogbar').hide();
-                        $('#myModalRandom').modal('hide');
-                    },
-                    error: function(xhr, status, errore) {
-                        console.log("Errrrore " + errore)
-                        $('#randomprogbar').hide();
-                        $('#erRandomAlert').append('<div id="alertdiv" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>There was an error! Please try again!</span></div>')
-
-                    }
-
-                });
-
-
+           
+            $('#start_random_button').click(function(e) {
+               var n = $("#coreslider").slider("option", "value");
+               var p = $("#probslider").slider("option", "value") / 10;
+                $('#randomprogbar').modal('show');
+                my_graph_editor.getRandomTopology(n,p);
             });
-
 
 
             $('#myModalLoading').modal('hide');

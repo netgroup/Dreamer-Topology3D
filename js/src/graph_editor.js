@@ -937,37 +937,52 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
         var pos, index, node, edge;
         if (obj && obj instanceof Vertex) {
+            var vertype = obj.vertex_info["node-type"] || "none";
 
-
-            var data = {
+            var info_data = {
                 selected: "Vertex",
-                pos: {
-                    x: obj.get_pos().x.toFixed(1),
-                    y: obj.get_pos().y.toFixed(1)
+                base_info: {
+                    
+                    pos: {
+                        x: obj.get_pos().x.toFixed(1),
+                        y: obj.get_pos().y.toFixed(1)
+                    },
+                    index: nodes.indexOf(obj),
+                    node_type: vertype
                 },
-                index: nodes.indexOf(obj),
-                node_type: obj.vertex_info["node-type"] || "none",
-                domain_spec: domainctrl.getNodeSpecDomine(obj),
-            };
+                type_info: {
 
-            eventHandeler.fire("update_infobox", data);
+                },
+                model_info: domainctrl.getNodeSpecDomine(obj)
+            }
+
+
+            eventHandeler.fire("update_infobox", info_data);
 
         } else if (obj && obj instanceof Edge) {
             edge = obj;
             var enodes = edge.get_nodes();
 
-            var data = {
+            var info_data = {
                 selected: "Edge",
-                index: edge_list.indexOf(edge),
-                nodes: {
-                    node1: enodes.node1.label.replace("#", ""),
-                    node2: enodes.node2.label.replace("#", "")
+                base_info: {
+                    
+                    index: edge_list.indexOf(edge),
+                    nodes: {
+                        node1: enodes.node1.label.replace("#", ""),
+                        node2: enodes.node2.label.replace("#", "")
+                    },
+                    label: edge.label
                 },
-                label: edge.label,
-                domain_spec: domainctrl.getNodeSpecDomine(obj),
-            };
+                type_info: {
 
-            eventHandeler.fire("update_infobox", data);
+                },
+                model_info:{
+                    
+                }
+            }
+
+            eventHandeler.fire("update_infobox", info_data);
 
         } else {
 
@@ -1077,9 +1092,10 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
     function load(modelname) {
         domainctrl.loadSpec(modelname, function(resload){
-        if (resload['error'] == undefined || resload['error'] == true) {
+             console.log(JSON.stringify(resload));
+        if (resload['error'] != undefined ) {
             console.log("erroreeeeeeeeeeeeee")
-        } else if(resload['error'] == false) {
+        } else {
             if (options.JSONdata) {
                 import_from_JSON(options.JSONdata, false);
                 draw();
@@ -1096,12 +1112,29 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             vertices: nodes,
             graph_parameters: graph_parameters
         }, function(resvalidate){
-            console.log(resvalidate['error'])
-            if (resvalidate['error'] == undefined || resvalidate['error'] == true) {
+            //console.log(resvalidate['error'])
+            if (resvalidate['error'] != undefined ) {
             console.log("erroreeeeeeeeeeeeee")
+            eventHandeler.fire("INVALID_TOPOLOGY", resvalidate['error']['messages']);
         } else  {
            console.log(resvalidate)
             eventHandeler.fire("VALID_TOPOLOGY");
+        }
+        });
+    }
+
+
+    function getRandomTopology(n,p){
+        domainctrl.getRandomTopology(n,p, function(resrandom){
+            console.log(resrandom['error'])
+            if (resrandom['error'] == undefined || resrandom['error'] == true) {
+                eventHandeler.fire("RANDOM_TOPOLOGY", {'error': true});
+            console.log("erroreeeeeeeeeeeeee")
+        } else  {
+           console.log(resrandom)
+           import_from_JSON(JSON.stringify(resrandom.topology), true);
+            eventHandeler.fire("RANDOM_TOPOLOGY", {'error': false});
+            
         }
         });
     }
@@ -1125,6 +1158,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         export_image: export_image,
         circular_layout: circular_layout,
         load: load,
-        validate: validate
+        validate: validate,
+        getRandomTopology: getRandomTopology
     };
 };
