@@ -109,8 +109,16 @@
 
         my_graph_editor.addListener("VALID_TOPOLOGY", function(a, args) {
             console.log('VALID_TOPOLOGY')
-                     $('#alert_div').append('<div class=\"alert alert-success alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button><strong>Well done!</strong> The topology is ready to be executed on the testbed.</div>'); 
+            $('#alert_div').empty();
+            $('#alert_div').append('<div class=\"alert alert-success alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button><strong>Well done!</strong> The topology is ready to be executed on the testbed.</div>'); 
             $('#myModalLoading').modal('hide');
+        });
+
+        my_graph_editor.addListener("alert_warning_msg", function(a, args) {
+            console.log('alert_msg')
+            $('#alert_div').empty();
+            $('#alert_div').append('<div id=\"warning_msg\" class=\"alert alert-warning alert-dismissible\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>'+args+'</div>'); 
+            window.setTimeout(function() { $("#warning_msg").alert('close'); }, 5000);
         });
 
          my_graph_editor.addListener("RANDOM_TOPOLOGY", function(a, args) {

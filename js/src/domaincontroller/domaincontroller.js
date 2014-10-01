@@ -206,6 +206,7 @@ dreamer.DomainController = (function() {
     };
 
     DomainController.prototype.setProperties = function(graph, args, layername) {
+        var result = {};
 
         if (args.node) {
             if (args.node.properties.type && (this.spec['layer_constraints'][layername].changing_nodes_type == undefined || this.spec['layer_constraints'][layername].changing_nodes_type == true)) {
@@ -217,6 +218,9 @@ dreamer.DomainController = (function() {
                     graph.vertices[args.node.index].label = args.node.properties.type + "#" + (parseInt(args.node.index) + 1);
                 }
                 graph.vertices[args.node.index].vertex_info["node-type"] = args.node.properties.type
+            }
+            else{
+                result['error'] = "Changing nodes type not allowed in " + layername;
             }
         } else if (args.edge) {
 
@@ -234,7 +238,7 @@ dreamer.DomainController = (function() {
             }
 
         }
-        return graph;
+        return result;
     };
 
     DomainController.prototype.exportJson = function(graph, pure) {

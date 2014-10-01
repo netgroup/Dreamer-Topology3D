@@ -292,6 +292,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     //#
     function newEdgebetween(node1, node2) {
         if (! domainctrl.isValidEdge(node1.getType(), node2.getType(), curLayer.getCurLayer()) ) {
+            eventHandeler.fire("alert_warning_msg", "New Edge from node type" + node1.getType() + " to node type " +node2.getType() + " not allowed.");
             console.log("invalid edge!!")
             return;
         };
@@ -1013,15 +1014,23 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
     function set_properties(args) {
-        var resimport = domainctrl.setProperties({
+        var resetprop = domainctrl.setProperties({
             edges: edge_list,
             vertices: nodes,
             graph_parameters: graph_parameters
         }, args, curLayer.getCurLayer());
-        if (args.node) {
+        if(resetprop.error){
+            console.log(resetprop.error);
+             eventHandeler.fire("alert_warning_msg", resetprop.error);
+        }else{
+            if (args.node) {
             update_infobox(nodes[args.node.index]);
-        } else if (args.edge) {}
-        console.log(JSON.stringify(graph_parameters))
+        } else if (args.edge) {
+            update_infobox(edge_list[args.edge.index]);
+        }
+        }
+        
+       // console.log(JSON.stringify(graph_parameters))
 
         draw();
     }
