@@ -15,15 +15,15 @@
             if (args.live) {
                 $('#live_button').text(' Static')
                 $('#live_button').prepend('<span class="glyphicon glyphicon-pause"></span>')
-                $('#EdgeLength').slider('enable');
-                $('#EdgeStrength').slider('enable');
+                $('#edgeLength').slider('enable');
+                $('#edgeStrength').slider('enable');
                 $('#EdgeLength_label').css("color", "rgb(51,51,51)");
                 $('#EdgeStrength_label').css("color", "rgb(51,51,51)");
             } else {
                 $('#live_button').text('   Live')
                 $('#live_button').prepend('<span class="glyphicon glyphicon-play"></span>')
-                $('#EdgeLength').slider('disable');
-                $('#EdgeStrength').slider('disable');
+                $('#edgeLength').slider('disable');
+                $('#edgeStrength').slider('disable');
                 $('#EdgeLength_label').css("color", "grey");
                 $('#EdgeStrength_label').css("color", "grey");
             }
@@ -176,6 +176,57 @@
 
             });
 
+
+            my_graph_editor.addListener("RESETTED_CANVAS_DIMENSION", function(a, args) {
+                console.log('RESETTED_CANVAS_DIMENSION')
+                $("#canvdimension").slider('value', 0);
+            });
+
+
+            $("#canvdimension").slider({
+                min: 0,
+                max: 100,
+                value: 50,
+                slide: function(event, ui) {
+                    my_graph_editor.resizeCanvasWith(ui.value);
+                }
+            });
+
+            $("#orientation").slider({
+                min: 0,
+                max: 360,
+                value: 0,
+                slide: function(event, ui) {
+                    my_graph_editor.change_orientation(ui.value);
+                }
+            });
+
+            $("#vertexSize").slider({
+                min: 0,
+                max: 30,
+                value: 10,
+                slide: function(event, ui) {
+                    my_graph_editor.change_vertex_size(ui.value);
+                }
+            });
+
+            $("#edgeStrength").slider({
+                min: 0,
+                max: 100,
+                value: 50,
+                slide: function(event, ui) {
+                    my_graph_editor.change_egde_strength(ui.value);
+                }
+            });
+
+            $("#edgeLength").slider({
+                min: 0,
+                max: 100,
+                value: 50,
+                slide: function(event, ui) {
+                    my_graph_editor.change_egde_length(ui.value);
+                }
+            });
 
             $("#layer-menu .dropdown-menu li a").click(function() {
                 my_graph_editor.set_layer($(this).text().replace(/ /g, ''));
@@ -392,7 +443,10 @@
 
         my_graph_editor.load("oshi");
 
-
+         $(window).resize(function(){
+            console.log("RESIZE PAGINA")     
+            my_graph_editor.resetCanvasDimension($('#panel_head').width()-30,400);        
+        });  
 
     });
 

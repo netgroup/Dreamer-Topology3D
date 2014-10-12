@@ -436,6 +436,21 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         draw();
     }
 
+    function change_vertex_size(newval) {
+        NODE_RADIUS = newval;
+        draw();
+    }
+
+
+    function change_egde_strength(newval) {
+        SPRING = (1 - 1e-2) + 1e-4 * (100 - newval);
+        SPEED = newval / 50.0;
+        SPEED *= 2 * SPEED;
+    }
+
+    function change_egde_length(newval){
+        FIXED_LENGTH = newval;
+    }
 
 
     function erase_graph() {
@@ -726,48 +741,11 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
 
-
-    function add_slider(name, variable, container_id, min_, max_, disabled_, onchangef) {
-        var s = '<li><tr><td><label id="' + name.replace(/\s/g, '') + '_label">' + name + '</label></td>';
-        s += '<td><div id="' + name.replace(/\s/g, '') + '" class="slider"></div></td></tr></li>';
-        $(container_id).append(s);
-        $(container_id + ' div.slider:last').slider({
-            min: min_,
-            max: max_,
-            value: variable,
-            slide: function(event, ui) {
-                onchangef(ui.value);
-            }
-        });
-        if (disabled_) {
-            $(container_id + ' div.slider:last').slider('disable')
-            $('#' + name.replace(/\s/g, '') + '_label').css("color", "grey");
-        }
-    }
-
     function create_controls(div) {
         //Create controls and attach click functions 
         var tweaks, canvaspos = $(div + ' canvas').offset(),
             buttondiv = div + ' #graph_editor_button_container',
             canvas = $(div + ' canvas')[0];
-
-
-
-        add_slider('Canvas Dimension:', 0, '#tweaks_sidebar', 0, 600, false, function(newval) {
-            var old_x = SIZE.x;
-            var old_y = SIZE.y;
-            SIZE = {
-                x: MIN_X + newval,
-                y: MIN_Y + newval
-            };
-            center = {
-                x: SIZE.x / 2,
-                y: SIZE.y / 2
-            };
-            ctx.canvas.height = SIZE.y;
-            ctx.canvas.width = SIZE.x;
-            node_repos(SIZE.x / old_x, SIZE.y / old_y);
-        });
 
 
 
@@ -777,21 +755,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             draw();
         });
 
-        add_slider('Orientation', 0, '#tweaks_sidebar', 0, 360, false, change_orientation);
 
-        add_slider('Vertex Size', NODE_RADIUS, '#tweaks_sidebar', 0, 30, false, function(newval) {
-            NODE_RADIUS = newval;
-            draw();
-        });
-
-        add_slider('Edge Strength', 50, '#tweaks_sidebar', 0, 100, true, function(newval) {
-            SPRING = (1 - 1e-2) + 1e-4 * (100 - newval);
-            SPEED = newval / 50.0;
-            SPEED *= 2 * SPEED;
-        });
-        add_slider('Edge Length', FIXED_LENGTH, '#tweaks_sidebar', 0, 200, true, function(newval) {
-            FIXED_LENGTH = newval;
-        });
 
 
     }
@@ -1148,6 +1112,34 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         });
     }
 
+    function resizeCanvasWith(increment){
+        resizeCanvas(MIN_X + increment, MIN_Y + increment);
+    }
+
+
+    function resizeCanvas(newx, newy){
+        var old_x = SIZE.x;
+        var old_y = SIZE.y;
+        SIZE = {
+            x: newx,
+            y: newy
+        };
+        center = {
+            x: SIZE.x / 2,
+            y: SIZE.y / 2
+        };
+        ctx.canvas.height = SIZE.y;
+        ctx.canvas.width = SIZE.x;
+        node_repos(SIZE.x / old_x, SIZE.y / old_y);
+    }
+
+    function resetCanvasDimension(newx, newy){
+       
+        MIN_X = newx;
+        MIN_Y = newy;
+        resizeCanvas(newx, newy);
+        eventHandeler.fire("RESETTED_CANVAS_DIMENSION");
+    }
 
     init();
 
@@ -1168,6 +1160,12 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         circular_layout: circular_layout,
         load: load,
         validate: validate,
-        getRandomTopology: getRandomTopology
+        getRandomTopology: getRandomTopology,
+        resetCanvasDimension: resetCanvasDimension,
+        resizeCanvasWith: resizeCanvasWith,
+        change_orientation: change_orientation,
+        change_vertex_size: change_vertex_size,
+        change_egde_strength: change_egde_strength,
+        change_egde_length: change_egde_length
     };
 };
