@@ -205,17 +205,36 @@ dreamer.DomainController = (function() {
 
     };
 
+    DomainController.prototype.getNodeLabel = function(nodetype) {
+        var result;
+        try{
+            result = this.spec['nodes'][nodetype]['node_label'];
+        }
+        catch(err){
+            console.log("getNodeLabel Exception: " + err);
+            result = nodetype;
+        }
+       
+        return result;
+    
+
+    };
+
     DomainController.prototype.setProperties = function(graph, args, layername) {
         var result = {};
 
         if (args.node) {
             if (args.node.properties.type && (this.spec['layer_constraints'][layername].changing_nodes_type == undefined || this.spec['layer_constraints'][layername].changing_nodes_type == true)) {
+                
+                var new_node_label = this.getNodeLabel(args.node.properties.type);
+                console.log(new_node_label);
+
                 if (args.node.index < 9) {
 
-                    graph.vertices[args.node.index].label = args.node.properties.type + "#0" + (parseInt(args.node.index) + 1);
+                    graph.vertices[args.node.index].label = new_node_label + "#0" + (parseInt(args.node.index) + 1);
 
                 } else {
-                    graph.vertices[args.node.index].label = args.node.properties.type + "#" + (parseInt(args.node.index) + 1);
+                    graph.vertices[args.node.index].label = new_node_label + "#" + (parseInt(args.node.index) + 1);
                 }
                 graph.vertices[args.node.index].vertex_info["node-type"] = args.node.properties.type
             }
