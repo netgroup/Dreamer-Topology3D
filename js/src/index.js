@@ -10,6 +10,8 @@
             multigraph: true
         });
 
+         my_graph_editor.resetCanvasDimension($('#panel_head').width()-30,400); 
+
         my_graph_editor.addListener("LiveStatus", function(a, args) {
             console.log("Fired con successoooo " + JSON.stringify(args));
             if (args.live) {
