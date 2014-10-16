@@ -5,22 +5,22 @@ if (typeof dreamer === 'undefined') {
 dreamer.Edge = (function (global) {
     'use strict';
     // Constructor
-    function Edge(node1, node2, vll, connetion) {
+    function Edge(node1, node2, layer, links) {
         this.node1 = node1;
         this.node2 = node2;
-        this.edge_info = [];
+        this.links = [];
         
-        if(connetion && (connetion instanceof Array)){
-            this.edge_info = connetion;
+        if(links && (links instanceof Array)){
+            this.links = links;
         }
-        else if (connetion && (typeof connetion  === "object")) {
-            var val = (connetion.vll==null || connetion.vll===false) ? false: true;
-            var edlab = (connetion.edge_label == null || connetion.vll === "") ? "": connetion.edge_label;
-            this.edge_info.push( new dreamer.Connection("", val));
+        else if (links && (typeof links  === "object")) {
+           // var val = (links.layer==null || links.layer==="") ? "": links.layer;
+           // var edlab = (links.edge_label == null || links.edge_label === "") ? "": links.edge_label;
+            this.links.push( new dreamer.Link(links.edge_label, links.layer));
         } 
-        else{
-            var val = (vll==null || vll===false) ? false: true;
-            this.edge_info.push( new dreamer.Connection("", val));
+        else if (layer != undefined){
+            //var val = (vll==null || vll===false) ? false: true;
+            this.links.push( new dreamer.Link("ciao", layer));
         }
     }
 
@@ -51,13 +51,13 @@ dreamer.Edge = (function (global) {
         };
     };
     
-    Edge.prototype.addConnection = function (edge_label, vll) {
-       this.edge_info.push(new dreamer.Connection(edge_label, vll));
+    Edge.prototype.addLink = function (edge_label, layer) {
+       this.links.push(new dreamer.Link(edge_label, layer));
     };
 
-    Edge.prototype.setConnecionList = function(conlist){
+    Edge.prototype.setLinkList = function(conlist){
         if(conlist != undefined)
-            this.edge_info = conlist.slice(0);
+            this.links = conlist.slice(0);
     }
 
 

@@ -1,240 +1,195 @@
 {
-	"vertices": [
-		"COSHI#01",
-		"COSHI#02",
-		"AOSHI#03",
-		"AOSHI#04",
-		"AOSHI#05",
-		"L2SW#06",
-		"L2SW#07",
-		"L2SW#08",
-		"EUH#09",
-		"EUH#9",
-		"EUH#10"
-	],
-	"edges": [
-		[
-			"L2SW#08",
-			"AOSHI#05",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"AOSHI#03",
-			"COSHI#01",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"EUH#09",
-			"L2SW#08",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"L2SW#07",
-			"AOSHI#04",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"EUH#9",
-			"L2SW#07",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"EUH#10",
-			"L2SW#06",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"L2SW#06",
-			"AOSHI#03",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"COSHI#01",
-			"AOSHI#04",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"COSHI#01",
-			"COSHI#02",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"COSHI#02",
-			"AOSHI#03",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"AOSHI#04",
-			"COSHI#02",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"AOSHI#05",
-			"COSHI#01",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"AOSHI#05",
-			"COSHI#02",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		]
-	],
-	"pos": {
-		"COSHI#01": [
-			396.51963103017357,
-			71.10357606750831
-		],
-		"COSHI#02": [
-			380.883188133506,
-			143.35587501892672
-		],
-		"AOSHI#03": [
-			496.43903802276066,
-			77.00774581244595
-		],
-		"AOSHI#04": [
-			279.74835812704475,
-			89.55240642626265
-		],
-		"AOSHI#05": [
-			438.4323832317988,
-			218.3027710398388
-		],
-		"L2SW#06": [
-			618.3196775133432,
-			92.58217176774708
-		],
-		"L2SW#07": [
-			156.66376904659094,
-			117.19443124428284
-		],
-		"L2SW#08": [
-			450.1143374969922,
-			330.71082977395054
-		],
-		"EUH#09": [
-			356.5241156117902,
-			349.5856905685974
-		],
-		"EUH#9": [
-			95.92629907273889,
-			204.35123419224902
-		],
-		"EUH#10": [
-			702.8384552984102,
-			157.97678212269886
-		]
-	},
-	"node_properties": {
-		"COSHI#01": {
-			"frozen": false,
-			"loopback": ""
+	"vertices": {
+		"cro1": {
+			"pos": {
+				"x": 454.84375,
+				"y": 132
+			},
+			"v": {
+				"x": -0.0026819576650523036,
+				"y": 0.007764759969454749
+			},
+			"vertex_info": {
+				"frozen": false,
+				"node-type": "OSHI-CR"
+			}
 		},
-		"COSHI#02": {
-			"frozen": false,
-			"loopback": ""
+		"cro2": {
+			"pos": {
+				"x": 380.84375,
+				"y": 202
+			},
+			"v": {
+				"x": -0.0027120279267520836,
+				"y": 0.008058915185004845
+			},
+			"vertex_info": {
+				"frozen": false,
+				"node-type": "OSHI-CR"
+			}
 		},
-		"AOSHI#03": {
-			"frozen": false,
-			"loopback": ""
+		"peo3": {
+			"pos": {
+				"x": 476.84375,
+				"y": 251
+			},
+			"v": {
+				"x": -0.0016964191615038704,
+				"y": 0.007286426382604988
+			},
+			"vertex_info": {
+				"frozen": false,
+				"node-type": "OSHI-PE"
+			}
 		},
-		"AOSHI#04": {
-			"frozen": false,
-			"loopback": ""
+		"cro4": {
+			"pos": {
+				"x": 309.84375,
+				"y": 288
+			},
+			"v": {
+				"x": -0.00038084691921250885,
+				"y": 0.006818072351580495
+			},
+			"vertex_info": {
+				"frozen": false,
+				"node-type": "OSHI-CR"
+			}
 		},
-		"AOSHI#05": {
-			"frozen": false,
-			"loopback": ""
+		"peo5": {
+			"pos": {
+				"x": 301.84375,
+				"y": 148
+			},
+			"v": {
+				"x": -0.002102312974180273,
+				"y": 0.00761656670932398
+			},
+			"vertex_info": {
+				"frozen": false,
+				"node-type": "OSHI-PE"
+			}
 		},
-		"L2SW#06": {
-			"frozen": false,
-			"loopback": ""
+		"cer6": {
+			"pos": {
+				"x": 258.84375,
+				"y": 56
+			},
+			"v": {
+				"x": -0.0005888950723230701,
+				"y": 0.006203140860930101
+			},
+			"vertex_info": {
+				"frozen": false,
+				"node-type": "CE"
+			}
 		},
-		"L2SW#07": {
-			"frozen": false,
-			"loopback": ""
-		},
-		"L2SW#08": {
-			"frozen": false,
-			"loopback": ""
-		},
-		"EUH#09": {
-			"frozen": false,
-			"loopback": ""
-		},
-		"EUH#9": {
-			"frozen": false,
-			"loopback": ""
-		},
-		"EUH#10": {
-			"frozen": false,
-			"loopback": ""
+		"cer7": {
+			"pos": {
+				"x": 587.84375,
+				"y": 248
+			},
+			"v": {
+				"x": -0.0017742482705956908,
+				"y": 0.008590235384010658
+			},
+			"vertex_info": {
+				"frozen": false,
+				"node-type": "CE"
+			}
 		}
 	},
-	"name": "G"
+	"edges": {
+		"cer6&&peo5": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"cer7&&peo3": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"peo3&&cro1": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"peo3&&cro2": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"peo3&&cro4": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"cro4&&cro2": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"cro1&&cro2": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"cro1&&peo5": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"cro4&&peo5": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"cro2&&peo5": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"cer6&&cer7": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Vll"
+				}
+			]
+		}
+	},
+	"graph_parameters": {
+		"tunneling": "VXLAN"
+	}
 }

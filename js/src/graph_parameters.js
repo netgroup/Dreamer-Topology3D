@@ -12,14 +12,21 @@ dreamer.GraphParameters = (function (global) {
                 this.tunneling = data.tunneling;
             else
                 this.tunneling = "";
+
+            if(data.graphname != undefined)
+                this.graphname = data.graphname;
         }
         
 
-              
     }
 
     GraphParameters.prototype.setTunneling = function (tuntype) {
         this.tunneling = tuntype;
+        
+    };
+
+    GraphParameters.prototype.setGraphName = function (name) {
+        this.graphname = name;
         
     };
 

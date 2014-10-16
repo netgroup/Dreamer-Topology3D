@@ -1,185 +1,189 @@
 {
-	"vertices": [
-		"COSHI#01",
-		"COSHI#02",
-		"COSHI#03",
-		"AOSHI#04",
-		"AOSHI#05",
-		"AOSHI#06"
-	],
-	"edges": [
-		[
-			"COSHI#02",
-			"COSHI#03",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"COSHI#02",
-			"COSHI#01",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"COSHI#01",
-			"COSHI#03",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"COSHI#02",
-			"AOSHI#06",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"AOSHI#06",
-			"COSHI#01",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"AOSHI#06",
-			"COSHI#03",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"AOSHI#05",
-			"COSHI#01",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"AOSHI#05",
-			"COSHI#03",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"AOSHI#04",
-			"COSHI#02",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"AOSHI#04",
-			"COSHI#03",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"AOSHI#04",
-			"COSHI#01",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"AOSHI#05",
-			"COSHI#02",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		]
-	],
-	"pos": {
-		"COSHI#01": [
-			302.1688387051706,
-			183.83337919035674
-		],
-		"COSHI#02": [
-			573.4989394831722,
-			205.4236041448698
-		],
-		"COSHI#03": [
-			403.65992922336926,
-			320.07663927510015
-		],
-		"AOSHI#04": [
-			703.2881888197805,
-			352.298509002872
-		],
-		"AOSHI#05": [
-			92.06972686368954,
-			307.18736886020145
-		],
-		"AOSHI#06": [
-			477.83010016585234,
-			50.47360084193204
-		]
-	},
-	"node_properties": {
-		"COSHI#01": {
-			"frozen": false,
-			"loopback": ""
+	"vertices": {
+		"cro1": {
+			"pos": {
+				"x": 280.84375,
+				"y": 181
+			},
+			"v": {
+				"x": 0,
+				"y": 0
+			},
+			"vertex_info": {
+				"frozen": false,
+				"node-type": "OSHI-CR"
+			}
 		},
-		"COSHI#02": {
-			"frozen": false,
-			"loopback": ""
+		"cro2": {
+			"pos": {
+				"x": 508.84375,
+				"y": 185
+			},
+			"v": {
+				"x": 0,
+				"y": 0
+			},
+			"vertex_info": {
+				"frozen": false,
+				"node-type": "OSHI-CR"
+			}
 		},
-		"COSHI#03": {
-			"frozen": false,
-			"loopback": ""
+		"cro3": {
+			"pos": {
+				"x": 391.84375,
+				"y": 323
+			},
+			"v": {
+				"x": 0,
+				"y": 0
+			},
+			"vertex_info": {
+				"frozen": false,
+				"node-type": "OSHI-CR"
+			}
 		},
-		"AOSHI#04": {
-			"frozen": false,
-			"loopback": ""
+		"peo4": {
+			"pos": {
+				"x": 166.84375,
+				"y": 325
+			},
+			"v": {
+				"x": 0,
+				"y": 0
+			},
+			"vertex_info": {
+				"frozen": false,
+				"node-type": "OSHI-PE"
+			}
 		},
-		"AOSHI#05": {
-			"frozen": false,
-			"loopback": ""
+		"peo5": {
+			"pos": {
+				"x": 602.84375,
+				"y": 325
+			},
+			"v": {
+				"x": 0,
+				"y": 0
+			},
+			"vertex_info": {
+				"frozen": false,
+				"node-type": "OSHI-PE"
+			}
 		},
-		"AOSHI#06": {
-			"frozen": false,
-			"loopback": ""
+		"peo6": {
+			"pos": {
+				"x": 383.84375,
+				"y": 29
+			},
+			"v": {
+				"x": 0,
+				"y": 0
+			},
+			"vertex_info": {
+				"frozen": false,
+				"node-type": "OSHI-PE"
+			}
 		}
 	},
-	"name": "G"
+	"edges": {
+		"cro2&&cro1": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"cro2&&cro3": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"cro3&&cro1": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"peo6&&cro2": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"peo6&&cro3": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"peo6&&cro1": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"peo4&&cro1": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"peo4&&cro2": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"peo4&&cro3": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"peo5&&cro2": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"peo5&&cro1": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"peo5&&cro3": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		}
+	},
+	"graph_parameters": {
+		"tunneling": "VXLAN"
+	}
 }

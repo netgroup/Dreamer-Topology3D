@@ -1,0 +1,113 @@
+{
+   "model-name":"oshi",
+   "list-of-all-node-types":[
+      "OSHI-CR",
+      "OSHI-PE",
+      "CE",
+      "L2SW",
+      "OF Controller"
+   ],
+   "list-of-all-layer":[
+      "Data",
+      "Vll",
+      "Control"
+   ],
+   "layer-constraints":{
+      "Data":{
+         "layer-constrints":{
+            "not-allowed-edge":[
+               {
+                  "source":"CE",
+                  "not-allowed-des":[
+                     "OSHI-CR",
+                     "L2SW",
+                     "OF Controller"
+                  ]
+               },
+               {
+                  "source":"OSHI-CR",
+                  "not-allowed-des":[
+                     "CE",
+                     "L2SW",
+                     "OF Controller"
+                  ]
+               },
+               {
+                  "source":"OSHI-PE",
+                  "not-allowed-des":[
+                     "CE",
+                     "L2SW",
+                     "OF Controller"
+                  ]
+               },
+               {
+                  "source":"L2SW",
+                  "not-allowed-des":[
+                     "OSHI-CR",
+                     "L2SW",
+                     "OF Controller"
+                  ]
+               },
+               {
+                  "source":"OF Controller",
+                  "not-allowed-des":[
+                     "OSHI-CR",
+                     "L2SW"
+                  ]
+               }
+            ]
+         }
+      },
+      "VLL":{
+         "list-of-nodes-layer":[
+            "OSHI-CE"
+         ],
+         "changing-nodes-type":false,
+         "insert-new-node":false
+      },
+      "Control":{
+         "list-of-nodes-layer":[
+            "OSHI-CR",
+            "OSHI-PE"
+         ],
+         "layer-constraint":{
+            "not-allowed-edge":[
+               {
+                  "source":"OSHI-CR",
+                  "not-allowed-des":[
+                     "CE",
+                     "L2SW",
+                     "OF Controller"
+                  ]
+               },
+               {
+                  "source":"OSHI-PE",
+                  "not-allowed-des":[
+                     "CE",
+                     "L2SW",
+                     "OF Controller"
+                  ]
+               }
+            ],
+            "not-allowed-multilink":[
+               {
+                  "source":"OSHI-CR",
+                  "not-allowed-des":[
+                     "OSHI-CR",
+                     "OSHI-PE"
+                  ]
+               },
+               {
+                  "source":"OSHI-PE",
+                  "not-allowed-des":[
+                     "OSHI-CR",
+                     "OSHI-PE"
+                  ]
+               }
+            ],
+            "changing-nodes-type":false,
+            "insert-new-node":false
+         }
+      }
+   }
+}

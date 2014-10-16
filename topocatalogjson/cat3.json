@@ -1,97 +1,105 @@
 {
-	"vertices": [
-		"COSHI#01",
-		"COSHI#02",
-		"AOSHI#03",
-		"AOSHI#04"
-	],
-	"edges": [
-		[
-			"COSHI#01",
-			"AOSHI#04",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"AOSHI#03",
-			"COSHI#02",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"COSHI#02",
-			"AOSHI#04",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"COSHI#02",
-			"COSHI#01",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		],
-		[
-			"COSHI#01",
-			"AOSHI#03",
-			[
-				{
-					"edge_label": "",
-					"vll": false
-				}
-			]
-		]
-	],
-	"pos": {
-		"COSHI#01": [
-			387.864099913506,
-			245.58203858952274
-		],
-		"COSHI#02": [
-			408.0480879884043,
-			153.4105421654837
-		],
-		"AOSHI#03": [
-			305.95789420280414,
-			179.33748921295242
-		],
-		"AOSHI#04": [
-			489.9560380573166,
-			219.628742107733
-		]
-	},
-	"node_properties": {
-		"COSHI#01": {
-			"frozen": false,
-			"loopback": ""
+	"vertices": {
+		"cro01": {
+			"pos": {
+				"x": 171.84375,
+				"y": 80
+			},
+			"v": {
+				"x": 0,
+				"y": 0
+			},
+			"vertex_info": {
+				"frozen": false,
+				"node-type": "OSHI-CR"
+			}
 		},
-		"COSHI#02": {
-			"frozen": false,
-			"loopback": ""
+		"cro02": {
+			"pos": {
+				"x": 542.84375,
+				"y": 75
+			},
+			"v": {
+				"x": 0,
+				"y": 0
+			},
+			"vertex_info": {
+				"frozen": false,
+				"node-type": "OSHI-CR"
+			}
 		},
-		"AOSHI#03": {
-			"frozen": false,
-			"loopback": ""
+		"peo03": {
+			"pos": {
+				"x": 103.84375,
+				"y": 307
+			},
+			"v": {
+				"x": 0,
+				"y": 0
+			},
+			"vertex_info": {
+				"frozen": false,
+				"node-type": "OSHI-PE"
+			}
 		},
-		"AOSHI#04": {
-			"frozen": false,
-			"loopback": ""
+		"peo04": {
+			"pos": {
+				"x": 606.84375,
+				"y": 304
+			},
+			"v": {
+				"x": 0,
+				"y": 0
+			},
+			"vertex_info": {
+				"frozen": false,
+				"node-type": "OSHI-PE"
+			}
 		}
 	},
-	"name": "G"
+	"edges": {
+		"peo03&&cro01": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"peo03&&cro02": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"cro01&&peo04": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"cro01&&cro02": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		},
+		"cro02&&peo04": {
+			"links": [
+				{
+					"link_label": "ciao",
+					"link-type": "Data"
+				}
+			]
+		}
+	},
+	"graph_parameters": {
+		"tunneling": "VXLAN"
+	}
 }

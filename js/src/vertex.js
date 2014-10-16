@@ -11,7 +11,7 @@ dreamer.Vertex = (function (global) {
         if (node_properties)
             this.vertex_info = node_properties;
         else
-            this.vertex_info = new Vertex_info("", false);
+            this.vertex_info = {frozen: false}; //new Vertex_info("", false);
 
         this.label = label || next_label(nodes);
     }
@@ -72,10 +72,33 @@ dreamer.Vertex = (function (global) {
         this.v.y *= 0.5;
     };
 
-    var Vertex_info = function (loopback, frozen) {
-        this.frozen = frozen;
-        this.loopback = loopback;
+    Vertex.prototype.getVertexInfo = function () {
+        return this.vertex_info;
     };
+
+
+
+   Vertex.prototype.getType = function () {
+        return this.vertex_info['node-type'];
+    };
+/* 
+    Vertex.prototype.setType = function (type) {
+        this.vertex_info.type = type;
+    };
+    Vertex.prototype.getLoopback = function () {
+        return this.vertex_info.loopback;
+    };
+
+    Vertex.prototype.setLoopback = function (loopback) {
+        this.vertex_info.loopback = loopback;
+    };
+
+
+    var Vertex_info = function (vertinfo) {
+        this.frozen = vertinfo.frozen;
+        this.loopback = vertinfo.loopback;
+        this.type = vertinfo.type;
+    };*/
 
 
     return Vertex;
