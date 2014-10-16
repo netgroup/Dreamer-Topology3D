@@ -1,6 +1,6 @@
 {
 	"vertices": {
-		"cro#01": {
+		"cro01": {
 			"pos": {
 				"x": 280.84375,
 				"y": 181
@@ -14,7 +14,7 @@
 				"node-type": "OSHI-CR"
 			}
 		},
-		"cro#02": {
+		"cro02": {
 			"pos": {
 				"x": 508.84375,
 				"y": 185
@@ -28,7 +28,7 @@
 				"node-type": "OSHI-CR"
 			}
 		},
-		"cro#03": {
+		"cro03": {
 			"pos": {
 				"x": 391.84375,
 				"y": 323
@@ -42,7 +42,7 @@
 				"node-type": "OSHI-CR"
 			}
 		},
-		"peo#04": {
+		"peo04": {
 			"pos": {
 				"x": 166.84375,
 				"y": 325
@@ -56,7 +56,7 @@
 				"node-type": "OSHI-PE"
 			}
 		},
-		"peo#05": {
+		"peo05": {
 			"pos": {
 				"x": 602.84375,
 				"y": 325
@@ -70,7 +70,7 @@
 				"node-type": "OSHI-PE"
 			}
 		},
-		"peo#06": {
+		"peo06": {
 			"pos": {
 				"x": 383.84375,
 				"y": 29
@@ -86,7 +86,7 @@
 		}
 	},
 	"edges": {
-		"cro#02&&cro#01": {
+		"cro02&&cro01": {
 			"links": [
 				{
 					"link_label": "ciao",
@@ -94,7 +94,7 @@
 				}
 			]
 		},
-		"cro#02&&cro#03": {
+		"cro02&&cro03": {
 			"links": [
 				{
 					"link_label": "ciao",
@@ -102,7 +102,7 @@
 				}
 			]
 		},
-		"cro#03&&cro#01": {
+		"cro03&&cro01": {
 			"links": [
 				{
 					"link_label": "ciao",
@@ -110,7 +110,7 @@
 				}
 			]
 		},
-		"peo#06&&cro#02": {
+		"peo06&&cro02": {
 			"links": [
 				{
 					"link_label": "ciao",
@@ -118,7 +118,7 @@
 				}
 			]
 		},
-		"peo#06&&cro#03": {
+		"peo06&&cro03": {
 			"links": [
 				{
 					"link_label": "ciao",
@@ -126,7 +126,7 @@
 				}
 			]
 		},
-		"peo#06&&cro#01": {
+		"peo06&&cro01": {
 			"links": [
 				{
 					"link_label": "ciao",
@@ -134,7 +134,7 @@
 				}
 			]
 		},
-		"peo#04&&cro#01": {
+		"peo04&&cro01": {
 			"links": [
 				{
 					"link_label": "ciao",
@@ -142,7 +142,7 @@
 				}
 			]
 		},
-		"peo#04&&cro#02": {
+		"peo04&&cro02": {
 			"links": [
 				{
 					"link_label": "ciao",
@@ -150,7 +150,7 @@
 				}
 			]
 		},
-		"peo#04&&cro#03": {
+		"peo04&&cro03": {
 			"links": [
 				{
 					"link_label": "ciao",
@@ -158,7 +158,7 @@
 				}
 			]
 		},
-		"peo#05&&cro#02": {
+		"peo05&&cro02": {
 			"links": [
 				{
 					"link_label": "ciao",
@@ -166,7 +166,7 @@
 				}
 			]
 		},
-		"peo#05&&cro#01": {
+		"peo05&&cro01": {
 			"links": [
 				{
 					"link_label": "ciao",
@@ -174,7 +174,7 @@
 				}
 			]
 		},
-		"peo#05&&cro#03": {
+		"peo05&&cro03": {
 			"links": [
 				{
 					"link_label": "ciao",

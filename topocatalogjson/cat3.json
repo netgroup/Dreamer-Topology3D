@@ -1,6 +1,6 @@
 {
 	"vertices": {
-		"cro#01": {
+		"cro01": {
 			"pos": {
 				"x": 171.84375,
 				"y": 80
@@ -14,7 +14,7 @@
 				"node-type": "OSHI-CR"
 			}
 		},
-		"cro#02": {
+		"cro02": {
 			"pos": {
 				"x": 542.84375,
 				"y": 75
@@ -28,7 +28,7 @@
 				"node-type": "OSHI-CR"
 			}
 		},
-		"peo#03": {
+		"peo03": {
 			"pos": {
 				"x": 103.84375,
 				"y": 307
@@ -42,7 +42,7 @@
 				"node-type": "OSHI-PE"
 			}
 		},
-		"peo#04": {
+		"peo04": {
 			"pos": {
 				"x": 606.84375,
 				"y": 304
@@ -58,7 +58,7 @@
 		}
 	},
 	"edges": {
-		"peo#03&&cro#01": {
+		"peo03&&cro01": {
 			"links": [
 				{
 					"link_label": "ciao",
@@ -66,7 +66,7 @@
 				}
 			]
 		},
-		"peo#03&&cro#02": {
+		"peo03&&cro02": {
 			"links": [
 				{
 					"link_label": "ciao",
@@ -74,7 +74,7 @@
 				}
 			]
 		},
-		"cro#01&&peo#04": {
+		"cro01&&peo04": {
 			"links": [
 				{
 					"link_label": "ciao",
@@ -82,7 +82,7 @@
 				}
 			]
 		},
-		"cro#01&&cro#02": {
+		"cro01&&cro02": {
 			"links": [
 				{
 					"link_label": "ciao",
@@ -90,7 +90,7 @@
 				}
 			]
 		},
-		"cro#02&&peo#04": {
+		"cro02&&peo04": {
 			"links": [
 				{
 					"link_label": "ciao",

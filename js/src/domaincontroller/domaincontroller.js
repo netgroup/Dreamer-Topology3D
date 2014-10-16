@@ -231,10 +231,10 @@ dreamer.DomainController = (function() {
 
                 if (args.node.index < 9) {
 
-                    graph.vertices[args.node.index].label = new_node_label + "#0" + (parseInt(args.node.index) + 1);
+                    graph.vertices[args.node.index].label = new_node_label + "0" + (parseInt(args.node.index) + 1);
 
                 } else {
-                    graph.vertices[args.node.index].label = new_node_label + "#" + (parseInt(args.node.index) + 1);
+                    graph.vertices[args.node.index].label = new_node_label + (parseInt(args.node.index) + 1);
                 }
                 graph.vertices[args.node.index].vertex_info["node-type"] = args.node.properties.type
             }
