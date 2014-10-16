@@ -267,11 +267,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         }
         //realign labels and index
         for (i = nodes.length - 1; i > -1; i -= 1) {
-            if (i < 9)
-                nodes[i].label = nodes[i].label.split("#")[0] + "#0" + (i + 1);
-            else
-                nodes[i].label = nodes[i].label.split("#")[0] + "#" + i;
-
+                nodes[i].label = nodes[i].label.replace(/[0-9]/g, '') + (i + 1);
         }
 
         $('#undo_button').removeClass('graph_editor_undo_disabled');
