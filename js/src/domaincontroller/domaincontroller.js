@@ -4,6 +4,10 @@ if (typeof dreamer === 'undefined') {
 
 dreamer.DomainController = (function() {
 
+    var host = "127.0.0.1"; 
+        //var host = location.hostname;
+        var base = host + ":8080";
+    
     function DomainController() {
 
     }
@@ -14,7 +18,7 @@ dreamer.DomainController = (function() {
 
         var self = this;
         $.ajax({
-            url: "http://127.0.0.1:8080/getSpecModel/?model=" + modelname,
+            url: "http://"+base+"/getSpecModel/?model=" + modelname,
 
 
             success: function(result) {
@@ -42,7 +46,7 @@ dreamer.DomainController = (function() {
         var topology = this.exportJson(graph);
         var self = this;
         $.ajax({
-            url: "http://127.0.0.1:8080/validateTopology",
+            url: "http://"+base+"/validateTopology",
             type: "POST",
             dataType: "json",
             //contentType: 'application/json; charset=utf-8;',	
@@ -73,7 +77,7 @@ dreamer.DomainController = (function() {
 
 
         $.ajax({
-            url: "http://127.0.0.1:8080/getRandom/?n=" + n + "&p=" + p,
+            url: "http://"+base+"/getRandom/?n=" + n + "&p=" + p,
 
             beforeSend: function() {
                 $('#randomprogbar').show();
