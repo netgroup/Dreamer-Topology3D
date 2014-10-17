@@ -77,7 +77,10 @@
                 $(info_sidebar + ' .infobox #label').val(base_info.label || "none");
                 $(info_sidebar + ' .infobox #none_selected').hide();
                 $(info_sidebar + ' .infobox #info').show();
-            } else if (args.selected == "none") {
+            }else if(args.selected == "graph_parameters"){
+                $("#tun_option").val(args.tunneling);
+            }
+             else if (args.selected == "none") {
                 $(info_sidebar + ' .infobox #title').html('Select node for info!');
                 $(info_sidebar + ' .infobox #none_selected').show();
                 $(info_sidebar + ' .infobox #info').hide();
@@ -161,7 +164,7 @@
                 $("#s_label").append("<option value='" + nodeTypes[n] + "'>" + nodeTypes[n] + "</option>");
             }
 
-            $(info_sidebar + ' .infobox #s_label').mouseup(function() {
+            $(info_sidebar + ' .infobox #s_label').change(function() {
                 var index = $(info_sidebar + ' .infobox #index').html(),
                     title = $(info_sidebar + ' .infobox #title').html();
                 if (title === "Vertex Info") {
@@ -379,17 +382,7 @@
                 });
 
             });
-            $('#imp_cat_butt_4').click(function(id) {
-                id = 4;
 
-                $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
-                    //console.log(data);
-                    my_graph_editor.import_from_JSON(data, true, true);
-                    //TODO
-                    $('#myModalTopoCatalog').modal('hide');
-                });
-
-            });
 
             $('#set_json').click(function() {
                 my_graph_editor.import_from_JSON($('#json').val(), true);

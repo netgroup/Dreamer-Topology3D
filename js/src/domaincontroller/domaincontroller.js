@@ -228,7 +228,9 @@ dreamer.DomainController = (function() {
         var result = {};
 
         if (args.node) {
-            if (args.node.properties.type && (this.spec['layer_constraints'][layername].changing_nodes_type == undefined || this.spec['layer_constraints'][layername].changing_nodes_type == true)) {
+            console.log(JSON.stringify(args));
+            if (args.node.properties.type){
+                if (this.spec['layer_constraints'][layername].changing_nodes_type == undefined || this.spec['layer_constraints'][layername].changing_nodes_type == true) {
                 
                 var new_node_label = this.getNodeLabel(args.node.properties.type);
                 console.log(new_node_label);
@@ -245,6 +247,8 @@ dreamer.DomainController = (function() {
             else{
                 result['error'] = "Changing nodes type not allowed in " + layername;
             }
+            }
+             
         } else if (args.edge) {
 
         } else if (args.graph_parameters) {
