@@ -10,6 +10,9 @@
             multigraph: true
         });
 
+
+       
+
          my_graph_editor.resetCanvasDimension($('#panel_head').width()-30,400); 
 
         my_graph_editor.addListener("LiveStatus", function(a, args) {
@@ -143,6 +146,11 @@
         });
 
 
+        my_graph_editor.addListener("error_load_spec", function(a, args) {
+            console.log("Male")
+        });
+
+
         my_graph_editor.addListener("editor_ready", function(a, args) {
 
             var layers = my_graph_editor.get_layers();
@@ -158,11 +166,27 @@
             $(info_sidebar + ' .infobox #info').hide();
 
             var nodeTypes = my_graph_editor.get_nodeTypes();
-
+            $("#drag_drop_toolbar").append("<ul style=\"white-space: nowrap;\">");
             for (n in nodeTypes) {
+                //set option value 
+                var ntype = nodeTypes[n];
+               
+                $("#s_label").append("<option value='" + ntype + "'>" + ntype + "</option>");
+                var clntype = ntype.toLowerCase();
+                clntype = clntype.replace(/ /g, '');
+                
+                //build drag and drop tool bar #drag_drop_toolbar
+                $("#drag_drop_toolbar").append("<li  style=\"display: inline; list-style: none;\"><img id='drag_"+ clntype + "' src='img/"+clntype+".png' width='50' height='50'></li>");
+                $("#drag_drop_toolbar").append("<li  style=\"display: inline; list-style: none;\"><img id='drag_"+ clntype + "_det' src='img/"+clntype+"_det.png' width='50' height='50'></li>");
+                $("#drag_"+clntype).draggable({
+                    helper: 'clone',
+                });
+                //set the data payload
+                //cosi quando catturo l'evento del drop posso sapere il tipo di nodo considerato
+                $("#drag_"+clntype).data("type", ntype);
 
-                $("#s_label").append("<option value='" + nodeTypes[n] + "'>" + nodeTypes[n] + "</option>");
             }
+            $("#drag_drop_toolbar").append("<ul>");
 
             $(info_sidebar + ' .infobox #s_label').change(function() {
                 var index = $(info_sidebar + ' .infobox #index').html(),
@@ -332,23 +356,6 @@
                 my_graph_editor.toggle_live();
             });
 
-            $('#legend_button').click(function() {
-                if ($('#legend_button').text() == 'Show Legend') {
-                    $('#legend_button').text('Hide Legend')
-                    $('#legend_button').prepend('<span class="fa fa-minus-square-o "></span>')
-                } else {
-                    $('#legend_button').text('Show Legend')
-                    $('#legend_button').prepend('<span class="fa fa-plus-square-o "></span>')
-                }
-                var e = document.getElementById("legenda");
-
-                if (e.style.display == 'block') {
-                    e.style.display = 'none';
-                } else {
-                    e.style.display = 'block';
-                }
-            });
-
             $('#imp_cat_butt_1').click(function(id) {
                 id = 1;
 
@@ -429,6 +436,12 @@
                 $('#randomprogbar').modal('show');
                 my_graph_editor.getRandomTopology(n,p);
             });
+
+            // $("#topocanvas").droppable({
+            //     drop: function() {
+            //         console.log("CIAOOOO---DROPPPP");           
+            //     }
+            // });
 
 
             $('#myModalLoading').modal('hide');

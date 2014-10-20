@@ -287,7 +287,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
     //#
     function newEdgebetween(node1, node2) {
-        if (! domainctrl.isValidEdge(node1.getType(), node2.getType(), curLayer.getCurLayer()) ) {
+        if ( domainctrl.isValidEdge(node1, node2, edge_list,curLayer.getCurLayer()).error == true ) {
             eventHandeler.fire("alert_warning_msg", "New Edge from node type" + node1.getType() + " to node type " +node2.getType() + " not allowed.");
             console.log("invalid edge!!")
             return;
@@ -452,7 +452,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     function erase_graph() {
         nodes = [];
         edge_list = [];
-        graph_parameters = new GraphParameters();
+        graph_parameters = new GraphParameters(domainctrl.getGraphSpecDomine());
         draw();
     }
 
@@ -913,9 +913,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     index: nodes.indexOf(obj),
                     node_type: vertype
                 },
-                type_info: {
-
-                },
+                type_info: domainctrl.getNodeInfoByType(obj),
                 model_info: domainctrl.getNodeSpecDomine(obj)
             }
 
@@ -1015,7 +1013,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         domainctrl = new DomainController();
         controller = Controller();
         $(div).addClass('graph_editor_container');
-        $(div).append('<canvas class="graph_editor_canvas" width = "' + SIZE.x + '" height = "' + SIZE.y + '" style="border: 2px black solid">Your browser does not support canvas.</canvas>');
+        $(div).append('<canvas id="topocanvas" class="graph_editor_canvas" width = "' + SIZE.x + '" height = "' + SIZE.y + '" style="border: 2px black solid">Your browser does not support canvas.</canvas>');
         canvastag = $(div + ' canvas');
         $(div).css({
             'width': SIZE.x + 'px'
@@ -1047,6 +1045,11 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         canvastag.mouseleave(function(e) {
             controller.mouseleave(e);
         });
+        canvastag.droppable({
+                drop: dropNewVertex
+        });
+
+
         //fixes a problem where double clicking causes text to get selected on the canvas
         canvastag[0].onselectstart = function() {
                 return false;
@@ -1061,11 +1064,36 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
     }
 
+    function dropNewVertex(e, ui){
+        
+        var type = ui.draggable.data("type");
+   
+        if(domainctrl.isNewVertexAllowed(type ,curLayer.getCurLayer()) ){
+            var offset =  canvastag.offset();
+            var x = parseInt(ui.offset.left - offset.left);
+            var y = parseInt(ui.offset.top - offset.top);
+            var vertex_info = {};
+            vertex_info["frozen"] = false;
+            vertex_info["node-type"] = type;
+            vertex_info["property"] =domainctrl.getPropertiesFromSpec(type);
+            
+            var new_v = new Vertex(nodes, {x: x, y: y},"",vertex_info);
+            if (!LIVE) {
+                controller.update_closest(new_v);
+            }
+            nodes.push(new_v);
+
+            draw();
+        }     
+        
+     }
+
     function load(modelname) {
         domainctrl.loadSpec(modelname, function(resload){
              console.log(JSON.stringify(resload));
         if (resload['error'] != undefined ) {
             console.log("erroreeeeeeeeeeeeee")
+            eventHandeler.fire("error_load_spec", resload['error']);
         } else {
             if (options.JSONdata) {
                 import_from_JSON(options.JSONdata, false);

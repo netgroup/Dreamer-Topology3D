@@ -15,6 +15,26 @@ dreamer.GraphParameters = (function (global) {
 
             if(data.graphname != undefined)
                 this.graphname = data.graphname;
+
+            if(data.vlan != undefined)
+                this.vlan = data.vlan
+            else
+                this.vlan = 0
+
+            if(data.mapped != undefined)
+                this.mapped = data.mapped
+            else
+                this.mapped = false
+
+            if(data.generated != undefined)
+                this.generated = data.generated
+            else
+                this.generated = false
+
+            if(data.testbed != undefined)
+                this.testbed = data.testbed
+            else
+                this.testbed = "MININET"
         }
         
 

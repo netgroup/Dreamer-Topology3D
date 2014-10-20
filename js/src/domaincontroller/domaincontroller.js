@@ -22,7 +22,7 @@ dreamer.DomainController = (function() {
 
 
             success: function(result) {
-            	 console.log(JSON.stringify(result));
+            	//console.log(JSON.stringify(result));
                 var response = {};
                 //response['error'] = false;
                 if(! result.error){
@@ -32,7 +32,10 @@ dreamer.DomainController = (function() {
             },
             error: function(xhr, status, errore) {
                 var response = {};
-                response['error'] = {"message": status};
+                // console.log(xhr.statusCode( ))
+                // console.log(status)
+                // console.log(errore)
+                response['error'] = {"message": "unable to contact the server"};
                 callback(response);
             }
 
@@ -58,7 +61,7 @@ dreamer.DomainController = (function() {
                 var response = {};
                 //response['error'] = false;
                 response = result;
-                console.log(response);
+                //console.log(response);
                 callback(response);
             },
             error: function(xhr, status, errore) {
@@ -121,23 +124,46 @@ dreamer.DomainController = (function() {
 
     };
 
-    DomainController.prototype.isValidEdge = function(from_type, to_type, layername) {
+    DomainController.prototype.isValidEdge = function(from_, to_node, edges, layername) {
         var lnae = this.spec['layer_constraints'][layername]['not_allowed_edge'];
+        var res = {"error": false};
+        var from_type = from_.getType();
+        var to_type = to_node.getType();
 
         for (i in lnae) {
 
             if (lnae[i].source == from_type) {
                 if (lnae[i].not_allowed_des.indexOf(to_type) > -1) {
-
-                    return false;
-
+                   res["error"] = true;
                 }
 
             }
 
         }
+        console.log("Controllo multihoming" +this.spec['layer_constraints'][layername]['multihoming'])
+        if(this.spec['layer_constraints'][layername]['multihoming'] != undefined && this.spec['layer_constraints'][layername]['multihoming'] == false){
+            console.log("Controllo multihoming")
+        }
 
-        return true;
+        return res;
+
+    };
+
+    DomainController.prototype.isNewVertexAllowed = function(type, curlayer) {
+        
+        var res = {};
+
+        if(!this.isInsertEnabled(curlayer)){
+            res["error"] = {'message': "inserting a new node is not enabled in this layer"};
+            return res;   
+        }
+
+        if(this.spec['layer_constraints'][curlayer]['list_of_nodes_layer'] != undefined && this.spec['layer_constraints'][curlayer]['list_of_nodes_layer'].indexOf(type) < 0){
+            res["error"] = {'message': "inserting a new node of type " + type + " is not enabled in this layer"};
+            return res;  
+        }
+      
+        return res;
 
     };
 
@@ -189,13 +215,36 @@ dreamer.DomainController = (function() {
         return properties;
     };
 
+
+    DomainController.prototype.getPropertiesFromSpec = function(ntype){
+
+        console.log("getNodeTypeInfo " + ntype);
+        var properties = this.spec['nodes'][ntype]['properties'];
+       
+        return properties;
+    };
+
+    DomainController.prototype.getNodeInfoByType = function(node){
+        if(node.vertex_info.property)
+            return node.vertex_info.property;
+        else if(node.getType() != undefined){
+            console.log("property not found")
+            node.vertex_info["property"] = this.getPropertiesFromSpec(node.getType());
+        }
+    }
+
+    DomainController.prototype.getGraphSpecDomine = function() {
+        return this.spec['graph_parameters'];
+    };
+
+
+
     DomainController.prototype.getNodeIcon = function(node) {
 
         //TODO da insere nelle specifiche di dominio
         var aoshi_img = 'img/oshiPE.png';
         var coshi_img = 'img/oshiCR.png';
         var euh_img = 'img/oshiCE.png';
-        var l2sw_img = 'img/l2.png';
         var empty_color = "#FFFFFF";
         var img = 'img/punto.png';
 
@@ -231,24 +280,20 @@ dreamer.DomainController = (function() {
             console.log(JSON.stringify(args));
             if (args.node.properties.type){
                 if (this.spec['layer_constraints'][layername].changing_nodes_type == undefined || this.spec['layer_constraints'][layername].changing_nodes_type == true) {
-                
-                var new_node_label = this.getNodeLabel(args.node.properties.type);
-                console.log(new_node_label);
 
-                //if (args.node.index < 9) {
+                    var new_node_label = this.getNodeLabel(args.node.properties.type);
+                    console.log(new_node_label);
 
-               //     graph.vertices[args.node.index].label = new_node_label + "0" + (parseInt(args.node.index) + 1);
-
-               // } else {
                     graph.vertices[args.node.index].label = new_node_label + (parseInt(args.node.index) + 1);
-               // }
-                graph.vertices[args.node.index].vertex_info["node-type"] = args.node.properties.type
+
+                    graph.vertices[args.node.index].vertex_info["node-type"] = args.node.properties.type
+                    this.initNodeProperty(graph, args.node.index, args.node.properties.type);
+                }
+                else{
+                    result['error'] = "Changing nodes type not allowed in " + layername;
+                }
             }
-            else{
-                result['error'] = "Changing nodes type not allowed in " + layername;
-            }
-            }
-             
+
         } else if (args.edge) {
 
         } else if (args.graph_parameters) {
@@ -267,6 +312,10 @@ dreamer.DomainController = (function() {
         }
         return result;
     };
+
+   DomainController.prototype.initNodeProperty = function(graph, index, type){
+        graph.vertices[index].vertex_info["property"] = this.getPropertiesFromSpec(type);
+   };
 
     DomainController.prototype.exportJson = function(graph, pure) {
 
