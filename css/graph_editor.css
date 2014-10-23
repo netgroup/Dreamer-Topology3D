@@ -1,94 +1,23 @@
-div.graph_editor_container{
-    margin : 10px;
-    padding : 20px;
-    border : 1px solid #aaa;
-    -moz-border-radius : 10px;
-    -webkit-border-radius : 10px;
-    overflow: auto;
-    font-family : Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+.draggable_node{
+    cursor: move; 
+    border:1.5px dashed #000000;
 }
 
-div#graph_editor_button_container{
-    position : relative;
-    overflow: auto;
-    width: 100%;
-    border: 1px solid #BEDCE7;
-    background : #EAF2F5;
-    margin-bottom : 10px;
-}
-
-div.graph_editor_button{
-    position : relative;
-    float : left;
-    cursor : pointer;
-    padding: 5px 5px;
-    /*text-shadow: 1px 1px white;*/
-}
-
-div.graph_editor_button input{
-    display: block !important;
-    overflow: hidden !important;
-}
-
-div.graph_editor_button:hover{
-    text-decoration: underline;
-}
-
-div.graph_editor_button_on{
-    background : #a33;
-}
-
-div.graph_editor_undo_disabled{
-    cursor : default;
-    color : #777;
-}
-
-div.slider{
-    width : 150px;
-}
-
-canvas.graph_editor_canvas{
-    border : 1px solid #aaa;
-    float : left;
-    tabindex : 0;
-}
-
-div#graph_editor_tweaks{
-    overflow : auto;
-    padding : 0px 15px;
-}
-div h4{
-    padding : 0px;
-    margin: 12px 0px 0px 0px;
-}
-
-#fileElem {
-  /* Note: display:none on the input won't trigger the click event in WebKit.
-    Setting visibility: hidden and height/width:0 works great. */
-  visibility: hidden;
-
-position : relative;
-  width: 120px; 
-height: 28px;
-}
-
-#fileExp {
-  /* Note: display:none on the input won't trigger the click event in WebKit.
-    Setting visibility: hidden and height/width:0 works great. */
-  visibility: hidden;
-
-position : relative;
-
-}
-
-
-
-fileSelect {
-
-    position : relative;
-    float : left;
-    cursor : pointer;
-    padding: 5px 5px;
+.label {
+border: solid 1px #F1F1F1;
+background: #fff;
+display: inline-block;
+height: 22px;
+padding: 0 6px;
+line-height: 22px;
+position: absolute;
+top: 7px;
+right: 6px;
+text-align: center;
+font-size: 12px;
+color: #777;
+border-radius: 20px;
+z-index: 30;
 }
 
 

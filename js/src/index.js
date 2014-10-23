@@ -176,7 +176,7 @@
                 clntype = clntype.replace(/ /g, '');
                 
                 //build drag and drop tool bar #drag_drop_toolbar
-                $("#drag_drop_toolbar").append("<li  style=\"display: inline; list-style: none;\"><img id='drag_"+ clntype + "' src='img/"+clntype+".png' width='50' height='50'></li>");
+                $("#drag_drop_toolbar").append("<li  style=\"display: inline; list-style: none;\"><img class='draggable_node' id='drag_"+ clntype + "' src='img/"+clntype+".png' width='50' height='50'></li>");
                 $("#drag_drop_toolbar").append("<li  style=\"display: inline; list-style: none;\"><img id='drag_"+ clntype + "_det' src='img/"+clntype+"_det.png' width='50' height='50'></li>");
                 $("#drag_"+clntype).draggable({
                     helper: 'clone',
@@ -186,7 +186,7 @@
                 $("#drag_"+clntype).data("type", ntype);
 
             }
-            $("#drag_drop_toolbar").append("<ul>");
+            $("#drag_drop_toolbar").append("</ul>");
 
             $(info_sidebar + ' .infobox #s_label').change(function() {
                 var index = $(info_sidebar + ' .infobox #index').html(),
