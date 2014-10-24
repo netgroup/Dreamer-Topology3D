@@ -1088,7 +1088,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 controller.update_closest(new_v);
             }
             nodes.push(new_v);
-
+            new_v.label = type + (nodes.indexOf(new_v) + 1)
             draw();
         }     
         
