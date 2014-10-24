@@ -20,4 +20,8 @@ border-radius: 20px;
 z-index: 30;
 }
 
+.alert-franz{
+  position: absolute;
+  z-index:0;
+}
 

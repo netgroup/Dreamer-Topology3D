@@ -1067,8 +1067,14 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     function dropNewVertex(e, ui){
         
         var type = ui.draggable.data("type");
-   
-        if(domainctrl.isNewVertexAllowed(type ,curLayer.getCurLayer()) ){
+        
+        var allowed = domainctrl.isNewVertexAllowed(type ,curLayer.getCurLayer());
+        if(allowed.error ){
+            console.log(JSON.stringify(allowed))
+            eventHandeler.fire("alert_warning_msg", allowed.error.message);
+        }
+        else
+        {
             var offset =  canvastag.offset();
             var x = parseInt(ui.offset.left - offset.left);
             var y = parseInt(ui.offset.top - offset.top);
