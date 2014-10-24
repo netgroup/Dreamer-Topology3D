@@ -119,7 +119,8 @@
         my_graph_editor.addListener("VALID_TOPOLOGY", function(a, args) {
             console.log('VALID_TOPOLOGY')
             $('#alert_div').empty();
-            $('#alert_div').append('<div class=\"alert alert-success alert-dismissible alert-franz\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button><strong>Well done!</strong> The topology is ready to be executed on the testbed.</div>'); 
+            $('#alert_div').append('<div id=\"alert_msg\" class=\"alert alert-success alert-dismissible alert-franz\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button><strong>Well done!</strong> The topology is ready to be executed on the testbed.</div>'); 
+            window.setTimeout(function() { $("#alert_msg").alert('close'); }, 5000);
             $('#myModalLoading').modal('hide');
         });
 
