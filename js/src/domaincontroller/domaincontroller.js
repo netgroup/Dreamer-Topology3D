@@ -317,6 +317,10 @@ dreamer.DomainController = (function() {
         graph.vertices[index].vertex_info["property"] = this.getPropertiesFromSpec(type);
    };
 
+   DomainController.prototype.getNodeLabel = function(nodetype){
+       return this.spec['nodes'][nodetype]['node_label'];
+   };
+
     DomainController.prototype.exportJson = function(graph, pure) {
 
         var jsongraph = {};
