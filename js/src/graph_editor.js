@@ -1,12 +1,20 @@
 var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     "use strict";
+
+    var modelToController = {
+        "oshi": "Oshi"
+    }
+
     var Vertex = dreamer.Vertex;
     var Edge = dreamer.Edge;
     var GraphParameters = dreamer.GraphParameters;
     var CurLayer = dreamer.CurLayer;
-    var DomainController = dreamer.DomainController;
+    //var DomainController = dreamer.DomainController;
     var EventHandeler = dreamer.Event;
 
+   // var OSHI = dreamer.Oshi;
+
+    //var provaoshi = new OSHI();
 
 
 
@@ -35,7 +43,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         NODE_RADIUS = options.node_radius || 10.0,
         LIVE = false,
         AUTO_MAXIMIZE = true,
-        NODE_NUMBERS = false,
+        NODE_LABEL = true,
         SPRING = 0.999,
         SPEED = 2.0,
         FIXED_LENGTH = 100.0,
@@ -708,8 +716,15 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         nodes = resimport.vertices;
         edge_list = resimport.edges;
         graph_parameters = resimport.graph_parameters;
+                    
+        var args = {
+            graph_parameters: graph_parameters,
+            curLayer: curLayer.getCurLayer(),
+            domain_data: domainctrl.getDomainData() 
 
+        };
         draw();
+        eventHandeler.fire("topology_loaded", args);
         if (live) {
             toggle_live();
         }
@@ -726,38 +741,11 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
 
-    function add_checkbox(name, variable, container_id, onclickf) {
-        var s = '<li><div class="checkbox"><label>' + name + "  ";
-        s += '<input type="checkbox"'; //+' id="'+name+'_check"'
-        s += ' value="' + variable + '"';
-        if (variable) {
-            s += 'checked';
-        }
-        s += '/></label></div></li>';
-        $(container_id).append(s);
-        $(container_id + ' input:last').click(onclickf);
+
+    function showEdgeLabel(show){
+        NODE_LABEL = show;
+        draw();
     }
-
-
-    function create_controls(div) {
-        //Create controls and attach click functions 
-        var tweaks, canvaspos = $(div + ' canvas').offset(),
-            buttondiv = div + ' #graph_editor_button_container',
-            canvas = $(div + ' canvas')[0];
-
-
-
-
-        add_checkbox('Vertex numbers', NODE_NUMBERS, '#tweaks_sidebar', function() {
-            NODE_NUMBERS = !NODE_NUMBERS;
-            draw();
-        });
-
-
-
-
-    }
-
 
     ///#
     function display_vertex(vert) {
@@ -778,7 +766,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         } else if (vert.closest) {
             imageObj.src = fill_vert(1, vert);
         } else {
-            if (NODE_NUMBERS) {
+            if (NODE_LABEL) {
                 imageObj.src = fill_vert(0, vert);
             } else {
                 imageObj.src = fill_vert(0, vert);
@@ -793,27 +781,25 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 // ctx.drawImage(imageObj, this.pos.x-NODE_RADIUS/3,this.pos.y-NODE_RADIUS,NODE_RADIUS,NODE_RADIUS)
         }
 
-        if (NODE_NUMBERS) {
+        if (NODE_LABEL) {
             ctx.fillStyle = "#000000";
             ctx.font = (NODE_RADIUS / 2) + "pt Helvetica"
             ctx.textAlign = "center"
-            node_number = nodes.indexOf(vert).toString();
-            ctx.fillText(node_number, vert.pos.x, vert.pos.y + (NODE_RADIUS / 4));
+            node_number = vert.label; //nodes.indexOf(vert).toString();
+            ctx.fillText(node_number, vert.pos.x, vert.pos.y + (1.5*NODE_RADIUS));
         }
     }
 
     ///#
     function fill_vert(is_closest, vert) {
 
-        var b_color = "#FFFFFF";
-        var h_color = "#A8A8A8";
+        
 
-        if (is_closest)
-            ctx.fillStyle = h_color;
-        else
-            ctx.fillStyle = b_color;
+        var nodeDView = domainctrl.getNodeDataView(vert, is_closest,curLayer.getCurLayer());
 
-        return domainctrl.getNodeIcon(vert);
+        ctx.fillStyle = nodeDView.bgcolor;
+
+        return nodeDView.icon;
 
 
     }
@@ -838,7 +824,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
         for (i = 0; i < nodes.length; i += 1) {
 
-            if (domainctrl.isVisible(nodes[i], curLayer)) {
+            if (domainctrl.isVisible(nodes[i], curLayer.getCurLayer())) {
                 // if (nodes[i].label.split("#")[0] == "EUH")
                 display_vertex(nodes[i]);
             }
@@ -902,21 +888,9 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         if (obj && obj instanceof Vertex) {
             var vertype = obj.vertex_info["node-type"] || "none";
 
-            var info_data = {
-                selected: "Vertex",
-                base_info: {
-                    
-                    pos: {
-                        x: obj.get_pos().x.toFixed(1),
-                        y: obj.get_pos().y.toFixed(1)
-                    },
-                    index: nodes.indexOf(obj),
-                    node_type: vertype
-                },
-                type_info: domainctrl.getNodeInfoByType(obj),
-                model_info: domainctrl.getNodeSpecDomine(obj)
-            }
 
+            var info_data = domainctrl.getNodeProperties(obj, nodes);
+            console.log(JSON.stringify(info_data));
 
             eventHandeler.fire("update_infobox", info_data);
 
@@ -1006,11 +980,20 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     //////////////////////////
 
 
+    function getDomainController(key) {
+    
+        if (key in modelToController)
+            return modelToController[key];
+        
+        return "DomainController";
+    
+    }
+
     function init() {
         //construction of GraphEditor
         eventHandeler = new EventHandeler();
         curLayer = new CurLayer();
-        domainctrl = new DomainController();
+        
         controller = Controller();
         $(div).addClass('graph_editor_container');
         $(div).append('<canvas id="topocanvas" class="graph_editor_canvas" width = "' + SIZE.x + '" height = "' + SIZE.y + '" style="border: 2px black solid">Your browser does not support canvas.</canvas>');
@@ -1054,13 +1037,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         canvastag[0].onselectstart = function() {
                 return false;
             }
-            /* if (options.JSONdata) {
-                 import_from_JSON(options.JSONdata, false);
-                 draw();
-             }*/
-        if (options.controls !== false) {
-            create_controls(div);
-        }
+
 
     }
 
@@ -1081,7 +1058,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             var vertex_info = {};
             vertex_info["frozen"] = false;
             vertex_info["node-type"] = type;
-            vertex_info["property"] =domainctrl.getPropertiesFromSpec(type);
+            vertex_info["property"] =domainctrl.buildNodeProperties(type);
             
             var new_v = new Vertex(nodes, {x: x, y: y},"",vertex_info);
             if (!LIVE) {
@@ -1095,8 +1072,10 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
      }
 
     function load(modelname) {
+        domainctrl = new dreamer[getDomainController(modelname)];
+
         domainctrl.loadSpec(modelname, function(resload){
-             console.log(JSON.stringify(resload));
+        //     console.log(JSON.stringify(resload));
         if (resload['error'] != undefined ) {
             console.log("erroreeeeeeeeeeeeee")
             eventHandeler.fire("error_load_spec", resload['error']);
@@ -1105,7 +1084,12 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 import_from_JSON(options.JSONdata, false);
                 draw();
             }
-            eventHandeler.fire("editor_ready");
+            var args = {
+                graph_parameters: graph_parameters,
+                curLayer: curLayer.getCurLayer(),
+
+            };
+            eventHandeler.fire("editor_ready", args);
         }
         });
         
@@ -1198,6 +1182,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         change_orientation: change_orientation,
         change_vertex_size: change_vertex_size,
         change_egde_strength: change_egde_strength,
-        change_egde_length: change_egde_length
+        change_egde_length: change_egde_length,
+        showEdgeLabel: showEdgeLabel
     };
 };

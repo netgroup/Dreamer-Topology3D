@@ -11,7 +11,23 @@
             multigraph: true
         });
 
+        var cmjsoneditor = CodeMirror.fromTextArea(document.getElementById("jsonEditor"),{
+                    mode:  "javascript",
+                    lineNumbers: true,
+                });
 
+        var cmclustereditor = CodeMirror.fromTextArea(document.getElementById("clusterEditor"),{
+                    mode:  "javascript",
+                    lineNumbers: true,
+                });
+
+        $('#myModalCopy').on('shown.bs.modal', function() { 
+            cmjsoneditor.refresh(); 
+        });
+
+        $('#myModalCluster').on('shown.bs.modal', function() { 
+            cmclustereditor.refresh(); 
+        });
        
 
          my_graph_editor.resetCanvasDimension($('#panel_head').width()-30,400); 
@@ -45,23 +61,18 @@
 
                 $(info_sidebar + ' .infobox #title').html('Vertex Info');
                 $(info_sidebar + ' .infobox #index').html(base_info.index);
-                $(info_sidebar + ' .infobox #pos').show();
-                $(info_sidebar + ' .infobox #posx').html(base_info.pos.x);
-                $(info_sidebar + ' .infobox #posy').html(base_info.pos.y);
+                $(info_sidebar + ' .infobox #index').hide();
+                $(info_sidebar + ' .infobox #index_label').hide();
+                $(info_sidebar + ' .infobox #pos').hide();
                 $(info_sidebar + ' .infobox #node_inf').show();
-               // if (base_info.label == "COSHI" || base_info.label == "AOSHI")
-                //    $(info_sidebar + ' .infobox #COSHI_node_inf').show();
-                //else
-                //    $(info_sidebar + ' .infobox #COSHI_node_inf').hide();
                 $(info_sidebar + ' .infobox #edge_inf').hide();
                 $(info_sidebar + ' .infobox #vert').hide();
                 $(info_sidebar + ' .infobox #label').html(args.label);
-                //$(info_sidebar + ' .infobox #loopback').html(node.vertex_info.loopback);
-                //$(info_sidebar + ' .infobox #node_loopback').val(node.vertex_info.loopback);
-                $(info_sidebar + ' .infobox #n_type').html(base_info.node_type);
+                //console.log(args.base_info.label)
+                $(info_sidebar + ' .infobox #n_name').html(args.base_info.label);
                 $(info_sidebar + ' .infobox #none_selected').hide();
                 $(info_sidebar + ' .infobox #info').show();
-                $('#s_label').val('')
+                $('#s_label').val(base_info.node_type)
 
             } else if (args.selected == "Edge") {
                 var base_info = args.base_info;
@@ -85,9 +96,7 @@
                 $("#tun_option").val(args.tunneling);
             }
              else if (args.selected == "none") {
-                $(info_sidebar + ' .infobox #title').html('Select node for info!');
-                $(info_sidebar + ' .infobox #none_selected').show();
-                $(info_sidebar + ' .infobox #info').hide();
+                clearInfoBox();
             }
 
         });
@@ -119,7 +128,7 @@
         my_graph_editor.addListener("VALID_TOPOLOGY", function(a, args) {
             console.log('VALID_TOPOLOGY')
             $('#alert_div').empty();
-            $('#alert_div').append('<div id=\"alert_msg\" class=\"alert alert-success alert-dismissible alert-franz\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button><strong>Well done!</strong> The topology is ready to be executed on the testbed.</div>'); 
+            $('#alert_div').append('<div id=\"alert_msg\"  class=\"alert alert-success alert-dismissible alert-franz-in \" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button><strong>Well done!</strong> The topology is ready to be executed on the testbed.</div>'); 
             window.setTimeout(function() { $("#alert_msg").alert('close'); }, 5000);
             $('#myModalLoading').modal('hide');
         });
@@ -127,7 +136,7 @@
         my_graph_editor.addListener("alert_warning_msg", function(a, args) {
             console.log('alert_msg')
             $('#alert_div').empty();
-            $('#alert_div').append('<div id=\"warning_msg\" class=\"alert alert-danger alert-dismissible alert-franz\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>'+args+'</div>'); 
+            $('#alert_div').append('<div id=\"warning_msg\" class=\"alert alert-danger alert-dismissible alert-franz-in \" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>'+args+'</div>'); 
             window.setTimeout(function() { $("#warning_msg").alert('close'); }, 5000);
         });
 
@@ -149,9 +158,24 @@
 
 
         my_graph_editor.addListener("error_load_spec", function(a, args) {
+
             console.log("Male")
         });
 
+        my_graph_editor.addListener("topology_loaded", function(a, args) {
+
+            clearInfoBox();
+
+            //imposta layer
+            setLayerLabel(args.curLayer);
+            //imposta tunnel
+            $("#tun_option").val(args.graph_parameters.tunneling);
+
+            //imposta testbed
+
+            //rileva pro domain
+
+        });
 
         my_graph_editor.addListener("editor_ready", function(a, args) {
 
@@ -261,12 +285,17 @@
 
             $("#layer-menu .dropdown-menu li a").click(function() {
                 my_graph_editor.set_layer($(this).text().replace(/ /g, ''));
+                setLayerView($(this).text().replace(/ /g, ''));
+
+
             });
 
 
 
-            $('#exp_copy_button').click(function(e) {
-                $('#sage').val(my_graph_editor.export_json());
+            $('#edit_topo_button').click(function(e) {
+                
+                cmjsoneditor.setValue(my_graph_editor.export_json());
+               
             });
 
 
@@ -394,8 +423,15 @@
 
 
             $('#set_json').click(function() {
-                my_graph_editor.import_from_JSON($('#json').val(), true);
-                $('#myModalPaste').modal('hide');
+                my_graph_editor.import_from_JSON(cmjsoneditor.getValue(), true);
+                $('#myModalCopy').modal('hide');
+            });
+
+
+            $('#set_cluster').click(function() {
+                //my_graph_editor.import_from_JSON(cmjsoneditor.getValue(), true);
+                console.log("set_cluster");
+                $('#myModalCluster').modal('hide');
             });
 
             $('#help_button').click(function() {
@@ -439,11 +475,13 @@
                 my_graph_editor.getRandomTopology(n,p);
             });
 
-            // $("#topocanvas").droppable({
-            //     drop: function() {
-            //         console.log("CIAOOOO---DROPPPP");           
-            //     }
-            // });
+            $('#showLabelCheckbox').click(function(e){
+                my_graph_editor.showEdgeLabel(this.checked);
+            });
+
+
+            
+            setLayerView(args.curLayer);
 
 
             $('#myModalLoading').modal('hide');
@@ -460,6 +498,34 @@
 
     });
 
+
+    function clearInfoBox(){
+        var info_sidebar = '#info_sidebar';
+        $(info_sidebar + ' .infobox #title').html('Select node for info!');
+        $(info_sidebar + ' .infobox #none_selected').show();
+        $(info_sidebar + ' .infobox #info').hide();
+    }
+
+    function setLayerLabel(layer){
+        $('#layer-label').text("Current View: "+layer);
+    };
+
+    function setLayerView(layer){
+       setLayerLabel(layer);
+       setToolsDropMenu(layer);
+    };
+
+
+    function setToolsDropMenu(layer){
+        $('#dropdown-menu-tool').empty();
+        if(layer == "Data"){
+            $("#dropdown-menu-tool").append("<li> <a href=\"#\" > <span class=\"fa fa-sitemap\"> Import and edit mapping file</span></a> </li>");
+            $("#dropdown-menu-tool").append("<li> <a href=\"#\" > <span class=\"fa fa-sitemap\"> Edit VM mapping</span>S</a> </li>");
+        }
+        else if(layer == "Control"){
+            $("#dropdown-menu-tool").append("<li> <a href=\"#\"  data-toggle=\"modal\" data-target=\"#myModalCluster\"> <span class=\"fa fa-sitemap\"> Set Cluster</span></a> </li>");
+        }
+    };
 
 
 

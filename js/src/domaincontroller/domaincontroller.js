@@ -9,7 +9,7 @@ dreamer.DomainController = (function() {
         var base = host + ":8080";
     
     function DomainController() {
-
+        console.log("DomainController");
     }
 
     DomainController.prototype.loadSpec = function(modelname, callback) {
@@ -35,7 +35,7 @@ dreamer.DomainController = (function() {
                 // console.log(xhr.statusCode( ))
                 // console.log(status)
                 // console.log(errore)
-                response['error'] = {"message": "unable to contact the server"};
+                response['error'] = {"message": "Unable to contact the server, please refresh the page and try again"};
                 callback(response);
             }
 
@@ -102,18 +102,12 @@ dreamer.DomainController = (function() {
         });
     };
 
-    DomainController.prototype.isVisible = function(element, layer) {
+    DomainController.prototype.isVisible = function(element, layername) {
         if (element instanceof dreamer.Vertex) {
-            var layername = layer.getCurLayer();
-            var layer_constraints = this.spec['layer_constraints'];
-            if (this.spec['list_of_all_layer'].indexOf(layername) > -1 && (element.getType() == undefined || layer_constraints[layername]['list_of_nodes_layer'] === undefined || layer_constraints[layername]['list_of_nodes_layer'].indexOf(element.getType()) > -1)) {
-
-                return true;
-            }
-            return false;
+           return this.isVisibleVertex(element.getType(), layername);
 
         } else if (element instanceof dreamer.Edge) {
-            var layername = layer.getCurLayer();
+            //var layername = layer.getCurLayer();
             for (l in element.links) {
                 if (element.links[l].layer == layername) {
                     return true;
@@ -122,6 +116,16 @@ dreamer.DomainController = (function() {
         }
         return false;
 
+    };
+
+    DomainController.prototype.isVisibleVertex = function(ntype, layername){
+        // var layername = layer.getCurLayer();
+            var layer_constraints = this.spec['layer_constraints'];
+            if (this.spec['list_of_all_layer'].indexOf(layername) > -1 && (ntype == undefined || layer_constraints[layername]['list_of_nodes_layer'] === undefined || layer_constraints[layername]['list_of_nodes_layer'].indexOf(ntype) > -1)) {
+
+                return true;
+            }
+            return false;
     };
 
     DomainController.prototype.isValidEdge = function(from_, to_node, edges, layername) {
@@ -170,7 +174,7 @@ dreamer.DomainController = (function() {
     DomainController.prototype.getNodeCurrentLayer = function(layer, nodes) {
         var available = [];
         for (i in nodes) {
-            if (this.isVisible(nodes[i], layer))
+            if (this.isVisible(nodes[i], layer.getCurLayer()))
                 available.push(nodes[i]);
         }
         return available;
@@ -180,14 +184,14 @@ dreamer.DomainController = (function() {
     DomainController.prototype.getEdgeCurrentLayer = function(layer, edges) {
         var available = [];
         for (i in edges) {
-            if (this.isVisible(edges[i], layer))
+            if (this.isVisible(edges[i], layer.getCurLayer()))
                 available.push(edges[i]);
         }
         return available;
     };
 
     DomainController.prototype.getNodeTypes = function() {
-        return this.spec['list_of_all_node_types'];
+        return ["OSHI-CR", "OSHI-PE", "CE", "OF Controller"];//this.spec['list_of_all_node_types'];
     };
 
     DomainController.prototype.getAllLayers = function() {
@@ -210,10 +214,7 @@ dreamer.DomainController = (function() {
         return false;
     };
 
-    DomainController.prototype.getNodeSpecDomine = function(node) {
-        var properties = {};
-        return properties;
-    };
+
 
 
     DomainController.prototype.getPropertiesFromSpec = function(ntype){
@@ -224,38 +225,54 @@ dreamer.DomainController = (function() {
         return properties;
     };
 
-    DomainController.prototype.getNodeInfoByType = function(node){
-        if(node.vertex_info.property)
-            return node.vertex_info.property;
-        else if(node.getType() != undefined){
-            console.log("property not found")
-            node.vertex_info["property"] = this.getPropertiesFromSpec(node.getType());
-        }
-    }
+
+    DomainController.prototype.getNodeProperties = function(node, nodes){
+        var vertype = node.vertex_info["node-type"] || "none";
+         var info_data = {
+                selected: "Vertex",
+                base_info: {
+                    
+                    pos: {
+                        x: node.get_pos().x.toFixed(1),
+                        y: node.get_pos().y.toFixed(1)
+                    },
+                    index: nodes.indexOf(node),
+                    node_type: vertype,
+                    label: node.label,
+                }
+            }
+        return info_data;
+    };
 
     DomainController.prototype.getGraphSpecDomine = function() {
         return this.spec['graph_parameters'];
     };
 
 
-
-    DomainController.prototype.getNodeIcon = function(node) {
+    DomainController.prototype.getNodeDataView = function(node, is_closest, layer) {
 
         //TODO da insere nelle specifiche di dominio
-        var aoshi_img = 'img/oshiPE.png';
+        /*var aoshi_img = 'img/oshiPE.png';
         var coshi_img = 'img/oshiCR.png';
-        var euh_img = 'img/oshiCE.png';
+        var euh_img = 'img/oshiCE.png';*/
         var empty_color = "#FFFFFF";
         var img = 'img/punto.png';
+        var bgcolor;
+        var b_color = "#FFFFFF";
+        var h_color = "#A8A8A8";
+
+        if (is_closest)
+            bgcolor = h_color;
+        else
+           bgcolor = b_color;
 
         if (this.getNodeTypes().indexOf(node.getType()) > -1) {
             var name = node.getType().replace(/ /g, '');
             name = name.toLowerCase();
-            return 'img/' + name + '.png'
-        } else {
-            return img;
-        }
+            img = 'img/' + name + '.png'
+        } 
 
+        return {icon: img, bgcolor: bgcolor};
     };
 
     DomainController.prototype.getNodeLabel = function(nodetype) {
@@ -274,6 +291,7 @@ dreamer.DomainController = (function() {
     };
 
     DomainController.prototype.setProperties = function(graph, args, layername) {
+        console.log("DomainController:setProperties");
         var result = {};
 
         if (args.node) {
@@ -287,7 +305,10 @@ dreamer.DomainController = (function() {
                     graph.vertices[args.node.index].label = new_node_label + (parseInt(args.node.index) + 1);
 
                     graph.vertices[args.node.index].vertex_info["node-type"] = args.node.properties.type
-                    this.initNodeProperty(graph, args.node.index, args.node.properties.type);
+                    var newp = this.buildNodeProperties(args.node.properties.type);
+                    for( p in newp){
+                        graph.vertices[args.node.index].vertex_info['property'][p] = newp[p];
+                    }
                 }
                 else{
                     result['error'] = "Changing nodes type not allowed in " + layername;
@@ -313,13 +334,24 @@ dreamer.DomainController = (function() {
         return result;
     };
 
-   DomainController.prototype.initNodeProperty = function(graph, index, type){
-        graph.vertices[index].vertex_info["property"] = this.getPropertiesFromSpec(type);
-   };
+    DomainController.prototype.buildNodeProperties = function(ntype){
+        console.log("DomainController:buildNodeProperties");
+       
+        var property = {};
+
+        return property;
+    };
 
    DomainController.prototype.getNodeLabel = function(nodetype){
        return this.spec['nodes'][nodetype]['node_label'];
    };
+
+   DomainController.prototype.getDomainData = function() {
+        var domaindata = {};
+
+        return domaindata;
+
+    };
 
     DomainController.prototype.exportJson = function(graph, pure) {
 
@@ -435,6 +467,9 @@ dreamer.DomainController = (function() {
             'graph_parameters': graph_parameters
         };
     }
+
+
+
 
     return DomainController;
 

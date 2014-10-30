@@ -3,8 +3,70 @@
     border:1.5px dashed #000000;
 }
 
-.label {
-border: solid 1px #F1F1F1;
+.canvas-label {
+/*border: solid 2px #000000;*/
+/*background: #fff;*/
+/* display: inline-block; */
+/* height: 22px; */
+cursor:default;
+padding: 0 6px;
+line-height: 22px;
+position: absolute;
+/* top: 7px; */
+/* right: 6px; */
+text-align: center;
+font-size: 12px;
+color: #777;
+/* border-radius: 20px; */
+z-index: 0;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.alert-franz{
+/*  position: absolute;
+  z-index:0;*/
+position: absolute; 
+left: 50%;
+}
+
+.alert-franz-in{
+/*  position: absolute;
+  z-index:0;*/
+  position: relative; 
+  left: -50%; 
+}
+
+.keyBoard li { 
+	padding: 10px 0; 
+	border-bottom: solid 1px #E6E6E6; 
+}
+
+.keyBoard li:last-child { 
+	padding: 10px 0 0; 
+	border-bottom: none; 
+}
+
+.keyBoard kbd { 
+	border: solid 1px #ABABAB;
+	color: black;
+	background-color: whitesmoke;
+
+}
+
+.keyBoard span { 
+	padding-left: 10px; 
+}
+
+
+
+/*
+border: solid 1px #FF0808;
 background: #fff;
 display: inline-block;
 height: 22px;
@@ -16,12 +78,7 @@ right: 6px;
 text-align: center;
 font-size: 12px;
 color: #777;
-border-radius: 20px;
+border-radius: 1px;
 z-index: 30;
-}
 
-.alert-franz{
-  position: absolute;
-  z-index:0;
-}
-
+*/
