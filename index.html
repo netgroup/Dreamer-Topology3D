@@ -106,8 +106,11 @@
                                         <button id="tool_button_group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa fa-wrench"> Tools <span class="fa fa-sort-down"></span>
                                         </button>
                                         <ul class="dropdown-menu" id ="dropdown-menu-tool" role="menu">
-
+                                            <li id="impexpmap"> <a href="#" > <span class="fa fa-sitemap"> Import and edit mapping file</span></a> </li>
+                                            <li id="editmap"> <a href="#" id="editvmmap_button" data-toggle="modal" data-target="#myModalMapping"> <span class="fa fa-sitemap"> Edit VM mapping</span></a> </li>
+                                            <li id="setcl"> <a href="#" id="set_cluster_button" data-toggle="modal" data-target="#myModalCluster"> <span class="fa fa-sitemap"> Set Cluster</span></a> </li>
                                         </ul>
+
                                     </div>
 
                                     <button id="undo_button" type="button" class="btn btn-default"><span class="fa fa-undo"> Undo</span></button>
@@ -211,6 +214,12 @@
                                         <option value=''></option>
                                     </select>
                                     <br>
+                                    <div id="type_inf">
+                                        
+                                    </div>
+                                    <div id="model_inf">
+                                        
+                                    </div>
                                 </div>
                                 <div id='none_selected'>No node is selected</div>
                             </div>
@@ -652,7 +661,7 @@
                                 </textarea>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" id="set_cluster" class="btn btn-success">Parse</button>
+                                <button type="button" id="set_cluster_parse" class="btn btn-success">Parse</button>
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                             </div>
                         </div>
@@ -661,22 +670,22 @@
                 <!-- End Modal -->
 
                 <!-- Modal -->
-                <div class="modal fade" id="myModalPaste" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal fade" id="myModalMapping" tabindex="-1" role="dialog" aria-labelledby="myModalMapping" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabelPaste">Import Json data</h4>
+                                <h4 class="modal-title" id="myModalLabelMapping">Edit VM Mapping</h4>
                             </div>
-                            <div id="paste_body" class="modal-body">
-                                Paste the JSON representation of a graph in the box below
+                            <div id="vmmapping_body" class="modal-body">
+                                Edit VM Mapping:
                                 <br>
                                 <br>
-                                <textarea id="json" rows="5" cols="50">
+                                <textarea id="vmmappingEditor" rows="5" cols="50">
                                 </textarea>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" id="set_json" class="btn btn-success">Parse</button>
+                                <button type="button" id="set_mapping" class="btn btn-success">Save</button>
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                             </div>
                         </div>

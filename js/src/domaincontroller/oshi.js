@@ -36,10 +36,16 @@ dreamer.Oshi = (function () {
 
 		if (args.node) {
 			 if (args.node.properties['domain-oshi']){
-			 	var n_doshi = graph.vertices[args.node.index].vertex_info.property['domain-oshi'];
-			 	for(key in args.node.properties['domain-oshi']){
-			 		n_doshi[key] = args.node.properties['domain-oshi'][key];
-			 	}
+			 	if(graph.vertices[args.node.index]){
+	 				 	var n_doshi = graph.vertices[args.node.index].vertex_info.property['domain-oshi'];
+	 				 	for(key in args.node.properties['domain-oshi']){
+	 				 		console.log(key)
+	 				 		n_doshi[key] = args.node.properties['domain-oshi'][key];
+	 				 	}
+	 				 }
+	 			else{
+	 				result["error"] = "error !!";
+	 			}
 			 }
 
 			 if (args.node.properties.type){
@@ -89,6 +95,7 @@ dreamer.Oshi = (function () {
 	Oshi.prototype.getNodeProperties = function(node, nodes){
 		console.log("Oshi:getNodeProperties");
 		console.log(node instanceof dreamer.Vertex);
+		console.log("spec: " + JSON.stringify(this.spec.nodes));
 		var info_data = this.parent.getNodeProperties.call(this,node, nodes);
 		var ntype = node.getType();
 		if(ntype != undefined){
@@ -101,8 +108,11 @@ dreamer.Oshi = (function () {
          	}
          	info_data['model_info'] = {};
          	if(this.spec.nodes[ntype]['properties']["domain-oshi"]){
-         		for(p in this.spec.nodes[ntype]['properties']["domain-oshi"])
-         			info_data['model_info'][p] = node['vertex_info']['property']["domain-oshi"][p]
+         		console.log(JSON.stringify(this.spec.nodes[ntype]['properties']["domain-oshi"]));
+         		for(p in this.spec.nodes[ntype]['properties']["domain-oshi"]){
+         			console.log("dentrooo")
+         		 	info_data['model_info'][p] = node['vertex_info']['property']["domain-oshi"][p]
+         		}
          	}
 
 		}
@@ -112,7 +122,8 @@ dreamer.Oshi = (function () {
 
     Oshi.prototype.getNodeDataView = function(node, is_closest, layer) {
     	var nodeDView = this.parent.getNodeDataView(node, is_closest, layer);
-
+    	//console.log("Oshi:getNodeDataView layer: " + layer);
+    //	console.log("getNodeDataViewspec: " + JSON.stringify(this.spec.nodes));
     	
     	if(node['vertex_info']['property']['domain-oshi'] != undefined){
     		

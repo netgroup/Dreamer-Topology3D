@@ -216,16 +216,6 @@ dreamer.DomainController = (function() {
 
 
 
-
-    DomainController.prototype.getPropertiesFromSpec = function(ntype){
-
-        console.log("getNodeTypeInfo " + ntype);
-        var properties = this.spec['nodes'][ntype]['properties'];
-       
-        return properties;
-    };
-
-
     DomainController.prototype.getNodeProperties = function(node, nodes){
         var vertype = node.vertex_info["node-type"] || "none";
          var info_data = {
@@ -314,6 +304,17 @@ dreamer.DomainController = (function() {
                     result['error'] = "Changing nodes type not allowed in " + layername;
                 }
             }
+            //else if(args.node.properties.vm){
+            else{
+                var keys = Object.keys(args.node.properties);
+
+                for(k in keys){
+                    if(keys[k].indexOf("domain-") != 0 && hasProperty(keys[k], graph.vertices[args.node.index].vertex_info.property)){ // prendo solo quelli base
+                        graph.vertices[args.node.index].vertex_info['property'][keys[k]] = args.node.properties[keys[k]];
+                    }
+                }
+
+            }
 
         } else if (args.edge) {
 
@@ -340,6 +341,32 @@ dreamer.DomainController = (function() {
         var property = {};
 
         return property;
+    };
+
+
+    DomainController.prototype.getNodesProperty = function(property, nodes){
+        var dict = {};
+        var props = property.split('.');
+        console.log(JSON.stringify(props));
+        for(n in nodes){
+            console.log("n: " + n+ " label"+nodes[n].label +" "+ JSON.stringify(nodes[n].vertex_info.property));
+            var curNprps = nodes[n].vertex_info.property;
+            console.log("curNprps :"+JSON.stringify(curNprps));
+            for(p in props){
+                console.log("chiave: " + props[p]);
+               curNprps = hasProperty(props[p],curNprps);
+                if(curNprps == null){
+                    console.log("NON HA property");
+                    break;
+                }
+
+            }
+
+            if(curNprps != null)
+                dict[nodes[n].label] = curNprps;
+        }
+
+        return JSON.stringify(dict, null, "\t");
     };
 
    DomainController.prototype.getNodeLabel = function(nodetype){
@@ -468,6 +495,15 @@ dreamer.DomainController = (function() {
         };
     }
 
+
+    function hasProperty(property, obj){
+        if((typeof obj === "object" )&& ( obj.constructor === Object) ){
+            if(obj.hasOwnProperty(property)){
+                return obj[property];
+            }
+        }
+        return null;
+    }
 
 
 

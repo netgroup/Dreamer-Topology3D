@@ -947,7 +947,8 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         window.open(img, "Graph Editor Image", "menubar=false,toolba=false,location=false,width=" + SIZE.x + ",height=" + SIZE.y);
     }
 
-    function set_properties(args) {
+    function set_properties(args, updatebox) {
+        console.log("set_properties: " + JSON.stringify(args));
         var resetprop = domainctrl.setProperties({
             edges: edge_list,
             vertices: nodes,
@@ -957,7 +958,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             console.log(resetprop.error);
              eventHandeler.fire("alert_warning_msg", resetprop.error);
         }else{
-            if (args.node) {
+            if (args.node && updatebox) {
             update_infobox(nodes[args.node.index]);
         } else if (args.edge) {
             update_infobox(edge_list[args.edge.index]);
@@ -976,6 +977,11 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     function get_nodeTypes() {
         return domainctrl.getNodeTypes();
     }
+
+
+    function getNodesWithProperty(property){
+        return domainctrl.getNodesWithProperty(property);
+    };
 
     //////////////////////////
 
@@ -1039,6 +1045,10 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             }
 
 
+    }
+
+    function getNodesProperty(args){
+        return domainctrl.getNodesProperty(args, nodes);
     }
 
     function dropNewVertex(e, ui){
@@ -1183,6 +1193,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         change_vertex_size: change_vertex_size,
         change_egde_strength: change_egde_strength,
         change_egde_length: change_egde_length,
-        showEdgeLabel: showEdgeLabel
+        showEdgeLabel: showEdgeLabel,
+        getNodesProperty: getNodesProperty
     };
 };
