@@ -21,11 +21,16 @@ dreamer.VmmController = (function (global) {
             this.vmmconfig = JSON.parse(data);
         }
         catch(e){
+            console.log("VmmController:load Malformed JSON");
             result['error'] = "Malformed JSON!";
             this.vmmconfig = {};
         }
         return result;
     };
+
+    VmmController.prototype.isConfigLoaded = function(){
+        return (Object.keys(this.vmmconfig) > 0)
+    }
 
     VmmController.prototype.getVmmConfig = function (){
 
@@ -37,7 +42,7 @@ dreamer.VmmController = (function (global) {
         if(this.vmmconfig[nodetype] ){
             var ntlist = this.vmmconfig[nodetype];
             var founded= false;
-            for(mip in ntlist){
+            for(var     mip in ntlist){
                 if(ntlist[mip][0] == mgtip){
                     founded = true;
                     if(ntlist[mip][2] == undefined || ntlist[mip][2] == ""){
@@ -45,6 +50,7 @@ dreamer.VmmController = (function (global) {
                         ntlist[mip][2] = "selected";
                     }
                     else{
+                        console.log("MgtIp already selected!");
                         result['error'] = "MgtIp already selected!";
                     }
                 }
@@ -61,12 +67,26 @@ dreamer.VmmController = (function (global) {
         return result;
     };
 
+        VmmController.prototype.isValidInterfaces = function(type, mgtip,interfaces){
+        var result = {};
+        var validInt = this.getIntefacesMgtIp(type, mgtip);
+        for(var v in interfaces){
+            if(interfaces[v] != "" && validInt.indexOf(interfaces[v]) < 0){
+                result['error'] = "Invalid interface!"
+                break;
+            }
+            
+        }
+        
+        return result;
+    }
+
     VmmController.prototype.deselectMgtIP = function(nodetype, mgtip){
         var result = {};
         if(this.vmmconfig[nodetype] ){
             var ntlist = this.vmmconfig[nodetype];
             var founded= false;
-            for(mip in ntlist){
+            for(var mip in ntlist){
                 if(ntlist[mip][0] == mgtip){
                     founded = true;
                     if(ntlist[mip][2] == undefined || ntlist[mip][2] == "selected"){
@@ -117,11 +137,13 @@ dreamer.VmmController = (function (global) {
         if(this.vmmconfig[nodetype] ){
             var ntlist = this.vmmconfig[nodetype];
             var founded= false;
-            //result['interfaces'] = [];
-            if(ntlist[mgtip]){
-                result['interfaces'] = ntlist[mgtip][1];
+            for(var mip in ntlist){
+                if(ntlist[mip][0] == mgtip){
+                    founded = true;
+                    result['interfaces'] = ntlist[mip][1];                    
+                }
             }
-            else{
+            if(!result.error &&  founded == false){
                 result['error'] = "MgtIp not founded in vmmconfig!"
             }
 

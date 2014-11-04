@@ -1159,6 +1159,25 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         eventHandeler.fire("RESETTED_CANVAS_DIMENSION");
     }
 
+    function getvmmcfg(){
+        return domainctrl.getVmmConfig();
+    }
+
+
+    function setvmmcfg(data){
+        var res = domainctrl.setVmmConfig(data);
+        
+        if(res.error){
+            console.log(res.error);
+            eventHandeler.fire("alert_warning_msg", res.error);
+        }
+        return res;
+    }
+
+    function getNotSelectedMgtIp(type){
+        return domainctrl.getNotSelectedMgtIp(type);
+    }
+
     init();
 
 
@@ -1186,6 +1205,9 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         change_egde_strength: change_egde_strength,
         change_egde_length: change_egde_length,
         showEdgeLabel: showEdgeLabel,
-        getNodesProperty: getNodesProperty
+        getNodesProperty: getNodesProperty,
+        getvmmcfg: getvmmcfg,
+        setvmmcfg: setvmmcfg,
+        getNotSelectedMgtIp: getNotSelectedMgtIp
     };
 };

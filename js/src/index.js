@@ -29,6 +29,11 @@
             lineNumbers: true,
         });
 
+        var vmmconfigeditor = CodeMirror.fromTextArea(document.getElementById("vmmconfigEditor"), {
+            mode: "javascript",
+            lineNumbers: true,
+        });
+
         $('#myModalCopy').on('shown.bs.modal', function() {
             cmjsoneditor.refresh();
         });
@@ -39,6 +44,10 @@
 
         $('#myModalMapping').on('shown.bs.modal', function() {
             vmmappingreditor.refresh();
+        });
+
+        $('#myModalMappingCfg').on('shown.bs.modal', function() {
+            vmmconfigeditor.refresh();
         });
 
 
@@ -104,8 +113,22 @@
                 var type_info = args.type_info;
                 if (type_info) {
                     if (type_info.vm) {
+
+                        //var interfaces = type_info.vm['interfaces'];
+                        var mgt_ip_list = my_graph_editor.getNotSelectedMgtIp(base_info.node_type).list;
+                        console.log(JSON.stringify(mgt_ip_list));
+                       // for (var m in interfaces) {
+                       //     $("#s_interface").append("<option value='" + interfaces[m]+ ">" + interfaces[m] + "</option>");
+                       // }
+                       $("#s_mgtip").empty().append('<option value=""></option>')
+                        for (i in mgt_ip_list) {
+                            //console.log(mgt_ip_list[i]);
+                             var val = mgt_ip_list[i];
+                             $("#s_mgtip").append("<option value='" + val + "'>" + val + "</option>");
+                        }
+
                         $('#s_mgtip').val(type_info.vm['mgt_ip']);
-                        $('#s_interfaces').val(type_info.vm['interfaces']);
+                        //$('#s_interface').val(type_info.vm['interface']);
                         $('#vm').show();
                     } else {
                         $('#vm').hide();
@@ -501,6 +524,24 @@
 
             });
 
+             $('#set_cfg_mapping').click(function() {
+                console.log("set_cfg_mapping");
+
+                var clset = vmmconfigeditor.getValue();
+
+                my_graph_editor.setvmmcfg(clset);
+
+                $('#myModalMappingCfg').modal('hide');
+
+            });
+
+            $('#editvmmcfg_button').click(function() {
+                console.log("editvmmcfg_button");
+                var list = my_graph_editor.getvmmcfg();
+                console.log("list: " + JSON.stringify(list));
+                vmmconfigeditor.setValue(list);
+
+            });
 
             $('#set_json').click(function() {
                 my_graph_editor.import_from_JSON(cmjsoneditor.getValue(), false);
@@ -538,7 +579,7 @@
 
                 }
 
-                $('#myModalCluster').modal('hide');
+                $('#myModalMapping').modal('hide');
 
             });
 

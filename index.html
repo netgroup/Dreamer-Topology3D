@@ -106,7 +106,7 @@
                                         <button id="tool_button_group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa fa-wrench"> Tools <span class="fa fa-sort-down"></span>
                                         </button>
                                         <ul class="dropdown-menu" id ="dropdown-menu-tool" role="menu">
-                                            <li id="impexpmap"> <a href="#" > <span class="fa fa-sitemap"> Import and edit mapping file</span></a> </li>
+                                            <li id="impexpmap"> <a href="#" id="editvmmcfg_button" data-toggle="modal" data-target="#myModalMappingCfg"> <span class="fa fa-sitemap"> Import and edit mapping file</span></a> </li>
                                             <li id="editmap"> <a href="#" id="editvmmap_button" data-toggle="modal" data-target="#myModalMapping"> <span class="fa fa-sitemap"> Edit VM mapping</span></a> </li>
                                             <li id="setcl"> <a href="#" id="set_cluster_button" data-toggle="modal" data-target="#myModalCluster"> <span class="fa fa-sitemap"> Set Cluster</span></a> </li>
                                         </ul>
@@ -695,6 +695,30 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" id="set_mapping" class="btn btn-success">Save</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Modal -->
+
+                                <!-- Modal -->
+                <div class="modal fade" id="myModalMappingCfg" tabindex="-1" role="dialog" aria-labelledby="myModalMappingCfg" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabelMappingCfg">Edit Config VM Mapping</h4>
+                            </div>
+                            <div id="vmmapping_body" class="modal-body">
+                                Edit Config VM Mapping:
+                                <br>
+                                <br>
+                                <textarea id="vmmconfigEditor" rows="5" cols="50">
+                                </textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="set_cfg_mapping" class="btn btn-success">Save</button>
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                             </div>
                         </div>

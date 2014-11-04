@@ -13,7 +13,12 @@ dreamer.DomainController = (function() {
     function DomainController() {
         console.log("DomainController");
         vmmcontroller = new dreamer.VmmController();
-        console.log("Prova " + JSON.stringify( vmmcontroller.getNotSelectedMgtIp("OSHI-CR") ));
+/*        console.log("Prova " + JSON.stringify( vmmcontroller.getNotSelectedMgtIp("OSHI-CR") ));
+        console.log("Prova2:" + JSON.stringify(vmmcontroller.getIntefacesMgtIp("OSHI-CR", "62.40.110.49")))
+        vmmcontroller.selectMgtIP("OSHI-CR", "62.40.110.49");
+        console.log("Prova3 " + JSON.stringify( vmmcontroller.getNotSelectedMgtIp("OSHI-CR") ));
+        vmmcontroller.selectMgtIP("OSHI-CR", "62.40.110.49");
+        console.log("Prova4 " + JSON.stringify( vmmcontroller.getNotSelectedMgtIp("OSHI-CR") ));*/
     }
 
     DomainController.prototype.loadSpec = function(modelname, callback) {
@@ -216,7 +221,9 @@ dreamer.DomainController = (function() {
         return false;
     };
 
-
+    DomainController.prototype.getNotSelectedMgtIp = function(nodetype){
+        return vmmcontroller.getNotSelectedMgtIp(nodetype);
+    }
 
     DomainController.prototype.getNodeProperties = function(node, nodes){
         var vertype = node.vertex_info["node-type"] || "none";
@@ -305,6 +312,37 @@ dreamer.DomainController = (function() {
                 else{
                     result['error'] = "Changing nodes type not allowed in " + layername;
                 }
+            }
+            else if(args.node.properties.vm){
+                var mgtip = args.node.properties.vm.mgt_ip;
+                var interfaces =  args.node.properties.vm.interfaces;
+                var type = graph.vertices[args.node.index].vertex_info["node-type"];
+                if(mgtip){
+                    if(mgtip != ""){
+                    var res = vmmcontroller.selectMgtIP(type, mgtip);
+                    if(res.error){
+                        console.log("@@" + res.error)
+                        result['error'] = res.error;
+                    }
+                    else {
+                        graph.vertices[args.node.index].vertex_info['property']["vm"]["mgt_ip"] = mgtip;
+                        if(interfaces){
+                            var vint = vmmcontroller.isValidInterfaces(type, mgtip,interfaces);
+                            if(vint.error){
+                                result['error'] = vint.error;
+                            }else{
+                                graph.vertices[args.node.index].vertex_info['property']["vm"]["interfaces"] = interfaces;
+                            }
+                        }
+                            
+                    }
+                    }
+                    
+                }
+                else{
+                    result['error'] = "MgtIp not defined!";
+                }
+                
             }
             //else if(args.node.properties.vm){
             else{
@@ -497,6 +535,13 @@ dreamer.DomainController = (function() {
         };
     }
 
+    DomainController.prototype.getVmmConfig = function() {
+        return vmmcontroller.getVmmConfig();
+    };
+
+    DomainController.prototype.setVmmConfig = function(data) {
+        return vmmcontroller.load(data);
+    };
 
     function hasProperty(property, obj){
         if((typeof obj === "object" )&& ( obj.constructor === Object) ){
