@@ -191,20 +191,12 @@
                             <div id='info'>
                                 <label id='index_label'>Index:</label> <span id='index'></span>
                                 <br>
-                                <label id='pos'>Position: (<span id='posx'></span>, <span id='posy'></span>)
-                                    <br>
-                                </label>
+ 
                                 <label id='vert'>Vertices: <span id='v1'></span> -- <span id='v2'></span>
                                     <br>
                                 </label>
                                 <div id='edge_inf'>
-                                    Node <span id='v1'></span> label</br>
-                                    <input type='text' id='v1_label'>
-                                    </br>
-                                    Node <span id='v2'></span> label</br>
-                                    <input type='text' id='v2_label'>
-                                    </br>
-                                    <button type='text' id='edge_inf_button'>Set edge label!</button>
+
                                 </div>
                                 <div id='node_inf'>
                                     <label>Node:</label> <span id='n_name'></span>
@@ -215,10 +207,27 @@
                                     </select>
                                     <br>
                                     <div id="type_inf">
-                                        
+                                        <div id="model_inf_Data">
+                                        <div id="vm">
+                                            <label>Mgt IP:</label>
+                                            <select id='s_mgtip'>
+                                            <option value=''></option>
+                                            </select>
+                                            </br>
+                                            <label>Interfaces:</label>
+                                            <select id='s_interfaces'>
+                                            <option value=''></option>
+                                            </select> 
+                                        </div>    
+                                        </div>
                                     </div>
                                     <div id="model_inf">
-                                        
+                                        <div id="model_inf_Control">
+                                            <label>Cluster:</label>
+                                            <select id='s_cluster'>
+                                            <option value=''></option>
+                                            </select>   
+                                        </div>
                                     </div>
                                 </div>
                                 <div id='none_selected'>No node is selected</div>
@@ -712,6 +721,7 @@
         <script src="js/bootstrap/bootstrap.min.js"></script>
         <script src="js/json2.js"></script>
         <script src="js/codemirror/codemirror.js"></script>
+        <script src="js/src/vmmcontroller.js"></script>
         <script src="js/src/vertex.js"></script>
         <script src="js/src/domaincontroller/domaincontroller.js"></script>
         <script src="js/src/domaincontroller/oshi.js"></script>

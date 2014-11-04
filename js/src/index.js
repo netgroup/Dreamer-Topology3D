@@ -1,11 +1,11 @@
 (function() {
 
     //var example = '{"vertices": {"3": {"pos": {"x": 477.3105529387208, "y": 359.5564421318443 }, "v": {"x": 0.0035644859802187456, "y": -0.0003678184322717711 }, "vertex_info": {"frozen": false } }, "OSHI-CR#01": {"pos": {"x": 571.645587789206, "y": 260.57006773541957 }, "v": {"x": -0.0005012924164955468, "y": -0.008078636265402117 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR"} }, "OSHI-CR#02": {"pos": {"x": 343.46842265480825, "y": 265.1071814627707 }, "v": {"x": 0.0003789057184639122, "y": -0.0017395130358406896 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR"} }, "OSHI-CR#03": {"pos": {"x": 430.39318093174245, "y": 199.05731743393878 }, "v": {"x": -0.002163273333355198, "y": -0.0028420946490407273 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR"} }, "OSHI-CR#04": {"pos": {"x": 243.8844992787802, "y": 183.27015249856393 }, "v": {"x": -0.004556435119165703, "y": 0.000016304893190211 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR"} }, "OSHI-CR#05": {"pos": {"x": 529.2382245698698, "y": 173.06882694953057 }, "v": {"x": -0.0034116077547209356, "y": -0.005871884333641275 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR"} }, "OSHI-PE#06": {"pos": {"x": 640.3849197006057, "y": 339.19156652333174 }, "v": {"x": -0.00742332678703711, "y": 0.0003708985499277784 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE"} }, "OSHI-PE#07": {"pos": {"x": 312.58904093980925, "y": 353.34617200846276 }, "v": {"x": 0.005391255918603288, "y": -0.00000590230079858256 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE"} }, "OSHI-PE#08": {"pos": {"x": 303.91447641624836, "y": 110.06143678318273 }, "v": {"x": -0.005137044154760628, "y": -0.001232734466973251 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE"} }, "OSHI-PE#09": {"pos": {"x": 582.1536223214617, "y": 65.852377971866 }, "v": {"x": -0.001482757906184684, "y": -0.0024401659616921645 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE"} }, "L2SW#10": {"pos": {"x": 729.7399333452596, "y": 283.445290257405 }, "v": {"x": -0.0008653721268885653, "y": 0.01443851734511814 }, "vertex_info": {"frozen": false, "node-type": "L2SW"} }, "L2SW#11": {"pos": {"x": 338.949857882099, "y": 38.695333142850856 }, "v": {"x": -0.0023467513834182496, "y": 0.00012013969347424158 }, "vertex_info": {"frozen": false, "node-type": "L2SW"} }, "L2SW#12": {"pos": {"x": 217.37206502183986, "y": 50.70980541461902 }, "v": {"x": -0.003724114635455855, "y": -0.0003094759959772764 }, "vertex_info": {"frozen": false, "node-type": "L2SW"} }, "L2SW#13": {"pos": {"x": 221.32874070071674, "y": 352.0507559846285 }, "v": {"x": 0.007276436751229354, "y": 0.00102747353644074 }, "vertex_info": {"frozen": false, "node-type": "L2SW"} }, "L2SW#14": {"pos": {"x": 398.85044697434125, "y": 361.74708348239415 }, "v": {"x": 0.004052367263665424, "y": -0.0003953079103612752 }, "vertex_info": {"frozen": false, "node-type": "L2SW"} }, "L2SW#15": {"pos": {"x": 504.2728676036877, "y": 40.183063551670266 }, "v": {"x": -0.002470467246925734, "y": -0.00045277093720762305 }, "vertex_info": {"frozen": false, "node-type": "L2SW"} }, "CE#16": {"pos": {"x": 124.27399147231507, "y": 58.74509547499744 }, "v": {"x": -0.0042285172653654945, "y": 0.0004570623048270467 }, "vertex_info": {"frozen": false, "node-type": "CE"} }, "CE#17": {"pos": {"x": 430.73011781981313, "y": 41.18049787164649 }, "v": {"x": -0.002547450215794278, "y": -0.00022835299889285756 }, "vertex_info": {"frozen": false, "node-type": "CE"} }, "CE#18": {"pos": {"x": 736.4952754707438, "y": 178.71981153966888 }, "v": {"x": 0.00030596100178620356, "y": 0.014412333046186554 }, "vertex_info": {"frozen": false, "node-type": "CE"} }, "CE#20": {"pos": {"x": 126.88083720945107, "y": 339.46679319440915 }, "v": {"x": 0.008556819703654461, "y": 0.0018314490720695437 }, "vertex_info": {"frozen": false, "node-type": "CE"} } }, "edges": {"OSHI-CR#05&&OSHI-CR#01": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "OSHI-CR#03&&OSHI-CR#01": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "OSHI-CR#03&&OSHI-CR#04": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "OSHI-CR#03&&OSHI-CR#02": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "OSHI-PE#07&&OSHI-CR#02": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "OSHI-PE#08&&OSHI-CR#05": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "OSHI-PE#08&&OSHI-CR#04": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "OSHI-PE#09&&OSHI-CR#03": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "OSHI-PE#06&&OSHI-CR#01": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "L2SW#12&&OSHI-PE#08": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "L2SW#11&&OSHI-PE#08": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "L2SW#13&&OSHI-PE#07": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "L2SW#14&&OSHI-PE#07": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "L2SW#10&&OSHI-PE#06": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "L2SW#15&&OSHI-PE#09": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "L2SW#13&&CE#20": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "3&&L2SW#14": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "CE#18&&L2SW#10": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "CE#17&&L2SW#15": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "CE#16&&L2SW#12": {"links": [{"link_label": "ciao", "link-type": "Data"} ] } }, "graph_parameters": {} }';
-      //  var example = '{"vertices": {"cro1": {"pos": {"x": 597.3531914893617, "y": 144.82758620689657 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"domain-oshi": {"cluster_id": ""}, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cro2": {"pos": {"x": 410.936170212766, "y": 241.3793103448276 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"domain-oshi": {"cluster_id": ""}, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "peo3": {"pos": {"x": 649.7897838899805, "y": 310 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE", "property": {"domain-oshi": {"cluster_id": ""}, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cro4": {"pos": {"x": 232.07659574468084, "y": 360 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"domain-oshi": {"cluster_id": ""}, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "peo5": {"pos": {"x": 211.92340425531913, "y": 166.89655172413794 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE", "property": {"domain-oshi": {"cluster_id": ""}, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cer6": {"pos": {"x": 103.6, "y": 40 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "CE", "property": {"domain-oshi": {"cluster_id": ""}, "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cer7": {"pos": {"x": 932.4, "y": 304.8275862068966 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "CE", "property": {"domain-oshi": {"cluster_id": ""}, "vm": {"interfaces": "", "mgt_ip": ""} } } } }, "edges": {"cer6&&peo5": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cer7&&peo3": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "peo3&&cro1": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "peo3&&cro2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "peo3&&cro4": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro4&&cro2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro1&&cro2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro1&&peo5": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro4&&peo5": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro2&&peo5": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cer6&&cer7": {"links": [{"link_label": "ciao", "link-type": "Vll"} ] } }, "graph_parameters": {"tunneling": "VXLAN", "vlan": 0, "mapped": false, "generated": false, "testbed": "MININET"} }';
- var example = '{"vertices": {"cer1": {"pos": {"x": 201.5, "y": 79 }, "v": {"x": 0.07375298832718227, "y": -0.0007611303696987703 }, "vertex_info": {"frozen": false, "node-type": "CE", "property": {"vm": {"interfaces": "", "mgt_ip": ""} } } }, "peo2": {"pos": {"x": 265.5, "y": 156 }, "v": {"x": 0.09461158208001658, "y": -0.003950501035255405 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE", "property": {"domain-oshi": {"layer-Control": {"cluster_id": ""} }, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cro3": {"pos": {"x": 394.5, "y": 234 }, "v": {"x": 0.0807000650752262, "y": 0.0017281707899522991 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"domain-oshi": {"layer-Control": {"cluster_id": ""} }, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cro4": {"pos": {"x": 573.5, "y": 151 }, "v": {"x": 0.09382884581877099, "y": 0.013422984136920335 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"domain-oshi": {"layer-Control": {"cluster_id": ""} }, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cro5": {"pos": {"x": 226.5, "y": 306 }, "v": {"x": 0.06119728683817316, "y": -0.017047640071611192 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"domain-oshi": {"layer-Control": {"cluster_id": ""} }, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "peo6": {"pos": {"x": 548.5, "y": 313 }, "v": {"x": 0.05870612861446478, "y": 0.016468720356786593 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE", "property": {"domain-oshi": {"layer-Control": {"cluster_id": ""} }, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cer7": {"pos": {"x": 702.5, "y": 353 }, "v": {"x": 0.04328960970347018, "y": 0.025062863059148607 }, "vertex_info": {"frozen": false, "node-type": "CE", "property": {"vm": {"interfaces": "", "mgt_ip": ""} } } } }, "edges": {"cer1&&peo2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cer7&&peo6": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro4&&peo6": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro4&&peo2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro4&&cro3": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro5&&peo2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro5&&peo6": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro5&&cro3": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "peo2&&cro3": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "peo6&&cro3": {"links": [{"link_label": "ciao", "link-type": "Data"} ] } }, "graph_parameters": {"tunneling": "OPENVPN", "vlan": "0", "mapped": false, "generated": false, "testbed": "MININET"} }';
-       
+    //  var example = '{"vertices": {"cro1": {"pos": {"x": 597.3531914893617, "y": 144.82758620689657 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"domain-oshi": {"cluster_id": ""}, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cro2": {"pos": {"x": 410.936170212766, "y": 241.3793103448276 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"domain-oshi": {"cluster_id": ""}, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "peo3": {"pos": {"x": 649.7897838899805, "y": 310 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE", "property": {"domain-oshi": {"cluster_id": ""}, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cro4": {"pos": {"x": 232.07659574468084, "y": 360 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"domain-oshi": {"cluster_id": ""}, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "peo5": {"pos": {"x": 211.92340425531913, "y": 166.89655172413794 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE", "property": {"domain-oshi": {"cluster_id": ""}, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cer6": {"pos": {"x": 103.6, "y": 40 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "CE", "property": {"domain-oshi": {"cluster_id": ""}, "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cer7": {"pos": {"x": 932.4, "y": 304.8275862068966 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "CE", "property": {"domain-oshi": {"cluster_id": ""}, "vm": {"interfaces": "", "mgt_ip": ""} } } } }, "edges": {"cer6&&peo5": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cer7&&peo3": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "peo3&&cro1": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "peo3&&cro2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "peo3&&cro4": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro4&&cro2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro1&&cro2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro1&&peo5": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro4&&peo5": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro2&&peo5": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cer6&&cer7": {"links": [{"link_label": "ciao", "link-type": "Vll"} ] } }, "graph_parameters": {"tunneling": "VXLAN", "vlan": 0, "mapped": false, "generated": false, "testbed": "MININET"} }';
+    var example = '{"vertices": {"cer1": {"pos": {"x": 201.5, "y": 79 }, "v": {"x": 0.07375298832718227, "y": -0.0007611303696987703 }, "vertex_info": {"frozen": false, "node-type": "CE", "property": {"vm": {"interfaces": "", "mgt_ip": ""} } } }, "peo2": {"pos": {"x": 265.5, "y": 156 }, "v": {"x": 0.09461158208001658, "y": -0.003950501035255405 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE", "property": {"domain-oshi": {"layer-Control": {"cluster_id": ""} }, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cro3": {"pos": {"x": 394.5, "y": 234 }, "v": {"x": 0.0807000650752262, "y": 0.0017281707899522991 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"domain-oshi": {"layer-Control": {"cluster_id": ""} }, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cro4": {"pos": {"x": 573.5, "y": 151 }, "v": {"x": 0.09382884581877099, "y": 0.013422984136920335 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"domain-oshi": {"layer-Control": {"cluster_id": ""} }, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cro5": {"pos": {"x": 226.5, "y": 306 }, "v": {"x": 0.06119728683817316, "y": -0.017047640071611192 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"domain-oshi": {"layer-Control": {"cluster_id": ""} }, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "peo6": {"pos": {"x": 548.5, "y": 313 }, "v": {"x": 0.05870612861446478, "y": 0.016468720356786593 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE", "property": {"domain-oshi": {"layer-Control": {"cluster_id": ""} }, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cer7": {"pos": {"x": 702.5, "y": 353 }, "v": {"x": 0.04328960970347018, "y": 0.025062863059148607 }, "vertex_info": {"frozen": false, "node-type": "CE", "property": {"vm": {"interfaces": "", "mgt_ip": ""} } } } }, "edges": {"cer1&&peo2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cer7&&peo6": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro4&&peo6": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro4&&peo2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro4&&cro3": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro5&&peo2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro5&&peo6": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro5&&cro3": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "peo2&&cro3": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "peo6&&cro3": {"links": [{"link_label": "ciao", "link-type": "Data"} ] } }, "graph_parameters": {"tunneling": "OPENVPN", "vlan": "0", "mapped": false, "generated": false, "testbed": "MININET"} }';
 
-       $(document).ready(function() {
+
+    $(document).ready(function() {
 
         $('#myModalLoading').modal('show');
         my_graph_editor = new GraphEditor('#graph_ed', {
@@ -14,35 +14,35 @@
             multigraph: true
         });
 
-        var cmjsoneditor = CodeMirror.fromTextArea(document.getElementById("jsonEditor"),{
-                    mode:  "javascript",
-                    lineNumbers: true,
-                });
-
-        var cmclustereditor = CodeMirror.fromTextArea(document.getElementById("clusterEditor"),{
-                    mode:  "javascript",
-                    lineNumbers: true,
-                });
-
-        var vmmappingreditor = CodeMirror.fromTextArea(document.getElementById("vmmappingEditor"),{
-                    mode:  "javascript",
-                    lineNumbers: true,
-                });
-
-        $('#myModalCopy').on('shown.bs.modal', function() { 
-            cmjsoneditor.refresh(); 
+        var cmjsoneditor = CodeMirror.fromTextArea(document.getElementById("jsonEditor"), {
+            mode: "javascript",
+            lineNumbers: true,
         });
 
-        $('#myModalCluster').on('shown.bs.modal', function() { 
-            cmclustereditor.refresh(); 
+        var cmclustereditor = CodeMirror.fromTextArea(document.getElementById("clusterEditor"), {
+            mode: "javascript",
+            lineNumbers: true,
         });
 
-        $('#myModalMapping').on('shown.bs.modal', function() { 
-            vmmappingreditor.refresh(); 
+        var vmmappingreditor = CodeMirror.fromTextArea(document.getElementById("vmmappingEditor"), {
+            mode: "javascript",
+            lineNumbers: true,
         });
-       
 
-         my_graph_editor.resetCanvasDimension($('#panel_head').width()-30,400); 
+        $('#myModalCopy').on('shown.bs.modal', function() {
+            cmjsoneditor.refresh();
+        });
+
+        $('#myModalCluster').on('shown.bs.modal', function() {
+            cmclustereditor.refresh();
+        });
+
+        $('#myModalMapping').on('shown.bs.modal', function() {
+            vmmappingreditor.refresh();
+        });
+
+
+        my_graph_editor.resetCanvasDimension($('#panel_head').width() - 30, 400);
 
         my_graph_editor.addListener("LiveStatus", function(a, args) {
             console.log("Fired con successoooo " + JSON.stringify(args));
@@ -70,7 +70,7 @@
             if (args.selected == "Vertex") {
 
                 var base_info = args.base_info;
-
+                console.log(JSON.stringify(args));
                 $(info_sidebar + ' .infobox #title').html('Vertex Info');
                 $(info_sidebar + ' .infobox #index').html(base_info.index);
                 $(info_sidebar + ' .infobox #index').hide();
@@ -85,6 +85,50 @@
                 $(info_sidebar + ' .infobox #none_selected').hide();
                 $(info_sidebar + ' .infobox #info').show();
                 $('#s_label').val(base_info.node_type)
+
+                if (args.model_info) {
+                    if (Object.keys(args.model_info).length > 0) {
+                        $('#s_cluster').show();
+                        console.log("mostra " + JSON.stringify(Object.keys(args.model_info)));
+                        var clustval = ''
+                        if (args.model_info['layer-Control']['cluster_id']) {
+                            clustval = args.model_info['layer-Control']['cluster_id'];
+                        }
+                        $('#s_cluster').val(clustval);
+                    }
+                } else {
+                    $('#model_inf').hide();
+                }
+
+
+                var type_info = args.type_info;
+                if (type_info) {
+                    if (type_info.vm) {
+                        $('#s_mgtip').val(type_info.vm['mgt_ip']);
+                        $('#s_interfaces').val(type_info.vm['interfaces']);
+                        $('#vm').show();
+                    } else {
+                        $('#vm').hide();
+                    }
+                } else {
+                    $('#type_inf').hide();
+                }
+
+
+                var curlayer = args.curLayer;
+                if (curlayer == "Data") {
+                    $('#model_inf_Data').show();
+                    $('#model_inf_Control').hide();
+                    $('#model_inf_Vll').hide();
+                } else if (curlayer == "Vll") {
+                    $('#model_inf_Vll').show();
+                    $('#model_inf_Control').hide();
+                    $('#model_inf_Data').hide();
+                } else if (curlayer == "Control") {
+                    $('#model_inf_Control').show();
+                    $('#model_inf_Vll').hide();
+                    $('#model_inf_Data').hide();
+                }
 
             } else if (args.selected == "Edge") {
                 var base_info = args.base_info;
@@ -104,10 +148,9 @@
                 $(info_sidebar + ' .infobox #label').val(base_info.label || "none");
                 $(info_sidebar + ' .infobox #none_selected').hide();
                 $(info_sidebar + ' .infobox #info').show();
-            }else if(args.selected == "graph_parameters"){
+            } else if (args.selected == "graph_parameters") {
                 $("#tun_option").val(args.tunneling);
-            }
-             else if (args.selected == "none") {
+            } else if (args.selected == "none") {
                 clearInfoBox();
             }
 
@@ -117,55 +160,57 @@
         my_graph_editor.addListener("INVALID_TOPOLOGY", function(a, args) {
             console.log('INVALID_TOPOLOGY');
             console.log(args);
-         
-            $('#myModalLoading').modal('hide');
-           // for()
-           $('#validationError_list').empty();
-           var counter = 0;
-            for(i in args){
-                for (k in args[i]){
 
-                    $('#validationError_list').append('<div class="panel panel-default"><div class="panel-heading"> <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#validationError_list" href="#collapse'+counter+'"> '+k+' </a> </h4> </div> <div id="collapse'+counter+'" class="panel-collapse collapse"> <div class="panel-body">'+args[i][k]+'</div></div></div>');
+            $('#myModalLoading').modal('hide');
+            // for()
+            $('#validationError_list').empty();
+            var counter = 0;
+            for (i in args) {
+                for (k in args[i]) {
+
+                    $('#validationError_list').append('<div class="panel panel-default"><div class="panel-heading"> <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#validationError_list" href="#collapse' + counter + '"> ' + k + ' </a> </h4> </div> <div id="collapse' + counter + '" class="panel-collapse collapse"> <div class="panel-body">' + args[i][k] + '</div></div></div>');
                     counter++;
                 }
 
             }
 
+            $('#myModalValidationError').modal('show');
 
-             $('#myModalValidationError').modal('show');
-            
-            
+
         });
 
         my_graph_editor.addListener("VALID_TOPOLOGY", function(a, args) {
             console.log('VALID_TOPOLOGY')
             $('#alert_div').empty();
-            $('#alert_div').append('<div id=\"alert_msg\"  class=\"alert alert-success alert-dismissible alert-franz-in \" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button><strong>Well done!</strong> The topology is ready to be executed on the testbed.</div>'); 
-            window.setTimeout(function() { $("#alert_msg").alert('close'); }, 5000);
+            $('#alert_div').append('<div id=\"alert_msg\"  class=\"alert alert-success alert-dismissible alert-franz-in \" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button><strong>Well done!</strong> The topology is ready to be executed on the testbed.</div>');
+            window.setTimeout(function() {
+                $("#alert_msg").alert('close');
+            }, 5000);
             $('#myModalLoading').modal('hide');
         });
 
         my_graph_editor.addListener("alert_warning_msg", function(a, args) {
             console.log('alert_msg')
             $('#alert_div').empty();
-            $('#alert_div').append('<div id=\"warning_msg\" class=\"alert alert-danger alert-dismissible alert-franz-in \" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>'+args+'</div>'); 
-            window.setTimeout(function() { $("#warning_msg").alert('close'); }, 5000);
+            $('#alert_div').append('<div id=\"warning_msg\" class=\"alert alert-danger alert-dismissible alert-franz-in \" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>' + args + '</div>');
+            window.setTimeout(function() {
+                $("#warning_msg").alert('close');
+            }, 5000);
         });
 
-         my_graph_editor.addListener("RANDOM_TOPOLOGY", function(a, args) {
-             console.log('RANDOM_TOPOLOGY')
-            if(args.error == true){
-                
+        my_graph_editor.addListener("RANDOM_TOPOLOGY", function(a, args) {
+            console.log('RANDOM_TOPOLOGY')
+            if (args.error == true) {
+
                 $('#erRandomAlert').append('<div id="alertdiv" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>There was an error! Please try again!</span></div>')
                 $('#randomprogbar').hide();
-            }
-            else{
-                
+            } else {
+
                 $('#myModalRandom').modal('hide');
                 $('#randomprogbar').hide();
                 $('.modal-backdrop').remove();
             }
-           return false;
+            return false;
         });
 
 
@@ -186,6 +231,8 @@
             //imposta testbed
 
             //rileva pro domain
+            //console.log(JSON.stringify(args.domain_data));
+            initClusterSelOption(args.domain_data.clustermap);
 
         });
 
@@ -208,23 +255,26 @@
             for (n in nodeTypes) {
                 //set option value 
                 var ntype = nodeTypes[n];
-               
+
                 $("#s_label").append("<option value='" + ntype + "'>" + ntype + "</option>");
                 var clntype = ntype.toLowerCase();
                 clntype = clntype.replace(/ /g, '');
-                
+
                 //build drag and drop tool bar #drag_drop_toolbar
-                $("#drag_drop_toolbar").append("<li  style=\"display: inline; list-style: none;\"><img class='draggable_node' id='drag_"+ clntype + "' src='img/"+clntype+".png' width='50' height='50'></li>");
-                $("#drag_drop_toolbar").append("<li  style=\"display: inline; list-style: none;\"><img id='drag_"+ clntype + "_det' src='img/"+clntype+"_det.png' width='50' height='50'></li>");
-                $("#drag_"+clntype).draggable({
+                $("#drag_drop_toolbar").append("<li  style=\"display: inline; list-style: none;\"><img class='draggable_node' id='drag_" + clntype + "' src='img/" + clntype + ".png' width='50' height='50'></li>");
+                $("#drag_drop_toolbar").append("<li  style=\"display: inline; list-style: none;\"><img id='drag_" + clntype + "_det' src='img/" + clntype + "_det.png' width='50' height='50'></li>");
+                $("#drag_" + clntype).draggable({
                     helper: 'clone',
                 });
                 //set the data payload
                 //cosi quando catturo l'evento del drop posso sapere il tipo di nodo considerato
-                $("#drag_"+clntype).data("type", ntype);
+                $("#drag_" + clntype).data("type", ntype);
 
             }
             $("#drag_drop_toolbar").append("</ul>");
+
+
+
 
             $(info_sidebar + ' .infobox #s_label').change(function() {
                 var index = $(info_sidebar + ' .infobox #index').html(),
@@ -240,6 +290,26 @@
                         }
                     }, true);
                 }
+
+            });
+
+            $('#s_cluster').change(function() {
+                var index = $(info_sidebar + ' .infobox #index').html();
+
+                my_graph_editor.set_properties({
+                    node: {
+                        index: index,
+                        properties: {
+                            "domain-oshi": {
+                                "layer-Control": {
+                                    cluster_id: $('#s_cluster').val()
+                                }
+                            }
+                        }
+
+                    }
+                }, true);
+
 
             });
 
@@ -305,9 +375,9 @@
 
 
             $('#edit_topo_button').click(function(e) {
-                
+
                 cmjsoneditor.setValue(my_graph_editor.export_json());
-               
+
             });
 
 
@@ -315,8 +385,6 @@
                 $('#myModalLoading').modal('show');
                 my_graph_editor.validate();
             });
-
-
 
 
             $('#exp_button').click(function(e) {
@@ -435,52 +503,51 @@
 
 
             $('#set_json').click(function() {
-                my_graph_editor.import_from_JSON(cmjsoneditor.getValue(), false);   
+                my_graph_editor.import_from_JSON(cmjsoneditor.getValue(), false);
                 $('#myModalCopy').modal('hide');
             });
 
-            $('#editvmmap_button').click(function(){
+            $('#editvmmap_button').click(function() {
                 console.log("editvmmap_button");
                 var list = my_graph_editor.getNodesProperty("vm");
-                console.log("list: " + JSON.stringify( list));
+                console.log("list: " + JSON.stringify(list));
                 vmmappingreditor.setValue(list);
 
             });
 
-            $('#set_mapping').click(function(){
+            $('#set_mapping').click(function() {
                 console.log("set_mapping");
 
                 var clset = JSON.parse(vmmappingreditor.getValue());
-                for(n in clset){
+                for (n in clset) {
                     var cindex = n.match(/\d+$/)[0] - 1;
                     console.log(cindex)
-                    if( (cindex != undefined && cindex > -1) && (clset[n] != undefined)){
+                    if ((cindex != undefined && cindex > -1) && (clset[n] != undefined)) {
                         my_graph_editor.set_properties({
-                        node: {
-                            index: cindex,
-                            properties: {
-                                vm: clset[n]
-                            }
+                            node: {
+                                index: cindex,
+                                properties: {
+                                    vm: clset[n]
+                                }
 
-                       }
-                    }, false);
-                    }
-                    else{
+                            }
+                        }, false);
+                    } else {
                         console.log("Errore dati json set_cluster");
                     }
 
                 }
-                
+
                 $('#myModalCluster').modal('hide');
 
             });
 
 
 
-            $('#set_cluster_button').click(function(){
+            $('#set_cluster_button').click(function() {
                 console.log("setClusterButton");
                 var list = my_graph_editor.getNodesProperty("domain-oshi.layer-Control.cluster_id");
-                console.log("list: " + JSON.stringify( list));
+                console.log("list: " + JSON.stringify(list));
                 cmclustereditor.setValue(list);
 
             });
@@ -490,25 +557,24 @@
                 console.log("set_cluster");
 
                 var clset = JSON.parse(cmclustereditor.getValue());
-                for(n in clset){
+                for (n in clset) {
                     var cindex = n.match(/\d+$/)[0] - 1;
                     console.log(cindex)
-                    if( (cindex != undefined && cindex > -1) && (clset[n] != undefined)){
+                    if ((cindex != undefined && cindex > -1) && (clset[n] != undefined)) {
                         my_graph_editor.set_properties({
-                        node: {
-                            index: cindex,
-                            properties: {
-                                "domain-oshi":{
-                                    "layer-Control":{
-                                        cluster_id: clset[n]
+                            node: {
+                                index: cindex,
+                                properties: {
+                                    "domain-oshi": {
+                                        "layer-Control": {
+                                            cluster_id: clset[n]
+                                        }
                                     }
                                 }
-                            }
 
-                       }
-                    }, false);
-                    }
-                    else{
+                            }
+                        }, false);
+                    } else {
                         console.log("Errore dati json set_cluster");
                     }
 
@@ -550,22 +616,20 @@
             $("#prob").val($("#coreslider").slider("option", "value") / 10);
             $("#corenum").val($("#probslider").slider("option", "value"));
 
-           
+
             $('#start_random_button').click(function(e) {
-               var n = $("#coreslider").slider("option", "value");
-               var p = $("#probslider").slider("option", "value") / 10;
+                var n = $("#coreslider").slider("option", "value");
+                var p = $("#probslider").slider("option", "value") / 10;
                 $('#randomprogbar').modal('show');
-                my_graph_editor.getRandomTopology(n,p);
+                my_graph_editor.getRandomTopology(n, p);
             });
 
-            $('#showLabelCheckbox').click(function(e){
+            $('#showLabelCheckbox').click(function(e) {
                 my_graph_editor.showEdgeLabel(this.checked);
             });
 
 
-            
             setLayerView(args.curLayer);
-
 
             $('#myModalLoading').modal('hide');
         }); ///
@@ -574,53 +638,55 @@
 
         my_graph_editor.load("oshi");
 
-         $(window).resize(function(){
-            console.log("RESIZE PAGINA")     
-            my_graph_editor.resetCanvasDimension($('#panel_head').width()-30,400);        
-        });  
+        $(window).resize(function() {
+            console.log("RESIZE PAGINA")
+            my_graph_editor.resetCanvasDimension($('#panel_head').width() - 30, 400);
+        });
 
     });
 
+    function initClusterSelOption(map) {
+        for (m in map) {
+            $("#s_cluster").append("<option value='" + m + "' style='color:" + map[m] + "''> Cluster" + m + "</option>");
+        }
+    }
 
-    function clearInfoBox(){
+    function clearInfoBox() {
         var info_sidebar = '#info_sidebar';
         $(info_sidebar + ' .infobox #title').html('Select node for info!');
         $(info_sidebar + ' .infobox #none_selected').show();
         $(info_sidebar + ' .infobox #info').hide();
     }
 
-    function setLayerLabel(layer){
-        $('#layer-label').text("Current View: "+layer);
+    function setLayerLabel(layer) {
+        $('#layer-label').text("Current View: " + layer);
     };
 
-    function setLayerView(layer){
-       setLayerLabel(layer);
-       setToolsDropMenu(layer);
+    function setLayerView(layer) {
+        setLayerLabel(layer);
+        setToolsDropMenu(layer);
     };
 
 
-    function setToolsDropMenu(layer){
-       // $('#dropdown-menu-tool').empty();
-        if(layer == "Data"){
+    function setToolsDropMenu(layer) {
+        // $('#dropdown-menu-tool').empty();
+        if (layer == "Data") {
             $("#impexpmap").show();
             $("#editmap").show();
-    
+
             $("#setcl").hide();
-        }
-        else if(layer == "Control"){
+        } else if (layer == "Control") {
             $("#setcl").show();
 
             $("#impexpmap").hide();
             $("#editmap").hide();
-        }
-        else{
+        } else {
             $("#impexpmap").hide();
             $("#editmap").hide();
-    
+
             $("#setcl").hide();
         }
     };
-
 
 
 

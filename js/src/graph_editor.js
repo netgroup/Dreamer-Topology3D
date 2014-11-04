@@ -278,7 +278,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 nodes[i].label = nodes[i].label.replace(/[0-9]/g, '') + (i + 1);
         }
 
-        $('#undo_button').removeClass('graph_editor_undo_disabled');
         draw();
     }
 
@@ -626,7 +625,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     this.select_object(closest);
                 } else {
                     if (SHIFT) {
-                        if(domainctrl.isInsertEnabled(curLayer.getCurLayer())){
+                        /*if(domainctrl.isInsertEnabled(curLayer.getCurLayer())){
                             new_v = new Vertex(nodes, mouse);
                         //careful for edge case of user not moving mouse afterclick
                         //if live the vertex flies off 
@@ -635,7 +634,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                         }
                         nodes.push(new_v);
                         }
-                        
+                        */
                     }
                 }
                 hit_node = undefined;
@@ -741,7 +740,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
 
-
     function showEdgeLabel(show){
         NODE_LABEL = show;
         draw();
@@ -793,15 +791,11 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     ///#
     function fill_vert(is_closest, vert) {
 
-        
-
         var nodeDView = domainctrl.getNodeDataView(vert, is_closest,curLayer.getCurLayer());
 
         ctx.fillStyle = nodeDView.bgcolor;
 
         return nodeDView.icon;
-
-
     }
 
     ///#
@@ -820,12 +814,9 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             display_edge(edge_list[i]);
         }
 
-
-
         for (i = 0; i < nodes.length; i += 1) {
 
             if (domainctrl.isVisible(nodes[i], curLayer.getCurLayer())) {
-                // if (nodes[i].label.split("#")[0] == "EUH")
                 display_vertex(nodes[i]);
             }
         }
@@ -890,6 +881,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
 
             var info_data = domainctrl.getNodeProperties(obj, nodes);
+            info_data['curLayer'] = curLayer.getCurLayer();
             console.log(JSON.stringify(info_data));
 
             eventHandeler.fire("update_infobox", info_data);

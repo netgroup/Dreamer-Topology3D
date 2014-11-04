@@ -4,12 +4,16 @@ if (typeof dreamer === 'undefined') {
 
 dreamer.DomainController = (function() {
 
-    var host = "127.0.0.1"; 
-        //var host = location.hostname;
-        var base = host + ":8080";
-    
+    var host = "127.0.0.1";
+    var base = host + ":8080"; 
+    //var host = location.hostname;
+    //var base = host + ":8000";
+    var vmmcontroller;
+
     function DomainController() {
         console.log("DomainController");
+        vmmcontroller = new dreamer.VmmController();
+        console.log("Prova " + JSON.stringify( vmmcontroller.getNotSelectedMgtIp("OSHI-CR") ));
     }
 
     DomainController.prototype.loadSpec = function(modelname, callback) {
@@ -78,7 +82,6 @@ dreamer.DomainController = (function() {
 
     DomainController.prototype.getRandomTopology = function(n, p, callback) {
 
-
         $.ajax({
             url: "http://"+base+"/getRandom/?n=" + n + "&p=" + p,
 
@@ -122,7 +125,6 @@ dreamer.DomainController = (function() {
         // var layername = layer.getCurLayer();
             var layer_constraints = this.spec['layer_constraints'];
             if (this.spec['list_of_all_layer'].indexOf(layername) > -1 && (ntype == undefined || layer_constraints[layername]['list_of_nodes_layer'] === undefined || layer_constraints[layername]['list_of_nodes_layer'].indexOf(ntype) > -1)) {
-
                 return true;
             }
             return false;

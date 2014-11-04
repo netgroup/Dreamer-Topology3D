@@ -64,14 +64,10 @@ dreamer.Oshi = (function () {
 		console.log("Oshi:buildNodeProperties");
 		
 		var property = this.parent.buildNodeProperties.call(this,ntype);
-		//var ntype = node.getType();
 		if(ntype != undefined){
-        	//property['type_info'] = {};
         	console.log(ntype)
         	for(p in this.spec.nodes[ntype]['properties']){
-         		//if(p != "domain-oshi"){
          			property[p] = this.spec.nodes[ntype]['properties'][p];
-         		//}
          	}
          	
          	for(layer in this.spec['layer_constraints'] ){
@@ -108,10 +104,20 @@ dreamer.Oshi = (function () {
          	}
          	info_data['model_info'] = {};
          	if(this.spec.nodes[ntype]['properties']["domain-oshi"]){
-         		console.log(JSON.stringify(this.spec.nodes[ntype]['properties']["domain-oshi"]));
+         		console.log("#####"+JSON.stringify(this.spec.nodes[ntype]['properties']["domain-oshi"]));
          		for(p in this.spec.nodes[ntype]['properties']["domain-oshi"]){
          			console.log("dentrooo")
          		 	info_data['model_info'][p] = node['vertex_info']['property']["domain-oshi"][p]
+         		}
+         	}
+
+         	for(layer in this.spec['layer_constraints'] ){
+         		if(this.isVisibleVertex(ntype, layer) && this.spec['layer_constraints'][layer]['nodes-properties']){
+         			info_data['model_info']['layer-'+layer] = {};
+         			for(p in this.spec['layer_constraints'][layer]['nodes-properties']){
+         				if(node['vertex_info']['property']["domain-oshi"] && node['vertex_info']['property']["domain-oshi"]['layer-'+layer])
+         					info_data['model_info']['layer-'+layer][p] = node['vertex_info']['property']["domain-oshi"]['layer-'+layer][p];
+         			}
          		}
          	}
 
@@ -125,7 +131,7 @@ dreamer.Oshi = (function () {
     	//console.log("Oshi:getNodeDataView layer: " + layer);
     //	console.log("getNodeDataViewspec: " + JSON.stringify(this.spec.nodes));
     	
-    	if(node['vertex_info']['property']['domain-oshi'] != undefined){
+    	if(node['vertex_info']['property'] != undefined && node['vertex_info']['property']['domain-oshi'] != undefined){
     		
     		if(layer == "Control" ){
     			
