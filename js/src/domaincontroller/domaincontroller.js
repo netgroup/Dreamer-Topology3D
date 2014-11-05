@@ -431,6 +431,13 @@ dreamer.DomainController = (function() {
 
     };
 
+       DomainController.prototype.getInterfacesMgtIp = function(type, mgtip) {
+       
+
+        return vmmcontroller.getInterfacesMgtIp(type, mgtip);
+
+    };
+
     DomainController.prototype.exportJson = function(graph, pure) {
 
         var jsongraph = {};

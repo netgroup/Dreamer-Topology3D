@@ -69,14 +69,14 @@ dreamer.VmmController = (function (global) {
 
         VmmController.prototype.isValidInterfaces = function(type, mgtip,interfaces){
         var result = {};
-        var validInt = this.getIntefacesMgtIp(type, mgtip);
-        for(var v in interfaces){
-            if(interfaces[v] != "" && validInt.indexOf(interfaces[v]) < 0){
+        var validInt = this.getInterfacesMgtIp(type, mgtip).interfaces;
+        console.log(JSON.stringify(validInt))
+        console.log(interfaces)
+            if(interfaces != "" && (validInt.indexOf(interfaces) < 0)){
                 result['error'] = "Invalid interface!"
-                break;
+                
             }
-            
-        }
+ 
         
         return result;
     }
@@ -133,7 +133,7 @@ dreamer.VmmController = (function (global) {
         return result;
     }
 
-    VmmController.prototype.getIntefacesMgtIp = function(nodetype, mgtip){
+    VmmController.prototype.getInterfacesMgtIp = function(nodetype, mgtip){
         var result = {};
         if(this.vmmconfig[nodetype] ){
             var ntlist = this.vmmconfig[nodetype];

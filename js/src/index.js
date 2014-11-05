@@ -114,21 +114,36 @@
                 if (type_info) {
                     if (type_info.vm) {
 
-                        //var interfaces = type_info.vm['interfaces'];
+                        
                         var mgt_ip_list = my_graph_editor.getNotSelectedMgtIp(base_info.node_type).list;
                         console.log(JSON.stringify(mgt_ip_list));
-                       // for (var m in interfaces) {
-                       //     $("#s_interface").append("<option value='" + interfaces[m]+ ">" + interfaces[m] + "</option>");
-                       // }
+
                        $("#s_mgtip").empty().append('<option value=""></option>')
                         for (i in mgt_ip_list) {
                             //console.log(mgt_ip_list[i]);
                              var val = mgt_ip_list[i];
                              $("#s_mgtip").append("<option value='" + val + "'>" + val + "</option>");
                         }
-
+                        if(type_info.vm['mgt_ip'])
+                            $("#s_mgtip").append("<option value='" + type_info.vm['mgt_ip'] + "' disabled>" + type_info.vm['mgt_ip'] + "</option>");
                         $('#s_mgtip').val(type_info.vm['mgt_ip']);
-                        //$('#s_interface').val(type_info.vm['interface']);
+
+                        
+                        $("#s_interfaces").empty().append('<option value=""></option>')
+                        if(type_info.vm['mgt_ip'] != ""){
+                        var interfaces = my_graph_editor.getInterfacesMgtIp(base_info.node_type, type_info.vm['mgt_ip']).interfaces;
+                        console.log(JSON.stringify(interfaces));
+                        for (var m in interfaces) {
+                            console.log(interfaces[m])
+                            var val = interfaces[m];
+                            $("#s_interfaces").append("<option value='" + val + "'>" + val + "</option>");
+                        }
+                        if(type_info.vm['interfaces'])
+                            $("#s_interfaces").append("<option value='" + type_info.vm['interfaces'] + "' disabled>" + type_info.vm['interfaces'] + "</option>");
+                        $('#s_interfaces').val(type_info.vm['interfaces']);
+                        }
+
+                        
                         $('#vm').show();
                     } else {
                         $('#vm').hide();
@@ -327,6 +342,44 @@
                                 "layer-Control": {
                                     cluster_id: $('#s_cluster').val()
                                 }
+                            }
+                        }
+
+                    }
+                }, true);
+
+
+            });
+
+            $('#s_mgtip').change(function() {
+                var index = $(info_sidebar + ' .infobox #index').html();
+
+                my_graph_editor.set_properties({
+                    node: {
+                        index: index,
+                        properties: {
+                            "vm": {
+                                "mgt_ip": $('#s_mgtip').val(),
+                                "interfaces": $('#s_interfaces').val()
+                            }
+                        }
+
+                    }
+                }, true);
+
+
+            });
+
+            $('#s_interfaces').change(function() {
+                var index = $(info_sidebar + ' .infobox #index').html();
+
+                my_graph_editor.set_properties({
+                    node: {
+                        index: index,
+                        properties: {
+                            "vm": {
+                                "mgt_ip": $('#s_mgtip').val(),
+                                "interfaces": $('#s_interfaces').val()
                             }
                         }
 

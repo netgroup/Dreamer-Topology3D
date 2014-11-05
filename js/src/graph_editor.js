@@ -1178,6 +1178,10 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         return domainctrl.getNotSelectedMgtIp(type);
     }
 
+    function getInterfacesMgtIp(type, mgtip){
+        return domainctrl.getInterfacesMgtIp(type, mgtip);
+    }
+
     init();
 
 
@@ -1208,6 +1212,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         getNodesProperty: getNodesProperty,
         getvmmcfg: getvmmcfg,
         setvmmcfg: setvmmcfg,
-        getNotSelectedMgtIp: getNotSelectedMgtIp
+        getNotSelectedMgtIp: getNotSelectedMgtIp,
+        getInterfacesMgtIp: getInterfacesMgtIp
     };
 };
