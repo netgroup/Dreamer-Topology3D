@@ -91,6 +91,7 @@ dreamer.VmmController = (function (global) {
                     founded = true;
                     if(ntlist[mip][2] == undefined || ntlist[mip][2] == "selected"){
                         //result['interfaces'] = ntlist[mip][1];
+                        console.log("DESELECT");
                         ntlist[mip][2] = "";
 
                     }
