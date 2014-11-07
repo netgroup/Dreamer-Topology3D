@@ -305,6 +305,8 @@ dreamer.DomainController = (function() {
 
                     graph.vertices[args.node.index].vertex_info["node-type"] = args.node.properties.type
                     var newp = this.buildNodeProperties(args.node.properties.type);
+                    delete graph.vertices[args.node.index].vertex_info['property'];
+                    graph.vertices[args.node.index].vertex_info['property'] = {}
                     for( p in newp){
                         graph.vertices[args.node.index].vertex_info['property'][p] = newp[p];
                     }
