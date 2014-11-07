@@ -1,471 +1,560 @@
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
 
-        <title>Topology Designer</title>
+    <title>Topology Designer</title>
 
-        <!-- Bootstrap core CSS -->
-        <link href="css/bootstrap.css" rel="stylesheet">
-        <link href="css/bootstrap-theme.css" rel="stylesheet">
-        
-        <!-- graph_editor core CSS -->
-        <link href="css/graph_editor.css" rel="stylesheet">
-        
-        <!-- Codemirror core CSS -->
-        <link rel="stylesheet" href="css/codemirror.css">
-        
-        <!-- Custom styles for this template -->
-        <link href="css/dashboard.css" rel="stylesheet">
-        <link rel="stylesheet" href="css/font-awesome.min.css">
-        <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
 
-        <!-- Just for debugging purposes. Don't actually copy this line! -->
-        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- graph_editor core CSS -->
+    <link href="css/graph_editor.css" rel="stylesheet">
 
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
+    <!-- Codemirror core CSS -->
+    <link rel="stylesheet" href="css/codemirror.css">
+
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+
+
+    <!-- fwebconsole CSS
+    <link href="css/fwebconsole.css" rel="stylesheet"> -->
+
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-    </head>
+</head>
 
-    <body>
+<body>
 
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="http://netgroup.uniroma2.it/OSHI" target="_blank">OSHI</a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav ">
-                        <li><a class="navbar-brand" href="#">- Topology Designer </a>
-                        </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#" data-toggle="modal" data-target="#myModal">Help</a>
-                        </li>
-                    </ul>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://netgroup.uniroma2.it/OSHI" target="_blank">OSHI</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav ">
+                    <li><a class="navbar-brand" href="#">- Topology Designer </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" data-toggle="modal" data-target="#myModal">Help</a>
+                    </li>
+                </ul>
 
-                </div>
             </div>
         </div>
+    </div>
 
-        <div class="container-fluid">
-            <div class="row">
+    <div class="container-fluid">
+        <div class="row">
 
-                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading" id="panel_head">
-                            <div id="graph_editor_button_container" class="btn-toolbar" role="toolbar">
-                                <div id="graph_editor_button_group" class="btn-group">
-                                    <div class="btn-group">
-                                        <button id="topology_button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa">Topology</span> <span class="fa fa-sort-down"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#" id="catalog_button" data-toggle="modal" data-target="#myModalTopoCatalog"><span class="fa fa-archive"> Open from catalog...</span></a>
-                                            </li>
-                                            <li><a href="#" id="imp_button"><span class="fa fa-folder-open"> Import Topology file</span> </a>
-                                            </li>
-                                            <li><a href="#" id="edit_topo_button" data-toggle="modal" data-target="#myModalCopy"><span class="fa fa-pencil-square-o"> Edit Topology File</span></a>
-                                            </li>
-                                            <li><a href="#" id="random_button" data-toggle="modal" data-target="#myModalRandom"><span class="fa  fa-random"> Random</span></a>
-                                            </li>
-                                            <li role="presentation" class="divider"></li>
-                                            <li><a href="#" id="exp_button" data-toggle="modal" data-target="#myModalDownload"><span class="fa fa fa-floppy-o"> Export to file</span></a>
-                                            </li>
-                                            <li><a href="#" id="image_button"><span class="fa fa-picture-o"> Get Image</span></a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" id="panel_head">
+                        <div id="graph_editor_button_container" class="btn-toolbar" role="toolbar">
+                            <div id="graph_editor_button_group" class="btn-group">
+                                <div class="btn-group">
+                                    <button id="topology_button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa">Topology</span> <span class="fa fa-sort-down"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#" id="catalog_button" data-toggle="modal" data-target="#myModalTopoCatalog"><span class="fa fa-archive"> Open from catalog...</span></a>
+                                        </li>
+                                        <li><a href="#" id="imp_button"><span class="fa fa-folder-open"> Import Topology file</span> </a>
+                                        </li>
+                                        <li><a href="#" id="edit_topo_button" data-toggle="modal" data-target="#myModalCopy"><span class="fa fa-pencil-square-o"> Edit Topology File</span></a>
+                                        </li>
+                                        <li><a href="#" id="random_button" data-toggle="modal" data-target="#myModalRandom"><span class="fa  fa-random"> Random</span></a>
+                                        </li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li><a href="#" id="exp_button" data-toggle="modal" data-target="#myModalDownload"><span class="fa fa fa-floppy-o"> Export to file</span></a>
+                                        </li>
+                                        <li><a href="#" id="image_button"><span class="fa fa-picture-o"> Get Image</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
 
-                                    <button id="live_button" type="button" class="btn btn-default"> <span class="fa fa-play"> Live</span></button>
+                                <button id="live_button" type="button" class="btn btn-default"> <span class="fa fa-play"> Live</span>
+                                </button>
 
-                                    <div class="btn-group" id = "layer-menu">
-                                        <button id="layer_button_group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa ">View </span><span class="fa fa-sort-down"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" id ="dropdown-menu-layer" role="menu">
+                                <div class="btn-group" id="layer-menu">
+                                    <button id="layer_button_group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa ">View </span><span class="fa fa-sort-down"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" id="dropdown-menu-layer" role="menu">
 
-                                        </ul>
-                                    </div>
+                                    </ul>
+                                </div>
 
-                                    <div class="btn-group" id = "tool-menu">
-                                        <button id="tool_button_group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa fa-wrench"> Tools <span class="fa fa-sort-down"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" id ="dropdown-menu-tool" role="menu">
-                                            <li id="impexpmap"> <a href="#" id="editvmmcfg_button" data-toggle="modal" data-target="#myModalMappingCfg"> <span class="fa fa-sitemap"> Import and edit mapping file</span></a> </li>
-                                            <li id="editmap"> <a href="#" id="editvmmap_button" data-toggle="modal" data-target="#myModalMapping"> <span class="fa fa-sitemap"> Edit VM mapping</span></a> </li>
-                                            <li id="setcl"> <a href="#" id="set_cluster_button" data-toggle="modal" data-target="#myModalCluster"> <span class="fa fa-sitemap"> Set Cluster</span></a> </li>
-                                        </ul>
-
-                                    </div>
-
-                                    <button id="undo_button" type="button" class="btn btn-default"><span class="fa fa-undo"> Undo</span></button>
-
-                                    <button id="reset_button" type="button" class="btn btn-default"><span class="fa fa-eraser"> Reset</span></button>
-
-                                    <button id="validate_button" type="button" class="btn btn-default"><span class="fa fa-check-square-o"> Validate</span></button>
-                                    
-                                    <button id="deploy_button" type="button" class="btn btn-default"> <span class="fa fa-terminal"> Deploy</span></button>
-                                    
-                                    <button id="credits_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalCredits"><span class="fa fa-info"> Credits</span></button>
-
-                                    <button id="help_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"><span class="fa fa-question"> Help</span></button>
-
+                                <div class="btn-group" id="tool-menu">
+                                    <button id="tool_button_group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa fa-wrench"> Tools <span class="fa fa-sort-down"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" id="dropdown-menu-tool" role="menu">
+                                        <li id="impexpmap">
+                                            <a href="#" id="editvmmcfg_button" data-toggle="modal" data-target="#myModalMappingCfg"> <span class="fa fa-sitemap"> Import and edit mapping file</span>
+                                            </a>
+                                        </li>
+                                        <li id="editmap">
+                                            <a href="#" id="editvmmap_button" data-toggle="modal" data-target="#myModalMapping"> <span class="fa fa-sitemap"> Edit VM mapping</span>
+                                            </a>
+                                        </li>
+                                        <li id="setcl">
+                                            <a href="#" id="set_cluster_button" data-toggle="modal" data-target="#myModalCluster"> <span class="fa fa-sitemap"> Set Cluster</span>
+                                            </a>
+                                        </li>
+                                    </ul>
 
                                 </div>
 
-                            </div>
-                            <input type="file" id="fileElem" style=" width: 0px; height: 0px; ">
-                            <div id="drag_drop_toolbar" align="left" style="display: block; padding-top: 5px;">
-                                
-                            </div>
-                            <div id="alert_div" class="alert-franz">
+                                <button id="undo_button" type="button" class="btn btn-default"><span class="fa fa-undo"> Undo</span>
+                                </button>
+
+                                <button id="reset_button" type="button" class="btn btn-default"><span class="fa fa-eraser"> Reset</span>
+                                </button>
+
+                                <button id="validate_button" type="button" class="btn btn-default"><span class="fa fa-check-square-o"> Validate</span>
+                                </button>
+
+                                <button id="deploy_button" type="button" class="btn btn-default"> <span class="fa fa-terminal"> Deploy</span>
+                                </button>
+
+                                <button id="credits_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalCredits"><span class="fa fa-info"> Credits</span>
+                                </button>
+
+                                <button id="help_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"><span class="fa fa-question"> Help</span>
+                                </button>
+
 
                             </div>
+
                         </div>
-                        <div class="panel-body">
-                            <div class="container-canvas" id="canvas_cont" height="200" style="overflow-y: scroll;max-height: 500px;">
-                                <span class="canvas-label" id="layer-label"></span>
-                                <div id='graph_ed'></div>
-                            </div>
-                            <!--container-canvas-->
+                        <input type="file" id="fileElem" style=" width: 0px; height: 0px; ">
+                        <div id="drag_drop_toolbar" align="left" style="display: block; padding-top: 5px;">
+
+                        </div>
+                        <div id="alert_div" class="alert-franz">
+
                         </div>
                     </div>
-
-
-
+                    <div class="panel-body">
+                        <div class="container-canvas" id="canvas_cont" height="200" style="overflow-y: scroll;max-height: 500px;">
+                            <span class="canvas-label" id="layer-label"></span>
+                            <div id='graph_ed'></div>
+                        </div>
+                        <!--container-canvas-->
+                    </div>
                 </div>
-                <!--end col-sm-9...-->
 
-                <div class="col-sm-3 col-md-2 sidebar">
-                    <!--sidebar-->
 
-                    <ul id="tweaks_sidebar" class="nav nav-sidebar">
-                        <!--tweaks_sidebar-->
-
-                        <div id="sidebar_layout_button_group" class="btn-group">
-                            <button id="circular" type="button" class="btn btn-default">Circular layout</button>
-
-                        </div>
-                        <!--end sidebar_layout_button_group-->
-                        <div id="tunneling_mechanism_sec">
-                            <label>Tunneling:</label>
-                            <select id='tun_option'>
-                                <option value=''></option>
-                                <option value='VXLAN'>VXLAN</option>
-                                <option value='OPENVPN'>OPENVPN</option>
-                            </select>
-                        </div>
-                        
-                        <li><label id="canvd_label">Canvas Dimension:</label><div id="canvdimension" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></a></div></li>
-
-                        <li><label id="Orientation_label">Orientation</label><div id="orientation" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></a></div></li>
-
-                        <li><label id="VertexSize_label">Vertex Size</label><div id="vertexSize" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></a></div></li>
-
-                        <li><label id="EdgeStrength_label" style="color: rgb(128, 128, 128);">Edge Strength</label><div id="edgeStrength" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all ui-slider-disabled ui-state-disabled ui-disabled" aria-disabled="true"><a href="#" class="ui-slider-handle ui-state-default ui-corner-all" disabled="disabled" style="left: 0%;"></a></div></li>
-
-                        <li><label id="EdgeLength_label" style="color: rgb(128, 128, 128);">Edge Length</label><div id="edgeLength" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all ui-slider-disabled ui-state-disabled ui-disabled" aria-disabled="true"><a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></a></div></li>
-                        
-                        <li><div class="checkbox"><label>Vertex Labels  <input id="showLabelCheckbox" checked type="checkbox" ></label></div></li>
+<!--                 <div class="bs-example bs-example-tabs">
+                    <ul id="myTab" class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Home</a>
+                        </li>
+                        <li class="" role="presentation"><a aria-expanded="false" href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Profile</a>
+                        </li>
+                        <li role="presentation" class="dropdown">
+                            <a aria-expanded="false" href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
+                                <li><a href="#dropdown1" tabindex="-1" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1">@fat</a>
+                                </li>
+                                <li><a href="#dropdown2" tabindex="-1" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="dropdown2">@mdo</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
-                    <!--end tweaks_sidebar-->
-                    <hr>
-                    <ul id="info_sidebar" class="nav nav-sidebar">
-                        <div class='infobox'>
-                            <h4 id='title'>Select node or edge for info!</h4>
-                            <div id='info'>
-                                <label id='index_label'>Index:</label> <span id='index'></span>
-                                <br>
- 
-                                <label id='vert'>Vertices: <span id='v1'></span> -- <span id='v2'></span>
-                                    <br>
-                                </label>
-                                <div id='edge_inf'>
+                    <div id="myTabContent" class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
 
-                                </div>
-                                <div id='node_inf'>
-                                    <label>Node:</label> <span id='n_name'></span>
-                                    <br>
-                                    <label>Type:</label>
-                                    <select id='s_label'>
-                                        <option value=''></option>
-                                    </select>
-                                    <br>
-                                    <div id="type_inf">
-                                        <div id="model_inf_Data">
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade terminal" id="profile" aria-labelledby="profile-tab">
+
+                        </div>
+
+                    </div>
+                </div> -->
+
+
+            </div>
+            <!--end col-sm-9...-->
+
+            <div class="col-sm-3 col-md-2 sidebar">
+                <!--sidebar-->
+
+                <ul id="tweaks_sidebar" class="nav nav-sidebar">
+                    <!--tweaks_sidebar-->
+
+                    <div id="sidebar_layout_button_group" class="btn-group">
+                        <button id="circular" type="button" class="btn btn-default">Circular layout</button>
+
+                    </div>
+                    <!--end sidebar_layout_button_group-->
+                    <div id="tunneling_mechanism_sec">
+                        <label>Tunneling:</label>
+                        <select id='tun_option'>
+                            <option value=''></option>
+                            <option value='VXLAN'>VXLAN</option>
+                            <option value='OPENVPN'>OPENVPN</option>
+                        </select>
+                    </div>
+
+                    <li>
+                        <label id="canvd_label">Canvas Dimension:</label>
+                        <div id="canvdimension" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                            <a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></a>
+                        </div>
+                    </li>
+
+                    <li>
+                        <label id="Orientation_label">Orientation</label>
+                        <div id="orientation" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                            <a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></a>
+                        </div>
+                    </li>
+
+                    <li>
+                        <label id="VertexSize_label">Vertex Size</label>
+                        <div id="vertexSize" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                            <a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></a>
+                        </div>
+                    </li>
+
+                    <li>
+                        <label id="EdgeStrength_label" style="color: rgb(128, 128, 128);">Edge Strength</label>
+                        <div id="edgeStrength" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all ui-slider-disabled ui-state-disabled ui-disabled" aria-disabled="true">
+                            <a href="#" class="ui-slider-handle ui-state-default ui-corner-all" disabled="disabled" style="left: 0%;"></a>
+                        </div>
+                    </li>
+
+                    <li>
+                        <label id="EdgeLength_label" style="color: rgb(128, 128, 128);">Edge Length</label>
+                        <div id="edgeLength" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all ui-slider-disabled ui-state-disabled ui-disabled" aria-disabled="true">
+                            <a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></a>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="checkbox">
+                            <label>Vertex Labels
+                                <input id="showLabelCheckbox" checked type="checkbox">
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+                <!--end tweaks_sidebar-->
+                <hr>
+                <ul id="info_sidebar" class="nav nav-sidebar">
+                    <div class='infobox'>
+                        <h4 id='title'>Select node or edge for info!</h4>
+                        <div id='info'>
+                            <label id='index_label'>Index:</label> <span id='index'></span>
+                            <br>
+
+                            <label id='vert'>Vertices: <span id='v1'></span> -- <span id='v2'></span>
+                                <br>
+                            </label>
+                            <div id='edge_inf'>
+
+                            </div>
+                            <div id='node_inf'>
+                                <label>Node:</label> <span id='n_name'></span>
+                                <br>
+                                <label>Type:</label>
+                                <select id='s_label'>
+                                    <option value=''></option>
+                                </select>
+                                <br>
+                                <div id="type_inf">
+                                    <div id="cldiv" class="input-group input-group-sm">
+                                        <input type="text" id="clabel_input" class="form-control " placeholder="Custom Label">
+                                        <span class="input-group-btn">
+                                            <button id="set_clabel" class="btn btn-default" type="button">Set</button>
+                                        </span>
+
+                                    </div>
+                                    </br>
+                                    <div id="model_inf_Data">
                                         <div id="vm">
                                             <label>Mgt IP:</label>
                                             <select id='s_mgtip'>
-                                            <option value=''></option>
+                                                <option value=''></option>
                                             </select>
                                             </br>
                                             <label>Interfaces:</label>
                                             <select id='s_interfaces'>
-                                            <option value=''></option>
-                                            </select> 
-                                        </div>    
-                                        </div>
-                                    </div>
-                                    <div id="model_inf">
-                                        <div id="model_inf_Control">
-                                            <label>Cluster:</label>
-                                            <select id='s_cluster'>
-                                            <option value=''></option>
-                                            </select>   
+                                                <option value=''></option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div id='none_selected'>No node is selected</div>
+                                <div id="model_inf">
+                                    <div id="model_inf_Control">
+                                        <label>Cluster:</label>
+                                        <select id='s_cluster'>
+                                            <option value=''></option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
+                            <div id='none_selected'>No node is selected</div>
+                        </div>
 
-                    </ul>
-                    </div>
-                    <!--end col-sm-3 col-md-2 sidebar-->
-
-
+                </ul>
                 </div>
-                <!--end row-->
+                <!--end col-sm-3 col-md-2 sidebar-->
 
 
-                <div class="row">
-                    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                        <hr>
-                        <footer class="text-center">
-                            <!--footer-->
-                            2014 OSHI, Powered by
-                            <a href="https://github.com/rkirov/graph-editor.js" target="_blank"> <i class="fa fa-github" target="_blank"></i> graph-editor.js</a>, <a href="http://getbootstrap.com/" target="_blank"> Bootstrap</a>, <a href="http://jquery.com/" target="_blank"> jQuery </a>
-                            <p style="font-size:12px">This activity has been partially funded by EU in the context of <a href="http://netgroup.uniroma2.it/DREAMER/" target="_blank">DREAMER</a>, which is one of the beneficiary projects of the GÉANT Open Call research initiative, see <a href="http://www.geant.net" target="_blank">www.geant.net</a>. The partners of DREAMER are: CNIT, CREATE-NET and Consortium GARR.</p>
-                        </footer>
-                        <!--end footer-->
+            </div>
+            <!--end row-->
 
 
-                        <!--ONESTAT SCRIPTCODE START-->
-                        <div align="right">
-                            <!--
+
+            <div class="row">
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <hr>
+                    <footer class="text-center">
+                        <!--footer-->
+                        2014 OSHI, Powered by
+                        <a href="https://github.com/rkirov/graph-editor.js" target="_blank"> <i class="fa fa-github" target="_blank"></i> graph-editor.js</a>, <a href="http://getbootstrap.com/" target="_blank"> Bootstrap</a>, <a href="http://jquery.com/" target="_blank"> jQuery </a>
+                        <p style="font-size:12px">This activity has been partially funded by EU in the context of <a href="http://netgroup.uniroma2.it/DREAMER/" target="_blank">DREAMER</a>, which is one of the beneficiary projects of the GÉANT Open Call research initiative, see <a href="http://www.geant.net" target="_blank">www.geant.net</a>. The partners of DREAMER are: CNIT, CREATE-NET and Consortium GARR.</p>
+                    </footer>
+                    <!--end footer-->
+
+
+                    <!--ONESTAT SCRIPTCODE START-->
+                    <div align="right">
+                        <!--
     // Modification of this code is not allowed and will permanently disable your account!
     // Account ID : 602569
     // Website URL: http://stud.netgroup.uniroma2.it/OSHI/TopoDesigner/
     // Copyright (C) 2002-2007 OneStat.com All Rights Reserved
     -->
-                            <div id="OneStatTag">
-                                <table border='0' cellpadding='0' cellspacing='0'>
-                                    <tr>
-                                        <td align='center'>
-                                            <script type="text/javascript">
-                                                <!--
-                                                 // function OneStat_Pageview() {
-                                                 //     var d = document;
-                                                 //     var sid = "602569";
-                                                 //     var CONTENTSECTION = "";
-                                                 //     var osp_URL = d.URL;
-                                                 //     var osp_Title = d.title;
-                                                 //     var t = new Date();
-                                                 //     var p = "http" + (d.URL.indexOf('https:') == 0 ? 's' : '') + "://stat.onestat.com/stat.aspx?tagver=2&sid=" + sid;
-                                                 //     p += "&url=" + escape(osp_URL);
-                                                 //     p += "&ti=" + escape(osp_Title);
-                                                 //     p += "&section=" + escape(CONTENTSECTION);
-                                                 //     p += "&rf=" + escape(parent == self ? document.referrer : top.document.referrer);
-                                                 //     p += "&tz=" + escape(t.getTimezoneOffset());
-                                                 //     p += "&ch=" + escape(t.getHours());
-                                                 //     p += "&js=1";
-                                                 //     p += "&ul=" + escape(navigator.appName == "Netscape" ? navigator.language : navigator.userLanguage);
-                                                 //     if (typeof (screen) == "object") {
-                                                 //         p += "&sr=" + screen.width + "x" + screen.height;
-                                                 //         p += "&cd=" + screen.colorDepth;
-                                                 //         p += "&jo=" + (navigator.javaEnabled() ? "Yes" : "No");
-                                                 //     }
-                                                 //     d.write('<a href="http://www.onestatfree.com/aspx/login.aspx?sid=' + sid + '" target=_blank><img id="ONESTAT_TAG" border="0" src="' + p + '" alt="This site tracked by OneStatFree.com. Get your own free site tracker."></' + 'a>');
-                                                 // }
+                        <div id="OneStatTag">
+                            <table border='0' cellpadding='0' cellspacing='0'>
+                                <tr>
+                                    <td align='center'>
+                                        <script type="text/javascript">
+                                            <!--
+                                            // function OneStat_Pageview() {
+                                            //     var d = document;
+                                            //     var sid = "602569";
+                                            //     var CONTENTSECTION = "";
+                                            //     var osp_URL = d.URL;
+                                            //     var osp_Title = d.title;
+                                            //     var t = new Date();
+                                            //     var p = "http" + (d.URL.indexOf('https:') == 0 ? 's' : '') + "://stat.onestat.com/stat.aspx?tagver=2&sid=" + sid;
+                                            //     p += "&url=" + escape(osp_URL);
+                                            //     p += "&ti=" + escape(osp_Title);
+                                            //     p += "&section=" + escape(CONTENTSECTION);
+                                            //     p += "&rf=" + escape(parent == self ? document.referrer : top.document.referrer);
+                                            //     p += "&tz=" + escape(t.getTimezoneOffset());
+                                            //     p += "&ch=" + escape(t.getHours());
+                                            //     p += "&js=1";
+                                            //     p += "&ul=" + escape(navigator.appName == "Netscape" ? navigator.language : navigator.userLanguage);
+                                            //     if (typeof (screen) == "object") {
+                                            //         p += "&sr=" + screen.width + "x" + screen.height;
+                                            //         p += "&cd=" + screen.colorDepth;
+                                            //         p += "&jo=" + (navigator.javaEnabled() ? "Yes" : "No");
+                                            //     }
+                                            //     d.write('<a href="http://www.onestatfree.com/aspx/login.aspx?sid=' + sid + '" target=_blank><img id="ONESTAT_TAG" border="0" src="' + p + '" alt="This site tracked by OneStatFree.com. Get your own free site tracker."></' + 'a>');
+                                            // }
 
-                                                 // OneStat_Pageview();
-                                                 //-->
-                                            </script>
-                                            <noscript>
-                                                <a href="http://www.onestatfree.com">
-                                                    <img border="0" src="http://stat.onestat.com/stat.aspx?tagver=2&amp;sid=602569&amp;js=No&amp;" ALT="online web analytics">
-                                                </a>
-                                            </noscript>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align='center'>
-                                            <div style="COLOR:black;display:none;FONT-FAMILY:'Verdana';"><a href="http://www.onestat.com" style="text-decoration:none;">online web analytics</a>
-                                                <br>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        <!--ONESTAT SCRIPTCODE END-->
-
-
-                    </div>
-
-
-
-
-                </div>
-                <!--end col-sm-9..-->
-
-                <!-- Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">Topology Designer Help</h4>
-                            </div>
-                            <div id="help_body" class="modal-body">
-                                <div class="keyBoard" >
-                                    
-                                    <ul>
-                                        <li>
-                                            <span>Create vertex: Simply by using the drag and drop icons of the nodes,
-                                              or pressing </span><kbd>Shift</kbd> +<span>left-click</span>  
-                                        </li>
-                                        <li>
-                                            <span>Create edge: Select the first vertex by clicking on it. </span><kbd>Shift</kbd> +<span>left-click  on another vertex (different than the selected one).</span> 
-                                        </li>
-                                        <li>
-                                            <span>Remove avertex/edge: </span><kbd> -</kbd><span>when vertex/edge is selected.</span>
-                                        </li>
-                                        <li>
-                                            <span>Freeze a vertex: pressing </span> <kbd> r</kbd> <span>freezes the selected vertex (it will not move in live mode)</span>
-                                        </li>
-                                        <li>
-                                            <span>Undo vertex deletion: Click on the Undo button. Only the last deleted vertex can be recovered.</span> 
-                                        </li>
-                                        <li>
-                                            <span>Turn on realtime spring-charge model: Press </span><kbd> l</kbd> 
-                                            <span>or click on the live checkbox.</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Modal -->
-
-
-                <!-- Modal -->
-                <div class="modal fade" id="myModalTopoCatalog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalTopoCatalogLabel">Topology Catalogue</h4>
-                            </div>
-                            <div id="myModalTopoCatalog_body" class="modal-body">
-                                <div class="row">
-                                    <!-- start carousel -->
-                                    <div class="row">
-                                        <div class="col-md-9">
-                                            <h3>Select Topology:</h3>
+                                            // OneStat_Pageview();
+                                            //-->
+                                        </script>
+                                        <noscript>
+                                            <a href="http://www.onestatfree.com">
+                                                <img border="0" src="http://stat.onestat.com/stat.aspx?tagver=2&amp;sid=602569&amp;js=No&amp;" ALT="online web analytics">
+                                            </a>
+                                        </noscript>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='center'>
+                                        <div style="COLOR:black;display:none;FONT-FAMILY:'Verdana';"><a href="http://www.onestat.com" style="text-decoration:none;">online web analytics</a>
+                                            <br>
                                         </div>
-                                        <div class="col-md-3">
-                                            <!-- Controls -->
-                                            <div class="controls pull-right hidden-xs">
-                                                <a class="left fa fa-chevron-left btn btn-success" href="#carousel-example" data-slide="prev"></a>
-                                                <a class="right fa fa-chevron-right btn btn-success" href="#carousel-example" data-slide="next"></a>
-                                            </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <!--ONESTAT SCRIPTCODE END-->
+
+
+                </div>
+
+
+
+
+            </div>
+            <!--end col-sm-9..-->
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Topology Designer Help</h4>
+                        </div>
+                        <div id="help_body" class="modal-body">
+                            <div class="keyBoard">
+
+                                <ul>
+                                    <li>
+                                        <span>Create vertex: Simply by using the drag and drop icons of the nodes,
+                                              or pressing </span><kbd>Shift</kbd> +<span>left-click</span>
+                                    </li>
+                                    <li>
+                                        <span>Create edge: Select the first vertex by clicking on it. </span><kbd>Shift</kbd> +<span>left-click  on another vertex (different than the selected one).</span>
+                                    </li>
+                                    <li>
+                                        <span>Remove avertex/edge: </span><kbd> -</kbd><span>when vertex/edge is selected.</span>
+                                    </li>
+                                    <li>
+                                        <span>Freeze a vertex: pressing </span> <kbd> r</kbd> <span>freezes the selected vertex (it will not move in live mode)</span>
+                                    </li>
+                                    <li>
+                                        <span>Undo vertex deletion: Click on the Undo button. Only the last deleted vertex can be recovered.</span>
+                                    </li>
+                                    <li>
+                                        <span>Turn on realtime spring-charge model: Press </span><kbd> l</kbd>
+                                        <span>or click on the live checkbox.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal -->
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModalTopoCatalog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalTopoCatalogLabel">Topology Catalogue</h4>
+                        </div>
+                        <div id="myModalTopoCatalog_body" class="modal-body">
+                            <div class="row">
+                                <!-- start carousel -->
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <h3>Select Topology:</h3>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <!-- Controls -->
+                                        <div class="controls pull-right hidden-xs">
+                                            <a class="left fa fa-chevron-left btn btn-success" href="#carousel-example" data-slide="prev"></a>
+                                            <a class="right fa fa-chevron-right btn btn-success" href="#carousel-example" data-slide="next"></a>
                                         </div>
                                     </div>
-                                    <div id="carousel-example" class="carousel slide hidden-xs" data-ride="carousel">
-                                        <!-- Wrapper for slides -->
-                                        <div class="carousel-inner">
+                                </div>
+                                <div id="carousel-example" class="carousel slide hidden-xs" data-ride="carousel">
+                                    <!-- Wrapper for slides -->
+                                    <div class="carousel-inner">
 
-                                            <div class="item active">
-                                                <div class="row">
+                                        <div class="item active">
+                                            <div class="row">
 
-                                                    <div class="col-sm-6">
-                                                        <div class="col-item">
-                                                            <div class="photo">
-                                                                <img src="img/catalogTopo/ex1.png" class="img-responsive" alt="a" />
+                                                <div class="col-sm-6">
+                                                    <div class="col-item">
+                                                        <div class="photo">
+                                                            <img src="img/catalogTopo/ex1.png" class="img-responsive" alt="a" />
+                                                        </div>
+                                                        <div class="info">
+                                                            <div class="row">
+                                                                <div class="price col-md-6">
+                                                                    <h5>Example 1</h5>
+                                                                    <button type="button" id="imp_cat_butt_1" class="btn btn-success">Load</button>
+                                                                </div>
+
                                                             </div>
-                                                            <div class="info">
-                                                                <div class="row">
-                                                                    <div class="price col-md-6">
-                                                                        <h5>Example 1</h5>
-                                                                        <button type="button" id="imp_cat_butt_1" class="btn btn-success">Load</button>
-                                                                    </div>
 
-                                                                </div>
-
-                                                                <div class="clearfix">
-                                                                </div>
+                                                            <div class="clearfix">
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    <div class="col-sm-6">
-                                                        <div class="col-item">
-                                                            <div class="photo">
-                                                                <img src="img/catalogTopo/ex2.png" class="img-responsive" alt="a" />
-                                                            </div>
-                                                            <div class="info">
-                                                                <div class="row">
-                                                                    <div class="price col-md-6">
-                                                                        <h5>Example 2</h5>
-                                                                        <button type="button" id="imp_cat_butt_2" class="btn btn-success">Load</button>
-                                                                    </div>
-
-                                                                </div>
-
-                                                                <div class="clearfix">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-
                                                 </div>
-                                            </div>
 
-                                            <div class="item">
-                                                <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="col-item">
+                                                        <div class="photo">
+                                                            <img src="img/catalogTopo/ex2.png" class="img-responsive" alt="a" />
+                                                        </div>
+                                                        <div class="info">
+                                                            <div class="row">
+                                                                <div class="price col-md-6">
+                                                                    <h5>Example 2</h5>
+                                                                    <button type="button" id="imp_cat_butt_2" class="btn btn-success">Load</button>
+                                                                </div>
 
-                                                    <div class="col-sm-6">
-                                                        <div class="col-item">
-                                                            <div class="photo">
-                                                                <img src="img/catalogTopo/ex3.png" class="img-responsive" alt="a" />
                                                             </div>
-                                                            <div class="info">
-                                                                <div class="row">
-                                                                    <div class="price col-md-6">
-                                                                        <h5>Example 3</h5>
-                                                                        <button type="button" id="imp_cat_butt_3" class="btn btn-success">Load</button>
-                                                                    </div>
 
-                                                                </div>
-
-                                                                <div class="clearfix">
-                                                                </div>
+                                                            <div class="clearfix">
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
 
-    <!-- 
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <div class="row">
+
+                                                <div class="col-sm-6">
+                                                    <div class="col-item">
+                                                        <div class="photo">
+                                                            <img src="img/catalogTopo/ex3.png" class="img-responsive" alt="a" />
+                                                        </div>
+                                                        <div class="info">
+                                                            <div class="row">
+                                                                <div class="price col-md-6">
+                                                                    <h5>Example 3</h5>
+                                                                    <button type="button" id="imp_cat_butt_3" class="btn btn-success">Load</button>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="clearfix">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- 
                                                     <div class="col-sm-6">
                                                         <div class="col-item">
                                                             <div class="photo">
@@ -487,278 +576,278 @@
                                                     </div> -->
 
 
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- fine carousel -->
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            </div>
+                            <!-- fine carousel -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
-                <!-- End Modal -->
+            </div>
+            <!-- End Modal -->
 
 
 
-                <!-- Modal -->
-                <div class="modal fade" id="myModalRandom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalRandomLabel">Select Parameters for random topology generator</h4>
+            <!-- Modal -->
+            <div class="modal fade" id="myModalRandom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalRandomLabel">Select Parameters for random topology generator</h4>
+                        </div>
+                        <div id="random_body" class="modal-body">
+                            <div id="erRandomAlert">
                             </div>
-                            <div id="random_body" class="modal-body">
-                                <div id="erRandomAlert">
+
+                            <label for="corenum">Total number of CORE nodes:</label>
+                            <input type="text" id="corenum" style="border:0; color:#f6931f; font-weight:bold;" />
+                            <div class="slider" id="coreslider"></div>
+                            <br>
+                            <label for="prob">Interconnection Probability:</label>
+                            <input type="text" id="prob" style="border:0; color:#f6931f; font-weight:bold;" />
+                            <div class="slider" id="probslider"></div>
+                            <br>
+                            <div class="progress progress-striped active" id="randomprogbar" hidden="true">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                                 </div>
-
-                                <label for="corenum">Total number of CORE nodes:</label>
-                                <input type="text" id="corenum" style="border:0; color:#f6931f; font-weight:bold;" />
-                                <div class="slider" id="coreslider"></div>
-                                <br>
-                                <label for="prob">Interconnection Probability:</label>
-                                <input type="text" id="prob" style="border:0; color:#f6931f; font-weight:bold;" />
-                                <div class="slider" id="probslider"></div>
-                                <br>
-                                <div class="progress progress-striped active" id="randomprogbar" hidden="true">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                                    </div>
-                                </div>
-
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" id="start_random_button" class="btn btn-success">Generate</button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="start_random_button" class="btn btn-success">Generate</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
-                <!-- End Modal -->
+            </div>
+            <!-- End Modal -->
 
-                <!-- Modal -->
-                <div class="modal fade" id="myModalValidationError" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalValidationErrorLabel">Select the item to see the detail of the errors</h4>
-                            </div>
-                            <div id="validationError_body" class="modal-body">
+            <!-- Modal -->
+            <div class="modal fade" id="myModalValidationError" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalValidationErrorLabel">Select the item to see the detail of the errors</h4>
+                        </div>
+                        <div id="validationError_body" class="modal-body">
 
 
                             <div class="panel-group" id="validationError_list">
-      
-                            </div>
 
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
-                <!-- End Modal -->
+            </div>
+            <!-- End Modal -->
 
-                <!-- Modal -->
-                <div class="modal fade" id="myModalLoading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                
-                                <h4 class="modal-title" id="myModalLoadingLabel">Topology Designer Loading...</h4>
-                            </div>
-                            <div id="loading_body" class="modal-body">
-                                
-                                <div class="progress">
-                                    <div class="progress progress-striped active" id="loadingprogbar" >
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                                        </div>
+            <!-- Modal -->
+            <div class="modal fade" id="myModalLoading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <h4 class="modal-title" id="myModalLoadingLabel">Topology Designer Loading...</h4>
+                        </div>
+                        <div id="loading_body" class="modal-body">
+
+                            <div class="progress">
+                                <div class="progress progress-striped active" id="loadingprogbar">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
+                        </div>
+                        <div class="modal-footer">
 
-                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- End Modal -->
-
-
-                <!-- Modal -->
-                <div class="modal fade" id="myModalCredits" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabelCredits">Topology Designer Credits</h4>
-                            </div>
-                            <div id="credits_body" class="modal-body">
-                                Dreamer-Topology-Designer Simple topology designer, a customization of JS GRAPH EDITOR Based JS GRAPH EDITOR written by Radoslav Kirov.
-                                <br>
-                                <br>This activity has been partially funded by EU in the context of <a href="http://netgroup.uniroma2.it/DREAMER/" target="_blank">DREAMER</a> , which is one of the beneficiary projects of the GÉANT Open Call research initiative, see <a href="http://www.geant.net" target="_blank">www.geant.net</a>. The partners of DREAMER are: CNIT, CREATE-NET and Consortium GARR.
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Modal -->
-
-
-                <!-- Modal -->
-                <div class="modal fade" id="myModalDownload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabelDownload">Download Json file</h4>
-                            </div>
-                            <div id="download_body" class="modal-body">
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Modal -->
-
-
-                <!-- Modal -->
-                <div class="modal fade" id="myModalCopy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabelCopy">Edit Json data</h4>
-                            </div>
-                            <div id="copy_body" class="modal-body">
-                                Edit the JSON represenation of the graph:
-                                <br>
-                                <textarea id="jsonEditor" rows="5" cols="50">
-                                </textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" id="set_json" class="btn btn-success">Parse</button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Modal -->
-
-                <!-- Modal -->
-                <div class="modal fade" id="myModalCluster" tabindex="-1" role="dialog" aria-labelledby="myModalCluster" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabelCluster">Set Cluster</h4>
-                            </div>
-                            <div id="paste_body" class="modal-body">
-                                Set the cluster ID:
-                                <br>
-                                <br>
-                                <textarea id="clusterEditor" rows="5" cols="50">
-                                </textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" id="set_cluster_parse" class="btn btn-success">Parse</button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Modal -->
-
-                <!-- Modal -->
-                <div class="modal fade" id="myModalMapping" tabindex="-1" role="dialog" aria-labelledby="myModalMapping" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabelMapping">Edit VM Mapping</h4>
-                            </div>
-                            <div id="vmmapping_body" class="modal-body">
-                                Edit VM Mapping:
-                                <br>
-                                <br>
-                                <textarea id="vmmappingEditor" rows="5" cols="50">
-                                </textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" id="set_mapping" class="btn btn-success">Save</button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Modal -->
-
-                                <!-- Modal -->
-                <div class="modal fade" id="myModalMappingCfg" tabindex="-1" role="dialog" aria-labelledby="myModalMappingCfg" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabelMappingCfg">Edit Config VM Mapping</h4>
-                            </div>
-                            <div id="vmmapping_body" class="modal-body">
-                                Edit Config VM Mapping:
-                                <br>
-                                <br>
-                                <textarea id="vmmconfigEditor" rows="5" cols="50">
-                                </textarea>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" id="set_cfg_mapping" class="btn btn-success">Save</button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Modal -->
-
-
             </div>
+            <!-- End Modal -->
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModalCredits" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabelCredits">Topology Designer Credits</h4>
+                        </div>
+                        <div id="credits_body" class="modal-body">
+                            Dreamer-Topology-Designer Simple topology designer, a customization of JS GRAPH EDITOR Based JS GRAPH EDITOR written by Radoslav Kirov.
+                            <br>
+                            <br>This activity has been partially funded by EU in the context of <a href="http://netgroup.uniroma2.it/DREAMER/" target="_blank">DREAMER</a> , which is one of the beneficiary projects of the GÉANT Open Call research initiative, see <a href="http://www.geant.net" target="_blank">www.geant.net</a>. The partners of DREAMER are: CNIT, CREATE-NET and Consortium GARR.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal -->
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModalDownload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabelDownload">Download Json file</h4>
+                        </div>
+                        <div id="download_body" class="modal-body">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal -->
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModalCopy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabelCopy">Edit Json data</h4>
+                        </div>
+                        <div id="copy_body" class="modal-body">
+                            Edit the JSON represenation of the graph:
+                            <br>
+                            <textarea id="jsonEditor" rows="5" cols="50">
+                            </textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="set_json" class="btn btn-success">Parse</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModalCluster" tabindex="-1" role="dialog" aria-labelledby="myModalCluster" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabelCluster">Set Cluster</h4>
+                        </div>
+                        <div id="paste_body" class="modal-body">
+                            Set the cluster ID:
+                            <br>
+                            <br>
+                            <textarea id="clusterEditor" rows="5" cols="50">
+                            </textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="set_cluster_parse" class="btn btn-success">Parse</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModalMapping" tabindex="-1" role="dialog" aria-labelledby="myModalMapping" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabelMapping">Edit VM Mapping</h4>
+                        </div>
+                        <div id="vmmapping_body" class="modal-body">
+                            Edit VM Mapping:
+                            <br>
+                            <br>
+                            <textarea id="vmmappingEditor" rows="5" cols="50">
+                            </textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="set_mapping" class="btn btn-success">Save</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModalMappingCfg" tabindex="-1" role="dialog" aria-labelledby="myModalMappingCfg" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabelMappingCfg">Edit Config VM Mapping</h4>
+                        </div>
+                        <div id="vmmapping_body" class="modal-body">
+                            Edit Config VM Mapping:
+                            <br>
+                            <br>
+                            <textarea id="vmmconfigEditor" rows="5" cols="50">
+                            </textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="set_cfg_mapping" class="btn btn-success">Save</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal -->
 
 
         </div>
 
-        <!-- Bootstrap core JavaScript
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
         ================================================== -->
 
 
-       <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'></script>
-        <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script> 
-
-       <!--     <script src="js/jquery-1.9.1.min.js"></script>
+    <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <!--     <script src="js/jquery-1.9.1.min.js"></script>
          <script src="js/jquery-ui-1.8.1.custom.min.js"></script>-->
-        
-        <script src="js/bootstrap/bootstrap.min.js"></script>
-        <script src="js/json2.js"></script>
-        <script src="js/codemirror/codemirror.js"></script>
-        <script src="js/src/vmmcontroller.js"></script>
-        <script src="js/src/vertex.js"></script>
-        <script src="js/src/domaincontroller/domaincontroller.js"></script>
-        <script src="js/src/domaincontroller/oshi.js"></script>
-        <script src="js/src/link.js"></script>
-        <script src="js/src/layer.js"></script>
-        <script src="js/src/event.js"></script>
-        <script src="js/src/algebra.js"></script>
-        <script src="js/src/graph_parameters.js"></script>
-        <script src="js/src/edge.js"></script>
-        
-        <script src="js/src/graph_editor.js"></script>
-        <script src="js/src/index.js"></script>
 
-    </body>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/json2.js"></script>
+    <script src="js/codemirror/codemirror.js"></script>
+    <script src="js/src/vmmcontroller.js"></script>
+    <script src="js/src/vertex.js"></script>
+    <script src="js/src/domaincontroller/domaincontroller.js"></script>
+    <script src="js/src/domaincontroller/oshi.js"></script>
+    <script src="js/src/link.js"></script>
+    <script src="js/src/layer.js"></script>
+    <script src="js/src/event.js"></script>
+    <script src="js/src/algebra.js"></script>
+    <script src="js/src/graph_parameters.js"></script>
+    <script src="js/src/edge.js"></script>
+    <script src="js/src/fwebconsole/fwebconsole.js"></script>
+    <script src="js/src/graph_editor.js"></script>
+    <script src="js/src/index.js"></script>
 
-    </html>
+</body>
+
+</html>

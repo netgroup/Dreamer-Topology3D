@@ -165,12 +165,12 @@ dreamer.DomainController = (function() {
         var res = {};
 
         if(!this.isInsertEnabled(curlayer)){
-            res["error"] = {'message': "inserting a new node is not enabled in this layer"};
+            res["error"] = {'message': "inserting a node not allowed in this view"};
             return res;   
         }
 
         if(this.spec['layer_constraints'][curlayer]['list_of_nodes_layer'] != undefined && this.spec['layer_constraints'][curlayer]['list_of_nodes_layer'].indexOf(type) < 0){
-            res["error"] = {'message': "inserting a new node of type " + type + " is not enabled in this layer"};
+            res["error"] = {'message': "inserting a new node of type " + type + " not allowed in this view"};
             return res;  
         }
       
@@ -357,10 +357,15 @@ dreamer.DomainController = (function() {
             }
             //else if(args.node.properties.vm){
             else{
+                //console.log("GENERIC PROP")
                 var keys = Object.keys(args.node.properties);
 
                 for(k in keys){
-                    if(keys[k].indexOf("domain-") != 0 && hasProperty(keys[k], graph.vertices[args.node.index].vertex_info.property)){ // prendo solo quelli base
+                     var hasp =  hasProperty(keys[k], graph.vertices[args.node.index].vertex_info.property);
+                    // console.log("GENERIC PROP " +keys[k] + "- " +keys[k].indexOf("domain-") + "- " + JSON.stringify(hasp));
+
+                    if(keys[k].indexOf("domain-") < 0 && hasp != null){ // prendo solo quelli base
+                      //  console.log("DENTROOOO")
                         graph.vertices[args.node.index].vertex_info['property'][keys[k]] = args.node.properties[keys[k]];
                     }
                 }
@@ -562,8 +567,12 @@ dreamer.DomainController = (function() {
     };
 
     function hasProperty(property, obj){
+        console.log("property: " + property);
+        console.log("obj: " + JSON.stringify(obj));
         if((typeof obj === "object" )&& ( obj.constructor === Object) ){
+            console.log("QUII" + JSON.stringify(obj["custom_label"]));
             if(obj.hasOwnProperty(property)){
+                console.log("QUII DENTROOOO" + obj[property.toString()]);
                 return obj[property];
             }
         }
