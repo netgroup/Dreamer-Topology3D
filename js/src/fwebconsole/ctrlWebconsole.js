@@ -5,21 +5,17 @@ if (typeof dreamer === 'undefined') {
 dreamer.Ctrlfwc = (function(global) {
     'use strict';
 
-    var _consoles = [];
-
-    var _div;
-    var _termoutput;
-    var _expname;
 
     function Ctrlfwc(div, expname) {
-        _div = div;
-        _expname = expname;
+        this._div = div;
+        this._expname = expname;
+        this._consoles = [];
     }
 
-    function addTab (nextTab) {
+    function addTab (self, nextTab) {
       
         // create the tab
-        $('<li><a href="#tab'+nextTab+'" data-toggle="tab">'+nextTab+'</a></li>').appendTo('#'+_div);
+        $('<li><a href="#tab'+nextTab+'" data-toggle="tab">'+nextTab+'</a></li>').appendTo('#'+self._div);
     
         // create the tab content
         $('<div class="tab-pane fade terminal" id="tab'+nextTab+'">tab' +nextTab+' content</div>').appendTo('#myTabContent');
@@ -29,10 +25,10 @@ dreamer.Ctrlfwc = (function(global) {
     }
   
     Ctrlfwc.prototype.addConsole = function(nodeid) {
-        if(_consoles[nodeid] == undefined){
-             addTab(nodeid);
-            var newconsole = new dreamer.Fwc('#tab'+nodeid, nodeid, _expname);
-            _consoles[nodeid]= newconsole;
+        if(this._consoles[nodeid] == undefined){
+             addTab(this, nodeid);
+            var newconsole = new dreamer.Fwc('#tab'+nodeid, nodeid, this._expname);
+            this._consoles[nodeid]= newconsole;
         }
 
     };

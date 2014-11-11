@@ -189,7 +189,8 @@
 
 
                 if(mod == "EXP"){
-                        ctrlconsole.addConsole(args.base_info.label);
+                        //ctrlconsole.addConsole(args.base_info.label);
+                        ctrlconsole.addConsole("h1");
                 }
             } else if (args.selected == "Edge") {
                 var base_info = args.base_info;
