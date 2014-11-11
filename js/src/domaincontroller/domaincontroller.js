@@ -110,6 +110,42 @@ dreamer.DomainController = (function() {
         });
     };
 
+
+    DomainController.prototype.newExp = function(graph, callback) {
+        console.log("newExp");
+        //var modelname = this.spec["model_name"];
+        var topology = this.exportJson(graph);
+        var self = this;
+        var addr = host + ":3000";
+        $.ajax({
+            url: "http://"+addr+"/newExp",
+            type: "POST",
+            dataType: "json",
+            //contentType: 'application/json; charset=utf-8;',  
+            data: {
+                "expid": 2, 
+                "topology": this.exportJson(graph),
+                //"modelname": this.spec["model_name"]
+            },
+            success: function(result) {
+                var response = {};
+                //response['error'] = false;
+                response = result;
+                console.log(response);
+                callback(response);
+            },
+            error: function(xhr, status, errore) {
+                var response = {};
+                response['error'] = {"message": errore};
+                console.log(xhr, status , errore);
+                callback(response);
+            }
+
+        });
+
+
+    };
+
     DomainController.prototype.isVisible = function(element, layername) {
         if (element instanceof dreamer.Vertex) {
            return this.isVisibleVertex(element.getType(), layername);

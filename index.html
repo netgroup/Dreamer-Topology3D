@@ -25,8 +25,8 @@
     <link href="css/dashboard.css" rel="stylesheet">
 
 
-    <!-- fwebconsole CSS
-    <link href="css/fwebconsole.css" rel="stylesheet"> -->
+    <!-- fwebconsole CSS -->
+    <link href="css/fwebconsole.css" rel="stylesheet">
 
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />
@@ -168,33 +168,24 @@
                 </div>
 
 
-<!--                 <div class="bs-example bs-example-tabs">
+                <div id="console_div" style="display: none;">
                     <ul id="myTab" class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Home</a>
+<!--                         <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Home</a>
                         </li>
                         <li class="" role="presentation"><a aria-expanded="false" href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Profile</a>
-                        </li>
-                        <li role="presentation" class="dropdown">
-                            <a aria-expanded="false" href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
-                                <li><a href="#dropdown1" tabindex="-1" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1">@fat</a>
-                                </li>
-                                <li><a href="#dropdown2" tabindex="-1" role="tab" id="dropdown2-tab" data-toggle="tab" aria-controls="dropdown2">@mdo</a>
-                                </li>
-                            </ul>
-                        </li>
+                        </li> -->
                     </ul>
                     <div id="myTabContent" class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+<!--                         <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
 
 
                         </div>
                         <div role="tabpanel" class="tab-pane fade terminal" id="profile" aria-labelledby="profile-tab">
 
-                        </div>
+                        </div> -->
 
                     </div>
-                </div> -->
+                </div> 
 
 
             </div>
@@ -297,7 +288,7 @@
                                     </br>
                                     <div id="model_inf_Data">
                                         <div id="vm">
-                                            <label>Mgt IP:</label>
+                                            <label>VM Mapping:</label>
                                             <select id='s_mgtip'>
                                                 <option value=''></option>
                                             </select>
@@ -356,32 +347,32 @@
                                 <tr>
                                     <td align='center'>
                                         <script type="text/javascript">
-                                            <!--
-                                            // function OneStat_Pageview() {
-                                            //     var d = document;
-                                            //     var sid = "602569";
-                                            //     var CONTENTSECTION = "";
-                                            //     var osp_URL = d.URL;
-                                            //     var osp_Title = d.title;
-                                            //     var t = new Date();
-                                            //     var p = "http" + (d.URL.indexOf('https:') == 0 ? 's' : '') + "://stat.onestat.com/stat.aspx?tagver=2&sid=" + sid;
-                                            //     p += "&url=" + escape(osp_URL);
-                                            //     p += "&ti=" + escape(osp_Title);
-                                            //     p += "&section=" + escape(CONTENTSECTION);
-                                            //     p += "&rf=" + escape(parent == self ? document.referrer : top.document.referrer);
-                                            //     p += "&tz=" + escape(t.getTimezoneOffset());
-                                            //     p += "&ch=" + escape(t.getHours());
-                                            //     p += "&js=1";
-                                            //     p += "&ul=" + escape(navigator.appName == "Netscape" ? navigator.language : navigator.userLanguage);
-                                            //     if (typeof (screen) == "object") {
-                                            //         p += "&sr=" + screen.width + "x" + screen.height;
-                                            //         p += "&cd=" + screen.colorDepth;
-                                            //         p += "&jo=" + (navigator.javaEnabled() ? "Yes" : "No");
-                                            //     }
-                                            //     d.write('<a href="http://www.onestatfree.com/aspx/login.aspx?sid=' + sid + '" target=_blank><img id="ONESTAT_TAG" border="0" src="' + p + '" alt="This site tracked by OneStatFree.com. Get your own free site tracker."></' + 'a>');
-                                            // }
+                                         //   <!--
+                                            function OneStat_Pageview() {
+                                                var d = document;
+                                                var sid = "602569";
+                                                var CONTENTSECTION = "";
+                                                var osp_URL = d.URL;
+                                                var osp_Title = d.title;
+                                                var t = new Date();
+                                                var p = "http" + (d.URL.indexOf('https:') == 0 ? 's' : '') + "://stat.onestat.com/stat.aspx?tagver=2&sid=" + sid;
+                                                p += "&url=" + escape(osp_URL);
+                                                p += "&ti=" + escape(osp_Title);
+                                                p += "&section=" + escape(CONTENTSECTION);
+                                                p += "&rf=" + escape(parent == self ? document.referrer : top.document.referrer);
+                                                p += "&tz=" + escape(t.getTimezoneOffset());
+                                                p += "&ch=" + escape(t.getHours());
+                                                p += "&js=1";
+                                                p += "&ul=" + escape(navigator.appName == "Netscape" ? navigator.language : navigator.userLanguage);
+                                                if (typeof (screen) == "object") {
+                                                    p += "&sr=" + screen.width + "x" + screen.height;
+                                                    p += "&cd=" + screen.colorDepth;
+                                                    p += "&jo=" + (navigator.javaEnabled() ? "Yes" : "No");
+                                                }
+                                                d.write('<a href="http://www.onestatfree.com/aspx/login.aspx?sid=' + sid + '" target=_blank><img id="ONESTAT_TAG" border="0" src="' + p + '" alt="This site tracked by OneStatFree.com. Get your own free site tracker."></' + 'a>');
+                                            }
 
-                                            // OneStat_Pageview();
+                                            //OneStat_Pageview();
                                             //-->
                                         </script>
                                         <noscript>
@@ -552,29 +543,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-
-                                                <!-- 
-                                                    <div class="col-sm-6">
-                                                        <div class="col-item">
-                                                            <div class="photo">
-                                                                <img src="img/catalogTopo/ex4.png" class="img-responsive" alt="a" />
-                                                            </div>
-                                                            <div class="info">
-                                                                <div class="row">
-                                                                    <div class="price col-md-6">
-                                                                        <h5>Example 4</h5>
-                                                                        <button type="button" id="imp_cat_butt_4" class="btn btn-success">Load</button>
-                                                                    </div>
-
-                                                                </div>
-
-                                                                <div class="clearfix">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
-
 
                                             </div>
                                         </div>
@@ -845,6 +813,7 @@
     <script src="js/src/graph_parameters.js"></script>
     <script src="js/src/edge.js"></script>
     <script src="js/src/fwebconsole/fwebconsole.js"></script>
+            <script src="js/src/fwebconsole/ctrlWebconsole.js"></script>
     <script src="js/src/graph_editor.js"></script>
     <script src="js/src/index.js"></script>
 

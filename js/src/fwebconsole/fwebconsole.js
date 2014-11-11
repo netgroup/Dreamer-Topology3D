@@ -14,19 +14,27 @@ dreamer.Fwc = (function(global) {
     var _clipboard;
     var _cursor;
     var _comando;
+    var _expname;
+    var EventHandeler = dreamer.Event;
+    var eventHandeler;
 
-    function Fwc(div, channel) {
+    function Fwc(div, channel, expname) {
         _div = div;
         _channel = channel;
+        _expname = expname;
         _termoutput = "terminal-output-" + _channel;
         _cmd = "cmd-" + _channel;
         _comando = "comando"+_channel;
         _clipboard = "clipboard-" + _channel;
         _cursor = "#cursore";
+        eventHandeler = new EventHandeler();
         initTerminalOutput();
         initPromtLine();
         initWebSocket();
         initListeners();
+        if(_channel != "deployment"){
+            sendCmd("join", true);
+        }
 
     }
 
@@ -36,17 +44,33 @@ dreamer.Fwc = (function(global) {
             //$('#log').html('');
             return;
         }
-        try {
 
-            if(invisible == undefined || invisible == false){
-              cmdHistory.push(cmd);
-              $('#' + _termoutput).append("<div style=\"width: 100%; visibility: visible;\"> >  " + cmd + "</div>");
+        if(cmd == 'join'){
+            try {
+                if(invisible == undefined || invisible == false){
+                  cmdHistory.push(cmd);
+                  $('#' + _termoutput).append("<div style=\"width: 100%; visibility: visible;\"> >  " + cmd + "</div>");
+                }
+                ws.emit('new-node-shell', {nodeid: _channel});
+            } catch (err) {
+                console.log(err);
+
             }
-            ws.emit('cmd', cmd)
-        } catch (err) {
-            console.log(err);
-
         }
+        else{
+            try {
+
+                if(invisible == undefined || invisible == false){
+                  cmdHistory.push(cmd);
+                  $('#' + _termoutput).append("<div style=\"width: 100%; visibility: visible;\"> >  " + cmd + "</div>");
+                }
+                ws.emit('cmd', cmd)
+            } catch (err) {
+                console.log(err);
+
+            }
+        }
+
     }
 
     function initPromtLine() {
@@ -142,11 +166,16 @@ dreamer.Fwc = (function(global) {
     function initWebSocket() {
         console.log("initWebSocket")
         var host = "127.0.0.1";
-        var port = ":3000"
-        var base = host + ":3000"; 
-        ws = io.connect("http://"+base);
+        //var host = location.hostname;
+        var port = ":3000";
+        var base = host + ":3000";
+        //var ns = _expname;
+        var ns = "";
+        var wsurl = "http://"+host+port+"/"+ns; 
+        ws = io.connect(wsurl);
         ws.on('connect', function() {
             console.log('connected to server');
+            console.log(wsurl);
         });
         ws.on('cmd_res', function(data) {
 

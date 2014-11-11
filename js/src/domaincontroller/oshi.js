@@ -17,7 +17,7 @@ dreamer.Oshi = (function () {
 		"10": "magenta"
 	};
 
-	Oshi.prototype = new dreamer.DomainController()
+	Oshi.prototype = new dreamer.DomainController();
 	Oshi.prototype.constructor = Oshi;
 	Oshi.prototype.parent = dreamer.DomainController.prototype;
 	function Oshi(){

@@ -1182,6 +1182,25 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         return domainctrl.getInterfacesMgtIp(type, mgtip);
     }
 
+    function newExp () {
+        var res = domainctrl.newExp({
+            edges: edge_list,
+            vertices: nodes,
+            graph_parameters: graph_parameters
+        }, function(resneexp){
+            //console.log(resvalidate['error'])
+            if (resneexp['error'] != undefined ) {
+                console.log("erroreeeeeeeeeeeeee" + JSON.stringify(resneexp));
+                eventHandeler.fire("EXP_MODE", resneexp['error']);
+            } 
+            else  {
+                console.log("newExp fatto");
+                console.log(resneexp)
+                eventHandeler.fire("EXP_MODE");
+            }
+        });
+    }
+
     init();
 
 
@@ -1213,6 +1232,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         getvmmcfg: getvmmcfg,
         setvmmcfg: setvmmcfg,
         getNotSelectedMgtIp: getNotSelectedMgtIp,
-        getInterfacesMgtIp: getInterfacesMgtIp
+        getInterfacesMgtIp: getInterfacesMgtIp,
+        newExp: newExp
     };
 };

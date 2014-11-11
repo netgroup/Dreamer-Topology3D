@@ -3,6 +3,8 @@
     //var example = '{"vertices": {"3": {"pos": {"x": 477.3105529387208, "y": 359.5564421318443 }, "v": {"x": 0.0035644859802187456, "y": -0.0003678184322717711 }, "vertex_info": {"frozen": false } }, "OSHI-CR#01": {"pos": {"x": 571.645587789206, "y": 260.57006773541957 }, "v": {"x": -0.0005012924164955468, "y": -0.008078636265402117 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR"} }, "OSHI-CR#02": {"pos": {"x": 343.46842265480825, "y": 265.1071814627707 }, "v": {"x": 0.0003789057184639122, "y": -0.0017395130358406896 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR"} }, "OSHI-CR#03": {"pos": {"x": 430.39318093174245, "y": 199.05731743393878 }, "v": {"x": -0.002163273333355198, "y": -0.0028420946490407273 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR"} }, "OSHI-CR#04": {"pos": {"x": 243.8844992787802, "y": 183.27015249856393 }, "v": {"x": -0.004556435119165703, "y": 0.000016304893190211 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR"} }, "OSHI-CR#05": {"pos": {"x": 529.2382245698698, "y": 173.06882694953057 }, "v": {"x": -0.0034116077547209356, "y": -0.005871884333641275 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR"} }, "OSHI-PE#06": {"pos": {"x": 640.3849197006057, "y": 339.19156652333174 }, "v": {"x": -0.00742332678703711, "y": 0.0003708985499277784 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE"} }, "OSHI-PE#07": {"pos": {"x": 312.58904093980925, "y": 353.34617200846276 }, "v": {"x": 0.005391255918603288, "y": -0.00000590230079858256 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE"} }, "OSHI-PE#08": {"pos": {"x": 303.91447641624836, "y": 110.06143678318273 }, "v": {"x": -0.005137044154760628, "y": -0.001232734466973251 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE"} }, "OSHI-PE#09": {"pos": {"x": 582.1536223214617, "y": 65.852377971866 }, "v": {"x": -0.001482757906184684, "y": -0.0024401659616921645 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE"} }, "L2SW#10": {"pos": {"x": 729.7399333452596, "y": 283.445290257405 }, "v": {"x": -0.0008653721268885653, "y": 0.01443851734511814 }, "vertex_info": {"frozen": false, "node-type": "L2SW"} }, "L2SW#11": {"pos": {"x": 338.949857882099, "y": 38.695333142850856 }, "v": {"x": -0.0023467513834182496, "y": 0.00012013969347424158 }, "vertex_info": {"frozen": false, "node-type": "L2SW"} }, "L2SW#12": {"pos": {"x": 217.37206502183986, "y": 50.70980541461902 }, "v": {"x": -0.003724114635455855, "y": -0.0003094759959772764 }, "vertex_info": {"frozen": false, "node-type": "L2SW"} }, "L2SW#13": {"pos": {"x": 221.32874070071674, "y": 352.0507559846285 }, "v": {"x": 0.007276436751229354, "y": 0.00102747353644074 }, "vertex_info": {"frozen": false, "node-type": "L2SW"} }, "L2SW#14": {"pos": {"x": 398.85044697434125, "y": 361.74708348239415 }, "v": {"x": 0.004052367263665424, "y": -0.0003953079103612752 }, "vertex_info": {"frozen": false, "node-type": "L2SW"} }, "L2SW#15": {"pos": {"x": 504.2728676036877, "y": 40.183063551670266 }, "v": {"x": -0.002470467246925734, "y": -0.00045277093720762305 }, "vertex_info": {"frozen": false, "node-type": "L2SW"} }, "CE#16": {"pos": {"x": 124.27399147231507, "y": 58.74509547499744 }, "v": {"x": -0.0042285172653654945, "y": 0.0004570623048270467 }, "vertex_info": {"frozen": false, "node-type": "CE"} }, "CE#17": {"pos": {"x": 430.73011781981313, "y": 41.18049787164649 }, "v": {"x": -0.002547450215794278, "y": -0.00022835299889285756 }, "vertex_info": {"frozen": false, "node-type": "CE"} }, "CE#18": {"pos": {"x": 736.4952754707438, "y": 178.71981153966888 }, "v": {"x": 0.00030596100178620356, "y": 0.014412333046186554 }, "vertex_info": {"frozen": false, "node-type": "CE"} }, "CE#20": {"pos": {"x": 126.88083720945107, "y": 339.46679319440915 }, "v": {"x": 0.008556819703654461, "y": 0.0018314490720695437 }, "vertex_info": {"frozen": false, "node-type": "CE"} } }, "edges": {"OSHI-CR#05&&OSHI-CR#01": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "OSHI-CR#03&&OSHI-CR#01": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "OSHI-CR#03&&OSHI-CR#04": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "OSHI-CR#03&&OSHI-CR#02": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "OSHI-PE#07&&OSHI-CR#02": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "OSHI-PE#08&&OSHI-CR#05": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "OSHI-PE#08&&OSHI-CR#04": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "OSHI-PE#09&&OSHI-CR#03": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "OSHI-PE#06&&OSHI-CR#01": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "L2SW#12&&OSHI-PE#08": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "L2SW#11&&OSHI-PE#08": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "L2SW#13&&OSHI-PE#07": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "L2SW#14&&OSHI-PE#07": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "L2SW#10&&OSHI-PE#06": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "L2SW#15&&OSHI-PE#09": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "L2SW#13&&CE#20": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "3&&L2SW#14": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "CE#18&&L2SW#10": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "CE#17&&L2SW#15": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "CE#16&&L2SW#12": {"links": [{"link_label": "ciao", "link-type": "Data"} ] } }, "graph_parameters": {} }';
     //  var example = '{"vertices": {"cro1": {"pos": {"x": 597.3531914893617, "y": 144.82758620689657 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"domain-oshi": {"cluster_id": ""}, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cro2": {"pos": {"x": 410.936170212766, "y": 241.3793103448276 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"domain-oshi": {"cluster_id": ""}, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "peo3": {"pos": {"x": 649.7897838899805, "y": 310 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE", "property": {"domain-oshi": {"cluster_id": ""}, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cro4": {"pos": {"x": 232.07659574468084, "y": 360 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"domain-oshi": {"cluster_id": ""}, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "peo5": {"pos": {"x": 211.92340425531913, "y": 166.89655172413794 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE", "property": {"domain-oshi": {"cluster_id": ""}, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cer6": {"pos": {"x": 103.6, "y": 40 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "CE", "property": {"domain-oshi": {"cluster_id": ""}, "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cer7": {"pos": {"x": 932.4, "y": 304.8275862068966 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "CE", "property": {"domain-oshi": {"cluster_id": ""}, "vm": {"interfaces": "", "mgt_ip": ""} } } } }, "edges": {"cer6&&peo5": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cer7&&peo3": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "peo3&&cro1": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "peo3&&cro2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "peo3&&cro4": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro4&&cro2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro1&&cro2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro1&&peo5": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro4&&peo5": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro2&&peo5": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cer6&&cer7": {"links": [{"link_label": "ciao", "link-type": "Vll"} ] } }, "graph_parameters": {"tunneling": "VXLAN", "vlan": 0, "mapped": false, "generated": false, "testbed": "MININET"} }';
     var example = '{"vertices": {"cer1": {"pos": {"x": 102.4, "y": 40 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "CE", "property": {"custom_label": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "peo2": {"pos": {"x": 207.0483033932136, "y": 129.92700729927006 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE", "property": {"custom_label": "", "domain-oshi": {"layer-Control": {"cluster_id": ""} }, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cro3": {"pos": {"x": 417.9800399201597, "y": 221.02189781021897 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"custom_label": "", "domain-oshi": {"layer-Control": {"cluster_id": ""} }, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cro4": {"pos": {"x": 706.84375, "y": 121 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"custom_label": "", "domain-oshi": {"layer-Control": {"cluster_id": ""} }, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cro5": {"pos": {"x": 140.84375, "y": 302 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-CR", "property": {"custom_label": "", "domain-oshi": {"layer-Control": {"cluster_id": ""} }, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "peo6": {"pos": {"x": 669.7900199600799, "y": 313.2846715328467 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "OSHI-PE", "property": {"custom_label": "", "domain-oshi": {"layer-Control": {"cluster_id": ""} }, "loopback": "", "vm": {"interfaces": "", "mgt_ip": ""} } } }, "cer7": {"pos": {"x": 921.6, "y": 360 }, "v": {"x": 0, "y": 0 }, "vertex_info": {"frozen": false, "node-type": "CE", "property": {"custom_label": "", "vm": {"interfaces": "", "mgt_ip": ""} } } } }, "edges": {"cer1&&peo2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cer7&&peo6": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro4&&peo6": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro4&&peo2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro4&&cro3": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro5&&peo2": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro5&&peo6": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "cro5&&cro3": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "peo2&&cro3": {"links": [{"link_label": "ciao", "link-type": "Data"} ] }, "peo6&&cro3": {"links": [{"link_label": "ciao", "link-type": "Data"} ] } }, "graph_parameters": {"tunneling": "OPENVPN", "vlan": "0", "mapped": false, "generated": false, "testbed": "MININET"} }';
+    var ctrlconsole;
+    var mod = "DES";
 
     $(document).ready(function() {
 
@@ -161,6 +163,10 @@
                         console.log("HIDE custom label")
                         $('#cldiv').hide();
                     }
+
+
+
+
                 } else {
                     $('#type_inf').hide();
                 }
@@ -181,6 +187,10 @@
                     $('#model_inf_Data').hide();
                 }
 
+
+                if(mod == "EXP"){
+                        ctrlconsole.addConsole(args.base_info.label);
+                }
             } else if (args.selected == "Edge") {
                 var base_info = args.base_info;
 
@@ -286,6 +296,20 @@
             initClusterSelOption(args.domain_data.clustermap);
 
         });
+
+        my_graph_editor.addListener("EXP_MODE", function(a, args) {
+            //rendo visibile la parte con le shell
+            $('#console_div').css('display', 'block');
+
+            //nasconodo la barra dei comandi
+            $('#panel_head').css('display', 'none');
+            var exp_name = "";//args.exp_name;
+            ctrlconsole = new dreamer.Ctrlfwc('myTab', exp_name);
+            ctrlconsole.addConsole("deployment");
+            mod = "EXP";
+            $('#myModalLoading').modal('hide');
+        });
+
 
         my_graph_editor.addListener("editor_ready", function(a, args) {
 
@@ -491,6 +515,15 @@
                 $('#myModalLoading').modal('show');
                 my_graph_editor.validate();
             });
+
+
+            $('#deploy_button').click(function(e) {
+                $('#myModalLoading').modal('show');
+                
+                my_graph_editor.newExp();
+
+            });
+
 
 
             $('#exp_button').click(function(e) {
@@ -756,7 +789,11 @@
             setLayerView(args.curLayer);
 
             $('#myModalLoading').modal('hide');
-            // var prova = new dreamer.Fwc('#profile', 'prova');
+            
+            //var prova = new dreamer.Ctrlfwc('myTab', '');
+            // prova.addConsole("h1");
+
+            //my_graph_editor.newExp();
         }); ///
 
 
