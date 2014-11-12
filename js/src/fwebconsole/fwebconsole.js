@@ -33,9 +33,8 @@ dreamer.Fwc = (function(global) {
         this.initPromtLine();
         this.initWebSocket();
         this.initListeners();
-        if(channel != "deployment"){
-            this.sendCmd("join", true);
-        }
+            
+        
 
     }
 
@@ -52,7 +51,10 @@ dreamer.Fwc = (function(global) {
                   this.cmdHistory.push(cmd);
                   $('#' + this._termoutput).append("<div style=\"width: 100%; visibility: visible;\"> >  " + cmd + "</div>");
                 }
-                this.ws.emit('new-node-shell', {nodeid: this._channel});
+                if(this._channel == "deployment")
+                    this.ws.emit('new-deploy-shell', {nodeid: this._channel});
+                else
+                    this.ws.emit('new-node-shell', {nodeid: this._channel});
             } catch (err) {
                 console.log(err);
 
@@ -179,10 +181,11 @@ dreamer.Fwc = (function(global) {
         //var ns = _expname;
         var ns = "";
         var wsurl = "http://"+host+port+"/"+ns; 
-        this.ws = io.connect(wsurl);
+        this.ws = io.connect(wsurl,{'force new connection': true});
         this.ws.on('connect', function() {
-            console.log('connected to server');
+            console.log('@@@@ connected to server');
             console.log(wsurl);
+            self.sendCmd("join", true);
         });
         this.ws.on('cmd_res', function(data) {
 
