@@ -192,7 +192,18 @@ dreamer.Fwc = (function(global) {
             var rows = data.split('\n');
             for (var r in rows) {
                 console.log(rows[r]);
-                $("#" + self._termoutput).append("<div style=\"width: 100%; visibility: visible;\">" + self.toStaticHTML(rows[r]) + "</div>");
+                if(rows[r] != self.cmdHistory[self.cmdHistory.length-1]){
+                                    console.log("primp");
+                                    if (self._channel != "deployment" ){
+                                        if(r != rows.length -1 && r != 0){
+                                            $("#" + self._termoutput).append("<div style=\"width: 100%; visibility: visible;\">" + self.toStaticHTML(rows[r]) + "</div>");
+                                        }
+                                    }
+                                    else{
+                                        console.log("deployment");
+                                        $("#" + self._termoutput).append("<div style=\"width: 100%; visibility: visible;\">" + self.toStaticHTML(rows[r]) + "</div>");
+                                    }
+                }
             }
              $(self._div).scrollTop($(self._div)[0].scrollHeight);
             
