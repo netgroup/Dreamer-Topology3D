@@ -184,7 +184,7 @@ dreamer.Fwc = (function(global) {
         this.ws = io.connect(wsurl,{'force new connection': true});
         this.ws.on('connect', function() {
             console.log('@@@@ connected to server');
-            console.log(wsurl);
+            
             self.sendCmd("join", true);
         });
         this.ws.on('cmd_res', function(data) {
@@ -193,11 +193,11 @@ dreamer.Fwc = (function(global) {
             for (var r in rows) {
                 console.log(rows[r]);
                 if(rows[r] != self.cmdHistory[self.cmdHistory.length-1]){
-                                    console.log("primp");
+                                    
                                     if (self._channel != "deployment" ){
-                                        if(r != rows.length -1 && r != 0){
+                                      //  if(r != rows.length -1 && r != 0){
                                             $("#" + self._termoutput).append("<div style=\"width: 100%; visibility: visible;\">" + self.toStaticHTML(rows[r]) + "</div>");
-                                        }
+                                       // }
                                     }
                                     else{
                                         console.log("deployment");

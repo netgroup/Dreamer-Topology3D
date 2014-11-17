@@ -18,7 +18,7 @@ dreamer.Ctrlfwc = (function(global) {
         $('<li><a href="#tab'+nextTab+'" data-toggle="tab">'+nextTab+'</a></li>').appendTo('#'+self._div);
     
         // create the tab content
-        $('<div class="tab-pane fade terminal" id="tab'+nextTab+'">tab' +nextTab+' content</div>').appendTo('#myTabContent');
+        $('<div class="tab-pane fade terminal" id="tab'+nextTab+'"></div>').appendTo('#myTabContent');
         
         // make the new tab active
         $('#tabs a:last').tab('show');

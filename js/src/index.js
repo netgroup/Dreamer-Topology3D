@@ -190,7 +190,7 @@
 
                 if(mod == "EXP"){
                         //ctrlconsole.addConsole(args.base_info.label);
-                        ctrlconsole.addConsole("h1");
+                        ctrlconsole.addConsole("h2");
                 }
             } else if (args.selected == "Edge") {
                 var base_info = args.base_info;
@@ -519,10 +519,10 @@
 
 
             $('#deploy_button').click(function(e) {
-                $('#myModalLoading').modal('show');
+              /*  $('#myModalLoading').modal('show');
                 
                 my_graph_editor.newExp();
-
+                */
             });
 
 

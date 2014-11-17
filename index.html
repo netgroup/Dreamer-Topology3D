@@ -97,8 +97,17 @@
                                     </ul>
                                 </div>
 
-                                <button id="live_button" type="button" class="btn btn-default"> <span class="fa fa-play"> Live</span>
-                                </button>
+                                <div class="btn-group" id="layout-menu">
+                                    <button id="layout_button_group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa ">Layout </span><span class="fa fa-sort-down"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" id="dropdown-menu-layout" role="menu">
+                                        <li><a href="#" id="live_button"><span class="fa fa-play"> Live</span></a>
+                                        </li>
+                                        <li role="presentation" class="divider"></li>
+                                         <li><a href="#" id="circular"><span class="fa fa-spinner"> Circular</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
 
                                 <div class="btn-group" id="layer-menu">
                                     <button id="layer_button_group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa ">View </span><span class="fa fa-sort-down"></span>
@@ -197,10 +206,7 @@
                 <ul id="tweaks_sidebar" class="nav nav-sidebar">
                     <!--tweaks_sidebar-->
 
-                    <div id="sidebar_layout_button_group" class="btn-group">
-                        <button id="circular" type="button" class="btn btn-default">Circular layout</button>
 
-                    </div>
                     <!--end sidebar_layout_button_group-->
                     <div id="tunneling_mechanism_sec">
                         <label>Tunneling:</label>
@@ -793,12 +799,12 @@
         ================================================== -->
 
 
-    <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'></script>
-    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <!--     <script src="js/jquery-1.9.1.min.js"></script>
-         <script src="js/jquery-ui-1.8.1.custom.min.js"></script>-->
+     <!--   <script type='text/javascript' src='http://code.jquery.com/jquery-1.8.3.js'></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>-->
 
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+     <script src="js/jquery-1.9.1.min.js"></script>
+         <script src="js/jquery-ui-1.8.1.custom.min.js"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
     <script src="js/json2.js"></script>
     <script src="js/codemirror/codemirror.js"></script>
