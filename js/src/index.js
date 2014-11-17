@@ -81,7 +81,7 @@
 
                 var base_info = args.base_info;
                 console.log(JSON.stringify(args));
-                $(info_sidebar + ' .infobox #title').html('Vertex Info');
+                $(info_sidebar + ' .infobox #title').html('Nodes Info');
                 $(info_sidebar + ' .infobox #index').html(base_info.index);
                 $(info_sidebar + ' .infobox #index').hide();
                 $(info_sidebar + ' .infobox #index_label').hide();
@@ -189,8 +189,8 @@
 
 
                 if(mod == "EXP"){
-                        //ctrlconsole.addConsole(args.base_info.label);
-                        ctrlconsole.addConsole("h2");
+                        ctrlconsole.addConsole(args.base_info.label);
+                        //ctrlconsole.addConsole("h2");
                 }
             } else if (args.selected == "Edge") {
                 var base_info = args.base_info;
@@ -519,10 +519,10 @@
 
 
             $('#deploy_button').click(function(e) {
-              /*  $('#myModalLoading').modal('show');
+                $('#myModalLoading').modal('show');
                 
                 my_graph_editor.newExp();
-                */
+                
             });
 
 
@@ -566,7 +566,7 @@
                 // If no files were selected, or no FileReader support, return
                 if (!files.length || !window.FileReader) return;
                 // Only proceed if the selected file is a text 
-                if (files[0].type == "application/json") {
+                if (files[0].type == "application/json" || files[0].type == "") {
                     // Create a new instance of the FileReader
                     var reader = new FileReader();
 
