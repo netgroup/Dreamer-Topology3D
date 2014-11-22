@@ -44,6 +44,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         LIVE = false,
         AUTO_MAXIMIZE = true,
         NODE_LABEL = true,
+        NODE_LABEL_C = true,
         SPRING = 0.999,
         SPEED = 2.0,
         FIXED_LENGTH = 100.0,
@@ -745,6 +746,11 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         draw();
     }
 
+    function showEdgeLabelC(show){
+        NODE_LABEL_C = show;
+        draw();
+    }
+
     ///#
     function display_vertex(vert) {
         if (SHIFT) {
@@ -779,12 +785,16 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 // ctx.drawImage(imageObj, this.pos.x-NODE_RADIUS/3,this.pos.y-NODE_RADIUS,NODE_RADIUS,NODE_RADIUS)
         }
 
-        if (NODE_LABEL) {
+        if (NODE_LABEL || NODE_LABEL_C) {
             ctx.fillStyle = "#000000";
             ctx.font = (NODE_RADIUS / 2) + "pt Helvetica"
             ctx.textAlign = "center"
-            node_number = vert.label; //nodes.indexOf(vert).toString();
-            ctx.fillText(node_number, vert.pos.x, vert.pos.y + (1.5*NODE_RADIUS));
+            if(NODE_LABEL){
+                node_number = vert.label; //nodes.indexOf(vert).toString();
+                 ctx.fillText(node_number, vert.pos.x, vert.pos.y + (1.5*NODE_RADIUS));
+            }
+            if(NODE_LABEL_C)
+                ctx.fillText(vert.getVertexInfo().property['custom_label'], vert.pos.x, vert.pos.y + 1.5*(1.5*NODE_RADIUS));
         }
     }
 
@@ -1228,6 +1238,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         change_egde_strength: change_egde_strength,
         change_egde_length: change_egde_length,
         showEdgeLabel: showEdgeLabel,
+        showEdgeLabelC: showEdgeLabelC,
         getNodesProperty: getNodesProperty,
         getvmmcfg: getvmmcfg,
         setvmmcfg: setvmmcfg,

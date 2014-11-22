@@ -786,6 +786,11 @@
                 my_graph_editor.showEdgeLabel(this.checked);
             });
 
+            $('#showCustomLabelCheckbox').click(function(e) {
+                my_graph_editor.showEdgeLabelC(this.checked);
+                console.log("STOCA")
+            });
+
 
             setLayerView(args.curLayer);
 

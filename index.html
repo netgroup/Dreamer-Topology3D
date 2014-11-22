@@ -60,9 +60,10 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                                <div class="btn-group navbar-btn">
-                                    <button id="topology_button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa">Topology</span> <span class="fa fa-sort-down"></span>
+                <li>
+                <div class="btn-group btn-group-sm navbar-btn">
+                                <div class="btn-group btn-group-sm navbar-btn">
+                                    <button id="topology_button" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"><span class="fa">Topology</span> <span class="fa fa-sort-down"></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="#" id="catalog_button" data-toggle="modal" data-target="#myModalTopoCatalog"><span class="fa fa-archive"> Open from catalog...</span></a>
@@ -80,10 +81,8 @@
                                         </li>
                                     </ul>
                                 </div>
-                    </li>
-                    <li>
-                                <div class="btn-group navbar-btn" id="layout-menu">
-                                    <button id="layout_button_group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa ">Layout </span><span class="fa fa-sort-down"></span>
+                                <div class="btn-group btn-group-sm navbar-btn" id="layout-menu">
+                                    <button id="layout_button_group" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"><span class="fa ">Layout </span><span class="fa fa-sort-down"></span>
                                     </button>
                                     <ul class="dropdown-menu" id="dropdown-menu-layout" role="menu">
                                         <li><a href="#" id="live_button"><span class="fa fa-play"> Live</span></a>
@@ -93,19 +92,15 @@
                                         </li>
                                     </ul>
                                 </div>
-                    </li>
-                    <li>
-                                <div class="btn-group navbar-btn" id="layer-menu">
-                                    <button id="layer_button_group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa ">View </span><span class="fa fa-sort-down"></span>
+                                <div class="btn-group btn-group-sm navbar-btn" id="layer-menu">
+                                    <button id="layer_button_group" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"><span class="fa ">View </span><span class="fa fa-sort-down"></span>
                                     </button>
                                     <ul class="dropdown-menu" id="dropdown-menu-layer" role="menu">
 
                                     </ul>
                                 </div>
-                    </li>
-                    <li>
-                                <div class="btn-group navbar-btn" id="tool-menu">
-                                    <button id="tool_button_group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa fa-wrench"> Tools <span class="fa fa-sort-down"></span>
+                                <div class="btn-group btn-group-sm navbar-btn" id="tool-menu">
+                                    <button id="tool_button_group" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"><span class="fa fa-wrench"> Tools <span class="fa fa-sort-down"></span>
                                     </button>
                                     <ul class="dropdown-menu" id="dropdown-menu-tool" role="menu">
                                         <li id="impexpmap">
@@ -127,35 +122,23 @@
                                     </ul>
 
                                 </div>
-                    </li>
-                     <li>
-                                <button id="undo_button" type="button" class="btn btn-default  navbar-btn"><span class="fa fa-undo"> Undo</span>
+                                <button id="undo_button" type="button" class="btn btn-default btn-group-sm navbar-btn"><span class="fa fa-undo"> Undo</span>
                                 </button>
-                    </li>
-                     <li>
-                                <button id="reset_button" type="button" class="btn btn-default  navbar-btn"><span class="fa fa-eraser"> Reset</span>
+                                <button id="reset_button" type="button" class="btn btn-default btn-group-sm navbar-btn"><span class="fa fa-eraser"> Reset</span>
                                 </button>
-                    </li>
-                    <li>
-                                <button id="validate_button" type="button" class="btn btn-default  navbar-btn"><span class="fa fa-check-square-o"> Validate</span>
+                                <button id="validate_button" type="button" class="btn btn-default btn-group-sm navbar-btn"><span class="fa fa-check-square-o"> Validate</span>
                                 </button>
-                    </li>
-                     <li>
-                                <button id="deploy_button" type="button" class="btn btn-default  navbar-btn"> <span class="fa fa-terminal"> Deploy</span>
+                                <button id="deploy_button" type="button" class="btn btn-default btn-group-sm  navbar-btn"> <span class="fa fa-terminal"> Deploy</span>
                                 </button>
-                    </li>
-                     <li>
-                                <button id="credits_button" type="button" class="btn btn-default  navbar-btn" data-toggle="modal" data-target="#myModalCredits"><span class="fa fa-info"> Credits</span>
+                                <button id="credits_button" type="button" class="btn btn-default btn-group-sm navbar-btn" data-toggle="modal" data-target="#myModalCredits"><span class="fa fa-info"> Credits</span>
                                 </button>
-                    </li>
-                     <li>
-                                <button id="help_button" type="button" class="btn btn-default  navbar-btn" data-toggle="modal" data-target="#myModal"><span class="fa fa-question"> Help</span>
+                                <button id="help_button" type="button" class="btn btn-default btn-group-sm navbar-btn" data-toggle="modal" data-target="#myModal"><span class="fa fa-question"> Help</span>
                                 </button>
-                    </li>
 
                  
                         
-                    
+                    </div>
+                    </li>
                 </ul>
 
 
@@ -267,6 +250,13 @@
                         <div class="checkbox">
                             <label>Node Labels
                                 <input id="showLabelCheckbox" checked type="checkbox">
+                            </label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="checkbox">
+                            <label>Node Custom Labels
+                                <input id="showCustomLabelCheckbox" checked type="checkbox">
                             </label>
                         </div>
                     </li>
