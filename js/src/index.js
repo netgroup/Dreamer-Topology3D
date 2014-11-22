@@ -788,7 +788,6 @@
 
             $('#showCustomLabelCheckbox').click(function(e) {
                 my_graph_editor.showEdgeLabelC(this.checked);
-                console.log("STOCA")
             });
 
 
