@@ -327,7 +327,7 @@
             $(info_sidebar + ' .infobox #info').hide();
 
             var nodeTypes = my_graph_editor.get_nodeTypes();
-            $("#drag_drop_toolbar").append("<ul style=\"white-space: nowrap;\">");
+            $("#drag_drop_toolbar").append("<ul style=\"padding-left: 0px;\" id=\"drag_drop_toolbar_ul\"></ul>");
             for (n in nodeTypes) {
                 //set option value 
                 var ntype = nodeTypes[n];
@@ -337,8 +337,8 @@
                 clntype = clntype.replace(/ /g, '');
 
                 //build drag and drop tool bar #drag_drop_toolbar
-                $("#drag_drop_toolbar").append("<li  style=\"display: inline; list-style: none;\"><img class='draggable_node' id='drag_" + clntype + "' src='img/" + clntype + ".png' width='50' height='50'></li>");
-                $("#drag_drop_toolbar").append("<li  style=\"display: inline; list-style: none;\"><img id='drag_" + clntype + "_det' src='img/" + clntype + "_det.png' width='50' height='50'></li>");
+                $("#drag_drop_toolbar_ul").append("<li  style=\"display: inline; list-style: none;\"><img class='draggable_node' id='drag_" + clntype + "' src='img/" + clntype + ".png' width='50' height='50'></li>");
+                $("#drag_drop_toolbar_ul").append("<li  style=\"display: inline; list-style: none;\"><img id='drag_" + clntype + "_det' src='img/" + clntype + "_det.png' width='50' height='50'></li>");
                 $("#drag_" + clntype).draggable({
                     helper: 'clone',
                 });
@@ -347,7 +347,7 @@
                 $("#drag_" + clntype).data("type", ntype);
 
             }
-            $("#drag_drop_toolbar").append("</ul>");
+            
 
 
 

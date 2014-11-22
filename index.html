@@ -60,24 +60,8 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" data-toggle="modal" data-target="#myModal">Help</a>
-                    </li>
-                </ul>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid">
-        <div class="row">
-
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
-                <div class="panel panel-default">
-                    <div class="panel-heading" id="panel_head">
-                        <div id="graph_editor_button_container" class="btn-toolbar" role="toolbar">
-                            <div id="graph_editor_button_group" class="btn-group">
-                                <div class="btn-group">
+                    <li>
+                                <div class="btn-group navbar-btn">
                                     <button id="topology_button" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa">Topology</span> <span class="fa fa-sort-down"></span>
                                     </button>
                                     <ul class="dropdown-menu" role="menu">
@@ -96,8 +80,9 @@
                                         </li>
                                     </ul>
                                 </div>
-
-                                <div class="btn-group" id="layout-menu">
+                    </li>
+                    <li>
+                                <div class="btn-group navbar-btn" id="layout-menu">
                                     <button id="layout_button_group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa ">Layout </span><span class="fa fa-sort-down"></span>
                                     </button>
                                     <ul class="dropdown-menu" id="dropdown-menu-layout" role="menu">
@@ -108,16 +93,18 @@
                                         </li>
                                     </ul>
                                 </div>
-
-                                <div class="btn-group" id="layer-menu">
+                    </li>
+                    <li>
+                                <div class="btn-group navbar-btn" id="layer-menu">
                                     <button id="layer_button_group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa ">View </span><span class="fa fa-sort-down"></span>
                                     </button>
                                     <ul class="dropdown-menu" id="dropdown-menu-layer" role="menu">
 
                                     </ul>
                                 </div>
-
-                                <div class="btn-group" id="tool-menu">
+                    </li>
+                    <li>
+                                <div class="btn-group navbar-btn" id="tool-menu">
                                     <button id="tool_button_group" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="fa fa-wrench"> Tools <span class="fa fa-sort-down"></span>
                                     </button>
                                     <ul class="dropdown-menu" id="dropdown-menu-tool" role="menu">
@@ -133,32 +120,57 @@
                                             <a href="#" id="set_cluster_button" data-toggle="modal" data-target="#myModalCluster"> <span class="fa fa-sitemap"> Set Cluster</span>
                                             </a>
                                         </li>
+                                        <li id="settunneling">
+                                            <a href="#" id="settunneling_button" data-toggle="modal" data-target="#myModalTunnel"> <span class="fa fa-sitemap"> Set Tunneling</span>
+                                            </a>
+                                        </li>
                                     </ul>
 
                                 </div>
-
-                                <button id="undo_button" type="button" class="btn btn-default"><span class="fa fa-undo"> Undo</span>
+                    </li>
+                     <li>
+                                <button id="undo_button" type="button" class="btn btn-default  navbar-btn"><span class="fa fa-undo"> Undo</span>
                                 </button>
-
-                                <button id="reset_button" type="button" class="btn btn-default"><span class="fa fa-eraser"> Reset</span>
+                    </li>
+                     <li>
+                                <button id="reset_button" type="button" class="btn btn-default  navbar-btn"><span class="fa fa-eraser"> Reset</span>
                                 </button>
-
-                                <button id="validate_button" type="button" class="btn btn-default"><span class="fa fa-check-square-o"> Validate</span>
+                    </li>
+                    <li>
+                                <button id="validate_button" type="button" class="btn btn-default  navbar-btn"><span class="fa fa-check-square-o"> Validate</span>
                                 </button>
-
-                                <button id="deploy_button" type="button" class="btn btn-default"> <span class="fa fa-terminal"> Deploy</span>
+                    </li>
+                     <li>
+                                <button id="deploy_button" type="button" class="btn btn-default  navbar-btn"> <span class="fa fa-terminal"> Deploy</span>
                                 </button>
-
-                                <button id="credits_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModalCredits"><span class="fa fa-info"> Credits</span>
+                    </li>
+                     <li>
+                                <button id="credits_button" type="button" class="btn btn-default  navbar-btn" data-toggle="modal" data-target="#myModalCredits"><span class="fa fa-info"> Credits</span>
                                 </button>
-
-                                <button id="help_button" type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"><span class="fa fa-question"> Help</span>
+                    </li>
+                     <li>
+                                <button id="help_button" type="button" class="btn btn-default  navbar-btn" data-toggle="modal" data-target="#myModal"><span class="fa fa-question"> Help</span>
                                 </button>
+                    </li>
+
+                 
+                        
+                    
+                </ul>
 
 
-                            </div>
+            </div>
+        </div>
+    </div>
 
-                        </div>
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading" id="panel_head"  style="padding-bottom: 0px; padding-top: 0px;">
+
                         <input type="file" id="fileElem" style=" width: 0px; height: 0px; ">
                         <div id="drag_drop_toolbar" align="left" style="display: block; padding-top: 5px;">
 
@@ -202,20 +214,19 @@
 
             <div class="col-sm-3 col-md-2 sidebar">
                 <!--sidebar-->
-
-                <ul id="tweaks_sidebar" class="nav nav-sidebar">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne" style="padding-bottom: 5px; padding-top: 5px;">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Editor Settings
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <ul id="tweaks_sidebar" class="nav nav-sidebar panel-body">
                     <!--tweaks_sidebar-->
 
-
-                    <!--end sidebar_layout_button_group-->
-                    <div id="tunneling_mechanism_sec">
-                        <label>Tunneling:</label>
-                        <select id='tun_option'>
-                            <option value=''></option>
-                            <option value='VXLAN'>VXLAN</option>
-                            <option value='OPENVPN'>OPENVPN</option>
-                        </select>
-                    </div>
 
                     <li>
                         <label id="canvd_label">Canvas Dimension:</label>
@@ -260,6 +271,12 @@
                         </div>
                     </li>
                 </ul>
+    </div>
+  </div>
+
+</div>
+
+
                 <!--end tweaks_sidebar-->
                 <hr>
                 <ul id="info_sidebar" class="nav nav-sidebar">
@@ -568,6 +585,34 @@
 
 
             <!-- Modal -->
+            <div class="modal fade" id="myModalTunnel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalTunnelLabel">Select Tunneling</h4>
+                        </div>
+                        <div id="tunnel_body" class="modal-body">
+                                                <div id="tunneling_mechanism_sec">
+                        <label>Tunneling:</label>
+                        <select id='tun_option'>
+                            <option value=''></option>
+                            <option value='VXLAN'>VXLAN</option>
+                            <option value='OPENVPN'>OPENVPN</option>
+                        </select>
+                    </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal -->
+
+
+            <!-- Modal -->
             <div class="modal fade" id="myModalRandom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -703,7 +748,7 @@
                             <h4 class="modal-title" id="myModalLabelCopy">Edit Json data</h4>
                         </div>
                         <div id="copy_body" class="modal-body">
-                            Edit the JSON represenation of the graph:
+                            Edit the JSON representation of the graph:
                             <br>
                             <textarea id="jsonEditor" rows="5" cols="50">
                             </textarea>
