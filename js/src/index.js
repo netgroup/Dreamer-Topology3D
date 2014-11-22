@@ -453,7 +453,7 @@
 
             $("#canvdimension").slider({
                 min: 0,
-                max: 100,
+                max: 600,
                 value: 50,
                 slide: function(event, ui) {
                     my_graph_editor.resizeCanvasWith(ui.value);
