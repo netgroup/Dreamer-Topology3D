@@ -29,7 +29,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         Controller,
         removed_node,
         MIN_X = 800,
-        MIN_Y = 400,
+        MIN_Y = 800,
         SIZE = {
             x: options.width || MIN_X,
             y: options.height || MIN_Y

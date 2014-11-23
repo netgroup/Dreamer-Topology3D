@@ -52,7 +52,7 @@
         });
 
 
-        my_graph_editor.resetCanvasDimension($('#panel_head').width() - 30, 400);
+        my_graph_editor.resetCanvasDimension($('#panel_head').width() - 30, 500);
 
         my_graph_editor.addListener("LiveStatus", function(a, args) {
             console.log("Fired con successoooo " + JSON.stringify(args));
@@ -519,9 +519,9 @@
 
 
             $('#deploy_button').click(function(e) {
-                $('#myModalLoading').modal('show');
+                //$('#myModalLoading').modal('show');
                 
-                my_graph_editor.newExp();
+                //my_graph_editor.newExp();
                 
             });
 
@@ -807,7 +807,7 @@
 
         $(window).resize(function() {
             console.log("RESIZE PAGINA")
-            my_graph_editor.resetCanvasDimension($('#panel_head').width() - 30, 400);
+            my_graph_editor.resetCanvasDimension($('#panel_head').width() - 30, 500);
         });
 
     });
