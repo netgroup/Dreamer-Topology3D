@@ -355,7 +355,7 @@
             $(info_sidebar + ' .infobox #s_label').change(function() {
                 var index = $(info_sidebar + ' .infobox #index').html(),
                     title = $(info_sidebar + ' .infobox #title').html();
-                if (title === "Vertex Info") {
+                if (title === "Nodes Info") {
                     my_graph_editor.set_properties({
                         node: {
                             index: index,
