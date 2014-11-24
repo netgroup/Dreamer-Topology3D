@@ -317,7 +317,7 @@
             var layers = my_graph_editor.get_layers();
 
             for (i in layers) {
-                $("#dropdown-menu-layer").append("<li> <a href=\"#\" > <span class=\"fa fa-sitemap\"></span>" + layers[i] + "</a> </li>");
+                $("#dropdown-menu-layer").append("<li> <a href=\"#\" > <span class=\"fa fa-sitemap\"></span> " + layers[i] + "</a> </li>");
             }
 
 
