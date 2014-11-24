@@ -450,6 +450,15 @@
                 $("#canvdimension").slider('value', 0);
             });
 
+            $('#accordion').on('hidden.bs.collapse', function () {
+                 //$('#collapsesettings').text(' Static')
+                  $('#collapsesettings').find('span').toggleClass('fa-caret-square-o-down fa-caret-square-o-up')
+               
+            });
+            $('#accordion').on('show.bs.collapse', function () {
+                
+                  $('#collapsesettings').find('span').toggleClass('fa-caret-square-o-up fa-caret-square-o-down')
+            });
 
             $("#canvdimension").slider({
                 min: 0,
