@@ -199,13 +199,9 @@
                 <!--sidebar-->
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne" style="padding-bottom: 5px; padding-top: 5px;">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Editor Settings
-        </a>
-      </h4>
-    </div>
+
+     <button type="button" class="btn btn-default btn-sm btn-large btn-block" data-toggle="collapse" data-target="#collapseOne" data-parent="#accordion">Editor Settings</button>
+
     <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                 <ul id="tweaks_sidebar" class="nav nav-sidebar panel-body">
                     <!--tweaks_sidebar-->
@@ -271,19 +267,19 @@
                 <hr>
                 <ul id="info_sidebar" class="nav nav-sidebar">
                     <div class='infobox'>
-                        <h4 id='title'>Select node or edge for info!</h4>
+                        <h4 id='title'>Node / edge information</h4>
                         <div id='info'>
                             <label id='index_label'>Index:</label> <span id='index'></span>
                             <br>
 
-                            <label id='vert'>Vertices: <span id='v1'></span> -- <span id='v2'></span>
+                            <label id='vert'>Nodes: <span id='v1'></span> -- <span id='v2'></span>
                                 <br>
                             </label>
                             <div id='edge_inf'>
 
                             </div>
                             <div id='node_inf'>
-                                <label>Id:</label> <span id='n_name'></span>
+                                <label>Node ID:</label> <span id='n_name'></span>
                                 <br>
                                 <label>Type:</label>
                                 <select id='s_label'>

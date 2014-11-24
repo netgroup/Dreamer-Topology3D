@@ -81,7 +81,7 @@
 
                 var base_info = args.base_info;
                 console.log(JSON.stringify(args));
-                $(info_sidebar + ' .infobox #title').html('Nodes Info');
+                $(info_sidebar + ' .infobox #title').html('Node Info');
                 $(info_sidebar + ' .infobox #index').html(base_info.index);
                 $(info_sidebar + ' .infobox #index').hide();
                 $(info_sidebar + ' .infobox #index_label').hide();
@@ -355,7 +355,7 @@
             $(info_sidebar + ' .infobox #s_label').change(function() {
                 var index = $(info_sidebar + ' .infobox #index').html(),
                     title = $(info_sidebar + ' .infobox #title').html();
-                if (title === "Nodes Info") {
+                if (title === "Node Info") {
                     my_graph_editor.set_properties({
                         node: {
                             index: index,
@@ -820,7 +820,7 @@
 
     function clearInfoBox() {
         var info_sidebar = '#info_sidebar';
-        $(info_sidebar + ' .infobox #title').html('Select node for info!');
+        $(info_sidebar + ' .infobox #title').html('Node / edge information');
         $(info_sidebar + ' .infobox #none_selected').show();
         $(info_sidebar + ' .infobox #info').hide();
     }

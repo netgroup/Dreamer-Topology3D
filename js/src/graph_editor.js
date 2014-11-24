@@ -794,7 +794,8 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                  ctx.fillText(node_number, vert.pos.x, vert.pos.y + (1.5*NODE_RADIUS));
             }
             if(NODE_LABEL_C)
-                ctx.fillText(vert.getVertexInfo().property['custom_label'], vert.pos.x, vert.pos.y + 1.5*(1.5*NODE_RADIUS));
+                if(vert.getVertexInfo().property && vert.getVertexInfo().property['custom_label'])
+                    ctx.fillText(vert.getVertexInfo().property['custom_label'], vert.pos.x, vert.pos.y + 1.5*(1.5*NODE_RADIUS));
         }
     }
 
