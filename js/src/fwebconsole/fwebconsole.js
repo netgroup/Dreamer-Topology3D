@@ -196,7 +196,9 @@ dreamer.Fwc = (function(global) {
                                     
                                     if (self._channel != "deployment" ){
                                       //  if(r != rows.length -1 && r != 0){
-                                            $("#" + self._termoutput).append("<div style=\"width: 100%; visibility: visible;\">" + self.toStaticHTML(rows[r]) + "</div>");
+						var str = self.toStaticHTML(rows[r]);
+						if(str.indexOf("root@OSHI-VM:") == -1 ) 
+                                            		$("#" + self._termoutput).append("<div style=\"width: 100%; visibility: visible;\">" + self.toStaticHTML(rows[r]) + "</div>");
                                        // }
                                     }
                                     else{

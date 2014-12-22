@@ -22,6 +22,7 @@
     /*width: 300px;*/
     height: 400px;
     overflow-y: scroll;
+     border: 2px black solid;
 }
 .cmd {
     padding: 0;
@@ -85,10 +86,11 @@
 }
 .terminal, .cmd {
     font-family: FreeMono, monospace;
-    color: #aaa;
-    background-color: #000;
-    font-size: 12px;
+    color: black;
+    background-color: #f5f5f5;
+    font-size: 13px;
     line-height: 14px;
+
 }
 .terminal-output > div {
     /*padding-top: 3px;*/

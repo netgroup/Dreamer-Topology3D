@@ -10,7 +10,7 @@
 
         $('#myModalLoading').modal('show');
         my_graph_editor = new GraphEditor('#graph_ed', {
-            JSONdata: example,
+           // JSONdata: example,
             node_radius: 18.0,
             multigraph: true
         });
@@ -81,7 +81,7 @@
 
                 var base_info = args.base_info;
                 console.log(JSON.stringify(args));
-                $(info_sidebar + ' .infobox #title').html('Node Info');
+                $('#title').html('Node Info');
                 $(info_sidebar + ' .infobox #index').html(base_info.index);
                 $(info_sidebar + ' .infobox #index').hide();
                 $(info_sidebar + ' .infobox #index_label').hide();
@@ -195,7 +195,7 @@
             } else if (args.selected == "Edge") {
                 var base_info = args.base_info;
 
-                $(info_sidebar + ' .infobox #title').html('Edge Info');
+                $('#title').html('Edge Info');
                 $(info_sidebar + ' .infobox #index').html(base_info.index);
                 $(info_sidebar + ' .infobox #pos').hide();
                 $(info_sidebar + ' .infobox #vert').show();
@@ -354,7 +354,7 @@
 
             $(info_sidebar + ' .infobox #s_label').change(function() {
                 var index = $(info_sidebar + ' .infobox #index').html(),
-                    title = $(info_sidebar + ' .infobox #title').html();
+                    title = $('#title').html();
                 if (title === "Node Info") {
                     my_graph_editor.set_properties({
                         node: {
@@ -528,9 +528,9 @@
 
 
             $('#deploy_button').click(function(e) {
-                //$('#myModalLoading').modal('show');
+                $('#myModalLoading').modal('show');
                 
-                //my_graph_editor.newExp();
+                my_graph_editor.newExp();
                 
             });
 
@@ -811,8 +811,11 @@
         }); ///
 
 
-
-        my_graph_editor.load("oshi");
+        var model_param = getURLParameter("model");
+        if(model_param !=undefined)
+            my_graph_editor.load(model_param);
+        else
+            my_graph_editor.load("oshi");
 
         $(window).resize(function() {
             console.log("RESIZE PAGINA")
@@ -829,7 +832,7 @@
 
     function clearInfoBox() {
         var info_sidebar = '#info_sidebar';
-        $(info_sidebar + ' .infobox #title').html('Node / edge information');
+        $('#title').html('');
         $(info_sidebar + ' .infobox #none_selected').show();
         $(info_sidebar + ' .infobox #info').hide();
     }
@@ -864,7 +867,8 @@
         }
     };
 
-
-
+function getURLParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+};
 
 }());

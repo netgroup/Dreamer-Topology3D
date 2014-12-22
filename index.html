@@ -60,84 +60,94 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav">
-                <li>
-                <div class="btn-group btn-group-sm navbar-btn">
-                                <div class="btn-group btn-group-sm navbar-btn">
-                                    <button id="topology_button" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown">Topology <span class="fa fa-sort-down"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#" id="catalog_button" data-toggle="modal" data-target="#myModalTopoCatalog"><span class="fa fa-archive"></span> Open from catalog...</a>
-                                        </li>
-                                        <li><a href="#" id="imp_button"><span class="fa fa-folder-open"></span> Import Topology file</a>
-                                        </li>
-                                        <li><a href="#" id="edit_topo_button" data-toggle="modal" data-target="#myModalCopy"><span class="fa fa-pencil-square-o"></span> Edit Topology File</a>
-                                        </li>
-                                        <li><a href="#" id="random_button" data-toggle="modal" data-target="#myModalRandom"><span class="fa  fa-random"></span> Random</a>
-                                        </li>
-                                        <li role="presentation" class="divider"></li>
-                                        <li><a href="#" id="exp_button" data-toggle="modal" data-target="#myModalDownload"><span class="fa fa fa-floppy-o"></span> Export to file</a>
-                                        </li>
-                                        <li><a href="#" id="image_button"><span class="fa fa-picture-o"></span> Get Image</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="btn-group btn-group-sm navbar-btn" id="layout-menu">
-                                    <button id="layout_button_group" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"> Layout <span class="fa fa-sort-down"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" id="dropdown-menu-layout" role="menu">
-                                        <li><a href="#" id="live_button"><span class="fa fa-play"></span> Live</a>
-                                        </li>
-                                        <li role="presentation" class="divider"></li>
-                                         <li><a href="#" id="circular"><span class="fa fa-spinner"></span> Circular</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="btn-group btn-group-sm navbar-btn" id="layer-menu">
-                                    <button id="layer_button_group" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"><span class="fa "></span> View <span class="fa fa-sort-down"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" id="dropdown-menu-layer" role="menu">
+                    <li>
+                        <div class="btn-group btn-group-sm navbar-btn">
+                            <div class="btn-group btn-group-sm navbar-btn">
+                                <button id="topology_button" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown">Topology <span class="fa fa-sort-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#" id="catalog_button" data-toggle="modal" data-target="#myModalTopoCatalog"><span class="fa fa-archive"></span> Open from catalog...</a>
+                                    </li>
+                                    <li><a href="#" id="imp_button"><span class="fa fa-folder-open"></span> Import Topology file</a>
+                                    </li>
+                                    <li><a href="#" id="edit_topo_button" data-toggle="modal" data-target="#myModalCopy"><span class="fa fa-pencil-square-o"></span> Edit Topology File</a>
+                                    </li>
+                                    <li><a href="#" id="random_button" data-toggle="modal" data-target="#myModalRandom"><span class="fa  fa-random"></span> Random</a>
+                                    </li>
+                                    <li role="presentation" class="divider"></li>
+                                    <li><a href="#" id="exp_button" data-toggle="modal" data-target="#myModalDownload"><span class="fa fa fa-floppy-o"></span> Export to file</a>
+                                    </li>
+                                    <li><a href="#" id="image_button"><span class="fa fa-picture-o"></span> Get Image</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="btn-group btn-group-sm navbar-btn">
+                                <button id="topology_button" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown">Model <span class="fa fa-sort-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="?model=oshi" id="oshi_network"> OSHI network</a>
+                                    </li>
+                                    <li><a href="?model=openflow" id="of_network"> OpenFlow network</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="btn-group btn-group-sm navbar-btn" id="layout-menu">
+                                <button id="layout_button_group" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"> Layout <span class="fa fa-sort-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" id="dropdown-menu-layout" role="menu">
+                                    <li><a href="#" id="live_button"><span class="fa fa-play"></span> Live</a>
+                                    </li>
+                                    <li role="presentation" class="divider"></li>
+                                    <li><a href="#" id="circular"><span class="fa fa-spinner"></span> Circular</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="btn-group btn-group-sm navbar-btn" id="layer-menu">
+                                <button id="layer_button_group" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"><span class="fa "></span> View <span class="fa fa-sort-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" id="dropdown-menu-layer" role="menu">
 
-                                    </ul>
-                                </div>
-                                <div class="btn-group btn-group-sm navbar-btn" id="tool-menu">
-                                    <button id="tool_button_group" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"><span class="fa fa-wrench"></span> Tools <span class="fa fa-sort-down"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" id="dropdown-menu-tool" role="menu">
-                                        <li id="impexpmap">
-                                            <a href="#" id="editvmmcfg_button" data-toggle="modal" data-target="#myModalMappingCfg"> <span class="fa fa-sitemap"></span> Import and edit mapping file
-                                            </a>
-                                        </li>
-                                        <li id="editmap">
-                                            <a href="#" id="editvmmap_button" data-toggle="modal" data-target="#myModalMapping"> <span class="fa fa-sitemap"></span> Edit VM mapping
-                                            </a>
-                                        </li>
-                                        <li id="setcl">
-                                            <a href="#" id="set_cluster_button" data-toggle="modal" data-target="#myModalCluster"> <span class="fa fa-sitemap"></span> Set Cluster
-                                            </a>
-                                        </li>
-                                        <li id="settunneling">
-                                            <a href="#" id="settunneling_button" data-toggle="modal" data-target="#myModalTunnel"> <span class="fa fa-sitemap"></span> Set Tunneling
-                                            </a>
-                                        </li>
-                                    </ul>
+                                </ul>
+                            </div>
+                            <div class="btn-group btn-group-sm navbar-btn" id="tool-menu">
+                                <button id="tool_button_group" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"><span class="fa fa-wrench"></span> Tools <span class="fa fa-sort-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" id="dropdown-menu-tool" role="menu">
+                                    <li id="impexpmap">
+                                        <a href="#" id="editvmmcfg_button" data-toggle="modal" data-target="#myModalMappingCfg"> <span class="fa fa-sitemap"></span> Import and edit mapping file
+                                        </a>
+                                    </li>
+                                    <li id="editmap">
+                                        <a href="#" id="editvmmap_button" data-toggle="modal" data-target="#myModalMapping"> <span class="fa fa-sitemap"></span> Edit VM mapping
+                                        </a>
+                                    </li>
+                                    <li id="setcl">
+                                        <a href="#" id="set_cluster_button" data-toggle="modal" data-target="#myModalCluster"> <span class="fa fa-sitemap"></span> Set Cluster
+                                        </a>
+                                    </li>
+                                    <li id="settunneling">
+                                        <a href="#" id="settunneling_button" data-toggle="modal" data-target="#myModalTunnel"> <span class="fa fa-sitemap"></span> Set Tunneling
+                                        </a>
+                                    </li>
+                                </ul>
 
-                                </div>
-                                <button id="undo_button" type="button" class="btn btn-default btn-group-sm navbar-btn"><span class="fa fa-undo"></span> Undo
-                                </button>
-                                <button id="reset_button" type="button" class="btn btn-default btn-group-sm navbar-btn"><span class="fa fa-eraser"></span> Reset
-                                </button>
-                                <button id="validate_button" type="button" class="btn btn-default btn-group-sm navbar-btn"><span class="fa fa-check-square-o"></span> Validate
-                                </button>
-                                <button id="deploy_button" type="button" class="btn btn-default btn-group-sm  navbar-btn"> <span class="fa fa-desktop"></span> Deploy
-                                </button>
-                                <button id="credits_button" type="button" class="btn btn-default btn-group-sm navbar-btn" data-toggle="modal" data-target="#myModalCredits"><span class="fa fa-info"></span> Credits
-                                </button>
-                                <button id="help_button" type="button" class="btn btn-default btn-group-sm navbar-btn" data-toggle="modal" data-target="#myModal"><span class="fa fa-question"></span> Help
-                                </button>
+                            </div>
+                            <button id="undo_button" type="button" class="btn btn-default btn-group-sm navbar-btn"><span class="fa fa-undo"></span> Undo
+                            </button>
+                            <button id="reset_button" type="button" class="btn btn-default btn-group-sm navbar-btn"><span class="fa fa-eraser"></span> Reset
+                            </button>
+                            <button id="validate_button" type="button" class="btn btn-default btn-group-sm navbar-btn"><span class="fa fa-check-square-o"></span> Validate
+                            </button>
+                            <button id="deploy_button" type="button" class="btn btn-default btn-group-sm  navbar-btn"> <span class="fa fa-desktop"></span> Deploy
+                            </button>
+                            <button id="credits_button" type="button" class="btn btn-default btn-group-sm navbar-btn" data-toggle="modal" data-target="#myModalCredits"><span class="fa fa-info"></span> Credits
+                            </button>
+                            <button id="help_button" type="button" class="btn btn-default btn-group-sm navbar-btn" data-toggle="modal" data-target="#myModal"><span class="fa fa-question"></span> Help
+                            </button>
 
-                 
-                        
-                    </div>
+
+
+                        </div>
                     </li>
                 </ul>
 
@@ -152,7 +162,7 @@
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
                 <div class="panel panel-default">
-                    <div class="panel-heading" id="panel_head"  style="padding-bottom: 0px; padding-top: 0px;">
+                    <div class="panel-heading" id="panel_head" style="padding-bottom: 0px; padding-top: 0px;">
 
                         <input type="file" id="fileElem" style=" width: 0px; height: 0px; ">
                         <div id="drag_drop_toolbar" align="left" style="display: block; padding-top: 5px;">
@@ -198,130 +208,138 @@
             <div class="col-sm-3 col-md-2 sidebar">
                 <!--sidebar-->
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default">
+                    <div class="panel panel-default">
 
-     <button type="button" id="collapsesettings" class="btn btn-default btn-sm btn-large btn-block" data-toggle="collapse" data-target="#collapseOne" data-parent="#accordion"> Editor Settings <span class="fa fa-caret-square-o-down"></span></button>
+                        <button type="button" id="collapsesettings" class="btn btn-default btn-sm btn-large btn-block" data-toggle="collapse" data-target="#collapseOne" data-parent="#accordion"> Editor Settings <span class="fa fa-caret-square-o-down"></span>
+                        </button>
 
-    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                <ul id="tweaks_sidebar" class="nav nav-sidebar panel-body">
-                    <!--tweaks_sidebar-->
+                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                            <ul id="tweaks_sidebar" class="nav nav-sidebar panel-body">
+                                <!--tweaks_sidebar-->
 
 
-                    <li>
-                        <label id="canvd_label">Canvas Dimension:</label>
-                        <div id="canvdimension" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                            <a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></a>
+                                <li>
+                                    <label id="canvd_label">Canvas Dimension:</label>
+                                    <div id="canvdimension" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                        <a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></a>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <label id="Orientation_label">Orientation</label>
+                                    <div id="orientation" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                        <a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></a>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <label id="VertexSize_label">Node Size</label>
+                                    <div id="vertexSize" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                        <a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></a>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <label id="EdgeStrength_label" style="color: rgb(128, 128, 128);">Edge Strength</label>
+                                    <div id="edgeStrength" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all ui-slider-disabled ui-state-disabled ui-disabled" aria-disabled="true">
+                                        <a href="#" class="ui-slider-handle ui-state-default ui-corner-all" disabled="disabled" style="left: 0%;"></a>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <label id="EdgeLength_label" style="color: rgb(128, 128, 128);">Edge Length</label>
+                                    <div id="edgeLength" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all ui-slider-disabled ui-state-disabled ui-disabled" aria-disabled="true">
+                                        <a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></a>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="checkbox">
+                                        <label>Node Id
+                                            <input id="showLabelCheckbox" checked type="checkbox">
+                                        </label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="checkbox">
+                                        <label>Node Label
+                                            <input id="showCustomLabelCheckbox" checked type="checkbox">
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                    </li>
+                    </div>
 
-                    <li>
-                        <label id="Orientation_label">Orientation</label>
-                        <div id="orientation" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                            <a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></a>
-                        </div>
-                    </li>
-
-                    <li>
-                        <label id="VertexSize_label">Node Size</label>
-                        <div id="vertexSize" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                            <a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></a>
-                        </div>
-                    </li>
-
-                    <li>
-                        <label id="EdgeStrength_label" style="color: rgb(128, 128, 128);">Edge Strength</label>
-                        <div id="edgeStrength" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all ui-slider-disabled ui-state-disabled ui-disabled" aria-disabled="true">
-                            <a href="#" class="ui-slider-handle ui-state-default ui-corner-all" disabled="disabled" style="left: 0%;"></a>
-                        </div>
-                    </li>
-
-                    <li>
-                        <label id="EdgeLength_label" style="color: rgb(128, 128, 128);">Edge Length</label>
-                        <div id="edgeLength" class="slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all ui-slider-disabled ui-state-disabled ui-disabled" aria-disabled="true">
-                            <a href="#" class="ui-slider-handle ui-state-default ui-corner-all" style="left: 0%;"></a>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="checkbox">
-                            <label>Node Id
-                                <input id="showLabelCheckbox" checked type="checkbox">
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="checkbox">
-                            <label>Node Label
-                                <input id="showCustomLabelCheckbox" checked type="checkbox">
-                            </label>
-                        </div>
-                    </li>
-                </ul>
-    </div>
-  </div>
-
-</div>
+                </div>
 
 
                 <!--end tweaks_sidebar-->
-                <hr>
-                <ul id="info_sidebar" class="nav nav-sidebar">
-                    <div class='infobox'>
-                        <h4 id='title'>Node / edge information</h4>
-                        <div id='info'>
-                            <label id='index_label'>Index:</label> <span id='index'></span>
-                            <br>
 
-                            <label id='vert'>Nodes: <span id='v1'></span> -- <span id='v2'></span>
-                                <br>
-                            </label>
-                            <div id='edge_inf'>
+                <div class="panel panel-default">
 
-                            </div>
-                            <div id='node_inf'>
-                                <label>Node ID:</label> <span id='n_name'></span>
-                                <br>
-                                <label>Type:</label>
-                                <select id='s_label'>
-                                    <option value=''></option>
-                                </select>
-                                <br>
-                                <div id="type_inf">
-                                    <div id="cldiv" class="input-group input-group-sm">
-                                        <input type="text" id="clabel_input" class="form-control " placeholder="Custom Label">
-                                        <span class="input-group-btn">
+                    <div class="panel-heading" id="title" >
+                        
+                    </div>
+                    <div class="panel-body">
+                         <ul id="info_sidebar" class="nav nav-sidebar">
+                        <div class='infobox'>
+                            
+                            <div id='info'>
+                                <label id='index_label'>Index:</label> <span id='index'></span>
+
+                                <label id='vert'>Nodes: <span id='v1'></span> -- <span id='v2'></span>
+                                    <br>
+                                </label>
+                                <div id='edge_inf'>
+
+                                </div>
+                                <div id='node_inf'>
+                                    <label>Node ID:</label> <span id='n_name'></span>
+                                    <br>
+                                    <label>Type:</label>
+                                    <select id='s_label'>
+                                        <option value=''></option>
+                                    </select>
+                                    <br>
+                                    <div id="type_inf">
+                                        <div id="cldiv" class="input-group input-group-sm">
+                                            <input type="text" id="clabel_input" class="form-control " placeholder="Custom Label">
+                                            <span class="input-group-btn">
                                             <button id="set_clabel" class="btn btn-default" type="button">Set</button>
                                         </span>
 
+                                        </div>
+                                        </br>
+                                        <div id="model_inf_Data">
+                                            <div id="vm">
+                                                <label>VM Mapping:</label>
+                                                <select id='s_mgtip'>
+                                                    <option value=''></option>
+                                                </select>
+                                                </br>
+                                                <label>Interfaces:</label>
+                                                <select id='s_interfaces'>
+                                                    <option value=''></option>
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-                                    </br>
-                                    <div id="model_inf_Data">
-                                        <div id="vm">
-                                            <label>VM Mapping:</label>
-                                            <select id='s_mgtip'>
-                                                <option value=''></option>
-                                            </select>
-                                            </br>
-                                            <label>Interfaces:</label>
-                                            <select id='s_interfaces'>
+                                    <div id="model_inf">
+                                        <div id="model_inf_Control">
+                                            <label>Cluster:</label>
+                                            <select id='s_cluster'>
                                                 <option value=''></option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="model_inf">
-                                    <div id="model_inf_Control">
-                                        <label>Cluster:</label>
-                                        <select id='s_cluster'>
-                                            <option value=''></option>
-                                        </select>
-                                    </div>
-                                </div>
+                                <div id='none_selected'>No node is selected</div>
                             </div>
-                            <div id='none_selected'>No node is selected</div>
-                        </div>
 
-                </ul>
+                    </ul>
+                    </div>                
+
                 </div>
                 <!--end col-sm-3 col-md-2 sidebar-->
 
@@ -380,8 +398,8 @@
                                                 }
                                                 d.write('<a href="http://www.onestatfree.com/aspx/login.aspx?sid=' + sid + '" target=_blank><img id="ONESTAT_TAG" border="0" src="' + p + '" alt="This site tracked by OneStatFree.com. Get your own free site tracker."></' + 'a>');
                                             }
-
-                                            OneStat_Pageview();
+                                            if(location.hostname)
+                                                OneStat_Pageview();
                                             //-->
                                         </script>
                                         <noscript>
@@ -579,14 +597,14 @@
                             <h4 class="modal-title" id="myModalTunnelLabel">Select Tunneling</h4>
                         </div>
                         <div id="tunnel_body" class="modal-body">
-                                                <div id="tunneling_mechanism_sec">
-                        <label>Tunneling:</label>
-                        <select id='tun_option'>
-                            <option value=''></option>
-                            <option value='VXLAN'>VXLAN</option>
-                            <option value='OPENVPN'>OPENVPN</option>
-                        </select>
-                    </div>
+                            <div id="tunneling_mechanism_sec">
+                                <label>Tunneling:</label>
+                                <select id='tun_option'>
+                                    <option value=''></option>
+                                    <option value='VXLAN'>VXLAN</option>
+                                    <option value='OPENVPN'>OPENVPN</option>
+                                </select>
+                            </div>
 
                         </div>
                         <div class="modal-footer">
@@ -843,6 +861,7 @@
     <script src="js/src/vertex.js"></script>
     <script src="js/src/domaincontroller/domaincontroller.js"></script>
     <script src="js/src/domaincontroller/oshi.js"></script>
+    <script src="js/src/domaincontroller/openflow.js"></script>
     <script src="js/src/link.js"></script>
     <script src="js/src/layer.js"></script>
     <script src="js/src/event.js"></script>

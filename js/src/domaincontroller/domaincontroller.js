@@ -3,11 +3,13 @@ if (typeof dreamer === 'undefined') {
 }
 
 dreamer.DomainController = (function() {
-
-    var host = "127.0.0.1";
-    var base = host + ":8080"; 
-    //var host = location.hostname;
-    //var base = host + ":8000";
+    if(!location.hostname){
+            var host = "127.0.0.1";
+            var base = host + ":8080";}
+    else{
+            var host = location.hostname;
+            var base = host + ":8000";
+        }
     var vmmcontroller;
 
     function DomainController() {
@@ -234,7 +236,12 @@ dreamer.DomainController = (function() {
     };
 
     DomainController.prototype.getNodeTypes = function() {
-        return ["OSHI-CR", "OSHI-PE", "CE", "OF Controller"];//this.spec['list_of_all_node_types'];
+        console.log("getNodeTypes");
+        console.log(JSON.stringify(this.spec))
+        //return ["OSHI-CR", "OSHI-PE", "CE", "OF Controller"];
+        if(this.spec)
+            return this.spec['list_of_all_node_types'];
+        return [];
     };
 
     DomainController.prototype.getAllLayers = function() {
@@ -326,7 +333,7 @@ dreamer.DomainController = (function() {
     };
 
     DomainController.prototype.setProperties = function(graph, args, layername) {
-        console.log("DomainController:setProperties");
+        console.log("#############DomainController:setProperties" + JSON.stringify(this.spec));
         var result = {};
 
         if (args.node) {

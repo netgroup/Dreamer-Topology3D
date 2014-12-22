@@ -2,45 +2,34 @@ if (typeof dreamer === 'undefined') {
     var dreamer = {};
 }
 
-dreamer.Oshi = (function () {
+dreamer.OpenFlow = (function () {
 
-	var clustermap ={
-		"1": "red",
-		"2": "blue",
-		"3": "orage",
-		"4": "yellow",
-		"5": "green",
-		"6": "gray",
-		"7": "black",
-		"8": "brown",
-		"9": "cyan",
-		"10": "magenta"
-	};
+	
 
-	Oshi.prototype = new dreamer.DomainController();
-	Oshi.prototype.constructor = Oshi;
-	Oshi.prototype.parent = dreamer.DomainController.prototype;
-	function Oshi(){
-		console.log("OSHI-Constructor");
+	OpenFlow.prototype = new dreamer.DomainController();
+	OpenFlow.prototype.constructor = OpenFlow;
+	OpenFlow.prototype.parent = dreamer.DomainController.prototype;
+	function OpenFlow(){
+		console.log("OpenFlow-Constructor");
 	}
 
 
-	Oshi.prototype.setProperties = function(graph, args, layername) {
+	OpenFlow.prototype.setProperties = function(graph, args, layername) {
 		
 		var result = this.parent.setProperties.call(this, graph, args, layername);
-		console.log("Oshi-setProperties");
+		console.log("OpenFlow-setProperties");
 
 		if(result.error){
 			return result;
 		}
 
 		if (args.node) {
-			 if (args.node.properties['domain-oshi']){
+			 if (args.node.properties['domain-OpenFlow']){
 			 	if(graph.vertices[args.node.index]){
-	 				 	var n_doshi = graph.vertices[args.node.index].vertex_info.property['domain-oshi'];
-	 				 	for(key in args.node.properties['domain-oshi']){
+	 				 	var n_dOpenFlow = graph.vertices[args.node.index].vertex_info.property['domain-OpenFlow'];
+	 				 	for(key in args.node.properties['domain-OpenFlow']){
 	 				 		console.log(key)
-	 				 		n_doshi[key] = args.node.properties['domain-oshi'][key];
+	 				 		n_dOpenFlow[key] = args.node.properties['domain-OpenFlow'][key];
 	 				 	}
 	 				 }
 	 			else{
@@ -60,8 +49,8 @@ dreamer.Oshi = (function () {
 		return result;
 	}
 
-	Oshi.prototype.buildNodeProperties = function(ntype){ //TODO eliminare param inutili
-		console.log("Oshi:buildNodeProperties");
+	OpenFlow.prototype.buildNodeProperties = function(ntype){ //TODO eliminare param inutili
+		console.log("OpenFlow:buildNodeProperties");
 		
 		var property = this.parent.buildNodeProperties.call(this,ntype);
 		if(ntype != undefined){
@@ -73,11 +62,11 @@ dreamer.Oshi = (function () {
          	for(layer in this.spec['layer_constraints'] ){
 
          		if(this.isVisibleVertex(ntype, layer) && this.spec['layer_constraints'][layer]['nodes-properties']){
-         			if(!property['domain-oshi'])
-         				property['domain-oshi'] = {}
-         			property['domain-oshi']['layer-'+layer] = {};
+         			if(!property['domain-OpenFlow'])
+         				property['domain-OpenFlow'] = {}
+         			property['domain-OpenFlow']['layer-'+layer] = {};
          			for(p in this.spec['layer_constraints'][layer]['nodes-properties']){
-         				property['domain-oshi']['layer-'+layer][p] = this.spec['layer_constraints'][layer]['nodes-properties'][p];
+         				property['domain-OpenFlow']['layer-'+layer][p] = this.spec['layer_constraints'][layer]['nodes-properties'][p];
          			}
          		}
          
@@ -88,8 +77,8 @@ dreamer.Oshi = (function () {
     };
 
 
-	Oshi.prototype.getNodeProperties = function(node, nodes){
-		console.log("Oshi:getNodeProperties");
+	OpenFlow.prototype.getNodeProperties = function(node, nodes){
+		console.log("OpenFlow:getNodeProperties");
 		console.log(node instanceof dreamer.Vertex);
 		console.log("spec: " + JSON.stringify(this.spec.nodes));
 		var info_data = this.parent.getNodeProperties.call(this,node, nodes);
@@ -98,16 +87,16 @@ dreamer.Oshi = (function () {
         	info_data['type_info'] = {};
 
         	for(p in this.spec.nodes[ntype]['properties']){
-         		if(p != "domain-oshi"){
+         		if(p != "domain-OpenFlow"){
          			info_data['type_info'][p] = node['vertex_info']['property'][p];
          		}
          	}
          	info_data['model_info'] = {};
-         	if(this.spec.nodes[ntype]['properties']["domain-oshi"]){
-         		console.log("#####"+JSON.stringify(this.spec.nodes[ntype]['properties']["domain-oshi"]));
-         		for(p in this.spec.nodes[ntype]['properties']["domain-oshi"]){
+         	if(this.spec.nodes[ntype]['properties']["domain-OpenFlow"]){
+         		console.log("#####"+JSON.stringify(this.spec.nodes[ntype]['properties']["domain-OpenFlow"]));
+         		for(p in this.spec.nodes[ntype]['properties']["domain-OpenFlow"]){
          			console.log("dentrooo")
-         		 	info_data['model_info'][p] = node['vertex_info']['property']["domain-oshi"][p]
+         		 	info_data['model_info'][p] = node['vertex_info']['property']["domain-OpenFlow"][p]
          		}
          	}
 
@@ -115,8 +104,8 @@ dreamer.Oshi = (function () {
          		if(this.isVisibleVertex(ntype, layer) && this.spec['layer_constraints'][layer]['nodes-properties']){
          			info_data['model_info']['layer-'+layer] = {};
          			for(p in this.spec['layer_constraints'][layer]['nodes-properties']){
-         				if(node['vertex_info']['property']["domain-oshi"] && node['vertex_info']['property']["domain-oshi"]['layer-'+layer])
-         					info_data['model_info']['layer-'+layer][p] = node['vertex_info']['property']["domain-oshi"]['layer-'+layer][p];
+         				if(node['vertex_info']['property']["domain-OpenFlow"] && node['vertex_info']['property']["domain-OpenFlow"]['layer-'+layer])
+         					info_data['model_info']['layer-'+layer][p] = node['vertex_info']['property']["domain-OpenFlow"]['layer-'+layer][p];
          			}
          		}
          	}
@@ -126,8 +115,14 @@ dreamer.Oshi = (function () {
         return info_data;
     };
 
-    Oshi.prototype.getNodeDataView = function(node, is_closest, layer) {
-    	 console.log("OpenFlow getNodeDataView" );
+    OpenFlow.prototype.getNodeTypes = function() {
+        console.log("getNodeTypes OpenFlow")
+        return this.spec['list_of_all_node_types'];
+    };
+
+
+    OpenFlow.prototype.getNodeDataView = function(node, is_closest, layer) {
+        console.log("OpenFlow getNodeDataView" );
         var empty_color = "#FFFFFF";
         var img = 'img/punto.png';
         var bgcolor;
@@ -144,14 +139,14 @@ dreamer.Oshi = (function () {
             name = name.toLowerCase();
             img = 'img/' + name + '.png'
         } 
-        var nodeDView = {icon: img, bgcolor: bgcolor};
-    	
-    	if(node['vertex_info']['property'] != undefined && node['vertex_info']['property']['domain-oshi'] != undefined){
+    	var nodeDView = {icon: img, bgcolor: bgcolor};
+
+    	if(node['vertex_info']['property'] != undefined && node['vertex_info']['property']['domain-OpenFlow'] != undefined){
     		
     		if(layer == "Control" ){
     			
-    			if(node['vertex_info']['property']['domain-oshi']['layer-'+layer] != undefined && node['vertex_info']['property']['domain-oshi']['layer-'+layer]['cluster_id'] != undefined){
-    				var cluster_id = node['vertex_info']['property']['domain-oshi']['layer-'+layer]['cluster_id'];
+    			if(node['vertex_info']['property']['domain-OpenFlow']['layer-'+layer] != undefined && node['vertex_info']['property']['domain-OpenFlow']['layer-'+layer]['cluster_id'] != undefined){
+    				var cluster_id = node['vertex_info']['property']['domain-OpenFlow']['layer-'+layer]['cluster_id'];
     				var newcolor = getClusterColorBYId(cluster_id);
     				if(newcolor != undefined)
     					nodeDView.bgcolor = newcolor;
@@ -162,16 +157,11 @@ dreamer.Oshi = (function () {
     	return nodeDView;
     };
 
-    Oshi.prototype.getNodeTypes = function() {
-       
-        return this.spec['list_of_all_node_types'];
-    
-    };
 
-    Oshi.prototype.getDomainData = function() {
+    OpenFlow.prototype.getDomainData = function() {
         var domaindata = this.parent.getDomainData.call(this);
 
-        domaindata['clustermap'] = clustermap;
+        //domaindata['clustermap'] = clustermap;
 
         return domaindata;
 
@@ -184,10 +174,10 @@ dreamer.Oshi = (function () {
     	return undefined;
     };
 
-    return Oshi;
+    return OpenFlow;
 
 }(this));
 
 if (typeof module === 'object') {
-    module.exports = dreamer.Oshi;
+    module.exports = dreamer.OpenFlow;
 }

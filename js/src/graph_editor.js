@@ -2,7 +2,8 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     "use strict";
 
     var modelToController = {
-        "oshi": "Oshi"
+        "oshi": "Oshi",
+        "openflow": "OpenFlow"
     }
 
     var Vertex = dreamer.Vertex;
@@ -978,6 +979,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
     function get_nodeTypes() {
+        console.log("graph_editor get_nodeTypes");
         return domainctrl.getNodeTypes();
     }
 
@@ -1085,6 +1087,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
      }
 
     function load(modelname) {
+        console.log("load");
         domainctrl = new dreamer[getDomainController(modelname)];
 
         domainctrl.loadSpec(modelname, function(resload){
