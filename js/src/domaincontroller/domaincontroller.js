@@ -8,7 +8,7 @@ dreamer.DomainController = (function() {
             var base = host + ":8080";}
     else{
             var host = location.hostname;
-            var base = host + ":8000";
+            var base = host + ":8001";
         }
     var vmmcontroller;
 
