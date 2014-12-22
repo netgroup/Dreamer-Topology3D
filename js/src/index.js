@@ -301,9 +301,12 @@
         my_graph_editor.addListener("EXP_MODE", function(a, args) {
             //rendo visibile la parte con le shell
             $('#console_div').css('display', 'block');
+            
 
             //nasconodo la barra dei comandi
             $('#panel_head').css('display', 'none');
+            $('#collapsepalette').css('display', 'none');
+             $('#accordion').css('display', 'none');
             var exp_name = "";//args.exp_name;
             ctrlconsole = new dreamer.Ctrlfwc('myTab', exp_name);
             ctrlconsole.addConsole("deployment");
@@ -512,7 +515,18 @@
 
             });
 
+            $('#collapsepalette').click(function(t) {
+               
+                 if($(this).text() == "Drawing Palette-Hide") {
+                    $(this).text("Drawing Palette-Show");
+                     $('#panel_head').css('display', 'none');
+                } else {
+                    $(this).text("Drawing Palette-Hide");
+                     $('#panel_head').css('display', '');
+                }
 
+
+            });
 
             $('#edit_topo_button').click(function(e) {
 
