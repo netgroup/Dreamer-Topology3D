@@ -178,11 +178,13 @@ dreamer.DomainController = (function() {
         var res = {"error": false};
         var from_type = from_.getType();
         var to_type = to_node.getType();
+        console.log(from_type, to_type);
 
         for (i in lnae) {
 
             if (lnae[i].source == from_type) {
                 if (lnae[i].not_allowed_des.indexOf(to_type) > -1) {
+                    console.log("MALEEEE" + lnae[i].source);
                    res["error"] = true;
                 }
 

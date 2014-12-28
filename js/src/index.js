@@ -351,6 +351,8 @@
 
             }
             
+            $("#drag_drop_toolbar_ul").append("<li  style=\"display: inline; list-style: none;\"><button id=\"undo_button\" type=\"button\" class=\"btn btn-default btn-group-sm navbar-btn\"><span class=\"fa fa-undo\"></span> Undo</button></li>");
+            
 
 
 
@@ -455,12 +457,12 @@
 
             $('#accordion').on('hidden.bs.collapse', function () {
                  //$('#collapsesettings').text(' Static')
-                  $('#collapsesettings').find('span').toggleClass('fa-caret-square-o-down fa-caret-square-o-up')
+                  $('#collapsesettings').find('span').toggleClass('fa-sort-down fa-sort-up')
                
             });
             $('#accordion').on('show.bs.collapse', function () {
                 
-                  $('#collapsesettings').find('span').toggleClass('fa-caret-square-o-up fa-caret-square-o-down')
+                  $('#collapsesettings').find('span').toggleClass('fa-sort-up fa-sort-down')
             });
 
             $("#canvdimension").slider({

@@ -132,14 +132,25 @@
                                 </ul>
 
                             </div>
-                            <button id="undo_button" type="button" class="btn btn-default btn-group-sm navbar-btn"><span class="fa fa-undo"></span> Undo
-                            </button>
+                           
                             <button id="reset_button" type="button" class="btn btn-default btn-group-sm navbar-btn"><span class="fa fa-eraser"></span> Reset
                             </button>
-                            <button id="validate_button" type="button" class="btn btn-default btn-group-sm navbar-btn"><span class="fa fa-check-square-o"></span> Validate
-                            </button>
-                            <button id="deploy_button" type="button" class="btn btn-default btn-group-sm  navbar-btn"> <span class="fa fa-desktop"></span> Deploy
-                            </button>
+
+                            <div class="btn-group btn-group-sm navbar-btn" id="deployment-menu">
+                                <button id="deployment_button_group" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"><span class="fa fa-tachometer"></span> Deployment <span class="fa fa-sort-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" id="dropdown-menu-deployment" role="menu">
+                                    <li id="validate">
+                                        <a href="#" id="validate_button"> <span class="fa fa-check-square-o"></span> Validate</a>
+                                    </li>
+                                    <li id="deployr">
+                                        <a href="#" id="deploy_button"> <span class="fa fa-desktop"></span> Deploy</a>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+
                             <button id="credits_button" type="button" class="btn btn-default btn-group-sm navbar-btn" data-toggle="modal" data-target="#myModalCredits"><span class="fa fa-info"></span> Credits
                             </button>
                             <button id="help_button" type="button" class="btn btn-default btn-group-sm navbar-btn" data-toggle="modal" data-target="#myModal"><span class="fa fa-question"></span> Help
@@ -168,6 +179,7 @@
                         <div id="drag_drop_toolbar" align="left" style="display: block; padding-top: 5px;">
 
                         </div>
+
                         <div id="alert_div" class="alert-franz">
 
                         </div>
@@ -214,7 +226,7 @@
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
 
-                        <button type="button" id="collapsesettings" class="btn btn-default btn-sm btn-large btn-block" data-toggle="collapse" data-target="#collapseOne" data-parent="#accordion"> Editor Settings <span class="fa fa-caret-square-o-down"></span>
+                        <button type="button" id="collapsesettings" class="btn btn-default btn-sm btn-large btn-block" data-toggle="collapse" data-target="#collapseOne" data-parent="#accordion"> Editor Settings <span class="fa fa-sort-down"></span>
                         </button>
 
                         <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
