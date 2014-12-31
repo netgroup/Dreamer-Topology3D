@@ -73,6 +73,11 @@
             }
         });
 
+        my_graph_editor.addListener("update_graph_parameters", function(a, args) {
+            if(args.tunneling){
+                setTunnelLabel(args.tunneling);
+            }
+        });
 
         my_graph_editor.addListener("update_infobox", function(a, args) {
             var info_sidebar = '#info_sidebar';
@@ -282,13 +287,14 @@
         });
 
         my_graph_editor.addListener("topology_loaded", function(a, args) {
-
+            console.log("topology_loaded")
             clearInfoBox();
 
             //imposta layer
             setLayerLabel(args.curLayer);
             //imposta tunnel
             $("#tun_option").val(args.graph_parameters.tunneling);
+            setTunnelLabel(args.graph_parameters.tunneling);
 
             //imposta testbed
 
@@ -354,7 +360,8 @@
             $("#drag_drop_toolbar_ul").append("<li  style=\"display: inline; list-style: none;\"><button id=\"undo_button\" type=\"button\" class=\"btn btn-default btn-group-sm navbar-btn\"><span class=\"fa fa-undo\"></span> Undo</button></li>");
             
 
-
+            setTunnelLabel(args.graph_parameters.tunneling);
+            setModelLabel(args.modelname);
 
 
             $(info_sidebar + ' .infobox #s_label').change(function() {
@@ -584,7 +591,7 @@
 
             });
             $('input[id="fileElem"]').bind("change", function() {
-                console.log("CIAOOOO")
+                
                     // Get a reference to the fileList
                 var files = !!this.files ? this.files : [];
 
@@ -854,7 +861,16 @@
     }
 
     function setLayerLabel(layer) {
-        $('#layer-label').text("Current View: " + layer);
+        $('#layer-label').text(" - Current View: " + layer+ " - ");
+    };
+
+    function setTunnelLabel(tunnel) {
+        $('#tunnel-label').text(" - Tunneling: " + tunnel+ " - ");
+    };
+
+
+    function setModelLabel(model) {
+        $('#model-label').text(" - Current Model: " + model+ " - ");
     };
 
     function setLayerView(layer) {

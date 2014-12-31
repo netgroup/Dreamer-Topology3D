@@ -127,7 +127,7 @@ dreamer.Oshi = (function () {
     };
 
     Oshi.prototype.getNodeDataView = function(node, is_closest, layer) {
-    	 console.log("OpenFlow getNodeDataView" );
+    	
         var empty_color = "#FFFFFF";
         var img = 'img/punto.png';
         var bgcolor;

@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" type="image/png" href="favicon.png" />
 
-    <title>Topology Designer</title>
+    <title>Topology 3D</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -56,7 +56,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav ">
-                    <li><a class="navbar-brand" href="#">- Topology Designer </a>
+                    <li><a class="navbar-brand" href="#">- Topology 3D </a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav">
@@ -186,7 +186,19 @@
                     </div>
                     <div class="panel-body">
                         <div class="container-canvas" id="canvas_cont" height="600" style="overflow-y: scroll;max-height: 600px;">
-                            <span class="canvas-label" id="layer-label"></span>
+                            <div class="canvas-label" >
+
+                             <span id="model-label" style="float:left;">
+                                
+                            </span>
+                            <span id="layer-label"   style="float:center;">
+                            </span>
+                           
+                            <span id="tunnel-label" style="float:right;">
+                                
+                            </span>
+                            </div>
+                           
                             <div id='graph_ed'></div>
                         </div>
                         <!--container-canvas-->

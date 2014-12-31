@@ -462,6 +462,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         nodes = [];
         edge_list = [];
         graph_parameters = new GraphParameters(domainctrl.getGraphSpecDomine());
+        console.log(JSON.stringify(graph_parameters));
         draw();
     }
 
@@ -963,10 +964,13 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
              eventHandeler.fire("alert_warning_msg", resetprop.error);
         }else{
             if (args.node && updatebox) {
-            update_infobox(nodes[args.node.index]);
-        } else if (args.edge) {
-            update_infobox(edge_list[args.edge.index]);
-        }
+                update_infobox(nodes[args.node.index]);
+            } else if (args.edge) {
+                update_infobox(edge_list[args.edge.index]);
+            }
+            else if(args.graph_parameters){
+                eventHandeler.fire("update_graph_parameters", args.graph_parameters);
+            }
         }
         
        // console.log(JSON.stringify(graph_parameters))
@@ -1099,10 +1103,13 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             if (options.JSONdata) {
                 import_from_JSON(options.JSONdata, false);
                 draw();
+            }else{
+                erase_graph();
             }
             var args = {
                 graph_parameters: graph_parameters,
                 curLayer: curLayer.getCurLayer(),
+                modelname: modelname
 
             };
             eventHandeler.fire("editor_ready", args);
