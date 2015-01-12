@@ -20,7 +20,7 @@ dreamer.Edge = (function (global) {
         } 
         else if (layer != undefined){
             //var val = (vll==null || vll===false) ? false: true;
-            this.links.push( new dreamer.Link("ciao", layer));
+            this.links.push( new dreamer.Link("", layer));
         }
     }
 
@@ -28,6 +28,22 @@ dreamer.Edge = (function (global) {
 
     Edge.prototype.is_touching = function (node) {
         return node === this.node1 || node === this.node2;
+    };
+    
+    Edge.prototype.hasLink = function (layer) {
+        for (var l in this.links) {
+                console.log("link "+ l);
+                if(layer === this.links[l].layer)
+                    return true;
+        };
+        return false;
+    };
+
+    Edge.prototype.existBetween= function(n1, n2,layer){
+        if((n1 === this.node1 && n2 === this.node2) || (n2 === this.node1 && n1 === this.node2)){
+            return true
+        }
+        return false;
     };
 
     Edge.prototype.is_loop = function (node) {

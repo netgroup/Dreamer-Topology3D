@@ -133,7 +133,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.bezierCurveTo(cx1, cy1, cx2, cy2, x2, y2);
-        ctx.closePath();
+        //ctx.closePath();
         ctx.stroke();
     }
 
@@ -188,9 +188,10 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 y: -dx.x
             });
             var y = 0;
-            for (i = -(edg.links.length - 1) / 2; i <= (edg.links.length - 1) / 2; i += 1) {
-
-                if (edg.links[0].getLayer() == curLayer.getCurLayer()) {
+            for (var i = -(edg.links.length -1 ) / 2; i <= (edg.links.length -1 ) / 2; i += 1) {
+                console.log("y" + y);
+                console.log("i" + i);
+                if (edg.links[y].getLayer() == curLayer.getCurLayer()) {
                     control = vectoradd(mid, scalarm(norm(dx) * i / 10, normal));
                     bezier(pos1.x, pos1.y, control.x, control.y, control.x, control.y, pos2.x, pos2.y);
                 }
@@ -302,7 +303,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             return;
         };
 
-        var edge, existing = false,
+        var edge, existing = false, updated = false,
             i;
         if (node1 === node2) {
             //loop!!
@@ -312,16 +313,25 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         for (i = edge_list.length - 1; i > -1; i -= 1) {
 
             edge = edge_list[i];
-            if (edge.is_touching(node1) && edge.is_touching(node2)) {
-                existing = true;
+           // edge.existBetween(node1, node2, curLayer.getCurLayer());
+            if (edge.existBetween(node1, node2)) {
+                if(edge.hasLink(curLayer.getCurLayer()))
+                    existing = true;
+                else{
+                    //inserisco nuovo link
+                    edge.addLink("", curLayer.getCurLayer());
+                    updated = true;
+                }
                 break;
             }
         }
 
         if (existing) {
+            console.log("edge already existing!!")
             //edge already existing!!
             return;
-        } else {
+        } else if(updated == false) {
+            console.log("edge not already existing!!")
             var newEdge = new Edge(node1, node2, curLayer.getCurLayer());
             edge_list.push(newEdge);
         }
