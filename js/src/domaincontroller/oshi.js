@@ -56,7 +56,7 @@ dreamer.Oshi = (function () {
                     }
 			 }
 		}
-		console.log(JSON.stringify(result));
+		console.log(JSON.stringify(graph));
 		return result;
 	}
 
@@ -67,7 +67,7 @@ dreamer.Oshi = (function () {
 		if(ntype != undefined){
         	console.log(ntype)
         	for(p in this.spec.nodes[ntype]['properties']){
-         			property[p] = this.spec.nodes[ntype]['properties'][p];
+         			property[p] = JSON.parse(JSON.stringify(this.spec.nodes[ntype]['properties'][p])); 
          	}
          	
          	for(layer in this.spec['layer_constraints'] ){
@@ -77,7 +77,7 @@ dreamer.Oshi = (function () {
          				property['domain-oshi'] = {}
          			property['domain-oshi']['layer-'+layer] = {};
          			for(p in this.spec['layer_constraints'][layer]['nodes-properties']){
-         				property['domain-oshi']['layer-'+layer][p] = this.spec['layer_constraints'][layer]['nodes-properties'][p];
+         				property['domain-oshi']['layer-'+layer][p] =  JSON.parse(JSON.stringify(this.spec['layer_constraints'][layer]['nodes-properties'][p]));  
          			}
          		}
          

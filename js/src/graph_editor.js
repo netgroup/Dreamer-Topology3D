@@ -12,7 +12,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     var CurLayer = dreamer.CurLayer;
     //var DomainController = dreamer.DomainController;
     var EventHandeler = dreamer.Event;
-
+    var curmodelname;
    // var OSHI = dreamer.Oshi;
 
     //var provaoshi = new OSHI();
@@ -189,8 +189,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             });
             var y = 0;
             for (var i = -(edg.links.length -1 ) / 2; i <= (edg.links.length -1 ) / 2; i += 1) {
-                console.log("y" + y);
-                console.log("i" + i);
+                
                 if (edg.links[y].getLayer() == curLayer.getCurLayer()) {
                     control = vectoradd(mid, scalarm(norm(dx) * i / 10, normal));
                     bezier(pos1.x, pos1.y, control.x, control.y, control.x, control.y, pos2.x, pos2.y);
@@ -219,7 +218,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             if (edg.links.length < 2) {
                 draw_simple(edg);
             } else {
-                console.log("draw_multi" + edg.node1.label + "-" + edg.node2.label)
+               // console.log("draw_multi" + edg.node1.label + "-" + edg.node2.label)
                 draw_multi(edg);
             }
         }
@@ -472,7 +471,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         nodes = [];
         edge_list = [];
         graph_parameters = new GraphParameters(domainctrl.getGraphSpecDomine());
-        console.log(JSON.stringify(graph_parameters));
+        //console.log(JSON.stringify(graph_parameters));
         draw();
     }
 
@@ -905,7 +904,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
             var info_data = domainctrl.getNodeProperties(obj, nodes);
             info_data['curLayer'] = curLayer.getCurLayer();
-            console.log(JSON.stringify(info_data));
+            //console.log(JSON.stringify(info_data));
 
             eventHandeler.fire("update_infobox", info_data);
 
@@ -1099,9 +1098,13 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         }     
         
      }
+     function getcurmodelname(){
+        return curmodelname;
+     }
 
     function load(modelname) {
         console.log("load");
+        curmodelname = (modelname);
         domainctrl = new dreamer[getDomainController(modelname)];
 
         domainctrl.loadSpec(modelname, function(resload){
@@ -1119,6 +1122,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             var args = {
                 graph_parameters: graph_parameters,
                 curLayer: curLayer.getCurLayer(),
+                 domain_data: domainctrl.getDomainData(), 
                 modelname: modelname
 
             };
@@ -1265,6 +1269,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         setvmmcfg: setvmmcfg,
         getNotSelectedMgtIp: getNotSelectedMgtIp,
         getInterfacesMgtIp: getInterfacesMgtIp,
-        newExp: newExp
+        newExp: newExp,
+        getcurmodelname: getcurmodelname
     };
 };

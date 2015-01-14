@@ -344,7 +344,7 @@ dreamer.DomainController = (function() {
                 if (this.spec['layer_constraints'][layername].changing_nodes_type == undefined || this.spec['layer_constraints'][layername].changing_nodes_type == true) {
 
                     var new_node_label = this.getNodeLabel(args.node.properties.type);
-                    console.log(new_node_label);
+                  //  console.log(new_node_label);
 
                     graph.vertices[args.node.index].label = new_node_label + (parseInt(args.node.index) + 1);
 
@@ -361,16 +361,19 @@ dreamer.DomainController = (function() {
                 }
             }
             else if(args.node.properties.vm){
+                //console.log("=="+JSON.stringify(graph));
                 var mgtip = args.node.properties.vm.mgt_ip;
                 var interfaces =  args.node.properties.vm.interfaces;
                 var type = graph.vertices[args.node.index].vertex_info["node-type"];
-                                   console.log("@@@@@@@@@@@@@@@@@@@")
+                        //console.log("@@@@@@@@@@@@@@@@@@@")
                         var curnmgtip = graph.vertices[args.node.index].vertex_info['property']["vm"]["mgt_ip"];
                         if(curnmgtip != ""){
                             vmmcontroller.deselectMgtIP(type, curnmgtip);
-                            graph.vertices[args.node.index].vertex_info['property']["vm"]["mgt_ip"] = ""
+                            //console.log(args.node.index)
+                            graph.vertices[0]['vertex_info']['property']["vm"]["mgt_ip"] = ""
                         }
-                console.log("-"+mgtip)
+                //        console.log("-=="+JSON.stringify(graph));
+                //console.log("-"+mgtip)
                 if(mgtip){
                     if(mgtip != ""){
                     var res = vmmcontroller.selectMgtIP(type, mgtip);
@@ -400,13 +403,13 @@ dreamer.DomainController = (function() {
                     }
                     
                 }
-                
+             //   console.log("=="+JSON.stringify(graph));
             }
             //else if(args.node.properties.vm){
             else{
                 //console.log("GENERIC PROP")
                 var keys = Object.keys(args.node.properties);
-
+                 
                 for(k in keys){
                      var hasp =  hasProperty(keys[k], graph.vertices[args.node.index].vertex_info.property);
                     // console.log("GENERIC PROP " +keys[k] + "- " +keys[k].indexOf("domain-") + "- " + JSON.stringify(hasp));
@@ -435,6 +438,7 @@ dreamer.DomainController = (function() {
             }
 
         }
+       //    console.log(JSON.stringify(graph));
         return result;
     };
 

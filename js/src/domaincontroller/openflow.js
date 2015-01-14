@@ -45,7 +45,7 @@ dreamer.OpenFlow = (function () {
                     }
 			 }
 		}
-		console.log(JSON.stringify(result));
+		console.log(JSON.stringify(graph));
 		return result;
 	}
 
@@ -56,7 +56,8 @@ dreamer.OpenFlow = (function () {
 		if(ntype != undefined){
         	console.log(ntype)
         	for(p in this.spec.nodes[ntype]['properties']){
-         			property[p] = this.spec.nodes[ntype]['properties'][p];
+         			property[p] = JSON.parse(JSON.stringify(this.spec.nodes[ntype]['properties'][p])); 
+
          	}
          	
          	for(layer in this.spec['layer_constraints'] ){
@@ -66,7 +67,7 @@ dreamer.OpenFlow = (function () {
          				property['domain-OpenFlow'] = {}
          			property['domain-OpenFlow']['layer-'+layer] = {};
          			for(p in this.spec['layer_constraints'][layer]['nodes-properties']){
-         				property['domain-OpenFlow']['layer-'+layer][p] = this.spec['layer_constraints'][layer]['nodes-properties'][p];
+         				property['domain-OpenFlow']['layer-'+layer][p] = JSON.parse(JSON.stringify(this.spec['layer_constraints'][layer]['nodes-properties'][p]));
          			}
          		}
          

@@ -299,7 +299,8 @@
             //imposta testbed
 
             //rileva pro domain
-            //console.log(JSON.stringify(args.domain_data));
+             console.log("@@@@@@@@@@@@@@@@@");
+            console.log(JSON.stringify(args.domain_data));
             initClusterSelOption(args.domain_data.clustermap);
 
         });
@@ -362,7 +363,7 @@
 
             setTunnelLabel(args.graph_parameters.tunneling);
             setModelLabel(args.modelname);
-
+            initClusterSelOption(args.domain_data.clustermap);
 
             $(info_sidebar + ' .infobox #s_label').change(function() {
                 var index = $(info_sidebar + ' .infobox #index').html(),
@@ -400,20 +401,22 @@
 
             $('#s_cluster').change(function() {
                 var index = $(info_sidebar + ' .infobox #index').html();
-
-                my_graph_editor.set_properties({
+                var modelname ="domain-"+ my_graph_editor.getcurmodelname();
+                var newpro = {
                     node: {
                         index: index,
                         properties: {
-                            "domain-oshi": {
-                                "layer-Control": {
-                                    cluster_id: $('#s_cluster').val()
-                                }
-                            }
+                           
                         }
 
                     }
-                }, true);
+                };
+                newpro.node.properties[modelname]=  {
+                                "layer-Control": {
+                                    cluster_id: $('#s_cluster').val()
+                                }
+                            };
+                my_graph_editor.set_properties(newpro, true);
 
 
             });
@@ -736,7 +739,9 @@
 
             $('#set_cluster_button').click(function() {
                 console.log("setClusterButton");
-                var list = my_graph_editor.getNodesProperty("domain-oshi.layer-Control.cluster_id");
+                                var modelname = my_graph_editor.getcurmodelname();
+
+                var list = my_graph_editor.getNodesProperty("domain-"+modelname+".layer-Control.cluster_id");
                 console.log("list: " + JSON.stringify(list));
                 cmclustereditor.setValue(list);
 
@@ -751,19 +756,23 @@
                     var cindex = n.match(/\d+$/)[0] - 1;
                     console.log(cindex)
                     if ((cindex != undefined && cindex > -1) && (clset[n] != undefined)) {
-                        my_graph_editor.set_properties({
+
+                        var modelname ="domain-"+ my_graph_editor.getcurmodelname();
+                        var newpro = {
                             node: {
                                 index: cindex,
                                 properties: {
-                                    "domain-oshi": {
-                                        "layer-Control": {
-                                            cluster_id: clset[n]
-                                        }
-                                    }
+                                   
                                 }
 
                             }
-                        }, false);
+                        };
+                        newpro.node.properties[modelname]  = {
+                                        "layer-Control": {
+                                            cluster_id: clset[n]
+                                        }
+                                    };
+                        my_graph_editor.set_properties(newpro, false);
                     } else {
                         console.log("Errore dati json set_cluster");
                     }
