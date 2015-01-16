@@ -132,7 +132,7 @@
                              $("#s_mgtip").append("<option value='" + val + "'>" + val + "</option>");
                         }
                         if(type_info.vm['mgt_ip'])
-                            $("#s_mgtip").append("<option value='" + type_info.vm['mgt_ip'] + "' disabled>" + type_info.vm['mgt_ip'] + "</option>");
+                            $("#s_mgtip").append("<option value='" + type_info.vm['mgt_ip'] + "' >" + type_info.vm['mgt_ip'] + "</option>");
                         $('#s_mgtip').val(type_info.vm['mgt_ip']);
 
                         
@@ -146,7 +146,7 @@
                             $("#s_interfaces").append("<option value='" + val + "'>" + val + "</option>");
                         }
                         if(type_info.vm['interfaces'])
-                            $("#s_interfaces").append("<option value='" + type_info.vm['interfaces'] + "' disabled>" + type_info.vm['interfaces'] + "</option>");
+                            $("#s_interfaces").append("<option value='" + type_info.vm['interfaces'] + "' >" + type_info.vm['interfaces'] + "</option>");
                         $('#s_interfaces').val(type_info.vm['interfaces']);
                         }
 
@@ -423,13 +423,13 @@
 
             $('#s_mgtip').change(function() {
                 var index = $(info_sidebar + ' .infobox #index').html();
-
+ console.log($("#s_mgtip").val());
                 my_graph_editor.set_properties({
                     node: {
                         index: index,
                         properties: {
                             "vm": {
-                                "mgt_ip": $('#s_mgtip').val(),
+                                "mgt_ip": "62.40.110.20",
                                 "interfaces": $('#s_interfaces').val()
                             }
                         }
@@ -442,7 +442,8 @@
 
             $('#s_interfaces').change(function() {
                 var index = $(info_sidebar + ' .infobox #index').html();
-
+                console.log($("#s_mgtip").val());
+                 console.log($("#s_label").val());
                 my_graph_editor.set_properties({
                     node: {
                         index: index,
@@ -456,7 +457,7 @@
                     }
                 }, true);
 
-
+                 console.log($("#s_mgtip").val());
             });
 
 
