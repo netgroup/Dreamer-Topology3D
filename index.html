@@ -74,10 +74,25 @@
                                     </li>
                                     <li><a href="#" id="random_button" data-toggle="modal" data-target="#myModalRandom"><span class="fa  fa-random"></span> Random</a>
                                     </li>
+                                    <li>
+                                        <a href="#" id="reset_button"><span class="fa fa-eraser"></span> Reset</a>
+                                    </li>
                                     <li role="presentation" class="divider"></li>
                                     <li><a href="#" id="exp_button" data-toggle="modal" data-target="#myModalDownload"><span class="fa fa fa-floppy-o"></span> Export to file</a>
                                     </li>
                                     <li><a href="#" id="image_button"><span class="fa fa-picture-o"></span> Get Image</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="btn-group btn-group-sm navbar-btn" id="layout-menu">
+                                <button id="layout_button_group" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"> Layout <span class="fa fa-sort-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" id="dropdown-menu-layout" role="menu">
+                                    <li><a href="#" id="live_button"><span class="fa fa-play"></span> Live</a>
+                                    </li>
+                                    <li role="presentation" class="divider"></li>
+                                    <li><a href="#" id="circular"><span class="fa fa-spinner"></span> Circular</a>
                                     </li>
                                 </ul>
                             </div>
@@ -88,17 +103,6 @@
                                     <li><a href="?model=oshi" id="oshi_network"> OSHI network</a>
                                     </li>
                                     <li><a href="?model=openflow" id="of_network"> OpenFlow network</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="btn-group btn-group-sm navbar-btn" id="layout-menu">
-                                <button id="layout_button_group" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"> Layout <span class="fa fa-sort-down"></span>
-                                </button>
-                                <ul class="dropdown-menu" id="dropdown-menu-layout" role="menu">
-                                    <li><a href="#" id="live_button"><span class="fa fa-play"></span> Live</a>
-                                    </li>
-                                    <li role="presentation" class="divider"></li>
-                                    <li><a href="#" id="circular"><span class="fa fa-spinner"></span> Circular</a>
                                     </li>
                                 </ul>
                             </div>
@@ -133,8 +137,7 @@
 
                             </div>
                            
-                            <button id="reset_button" type="button" class="btn btn-default btn-group-sm navbar-btn"><span class="fa fa-eraser"></span> Reset
-                            </button>
+                            
 
                             <div class="btn-group btn-group-sm navbar-btn" id="deployment-menu">
                                 <button id="deployment_button_group" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"><span class="fa fa-tachometer"></span> Deployment <span class="fa fa-sort-down"></span>
@@ -151,11 +154,20 @@
 
                             </div>
 
-                            <button id="credits_button" type="button" class="btn btn-default btn-group-sm navbar-btn" data-toggle="modal" data-target="#myModalCredits"><span class="fa fa-info"></span> Credits
-                            </button>
-                            <button id="help_button" type="button" class="btn btn-default btn-group-sm navbar-btn" data-toggle="modal" data-target="#myModal"><span class="fa fa-question"></span> Help
-                            </button>
+                            <div class="btn-group btn-group-sm navbar-btn" id="infohelp-menu">
+                                <button id="infohelp_button_group" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"><span class="fa fa-info"></span> Info/Help <span class="fa fa-sort-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" id="dropdown-menu-deployment" role="menu">
+                                    <li >
+                                        <a href="#" id="help_button"  data-toggle="modal" data-target="#myModal"> <span class="fa fa-question"></span> Help</a>
+                                    </li>
+                                    <li >
+                                        <a href="#" id="credits_button" data-toggle="modal" data-target="#myModalCredits"> <span class="fa fa-bookmark"></span> Credits</a>
+                                    </li>
 
+                                </ul>
+
+                            </div>
 
 
                         </div>

@@ -1113,8 +1113,8 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             console.log("erroreeeeeeeeeeeeee")
             eventHandeler.fire("error_load_spec", resload['error']);
         } else {
-            if (options.JSONdata) {
-                import_from_JSON(options.JSONdata, false);
+            if (options.example[modelname]) {
+                import_from_JSON(options.example[modelname], false);
                 draw();
             }else{
                 erase_graph();
