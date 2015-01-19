@@ -87,7 +87,7 @@
             var info_sidebar = '#info_sidebar';
 
             if (args.selected == "Vertex") {
-
+                 $('#box_info').show();
                 var base_info = args.base_info;
                 console.log(JSON.stringify(args));
                 $('#title').html('Node Info');
@@ -202,6 +202,7 @@
                         //ctrlconsole.addConsole("h2");
                 }
             } else if (args.selected == "Edge") {
+                $('#box_info').show();
                 var base_info = args.base_info;
 
                 $('#title').html('Edge Info');
@@ -872,6 +873,7 @@
         $('#title').html('');
         $(info_sidebar + ' .infobox #none_selected').show();
         $(info_sidebar + ' .infobox #info').hide();
+        $('#box_info').hide();
     }
 
     function setLayerLabel(layer) {
