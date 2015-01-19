@@ -62,14 +62,14 @@
             console.log("Fired con successoooo " + JSON.stringify(args));
             if (args.live) {
                 $('#live_button').text(' Static')
-                $('#live_button').prepend('<span class="glyphicon glyphicon-pause"></span>')
+                $('#live_button').prepend('<span class="fa fa-pause"></span>')
                 $('#edgeLength').slider('enable');
                 $('#edgeStrength').slider('enable');
                 $('#EdgeLength_label').css("color", "rgb(51,51,51)");
                 $('#EdgeStrength_label').css("color", "rgb(51,51,51)");
             } else {
                 $('#live_button').text('   Live')
-                $('#live_button').prepend('<span class="glyphicon glyphicon-play"></span>')
+                $('#live_button').prepend('<span class="fa fa-play"></span>')
                 $('#edgeLength').slider('disable');
                 $('#edgeStrength').slider('disable');
                 $('#EdgeLength_label').css("color", "grey");
@@ -877,16 +877,16 @@
     }
 
     function setLayerLabel(layer) {
-        $('#layer-label').text(" - Current View: " + layer+ " - ");
+        $('#layer_button_label').text("View (" + layer + ")");
     };
 
     function setTunnelLabel(tunnel) {
-        $('#tunnel-label').text(" - Tunneling: " + tunnel+ " - ");
+        $('#tunneling_cur').text("(" + tunnel + ")");
     };
 
 
     function setModelLabel(model) {
-        $('#model-label').text(" - Current Model: " + model+ " - ");
+        $('#model_button_label').text("Model (" + model + ")");
     };
 
     function setLayerView(layer) {
