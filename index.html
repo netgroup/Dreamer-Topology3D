@@ -133,6 +133,9 @@
                                     <li id="settunneling">
                                         <a href="#" id="settunneling_button" data-toggle="modal" data-target="#myModalTunnel"> <span class="fa fa-sitemap"></span> Set Tunneling <span id="tunneling_cur"></span></a>
                                     </li>
+                                    <li id="settestbed">
+                                        <a href="#" id="settestbed_button" data-toggle="modal" data-target="#myModalTestBed"> <span class="fa fa-sitemap"></span> Set TestBed <span id="testbed_cur"></span></a>
+                                    </li>
                                 </ul>
 
                             </div>
@@ -643,6 +646,33 @@
                                     <option value=''></option>
                                     <option value='VXLAN'>VXLAN</option>
                                     <option value='OPENVPN'>OPENVPN</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModalTestBed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalTestBedlLabel">Select TestBed</h4>
+                        </div>
+                        <div id="tunnel_body" class="modal-body">
+                            <div id="testbed_mechanism_sec">
+                                <label>TestBed:</label>
+                                <select id='tb_option'>
+                                    <option value=''></option>
+                                    <option value='MININET'>MININET</option>
+                                    <option value='OFELIA'>OFELIA</option>
                                 </select>
                             </div>
 

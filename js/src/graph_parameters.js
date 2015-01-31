@@ -45,6 +45,11 @@ dreamer.GraphParameters = (function (global) {
         
     };
 
+    GraphParameters.prototype.setTestBed = function (testbed) {
+        this.testbed = testbed;
+        
+    };
+
     GraphParameters.prototype.setGraphName = function (name) {
         this.graphname = name;
         

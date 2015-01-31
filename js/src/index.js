@@ -222,6 +222,7 @@
                 $(info_sidebar + ' .infobox #info').show();
             } else if (args.selected == "graph_parameters") {
                 $("#tun_option").val(args.tunneling);
+                $("#tb_option").val(args.testbed);
             } else if (args.selected == "none") {
                 clearInfoBox();
             }
@@ -299,6 +300,7 @@
             setLayerLabel(args.curLayer);
             //imposta tunnel
             $("#tun_option").val(args.graph_parameters.tunneling);
+            $("#tb_option").val(args.graph_parameters.testbed);
             setTunnelLabel(args.graph_parameters.tunneling);
 
             //imposta testbed
@@ -589,6 +591,14 @@
                 my_graph_editor.set_properties({
                     graph_parameters: {
                         tunneling: $('#tun_option').val()
+                    }
+                }, false);
+            });
+
+            $('#tb_option').click(function() {
+                my_graph_editor.set_properties({
+                    graph_parameters: {
+                        testbed: $('#tb_option').val()
                     }
                 }, false);
             });

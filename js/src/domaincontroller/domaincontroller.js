@@ -436,6 +436,16 @@ dreamer.DomainController = (function() {
                 }
 
             }
+            else if(args.graph_parameters.testbed){
+                 if (graph.graph_parameters instanceof dreamer.GraphParameters) {
+                    graph.graph_parameters.setTestBed(args.graph_parameters.testbed);
+                } else {
+
+                    graph.graph_parameters = new dreamer.GraphParameters({
+                        testbed: args.graph_parameters.testbed
+                    });
+                }
+            }
 
         }
        //    console.log(JSON.stringify(graph));
