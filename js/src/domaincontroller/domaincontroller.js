@@ -191,7 +191,28 @@ dreamer.DomainController = (function() {
             }
 
         }
-        console.log("Controllo multihoming" +this.spec['layer_constraints'][layername]['multihoming'])
+        //controllo multilink non abilitato "peo6&&cro3"
+        if(this.spec['layer_constraints'][layername]['multilink'] != undefined){
+            console.log("multilink");
+            var name_a = from_.label + "&&" + to_node.label;
+            var name_b = to_node.label + "&&" + from_.label;
+            console.log(name_a, name_b);
+
+            for (i = edges.length - 1; i > -1; i -= 1) {
+
+                edge = edges[i];
+               // edge.existBetween(node1, node2, curLayer.getCurLayer());
+                if (edge.existBetween(from_, to_node) && edge.hasLink(layername)) {
+                    res["error"] = true;
+                    return res;
+                    
+                }
+            }
+
+        }
+
+        //
+        console.log("Layer constr " + JSON.stringify(this.spec['layer_constraints'][layername]))
         if(this.spec['layer_constraints'][layername]['multihoming'] != undefined && this.spec['layer_constraints'][layername]['multihoming'] == false){
             console.log("Controllo multihoming")
         }
