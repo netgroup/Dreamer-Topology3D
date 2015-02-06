@@ -560,15 +560,16 @@
                 my_graph_editor.validate();
             });
 
-
-            $('#deploy_button').click(function(e) {
-                $('#myModalLoading').modal('show');
-                
-                my_graph_editor.newExp();
-                
-            });
-
-
+            if(location.hostname != "stud.netgroup.uniroma2.it"){
+            
+                        $('#deploy_button').click(function(e) {
+                            $('#myModalLoading').modal('show');
+                            
+                            my_graph_editor.newExp();
+                            
+                        });
+            
+            }
 
             $('#exp_button').click(function(e) {
 
