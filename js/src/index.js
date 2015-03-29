@@ -317,7 +317,7 @@
             $('#panel_head').css('display', 'none');
             $('#collapsepalette').css('display', 'none');
             $('#accordion').css('display', 'none');
-            var exp_name = ""; //args.exp_name;
+            var exp_name = (args.exp_id)? args.exp_id: "";
             ctrlconsole = new dreamer.Ctrlfwc('myTab', exp_name);
             ctrlconsole.addConsole("deployment");
             mod = "EXP";

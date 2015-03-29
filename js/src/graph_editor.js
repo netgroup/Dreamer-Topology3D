@@ -1218,20 +1218,22 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
     function newExp () {
+        var exp_id =  new Date().getTime();
         var res = domainctrl.newExp({
             edges: edge_list,
             vertices: nodes,
-            graph_parameters: graph_parameters
+            graph_parameters: graph_parameters,
+            exp_id: exp_id
         }, function(resneexp){
-            //console.log(resvalidate['error'])
+            console.log("resneexp", JSON.stringify(resneexp));
             if (resneexp['error'] != undefined ) {
                 console.log("erroreeeeeeeeeeeeee" + JSON.stringify(resneexp));
-                eventHandeler.fire("EXP_MODE", resneexp['error']);
+                eventHandeler.fire("EXP_MODE", {exp_id: exp_id, error: resneexp['error']});
             } 
             else  {
                 console.log("newExp fatto");
                 console.log(resneexp)
-                eventHandeler.fire("EXP_MODE");
+                eventHandeler.fire("EXP_MODE", {exp_id: exp_id});
             }
         });
     }

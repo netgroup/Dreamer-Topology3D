@@ -3,24 +3,19 @@ if (typeof dreamer === 'undefined') {
 }
 
 dreamer.DomainController = (function() {
-    if(!location.hostname){
-            var host = "127.0.0.1";
-            var base = host + ":8080";}
-    else{
-            var host = location.hostname;
-            var base = host + ":8001";
-        }
+
+    var config = new dreamer.Config();
+
+
+    var tsv_host = config.top_ser_validator.host_name;
+    var tsv_port = config.top_ser_validator.host_port;
+    var tsv_base = tsv_host + ":" + tsv_port;
+
     var vmmcontroller;
 
     function DomainController() {
         console.log("DomainController");
         vmmcontroller = new dreamer.VmmController();
-/*        console.log("Prova " + JSON.stringify( vmmcontroller.getNotSelectedMgtIp("OSHI-CR") ));
-        console.log("Prova2:" + JSON.stringify(vmmcontroller.getIntefacesMgtIp("OSHI-CR", "62.40.110.49")))
-        vmmcontroller.selectMgtIP("OSHI-CR", "62.40.110.49");
-        console.log("Prova3 " + JSON.stringify( vmmcontroller.getNotSelectedMgtIp("OSHI-CR") ));
-        vmmcontroller.selectMgtIP("OSHI-CR", "62.40.110.49");
-        console.log("Prova4 " + JSON.stringify( vmmcontroller.getNotSelectedMgtIp("OSHI-CR") ));*/
     }
 
     DomainController.prototype.loadSpec = function(modelname, callback) {
@@ -29,7 +24,7 @@ dreamer.DomainController = (function() {
 
         var self = this;
         $.ajax({
-            url: "http://"+base+"/getSpecModel/?model=" + modelname,
+            url: "http://"+tsv_base+"/getSpecModel/?model=" + modelname,
 
 
             success: function(result) {
@@ -60,7 +55,7 @@ dreamer.DomainController = (function() {
         var topology = this.exportJson(graph);
         var self = this;
         $.ajax({
-            url: "http://"+base+"/validateTopology",
+            url: "http://"+tsv_base+"/validateTopology",
             type: "POST",
             dataType: "json",
             //contentType: 'application/json; charset=utf-8;',	
@@ -90,7 +85,7 @@ dreamer.DomainController = (function() {
     DomainController.prototype.getRandomTopology = function(n, p, callback) {
 
         $.ajax({
-            url: "http://"+base+"/getRandom/?n=" + n + "&p=" + p,
+            url: "http://"+tsv_base+"/getRandom/?n=" + n + "&p=" + p,
 
             beforeSend: function() {
                 $('#randomprogbar').show();
@@ -118,14 +113,14 @@ dreamer.DomainController = (function() {
         //var modelname = this.spec["model_name"];
         var topology = this.exportJson(graph);
         var self = this;
-        var addr = host + ":3000";
+        var addr = config.experiment_handler.host_name + ":" + config.experiment_handler.host_port;
         $.ajax({
             url: "http://"+addr+"/newExp",
             type: "POST",
             dataType: "json",
             //contentType: 'application/json; charset=utf-8;',  
             data: {
-                "expid": 2, 
+                "expid": graph.exp_id, 
                 "topology": this.exportJson(graph),
                 //"modelname": this.spec["model_name"]
             },
@@ -137,6 +132,7 @@ dreamer.DomainController = (function() {
                 callback(response);
             },
             error: function(xhr, status, errore) {
+                console.log("error", "newExp")
                 var response = {};
                 response['error'] = {"message": errore};
                 console.log(xhr, status , errore);
