@@ -3,8 +3,10 @@
 Dreamer-Topology3D
 ==================
 
-Topology 3D (Designer Deployer & Director)
-a result of Dreamer Project (GÉANT Open Call).
+Topology 3D (Designer Deployer & Director) a web GUI for controlling SDN experiments.
+It is a part of the Mantoo suite (https://github.com/netgroup/Dreamer-Mantoo), a result of the [DREAMER project](http://netgroup.uniroma2.it/DREAMER/). 
+
+Addtional documentation is available at http://netgroup.uniroma2.it/OSHI/
 
 Overview
 -----------
