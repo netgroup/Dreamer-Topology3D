@@ -10,7 +10,7 @@ Addtional documentation is available at http://netgroup.uniroma2.it/OSHI/ .
 
 Overview
 -----------
-Topology 3D includes is a simple and intuitive JavaScript Web GUI  ([demo](http://stud.netgroup.uniroma2.it/OSHI/TopoDesigner)), which allows to design an network topology and to configure the services. It can support different "models" (i.e. technology domains) in an exendible way: currently it supports a network of standard OpenFlow device and a network made by OSHI (Open Source Hybrid IP/SDN) nodes. It can export the topologies in JSON format and then they can be deployed. It is also possible to synthetically generate a topology using Networkx. Topology-Designer is a customization of [JS GRAPH EDITOR](https://github.com/rkirov/graph-editor.js) written by Radoslav Kirov.
+Topology 3D includes is a simple and intuitive JavaScript Web GUI  ([demo](http://stud.netgroup.uniroma2.it/OSHI/TopoDesigner)), which allows to design an network topology and to configure the services. It can support different "models" (i.e. technology domains) in an exendible way: currently it supports a network of standard OpenFlow device and a network made by OSHI (Open Source Hybrid IP/SDN) nodes. It can export the topologies in JSON format and then they can be deployed. It is also possible to synthetically generate a topology using Networkx. Topology-Designer is is based on [JS GRAPH EDITOR](https://github.com/rkirov/graph-editor.js) written by Radoslav Kirov.
 
 ---------------------------
 
