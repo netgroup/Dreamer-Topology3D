@@ -39,7 +39,7 @@ By default:
 		this.experiment_handler.host_port = 3000;
 		this.experiment_handler.host_name = "127.0.0.1";
 
-A Demo of Dreamer-Topology3D can be found [here](stud.netgroup.uniroma2.it/OSHI/TopoDesigner).
+A Demo of Dreamer-Topology3D can be found [here](http://stud.netgroup.uniroma2.it/OSHI/TopoDesigner).
 
 ---------------------
 
