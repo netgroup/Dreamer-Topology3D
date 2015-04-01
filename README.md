@@ -16,8 +16,8 @@ Topology 3D includes is a simple and intuitive JavaScript Web GUI  ([demo](http:
 
 ## Requires
 - WebServer (apache2, nginx, etc..) (optional)
-- Dreamer-Topology-and-Service-Validator [(can be found here)](https://github.com/netgroup/Dreamer-Topology-and-Service-Validator) 
 - Dreamer-Experiment-Handler [(can be found here)](https://github.com/netgroup/Dreamer-Experiment-Handler.git) (optional)
+- Dreamer-Topology-and-Service-Validator [(can be found here)](https://github.com/netgroup/Dreamer-Topology-and-Service-Validator)
 
  --------------------
 Getting Started
