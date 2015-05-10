@@ -677,7 +677,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 var pos, canvaspos, dialog;
                 //charCode has browser problems, check with http://www.quirksmode.org/js/keys.html
                 //console.log(e.charCode,String.fromCharCode(e.charCode));
-                if (String.fromCharCode(e.charCode) === '-' && selected_object) {
+                if (String.fromCharCode(e.charCode) === 'd' && selected_object) {
                     if (selected_object instanceof Vertex) {
                         remove_node(selected_object);
                     } else if (selected_object instanceof Edge) {
@@ -688,10 +688,10 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 if (String.fromCharCode(e.charCode) === 'l') {
                     toggle_live();
                 }
-                if (String.fromCharCode(e.charCode) === 'f') {
+                if (String.fromCharCode(e.charCode) === 'r') {
                     SHOWFPS = !SHOWFPS;
                 }
-                if (String.fromCharCode(e.charCode) === 'r' && selected_object instanceof Vertex) {
+                if (String.fromCharCode(e.charCode) === 'f' && selected_object instanceof Vertex) {
                     selected_object.toggle_freeze();
                     this.unselect_object();
                 }

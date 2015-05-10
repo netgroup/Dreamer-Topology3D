@@ -691,6 +691,18 @@
 
             });
 
+            $('#imp_cat_butt_4').click(function(id) {
+                id = 4;
+
+                $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
+                    //console.log(data);
+                    my_graph_editor.import_from_JSON(data, true, true);
+                    //TODO
+                    $('#myModalTopoCatalog').modal('hide');
+                });
+
+            });
+
             $('#set_cfg_mapping').click(function() {
                 console.log("set_cfg_mapping");
 

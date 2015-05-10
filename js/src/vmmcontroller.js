@@ -56,12 +56,12 @@ dreamer.VmmController = (function (global) {
                 }
             }
             if(!result.error &&  founded == false){
-                result['error'] = "MgtIp not founded in vmmconfig!"
+                result['error'] = "The management IP address is not found in vmmconfig!"
             }
 
         }
         else{
-            result['error'] = "Node Type not founded in vmmconfig!"
+            result['error'] = "Node Type is not found in vmmconfig!"
         }
 
         return result;
@@ -101,12 +101,12 @@ dreamer.VmmController = (function (global) {
                 }
             }
             if(!result.error &&  founded == false){
-                result['error'] = "MgtIp not founded in vmmconfig!"
+                result['error'] = "The management IP address is not found in vmmconfig!"
             }
 
         }
         else{
-            result['error'] = "Node Type not founded in vmmconfig!"
+            result['error'] = "Node Type is not found in vmmconfig!"
         }
 
         return result;
@@ -128,7 +128,7 @@ dreamer.VmmController = (function (global) {
 
         }
         else{
-            result['error'] = "Node Type not founded in vmmconfig!"
+            result['error'] = "Node Type is not found in vmmconfig!"
         }
         return result;
     }
@@ -145,12 +145,12 @@ dreamer.VmmController = (function (global) {
                 }
             }
             if(!result.error &&  founded == false){
-                result['error'] = "MgtIp not founded in vmmconfig!"
+                result['error'] = "The management IP address is not found in vmmconfig!"
             }
 
         }
         else{
-            result['error'] = "Node Type not founded in vmmconfig!"
+            result['error'] = "Node Type is not found in vmmconfig!"
         }
         return result;
     }

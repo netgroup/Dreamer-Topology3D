@@ -61,7 +61,7 @@
                 </ul>
                 <ul class="nav navbar-nav">
                     <li>
-                        <div class="btn-group btn-group-sm navbar-btn">
+                        <div  id="button-bar" class="btn-group btn-group-sm navbar-btn">
                             <div class="btn-group btn-group-sm navbar-btn">
                                 <button id="topology_button" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown">Topology <span class="fa fa-sort-down"></span>
                                 </button>
@@ -248,7 +248,7 @@
 
                         <button type="button" id="collapsepalette" class="btn btn-default btn-sm btn-large btn-block" >Drawing Palette-Hide<span class="fa fa-paint-brush"></span> 
                         </button>
-                        </br>
+                        
                 <!--sidebar-->
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     <div class="panel panel-default">
@@ -347,7 +347,7 @@
                                     <br>
                                     <div id="type_inf">
                                         <div id="cldiv" class="input-group input-group-sm">
-                                            <input type="text" id="clabel_input" class="form-control " placeholder="Custom Label">
+                                            <input type="text" id="clabel_input" class="form-control provola" placeholder="Custom Label">
                                             <span class="input-group-btn">
                                             <button id="set_clabel" class="btn btn-default" type="button">Set</button>
                                         </span>
@@ -479,7 +479,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabel">Topology Designer Help</h4>
+                            <h4 class="modal-title" id="myModalLabel">Topology 3D Help</h4>
                         </div>
                         <div id="help_body" class="modal-body">
                             <div class="keyBoard">
@@ -493,17 +493,16 @@
                                         <span>Create edge: Select the first vertex by clicking on it. </span><kbd>Shift</kbd> +<span>left-click  on another vertex (different than the selected one).</span>
                                     </li>
                                     <li>
-                                        <span>Remove avertex/edge: </span><kbd> -</kbd><span>when vertex/edge is selected.</span>
+                                        <span>Delete a vertex/edge: </span><kbd> d</kbd><span>when vertex/edge is selected.</span>
                                     </li>
                                     <li>
-                                        <span>Freeze a vertex: pressing </span> <kbd> r</kbd> <span>freezes the selected vertex (it will not move in live mode)</span>
+                                        <span>Freeze a vertex: pressing </span> <kbd> f</kbd> <span>freezes the selected vertex (it will not move in live mode)</span>
                                     </li>
                                     <li>
                                         <span>Undo vertex deletion: Click on the Undo button. Only the last deleted vertex can be recovered.</span>
                                     </li>
                                     <li>
-                                        <span>Turn on realtime spring-charge model: Press </span><kbd> l</kbd>
-                                        <span>or click on the live checkbox.</span>
+                                        <span>Switch to automatic node positioning: Menu Layout -> Live</span>
                                     </li>
                                 </ul>
                             </div>
@@ -614,6 +613,27 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div class="col-sm-6">
+                                                    <div class="col-item">
+                                                        <div class="photo">
+                                                            <img src="img/catalogTopo/ex4.png" class="img-responsive" alt="a" />
+                                                        </div>
+                                                        <div class="info">
+                                                            <div class="row">
+                                                                <div class="price col-md-6">
+                                                                    <h5>Example 4</h5>
+                                                                    <button type="button" id="imp_cat_butt_4" class="btn btn-success">Load</button>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="clearfix">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -751,7 +771,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
 
-                            <h4 class="modal-title" id="myModalLoadingLabel">Topology Designer Loading...</h4>
+                            <h4 class="modal-title" id="myModalLoadingLabel">Topology 3D Loading...</h4>
                         </div>
                         <div id="loading_body" class="modal-body">
 
@@ -776,7 +796,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
 
-                            <h4 class="modal-title" id="myModalAlertLabel">Topology Designer</h4>
+                            <h4 class="modal-title" id="myModalAlertLabel">Topology 3D</h4>
                         </div>
                         <div id="alert_body" class="modal-body">
                             It is not possible to automatically deploy the topology on this public demo of the Topology 3D tool.
@@ -800,10 +820,10 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title" id="myModalLabelCredits">Topology Designer Credits</h4>
+                            <h4 class="modal-title" id="myModalLabelCredits">Topology 3D Credits</h4>
                         </div>
                         <div id="credits_body" class="modal-body">
-                            Dreamer-Topology-Designer Simple topology designer, a customization of JS GRAPH EDITOR Based JS GRAPH EDITOR written by Radoslav Kirov.
+                            Dreamer-Topology-Designer Simple Topology 3D, a customization of JS GRAPH EDITOR Based JS GRAPH EDITOR written by Radoslav Kirov.
                             <br>
                             <br>This activity has been partially funded by EU in the context of <a href="http://netgroup.uniroma2.it/DREAMER/" target="_blank">DREAMER</a> , which is one of the beneficiary projects of the GÉANT Open Call research initiative, see <a href="http://www.geant.net" target="_blank">www.geant.net</a>. The partners of DREAMER are: CNIT, CREATE-NET and Consortium GARR.
                         </div>
