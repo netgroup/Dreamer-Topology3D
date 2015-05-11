@@ -1,6 +1,14 @@
 .draggable_node{
     cursor: move; 
     border:1.5px dashed #000000;
+
+    width: 47px;
+    height: 47px;
+    padding-top: 4px;
+    padding-right: 4px;
+    padding-bottom: 4px;
+    padding-left: 4px;
+
 }
 
 .canvas-label {
@@ -64,7 +72,39 @@ left: 50%;
 	padding-left: 10px; 
 }
 
+#box_info label, span, select{
+  font-size: 10px
+}
 
+#accordion label, span, select, .slider{
+  font-size: 10px
+}
+#accordion{
+  margin-bottom: 10px;
+}
+
+#collapsepalette{
+  margin-bottom: 10px;
+}
+.panel-heading{
+  padding-bottom: 5px;
+    border-top-width: 5px;
+    border-bottom-width: 0px;
+    padding-top: 5px;
+}
+
+#button-bar span, li{
+  font-size: 12px
+}
+
+.panel-body{
+  padding-top: 0px;
+}
+
+
+#tweaks_sidebar{
+    margin-bottom: 0px;
+}
 
 /*
 border: solid 1px #FF0808;
@@ -83,3 +123,4 @@ border-radius: 1px;
 z-index: 30;
 
 */
+
