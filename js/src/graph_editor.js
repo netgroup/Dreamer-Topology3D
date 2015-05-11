@@ -736,9 +736,12 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         };
         draw();
         eventHandeler.fire("topology_loaded", args);
-        if (live) {
-            toggle_live();
-        }
+        
+        live = !nodes_have_position(nodes);
+        console.log("live", live, LIVE, live!=LIVE);
+        if(live != LIVE)
+           toggle_live();
+        
     }
 
 
@@ -751,6 +754,15 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         });
     }
 
+    function nodes_have_position(_nodes){
+        for (var i in _nodes) {
+            if (_nodes[i].get_pos().x == 0 && _nodes[i].get_pos().y == 0)
+                return false;
+                
+        }
+
+        return true;
+    }
 
     function showEdgeLabel(show){
         NODE_LABEL = show;
@@ -851,7 +863,8 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
     function stop_loop() {
-        clearInterval(loop_interval);
+        if(loop_interval)
+            clearInterval(loop_interval);
     }
 
     function draw() {
@@ -875,17 +888,24 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
 
-    function toggle_live() {
-        LIVE = !LIVE;
+    function toggle_live(value) {
+        console.log("toggle_live");
+        if(value != undefined)
+            LIVE == value;
+        else
+            LIVE = !LIVE;
+        
         if (LIVE) {
             start_loop();
         } else {
             stop_loop();
         }
+        
         eventHandeler.fire("LiveStatus", {
             live: LIVE
         });
     }
+
 
     function set_layer(layer) {
         if (domainctrl.isValidLayers(layer)) {
@@ -1200,6 +1220,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
 
     function setvmmcfg(data){
+        console.log("@@@", JSON.stringify(data));
         var res = domainctrl.setVmmConfig(data);
         
         if(res.error){

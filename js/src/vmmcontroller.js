@@ -42,7 +42,8 @@ dreamer.VmmController = (function (global) {
         if(this.vmmconfig[nodetype] ){
             var ntlist = this.vmmconfig[nodetype];
             var founded= false;
-            for(var     mip in ntlist){
+            for(var  mip in ntlist){
+                console.log("@@@@",mip, mgtip, ntlist[mip][0], ntlist[mip])
                 if(ntlist[mip][0] == mgtip){
                     founded = true;
                     if(ntlist[mip][2] == undefined || ntlist[mip][2] == ""){

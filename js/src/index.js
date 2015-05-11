@@ -61,17 +61,21 @@
             if (args.live) {
                 $('#live_button').text(' Static')
                 $('#live_button').prepend('<span class="fa fa-pause"></span>')
-                $('#edgeLength').slider('enable');
-                $('#edgeStrength').slider('enable');
+                
                 $('#EdgeLength_label').css("color", "rgb(51,51,51)");
                 $('#EdgeStrength_label').css("color", "rgb(51,51,51)");
+
+                $('#edgeLength').slider('enable');
+                $('#edgeStrength').slider('enable');
             } else {
                 $('#live_button').text('   Live')
                 $('#live_button').prepend('<span class="fa fa-play"></span>')
-                $('#edgeLength').slider('disable');
-                $('#edgeStrength').slider('disable');
+                
                 $('#EdgeLength_label').css("color", "grey");
                 $('#EdgeStrength_label').css("color", "grey");
+
+                $('#edgeLength').slider('disable');
+                $('#edgeStrength').slider('disable');
             }
         });
 
@@ -432,7 +436,7 @@
                         index: index,
                         properties: {
                             "vm": {
-                                "mgt_ip": "62.40.110.20",
+                                "mgt_ip": $("#s_mgtip").val(),
                                 "interfaces": $('#s_interfaces').val()
                             }
                         }
@@ -662,7 +666,7 @@
 
                 $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
                     //console.log(data);
-                    my_graph_editor.import_from_JSON(data, true, true);
+                    my_graph_editor.import_from_JSON(data, false, true);
                     //TODO
                     $('#myModalTopoCatalog').modal('hide');
                 });
@@ -673,7 +677,7 @@
 
                 $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
                     //console.log(data);
-                    my_graph_editor.import_from_JSON(data, true, true);
+                    my_graph_editor.import_from_JSON(data, false, true);
                     //TODO
                     $('#myModalTopoCatalog').modal('hide');
                 });
@@ -684,7 +688,7 @@
 
                 $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
                     //console.log(data);
-                    my_graph_editor.import_from_JSON(data, true, true);
+                    my_graph_editor.import_from_JSON(data, false, true);
                     //TODO
                     $('#myModalTopoCatalog').modal('hide');
                 });
@@ -696,7 +700,7 @@
 
                 $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
                     //console.log(data);
-                    my_graph_editor.import_from_JSON(data, true, true);
+                    my_graph_editor.import_from_JSON(data, false, true);
                     //TODO
                     $('#myModalTopoCatalog').modal('hide');
                 });
