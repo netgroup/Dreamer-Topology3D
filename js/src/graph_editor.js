@@ -533,10 +533,11 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             lastcheck = 0;
         return {
             select_object: function(obj) {
-                if (selected_object === obj) {
+                /*if (selected_object === obj) {
                     this.unselect_object();
                     return;
-                }
+                }*/
+                console.log("select_object");
                 if (selected_object) {
                     this.unselect_object();
                 }
@@ -625,10 +626,11 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     this.select_object(hit_node);
                 } else if (hit_node && selected_object instanceof Vertex && (selected_object !== hit_node)) {
                     //toggle_edge(selected_object, hit_node);
+
                     if (!SHIFT) {
 
-                        //  toggle_edge(selected_object, hit_node); //whr
                         this.unselect_object();
+                        this.select_object(hit_node);
                     } else {
                         newEdgebetween(selected_object, hit_node);
                     }

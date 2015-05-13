@@ -664,46 +664,53 @@
             $('#imp_cat_butt_1').click(function(id) {
                 id = 1;
 
-                $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
-                    //console.log(data);
-                    my_graph_editor.import_from_JSON(data, false, true);
-                    //TODO
-                    $('#myModalTopoCatalog').modal('hide');
-                });
-
+                if (confirm("Warning, you will loose the current topology and will load a default topology - are you sure ?")) {
+                   $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
+                        //console.log(data);
+                        my_graph_editor.import_from_JSON(data, false, true);
+                        //TODO
+                        $('#myModalTopoCatalog').modal('hide');
+                    });
+                }
             });
             $('#imp_cat_butt_2').click(function(id) {
                 id = 2;
 
-                $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
-                    //console.log(data);
-                    my_graph_editor.import_from_JSON(data, false, true);
-                    //TODO
-                    $('#myModalTopoCatalog').modal('hide');
-                });
+                if (confirm("Warning, you will loose the current topology and will load a default topology - are you sure ?")) {
+                   $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
+                        //console.log(data);
+                        my_graph_editor.import_from_JSON(data, false, true);
+                        //TODO
+                        $('#myModalTopoCatalog').modal('hide');
+                    });
+                }
 
             });
             $('#imp_cat_butt_3').click(function(id) {
                 id = 3;
 
-                $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
-                    //console.log(data);
-                    my_graph_editor.import_from_JSON(data, false, true);
-                    //TODO
-                    $('#myModalTopoCatalog').modal('hide');
-                });
+                if (confirm("Warning, you will loose the current topology and will load a default topology - are you sure ?")) {
+                   $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
+                        //console.log(data);
+                        my_graph_editor.import_from_JSON(data, false, true);
+                        //TODO
+                        $('#myModalTopoCatalog').modal('hide');
+                    });
+                }
 
             });
 
             $('#imp_cat_butt_4').click(function(id) {
                 id = 4;
 
-                $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
-                    //console.log(data);
-                    my_graph_editor.import_from_JSON(data, false, true);
-                    //TODO
-                    $('#myModalTopoCatalog').modal('hide');
-                });
+                if (confirm("Warning, you will loose the current topology and will load a default topology - are you sure ?")) {
+                   $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
+                        //console.log(data);
+                        my_graph_editor.import_from_JSON(data, false, true);
+                        //TODO
+                        $('#myModalTopoCatalog').modal('hide');
+                    });
+                }
 
             });
 
