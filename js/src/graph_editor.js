@@ -804,7 +804,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         circle(vert.pos.x, vert.pos.y, NODE_RADIUS);
         ctx.drawImage(imageObj, vert.pos.x - NODE_RADIUS / 1.45, vert.pos.y - NODE_RADIUS / 1.45, 1.4 * NODE_RADIUS, 1.4 * NODE_RADIUS)
 
-        if (vert.vertex_info.frozen) {
+        if (vert.info.frozen) {
             //imageObj.src = 'img/clipart-router-6edb-fixed.png'
             ctx.drawImage(imageObj, vert.pos.x - NODE_RADIUS / 1.45, vert.pos.y - NODE_RADIUS / 1.45, 1.4 * NODE_RADIUS, 1.4 * NODE_RADIUS)
                 // ctx.drawImage(imageObj, this.pos.x-NODE_RADIUS/3,this.pos.y-NODE_RADIUS,NODE_RADIUS,NODE_RADIUS)
@@ -921,7 +921,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
         var pos, index, node, edge;
         if (obj && obj instanceof Vertex) {
-            var vertype = obj.vertex_info["node-type"] || "none";
+            var vertype = obj.info["type"] || "none";
 
 
             var info_data = domainctrl.getNodeProperties(obj, nodes);
@@ -1105,12 +1105,12 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             var offset =  canvastag.offset();
             var x = parseInt(ui.offset.left - offset.left);
             var y = parseInt(ui.offset.top - offset.top);
-            var vertex_info = {};
-            vertex_info["frozen"] = false;
-            vertex_info["node-type"] = type;
-            vertex_info["property"] =domainctrl.buildNodeProperties(type);
+            var info = {};
+            info["frozen"] = false;
+            info["type"] = type;
+            info["property"] =domainctrl.buildNodeProperties(type);
             
-            var new_v = new Vertex(nodes, {x: x, y: y},"",vertex_info);
+            var new_v = new Vertex(nodes, {x: x, y: y},"",info);
             if (!LIVE) {
                 controller.update_closest(new_v);
             }

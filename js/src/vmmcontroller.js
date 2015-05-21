@@ -122,7 +122,7 @@ dreamer.VmmController = (function (global) {
             result['list'] = [];
             for(var mip in ntlist){
                if(ntlist[mip][2] == undefined || ntlist[mip][2] == ""){
-                console.log("ciao")
+                console.log("")
                 result['list'].push(ntlist[mip][0]);
                }
             }

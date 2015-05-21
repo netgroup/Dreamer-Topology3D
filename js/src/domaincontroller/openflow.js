@@ -26,7 +26,7 @@ dreamer.OpenFlow = (function () {
 		if (args.node) {
 			 if (args.node.properties['domain-OpenFlow']){
 			 	if(graph.vertices[args.node.index]){
-	 				 	var n_dOpenFlow = graph.vertices[args.node.index].vertex_info.property['domain-OpenFlow'];
+	 				 	var n_dOpenFlow = graph.vertices[args.node.index].info.property['domain-OpenFlow'];
 	 				 	for(key in args.node.properties['domain-OpenFlow']){
 	 				 		console.log(key)
 	 				 		n_dOpenFlow[key] = args.node.properties['domain-OpenFlow'][key];
@@ -41,7 +41,7 @@ dreamer.OpenFlow = (function () {
 	
 			 		var newp = this.buildNodeProperties(args.node.properties.type);
                     for( p in newp){
-                        graph.vertices[args.node.index].vertex_info['property'][p] = newp[p];
+                        graph.vertices[args.node.index].info['property'][p] = newp[p];
                     }
 			 }
 		}
@@ -89,7 +89,7 @@ dreamer.OpenFlow = (function () {
 
         	for(p in this.spec.nodes[ntype]['properties']){
          		if(p != "domain-OpenFlow"){
-         			info_data['type_info'][p] = node['vertex_info']['property'][p];
+         			info_data['type_info'][p] = node['info']['property'][p];
          		}
          	}
          	info_data['model_info'] = {};
@@ -97,7 +97,7 @@ dreamer.OpenFlow = (function () {
          		console.log("#####"+JSON.stringify(this.spec.nodes[ntype]['properties']["domain-OpenFlow"]));
          		for(p in this.spec.nodes[ntype]['properties']["domain-OpenFlow"]){
          			console.log("dentrooo")
-         		 	info_data['model_info'][p] = node['vertex_info']['property']["domain-OpenFlow"][p]
+         		 	info_data['model_info'][p] = node['info']['property']["domain-OpenFlow"][p]
          		}
          	}
 
@@ -105,8 +105,8 @@ dreamer.OpenFlow = (function () {
          		if(this.isVisibleVertex(ntype, layer) && this.spec['layer_constraints'][layer]['nodes-properties']){
          			info_data['model_info']['layer-'+layer] = {};
          			for(p in this.spec['layer_constraints'][layer]['nodes-properties']){
-         				if(node['vertex_info']['property']["domain-OpenFlow"] && node['vertex_info']['property']["domain-OpenFlow"]['layer-'+layer])
-         					info_data['model_info']['layer-'+layer][p] = node['vertex_info']['property']["domain-OpenFlow"]['layer-'+layer][p];
+         				if(node['info']['property']["domain-OpenFlow"] && node['info']['property']["domain-OpenFlow"]['layer-'+layer])
+         					info_data['model_info']['layer-'+layer][p] = node['info']['property']["domain-OpenFlow"]['layer-'+layer][p];
          			}
          		}
          	}
@@ -141,12 +141,12 @@ dreamer.OpenFlow = (function () {
         } 
     	var nodeDView = {icon: img, bgcolor: bgcolor};
 
-    	if(node['vertex_info']['property'] != undefined && node['vertex_info']['property']['domain-OpenFlow'] != undefined){
+    	if(node['info']['property'] != undefined && node['info']['property']['domain-OpenFlow'] != undefined){
     		
     		if(layer == "Control" ){
     			
-    			if(node['vertex_info']['property']['domain-OpenFlow']['layer-'+layer] != undefined && node['vertex_info']['property']['domain-OpenFlow']['layer-'+layer]['cluster_id'] != undefined){
-    				var cluster_id = node['vertex_info']['property']['domain-OpenFlow']['layer-'+layer]['cluster_id'];
+    			if(node['info']['property']['domain-OpenFlow']['layer-'+layer] != undefined && node['info']['property']['domain-OpenFlow']['layer-'+layer]['cluster_id'] != undefined){
+    				var cluster_id = node['info']['property']['domain-OpenFlow']['layer-'+layer]['cluster_id'];
     				var newcolor = getClusterColorBYId(cluster_id);
     				if(newcolor != undefined)
     					nodeDView.bgcolor = newcolor;

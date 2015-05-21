@@ -9,9 +9,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR"
+				"type": "OSHI-CR"
 			}
 		},
 		"cro2": {
@@ -23,9 +23,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR"
+				"type": "OSHI-CR"
 			}
 		},
 		"cro3": {
@@ -37,9 +37,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR"
+				"type": "OSHI-CR"
 			}
 		},
 		"peo4": {
@@ -51,9 +51,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-PE"
+				"type": "OSHI-PE"
 			}
 		},
 		"peo5": {
@@ -65,9 +65,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-PE"
+				"type": "OSHI-PE"
 			}
 		},
 		"peo6": {
@@ -79,9 +79,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-PE"
+				"type": "OSHI-PE"
 			}
 		}
 	},
@@ -89,96 +89,96 @@
 		"cro2&&cro1": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro2&&cro3": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro3&&cro1": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"peo6&&cro2": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"peo6&&cro3": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"peo6&&cro1": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"peo4&&cro1": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"peo4&&cro2": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"peo4&&cro3": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"peo5&&cro2": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"peo5&&cro1": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"peo5&&cro3": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		}

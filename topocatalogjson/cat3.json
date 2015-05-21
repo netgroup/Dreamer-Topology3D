@@ -9,9 +9,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR"
+				"type": "OSHI-CR"
 			}
 		},
 		"cro2": {
@@ -23,9 +23,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR"
+				"type": "OSHI-CR"
 			}
 		},
 		"peo3": {
@@ -37,9 +37,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-PE"
+				"type": "OSHI-PE"
 			}
 		},
 		"peo4": {
@@ -51,9 +51,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-PE"
+				"type": "OSHI-PE"
 			}
 		}
 	},
@@ -61,40 +61,40 @@
 		"peo3&&cro1": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"peo3&&cro2": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro1&&peo4": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro1&&cro2": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro2&&peo4": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		}

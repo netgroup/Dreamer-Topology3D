@@ -288,7 +288,7 @@ dreamer.DomainController = (function() {
     }
 
     DomainController.prototype.getNodeProperties = function(node, nodes){
-        var vertype = node.vertex_info["node-type"] || "none";
+        var vertype = node.info["type"] || "none";
          var info_data = {
                 selected: "Vertex",
                 base_info: {
@@ -365,12 +365,12 @@ dreamer.DomainController = (function() {
 
                     graph.vertices[args.node.index].label = new_node_label + (parseInt(args.node.index) + 1);
 
-                    graph.vertices[args.node.index].vertex_info["node-type"] = args.node.properties.type
+                    graph.vertices[args.node.index].info["type"] = args.node.properties.type
                     var newp = this.buildNodeProperties(args.node.properties.type);
-                    delete graph.vertices[args.node.index].vertex_info['property'];
-                    graph.vertices[args.node.index].vertex_info['property'] = {}
+                    delete graph.vertices[args.node.index].info['property'];
+                    graph.vertices[args.node.index].info['property'] = {}
                     for( p in newp){
-                        graph.vertices[args.node.index].vertex_info['property'][p] = newp[p];
+                        graph.vertices[args.node.index].info['property'][p] = newp[p];
                     }
                 }
                 else{
@@ -381,13 +381,13 @@ dreamer.DomainController = (function() {
                 //console.log("=="+JSON.stringify(graph));
                 var mgtip = args.node.properties.vm.mgt_ip;
                 var interfaces =  args.node.properties.vm.interfaces;
-                var type = graph.vertices[args.node.index].vertex_info["node-type"];
+                var type = graph.vertices[args.node.index].info["type"];
                         //console.log("@@@@@@@@@@@@@@@@@@@")
-                        var curnmgtip = graph.vertices[args.node.index].vertex_info['property']["vm"]["mgt_ip"];
+                        var curnmgtip = graph.vertices[args.node.index].info['property']["vm"]["mgt_ip"];
                         if(curnmgtip != ""){
                             vmmcontroller.deselectMgtIP(type, curnmgtip);
                             //console.log(args.node.index)
-                            graph.vertices[0]['vertex_info']['property']["vm"]["mgt_ip"] = ""
+                            graph.vertices[0]['info']['property']["vm"]["mgt_ip"] = ""
                         }
                 //        console.log("-=="+JSON.stringify(graph));
                 //console.log("-"+mgtip)
@@ -400,13 +400,13 @@ dreamer.DomainController = (function() {
                     }
                     else {
                         
-                        graph.vertices[args.node.index].vertex_info['property']["vm"]["mgt_ip"] = mgtip;
+                        graph.vertices[args.node.index].info['property']["vm"]["mgt_ip"] = mgtip;
                         if(interfaces){
                             var vint = vmmcontroller.isValidInterfaces(type, mgtip,interfaces);
                             if(vint.error){
                                 result['error'] = vint.error;
                             }else{
-                                graph.vertices[args.node.index].vertex_info['property']["vm"]["interfaces"] = interfaces;
+                                graph.vertices[args.node.index].info['property']["vm"]["interfaces"] = interfaces;
                             }
                         }
                             
@@ -428,12 +428,12 @@ dreamer.DomainController = (function() {
                 var keys = Object.keys(args.node.properties);
                  
                 for(k in keys){
-                     var hasp =  hasProperty(keys[k], graph.vertices[args.node.index].vertex_info.property);
+                     var hasp =  hasProperty(keys[k], graph.vertices[args.node.index].info.property);
                     // console.log("GENERIC PROP " +keys[k] + "- " +keys[k].indexOf("domain-") + "- " + JSON.stringify(hasp));
 
                     if(keys[k].indexOf("domain-") < 0 && hasp != null){ // prendo solo quelli base
                       //  console.log("DENTROOOO")
-                        graph.vertices[args.node.index].vertex_info['property'][keys[k]] = args.node.properties[keys[k]];
+                        graph.vertices[args.node.index].info['property'][keys[k]] = args.node.properties[keys[k]];
                     }
                 }
 
@@ -483,8 +483,8 @@ dreamer.DomainController = (function() {
         var props = property.split('.');
         console.log(JSON.stringify(props));
         for(n in nodes){
-            console.log("n: " + n+ " label"+nodes[n].label +" "+ JSON.stringify(nodes[n].vertex_info.property));
-            var curNprps = nodes[n].vertex_info.property;
+            console.log("n: " + n+ " label"+nodes[n].label +" "+ JSON.stringify(nodes[n].info.property));
+            var curNprps = nodes[n].info.property;
             console.log("curNprps :"+JSON.stringify(curNprps));
             for(p in props){
                 console.log("chiave: " + props[p]);
@@ -534,7 +534,7 @@ dreamer.DomainController = (function() {
             jsongraph['vertices'][curvert.label] = {};
             jsongraph['vertices'][curvert.label]['pos'] = curvert.pos;
             jsongraph['vertices'][curvert.label]['v'] = curvert.v;
-            jsongraph['vertices'][curvert.label]['vertex_info'] = curvert.vertex_info;
+            jsongraph['vertices'][curvert.label]['info'] = curvert.info;
 
         }
 
@@ -545,8 +545,8 @@ dreamer.DomainController = (function() {
             jsongraph['edges'][label]['links'] = [];
             for (index in edges[e].links) {
                 var tmplink = {};
-                tmplink['link_label'] = edges[e].links[index].edge_label;
-                tmplink['link-type'] = edges[e].links[index]['layer'];
+                tmplink['id'] = edges[e].links[index].edge_label;
+                tmplink['view'] = edges[e].links[index]['layer'];
                 tmplink['IP-RHS'] = edges[e].links[index]['IP-RHS'];
                 tmplink['IP-LHS'] = edges[e].links[index]['IP-LHS'];
                 //var domainname = 'domain-'+this.spec['model_name'];
@@ -610,7 +610,7 @@ dreamer.DomainController = (function() {
             var new_v = new dreamer.Vertex(nodes, {
                 x: newx,
                 y: newy
-            }, vertex, graph.vertices[vertex].vertex_info);
+            }, vertex, graph.vertices[vertex].info);
 
             nodes.push(new_v);
             tmpdict[vertex] = new_v;
@@ -621,7 +621,7 @@ dreamer.DomainController = (function() {
             var new_e = new dreamer.Edge(tmpdict[n[0]], tmpdict[n[1]]);
 
             for (link in graph.edges[edge].links) {
-                new_e.addLink(graph.edges[edge].links[link].link_label, graph.edges[edge].links[link]['link-type']);
+                new_e.addLink(graph.edges[edge].links[link].id, graph.edges[edge].links[link]['view']);
             }
 
             edges.push(new_e);

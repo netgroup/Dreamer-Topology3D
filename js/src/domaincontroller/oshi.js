@@ -37,7 +37,7 @@ dreamer.Oshi = (function () {
 		if (args.node) {
 			 if (args.node.properties['domain-oshi']){
 			 	if(graph.vertices[args.node.index]){
-	 				 	var n_doshi = graph.vertices[args.node.index].vertex_info.property['domain-oshi'];
+	 				 	var n_doshi = graph.vertices[args.node.index].info.property['domain-oshi'];
 	 				 	for(key in args.node.properties['domain-oshi']){
 	 				 		console.log(key)
 	 				 		n_doshi[key] = args.node.properties['domain-oshi'][key];
@@ -52,7 +52,7 @@ dreamer.Oshi = (function () {
 	
 			 		var newp = this.buildNodeProperties(args.node.properties.type);
                     for( p in newp){
-                        graph.vertices[args.node.index].vertex_info['property'][p] = newp[p];
+                        graph.vertices[args.node.index].info['property'][p] = newp[p];
                     }
 			 }
 		}
@@ -99,7 +99,7 @@ dreamer.Oshi = (function () {
 
         	for(p in this.spec.nodes[ntype]['properties']){
          		if(p != "domain-oshi"){
-         			info_data['type_info'][p] = node['vertex_info']['property'][p];
+         			info_data['type_info'][p] = node['info']['property'][p];
          		}
          	}
          	info_data['model_info'] = {};
@@ -107,7 +107,7 @@ dreamer.Oshi = (function () {
          		console.log("#####"+JSON.stringify(this.spec.nodes[ntype]['properties']["domain-oshi"]));
          		for(p in this.spec.nodes[ntype]['properties']["domain-oshi"]){
          			console.log("dentrooo")
-         		 	info_data['model_info'][p] = node['vertex_info']['property']["domain-oshi"][p]
+         		 	info_data['model_info'][p] = node['info']['property']["domain-oshi"][p]
          		}
          	}
 
@@ -115,8 +115,8 @@ dreamer.Oshi = (function () {
          		if(this.isVisibleVertex(ntype, layer) && this.spec['layer_constraints'][layer]['nodes-properties']){
          			info_data['model_info']['layer-'+layer] = {};
          			for(p in this.spec['layer_constraints'][layer]['nodes-properties']){
-         				if(node['vertex_info']['property']["domain-oshi"] && node['vertex_info']['property']["domain-oshi"]['layer-'+layer])
-         					info_data['model_info']['layer-'+layer][p] = node['vertex_info']['property']["domain-oshi"]['layer-'+layer][p];
+         				if(node['info']['property']["domain-oshi"] && node['info']['property']["domain-oshi"]['layer-'+layer])
+         					info_data['model_info']['layer-'+layer][p] = node['info']['property']["domain-oshi"]['layer-'+layer][p];
          			}
          		}
          	}
@@ -146,12 +146,12 @@ dreamer.Oshi = (function () {
         } 
         var nodeDView = {icon: img, bgcolor: bgcolor};
     	
-    	if(node['vertex_info']['property'] != undefined && node['vertex_info']['property']['domain-oshi'] != undefined){
+    	if(node['info']['property'] != undefined && node['info']['property']['domain-oshi'] != undefined){
     		
     		if(layer == "Control" ){
     			
-    			if(node['vertex_info']['property']['domain-oshi']['layer-'+layer] != undefined && node['vertex_info']['property']['domain-oshi']['layer-'+layer]['cluster_id'] != undefined){
-    				var cluster_id = node['vertex_info']['property']['domain-oshi']['layer-'+layer]['cluster_id'];
+    			if(node['info']['property']['domain-oshi']['layer-'+layer] != undefined && node['info']['property']['domain-oshi']['layer-'+layer]['cluster_id'] != undefined){
+    				var cluster_id = node['info']['property']['domain-oshi']['layer-'+layer]['cluster_id'];
     				var newcolor = getClusterColorBYId(cluster_id);
     				if(newcolor != undefined)
     					nodeDView.bgcolor = newcolor;

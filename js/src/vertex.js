@@ -9,9 +9,9 @@ dreamer.Vertex = (function (global) {
         this.pos = pos ? Point(pos.x, pos.y) : Point();
         this.v = Point();
         if (node_properties)
-            this.vertex_info = node_properties;
+            this.info = node_properties;
         else
-            this.vertex_info = {frozen: false}; //new Vertex_info("", false);
+            this.info = {frozen: false}; //new info("", false);
 
         this.label = label || next_label(nodes);
     }
@@ -48,7 +48,7 @@ dreamer.Vertex = (function (global) {
         };
     };
     Vertex.prototype.change_vel = function (deltax, deltay) {
-        if (!this.vertex_info.frozen) {
+        if (!this.info.frozen) {
             this.v.x += deltax;
             this.v.y += deltay;
         }
@@ -60,10 +60,10 @@ dreamer.Vertex = (function (global) {
         this.pos = new_pos;
     };
     Vertex.prototype.toggle_freeze = function () {
-        this.vertex_info.frozen = !this.vertex_info.frozen;
+        this.info.frozen = !this.info.frozen;
     };
     Vertex.prototype.get_frozen = function () {
-        return this.vertex_info.frozen;
+        return this.info.frozen;
     };
     Vertex.prototype.run = function (SPEED) {
         this.pos.x += Math.min(Math.max(SPEED * this.v.x, -20), 20);
@@ -73,28 +73,28 @@ dreamer.Vertex = (function (global) {
     };
 
     Vertex.prototype.getVertexInfo = function () {
-        return this.vertex_info;
+        return this.info;
     };
 
 
 
    Vertex.prototype.getType = function () {
-        return this.vertex_info['node-type'];
+        return this.info['type'];
     };
 /* 
     Vertex.prototype.setType = function (type) {
-        this.vertex_info.type = type;
+        this.info.type = type;
     };
     Vertex.prototype.getLoopback = function () {
-        return this.vertex_info.loopback;
+        return this.info.loopback;
     };
 
     Vertex.prototype.setLoopback = function (loopback) {
-        this.vertex_info.loopback = loopback;
+        this.info.loopback = loopback;
     };
 
 
-    var Vertex_info = function (vertinfo) {
+    var info = function (vertinfo) {
         this.frozen = vertinfo.frozen;
         this.loopback = vertinfo.loopback;
         this.type = vertinfo.type;

@@ -9,9 +9,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "R.MI2",
 					"domain-oshi": {
@@ -36,9 +36,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "R.MI1",
 					"domain-oshi": {
@@ -63,9 +63,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "R.RM2",
 					"domain-oshi": {
@@ -90,9 +90,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "R.BO1",
 					"domain-oshi": {
@@ -117,9 +117,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.MI2",
 					"domain-oshi": {
@@ -144,9 +144,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX2.MI2",
 					"domain-oshi": {
@@ -171,9 +171,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.MI1",
 					"domain-oshi": {
@@ -198,9 +198,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX2.MI1",
 					"domain-oshi": {
@@ -225,9 +225,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX2.RM2",
 					"domain-oshi": {
@@ -252,9 +252,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.RM2",
 					"domain-oshi": {
@@ -279,9 +279,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX2.BO1",
 					"domain-oshi": {
@@ -306,9 +306,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.BO1",
 					"domain-oshi": {
@@ -333,9 +333,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.TO1",
 					"domain-oshi": {
@@ -360,9 +360,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE1.PV",
 					"domain-oshi": {
@@ -387,9 +387,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.TS",
 					"domain-oshi": {
@@ -414,9 +414,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.MI3",
 					"domain-oshi": {
@@ -441,9 +441,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX2.MI3",
 					"domain-oshi": {
@@ -468,9 +468,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.MI4",
 					"domain-oshi": {
@@ -495,9 +495,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE2.TN",
 					"domain-oshi": {
@@ -522,9 +522,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE1.FE",
 					"domain-oshi": {
@@ -549,9 +549,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE1.AN",
 					"domain-oshi": {
@@ -576,9 +576,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.PD2",
 					"domain-oshi": {
@@ -603,9 +603,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.BO3",
 					"domain-oshi": {
@@ -630,9 +630,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RC.UR",
 					"domain-oshi": {
@@ -657,9 +657,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.FI1",
 					"domain-oshi": {
@@ -684,9 +684,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.BA1",
 					"domain-oshi": {
@@ -711,9 +711,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.PA1",
 					"domain-oshi": {
@@ -738,9 +738,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX.CT1",
 					"domain-oshi": {
@@ -765,9 +765,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.PI1",
 					"domain-oshi": {
@@ -792,9 +792,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.CA1",
 					"domain-oshi": {
@@ -819,9 +819,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.RM1",
 					"domain-oshi": {
@@ -846,9 +846,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "MIX",
 					"domain-oshi": {
@@ -873,9 +873,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "LEVEL 3",
 					"domain-oshi": {
@@ -900,9 +900,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "GOOGLE",
 					"domain-oshi": {
@@ -927,9 +927,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "MPLS (46)",
 					"domain-oshi": {
@@ -954,9 +954,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "MIRROR",
 					"domain-oshi": {
@@ -981,9 +981,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "COGENT",
 					"domain-oshi": {
@@ -1008,9 +1008,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.NA1",
 					"domain-oshi": {
@@ -1035,9 +1035,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE1.TN",
 					"domain-oshi": {
@@ -1062,9 +1062,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE2.PV",
 					"domain-oshi": {
@@ -1089,9 +1089,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RT.PD1",
 					"domain-oshi": {
@@ -1116,9 +1116,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX2.PD2",
 					"domain-oshi": {
@@ -1143,9 +1143,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE2.FRA",
 					"domain-oshi": {
@@ -1170,9 +1170,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE2.FE",
 					"domain-oshi": {
@@ -1197,9 +1197,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE1.GE1",
 					"domain-oshi": {
@@ -1224,9 +1224,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE2.RM4",
 					"domain-oshi": {
@@ -1251,9 +1251,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE2.AQ1",
 					"domain-oshi": {
@@ -1278,9 +1278,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE2.PG",
 					"domain-oshi": {
@@ -1305,9 +1305,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE2.AN",
 					"domain-oshi": {
@@ -1332,9 +1332,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE2.GE1",
 					"domain-oshi": {
@@ -1359,9 +1359,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "MIRROR",
 					"domain-oshi": {
@@ -1386,9 +1386,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "MPLS (36)",
 					"domain-oshi": {
@@ -1413,9 +1413,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE2.VE",
 					"domain-oshi": {
@@ -1440,9 +1440,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE1.VE",
 					"domain-oshi": {
@@ -1467,9 +1467,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RC.VE",
 					"domain-oshi": {
@@ -1494,9 +1494,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RC.SS",
 					"domain-oshi": {
@@ -1521,9 +1521,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE1.SS",
 					"domain-oshi": {
@@ -1548,9 +1548,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE2.SS",
 					"domain-oshi": {
@@ -1575,9 +1575,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE1.RM4",
 					"domain-oshi": {
@@ -1602,9 +1602,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE1.AQ1",
 					"domain-oshi": {
@@ -1629,9 +1629,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE1.PG",
 					"domain-oshi": {
@@ -1656,9 +1656,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RC.FUC",
 					"domain-oshi": {
@@ -1683,9 +1683,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE1.FRA",
 					"domain-oshi": {
@@ -1710,9 +1710,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE1.CS",
 					"domain-oshi": {
@@ -1737,9 +1737,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE2.ME",
 					"domain-oshi": {
@@ -1764,9 +1764,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE1.ME",
 					"domain-oshi": {
@@ -1791,9 +1791,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.RC",
 					"domain-oshi": {
@@ -1818,9 +1818,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RC1.CT1",
 					"domain-oshi": {
@@ -1845,9 +1845,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.ME",
 					"domain-oshi": {
@@ -1872,9 +1872,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX2.PA1",
 					"domain-oshi": {
@@ -1899,9 +1899,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RC.PA1",
 					"domain-oshi": {
@@ -1926,9 +1926,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.CS",
 					"domain-oshi": {
@@ -1953,9 +1953,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE2.CS",
 					"domain-oshi": {
@@ -1980,9 +1980,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE1.LE",
 					"domain-oshi": {
@@ -2007,9 +2007,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE2.LE",
 					"domain-oshi": {
@@ -2034,9 +2034,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "SWE.FG",
 					"domain-oshi": {
@@ -2061,9 +2061,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.FG",
 					"domain-oshi": {
@@ -2088,9 +2088,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE2.PZ",
 					"domain-oshi": {
@@ -2115,9 +2115,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE1.PZ",
 					"domain-oshi": {
@@ -2142,9 +2142,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE1.BR",
 					"domain-oshi": {
@@ -2169,9 +2169,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE2.BR",
 					"domain-oshi": {
@@ -2196,9 +2196,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE1.MT",
 					"domain-oshi": {
@@ -2223,9 +2223,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RC.BA1",
 					"domain-oshi": {
@@ -2250,9 +2250,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RC.BR",
 					"domain-oshi": {
@@ -2277,9 +2277,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RC.LE",
 					"domain-oshi": {
@@ -2304,9 +2304,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RE2.MT",
 					"domain-oshi": {
@@ -2331,9 +2331,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RC.NA1",
 					"domain-oshi": {
@@ -2358,9 +2358,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.SA",
 					"domain-oshi": {
@@ -2385,9 +2385,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RX1.NA2",
 					"domain-oshi": {
@@ -2412,9 +2412,9 @@
 				"x": 0,
 				"y": 0
 			},
-			"vertex_info": {
+			"info": {
 				"frozen": false,
-				"node-type": "OSHI-CR",
+				"type": "OSHI-CR",
 				"property": {
 					"custom_label": "RC.NA2",
 					"domain-oshi": {
@@ -2435,1168 +2435,1168 @@
 		"cro1&&cro2": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro1&&cro3": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro4&&cro3": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro4&&cro2": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro1&&cro5": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro1&&cro6": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro2&&cro7": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro2&&cro8": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro3&&cro9": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro3&&cro10": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro4&&cro11": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro4&&cro12": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro5&&cro7": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro5&&cro10": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro5&&cro13": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro5&&cro14": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro5&&cro15": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro5&&cro16": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro7&&cro12": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro7&&cro8": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro7&&cro17": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro7&&cro18": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro7&&cro19": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro12&&cro10": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro12&&cro11": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro12&&cro20": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro12&&cro21": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro12&&cro22": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro12&&cro23": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro12&&cro24": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro12&&cro25": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro12&&cro26": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro12&&cro27": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro12&&cro28": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro10&&cro29": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro10&&cro30": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro10&&cro9": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro10&&cro31": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro10&&cro35": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro10&&cro38": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro10&&cro25": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro6&&cro8": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro6&&cro39": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro5&&cro6": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro31&&cro5": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro6&&cro18": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro6&&cro40": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro6&&cro29": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro6&&cro30": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro6&&cro9": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro8&&cro15": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro8&&cro11": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro8&&cro41": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro8&&cro42": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro11&&cro9": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro11&&cro43": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro11&&cro38": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro11&&cro25": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro11&&cro44": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro11&&cro23": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro23&&cro7": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro13&&cro45": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro13&&cro9": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro9&&cro46": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro9&&cro31": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro9&&cro47": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro9&&cro48": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro9&&cro35": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro9&&cro28": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro9&&cro27": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro9&&cro26": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro9&&cro49": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro45&&cro50": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro50&&cro29": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro40&&cro14": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro16&&cro17": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro16&&cro51": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro16&&cro52": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro17&&cro51": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro17&&cro52": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro39&&cro19": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro41&&cro53": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro41&&cro42": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro22&&cro42": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro22&&cro41": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro22&&cro54": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro53&&cro54": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro53&&cro55": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro44&&cro20": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro21&&cro49": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro56&&cro57": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro57&&cro58": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro57&&cro30": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro58&&cro30": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro31&&cro59": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro46&&cro59": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro59&&cro10": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro47&&cro60": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro60&&cro10": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro48&&cro61": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro10&&cro61": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro10&&cro62": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro10&&cro63": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro43&&cro63": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro28&&cro27": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro28&&cro64": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro28&&cro65": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro28&&cro66": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro28&&cro67": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro28&&cro68": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro66&&cro65": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro66&&cro69": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro65&&cro69": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro27&&cro71": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro27&&cro70": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro64&&cro72": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro64&&cro73": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro72&&cro73": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro64&&cro26": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro73&&cro26": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro26&&cro74": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro26&&cro75": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro26&&cro76": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro26&&cro77": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro26&&cro78": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro26&&cro79": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro78&&cro79": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro26&&cro80": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro26&&cro81": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro80&&cro84": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro81&&cro80": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro26&&cro82": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro26&&cro83": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro74&&cro75": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro74&&cro85": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro82&&cro86": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro38&&cro86": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro38&&cro87": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro38&&cro88": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro38&&cro89": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro89&&cro90": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro1&&cro32": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro34&&cro1": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro33&&cro1": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro3&&cro36": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		},
 		"cro3&&cro37": {
 			"links": [
 				{
-					"link_label": "ciao",
-					"link-type": "Data"
+					"id": "",
+					"view": "Data"
 				}
 			]
 		}
