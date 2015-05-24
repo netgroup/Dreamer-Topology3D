@@ -661,58 +661,58 @@
                 my_graph_editor.toggle_live();
             });
 
-            $('#imp_cat_butt_1').click(function(id) {
-                id = 1;
-
-                if (confirm("Warning, you will loose the current topology and will load a default topology - are you sure ?")) {
-                   $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
+            var open_catalogue_item = function(id) {
+                if (confirm("Warning, you will loose unsaved changes in the current topology - are you sure ?")) {
+                   $.getJSON("topocatalogjson/" + id + ".json", function(data) {
                         //console.log(data);
                         my_graph_editor.import_from_JSON(data, false, true);
                         //TODO
                         $('#myModalTopoCatalog').modal('hide');
                     });
                 }
-            });
-            $('#imp_cat_butt_2').click(function(id) {
-                id = 2;
+	    };
 
-                if (confirm("Warning, you will loose the current topology and will load a default topology - are you sure ?")) {
-                   $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
-                        //console.log(data);
-                        my_graph_editor.import_from_JSON(data, false, true);
-                        //TODO
-                        $('#myModalTopoCatalog').modal('hide');
-                    });
-                }
 
+            $('#imp_OSHI_base_7N').click(function(id) {
+                 open_catalogue_item ('OSHI_base_7N');
             });
+
+            $('#imp_OSHI_12N').click(function(id) {
+                 open_catalogue_item ('OSHI_12N');
+            });
+
+            $('#imp_GARR_2014').click(function(id) {
+                 open_catalogue_item ('GARRR_2014');
+            });
+
             $('#imp_cat_butt_3').click(function(id) {
-                id = 3;
-
-                if (confirm("Warning, you will loose the current topology and will load a default topology - are you sure ?")) {
-                   $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
-                        //console.log(data);
-                        my_graph_editor.import_from_JSON(data, false, true);
-                        //TODO
-                        $('#myModalTopoCatalog').modal('hide');
-                    });
-                }
-
+                open_catalogue_item (3);
             });
 
-            $('#imp_cat_butt_4').click(function(id) {
-                id = 4;
-
-                if (confirm("Warning, you will loose the current topology and will load a default topology - are you sure ?")) {
-                   $.getJSON("topocatalogjson/cat" + id + ".json", function(data) {
-                        //console.log(data);
-                        my_graph_editor.import_from_JSON(data, false, true);
-                        //TODO
-                        $('#myModalTopoCatalog').modal('hide');
-                    });
-                }
-
+            $('#imp_5').click(function(id) {
+                open_catalogue_item ('5');
             });
+
+            $('#imp_6').click(function(id) {
+                open_catalogue_item ('6');
+            });
+
+            $('#imp_7').click(function(id) {
+                open_catalogue_item ('7');
+            });
+
+            $('#imp_8').click(function(id) {
+                open_catalogue_item ('8');
+            });
+
+            $('#imp_9').click(function(id) {
+                open_catalogue_item ('9');
+            });
+
+            $('#imp_cat_butt_10').click(function(id) {
+                open_catalogue_item (10);
+            });
+
 
             $('#set_cfg_mapping').click(function() {
                 console.log("set_cfg_mapping");

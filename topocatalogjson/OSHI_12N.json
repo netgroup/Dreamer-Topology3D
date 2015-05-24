@@ -1,0 +1,513 @@
+{
+	"vertices": {
+		"cro1": {
+			"pos": {
+				"x": 466.9444592037018,
+				"y": 242.06701899412934
+			},
+			"v": {
+				"x": 0.0012643532437525695,
+				"y": -0.008205421357341258
+			},
+			"info": {
+				"frozen": false,
+				"type": "OSHI-CR",
+				"property": {
+					"custom_label": "",
+					"domain-oshi": {
+						"layer-Control": {
+							"cluster_id": ""
+						}
+					},
+					"loopback": "",
+					"vm": {
+						"interfaces": "",
+						"mgt_ip": ""
+					}
+				}
+			}
+		},
+		"cro2": {
+			"pos": {
+				"x": 580.9882506645096,
+				"y": 241.70048256834895
+			},
+			"v": {
+				"x": 0.0028343985721490106,
+				"y": -0.00714907027481726
+			},
+			"info": {
+				"frozen": false,
+				"type": "OSHI-CR",
+				"property": {
+					"custom_label": "",
+					"domain-oshi": {
+						"layer-Control": {
+							"cluster_id": ""
+						}
+					},
+					"loopback": "",
+					"vm": {
+						"interfaces": "",
+						"mgt_ip": ""
+					}
+				}
+			}
+		},
+		"cro3": {
+			"pos": {
+				"x": 524.3671644942515,
+				"y": 326.9216953556581
+			},
+			"v": {
+				"x": 0.0014094537191755574,
+				"y": -0.008649687912366012
+			},
+			"info": {
+				"frozen": false,
+				"type": "OSHI-CR",
+				"property": {
+					"custom_label": "",
+					"domain-oshi": {
+						"layer-Control": {
+							"cluster_id": ""
+						}
+					},
+					"loopback": "",
+					"vm": {
+						"interfaces": "",
+						"mgt_ip": ""
+					}
+				}
+			}
+		},
+		"peo4": {
+			"pos": {
+				"x": 371.90370508513604,
+				"y": 328.85443849403515
+			},
+			"v": {
+				"x": 0.008223882074083491,
+				"y": 0.004707114043701166
+			},
+			"info": {
+				"frozen": false,
+				"type": "OSHI-PE",
+				"property": {
+					"custom_label": "",
+					"domain-oshi": {
+						"layer-Control": {
+							"cluster_id": ""
+						}
+					},
+					"loopback": "",
+					"vm": {
+						"interfaces": "",
+						"mgt_ip": ""
+					}
+				}
+			}
+		},
+		"peo5": {
+			"pos": {
+				"x": 676.7152923428386,
+				"y": 328.12031361982145
+			},
+			"v": {
+				"x": -0.00422163998534187,
+				"y": 0.004358365207887682
+			},
+			"info": {
+				"frozen": false,
+				"type": "OSHI-PE",
+				"property": {
+					"custom_label": "",
+					"domain-oshi": {
+						"layer-Control": {
+							"cluster_id": ""
+						}
+					},
+					"loopback": "",
+					"vm": {
+						"interfaces": "",
+						"mgt_ip": ""
+					}
+				}
+			}
+		},
+		"peo6": {
+			"pos": {
+				"x": 523.4458068311944,
+				"y": 130.55137426750392
+			},
+			"v": {
+				"x": 0.0051792450642164645,
+				"y": -0.006615679709876476
+			},
+			"info": {
+				"frozen": false,
+				"type": "OSHI-PE",
+				"property": {
+					"custom_label": "",
+					"domain-oshi": {
+						"layer-Control": {
+							"cluster_id": ""
+						}
+					},
+					"loopback": "",
+					"vm": {
+						"interfaces": "",
+						"mgt_ip": ""
+					}
+				}
+			}
+		},
+		"cer7": {
+			"pos": {
+				"x": 230.62474403417636,
+				"y": 320.2360654693744
+			},
+			"v": {
+				"x": 0.011519748361821014,
+				"y": 0.03438488565597744
+			},
+			"info": {
+				"frozen": false,
+				"type": "CE",
+				"property": {
+					"custom_label": "",
+					"vm": {
+						"interfaces": "",
+						"mgt_ip": ""
+					}
+				}
+			}
+		},
+		"cer8": {
+			"pos": {
+				"x": 385.41689329955636,
+				"y": 432.6074660975962
+			},
+			"v": {
+				"x": 0.025817631571364283,
+				"y": 0.002773176631711949
+			},
+			"info": {
+				"frozen": false,
+				"type": "CE",
+				"property": {
+					"custom_label": "",
+					"vm": {
+						"interfaces": "",
+						"mgt_ip": ""
+					}
+				}
+			}
+		},
+		"cer9": {
+			"pos": {
+				"x": 436.6617491357997,
+				"y": 65.27385290005824
+			},
+			"v": {
+				"x": 0.0036356173324739727,
+				"y": -0.0020982777607099767
+			},
+			"info": {
+				"frozen": false,
+				"type": "CE",
+				"property": {
+					"custom_label": "",
+					"vm": {
+						"interfaces": "",
+						"mgt_ip": ""
+					}
+				}
+			}
+		},
+		"cer10": {
+			"pos": {
+				"x": 610.1420457757121,
+				"y": 65.11465781369674
+			},
+			"v": {
+				"x": 0.009133791890377219,
+				"y": -0.0009195801167083961
+			},
+			"info": {
+				"frozen": false,
+				"type": "CE",
+				"property": {
+					"custom_label": "",
+					"vm": {
+						"interfaces": "",
+						"mgt_ip": ""
+					}
+				}
+			}
+		},
+		"cer11": {
+			"pos": {
+				"x": 818.0254025533538,
+				"y": 319.02906967471466
+			},
+			"v": {
+				"x": -0.006915529016513933,
+				"y": 0.02996676327093392
+			},
+			"info": {
+				"frozen": false,
+				"type": "CE",
+				"property": {
+					"custom_label": "",
+					"vm": {
+						"interfaces": "",
+						"mgt_ip": ""
+					}
+				}
+			}
+		},
+		"cer12": {
+			"pos": {
+				"x": 665.271270846621,
+				"y": 432.1975210655669
+			},
+			"v": {
+				"x": -0.02023717532626878,
+				"y": 0.0027441347314695053
+			},
+			"info": {
+				"frozen": false,
+				"type": "CE",
+				"property": {
+					"custom_label": "",
+					"vm": {
+						"interfaces": "",
+						"mgt_ip": ""
+					}
+				}
+			}
+		},
+		"ctr13": {
+			"pos": {
+				"x": 646,
+				"y": 163
+			},
+			"v": {
+				"x": 0,
+				"y": 0
+			},
+			"info": {
+				"frozen": false,
+				"type": "OF Controller",
+				"property": {
+					"custom_label": "",
+					"domain-oshi": {
+						"layer-Control": {
+							"cluster_id": ""
+						}
+					},
+					"tcp_port": "6633",
+					"vm": {
+						"interfaces": "",
+						"mgt_ip": ""
+					}
+				}
+			}
+		}
+	},
+	"edges": {
+		"cro2&&cro1": {
+			"links": [
+				{
+					"id": "ciao",
+					"view": "Data"
+				}
+			]
+		},
+		"cro2&&cro3": {
+			"links": [
+				{
+					"id": "ciao",
+					"view": "Data"
+				}
+			]
+		},
+		"cro3&&cro1": {
+			"links": [
+				{
+					"id": "ciao",
+					"view": "Data"
+				}
+			]
+		},
+		"peo6&&cro2": {
+			"links": [
+				{
+					"id": "ciao",
+					"view": "Data"
+				}
+			]
+		},
+		"peo6&&cro1": {
+			"links": [
+				{
+					"id": "ciao",
+					"view": "Data"
+				}
+			]
+		},
+		"peo4&&cro1": {
+			"links": [
+				{
+					"id": "ciao",
+					"view": "Data"
+				}
+			]
+		},
+		"peo4&&cro3": {
+			"links": [
+				{
+					"id": "ciao",
+					"view": "Data"
+				}
+			]
+		},
+		"peo5&&cro2": {
+			"links": [
+				{
+					"id": "ciao",
+					"view": "Data"
+				}
+			]
+		},
+		"peo5&&cro3": {
+			"links": [
+				{
+					"id": "ciao",
+					"view": "Data"
+				}
+			]
+		},
+		"cer9&&peo6": {
+			"links": [
+				{
+					"id": "",
+					"view": "Data"
+				}
+			]
+		},
+		"cer10&&peo6": {
+			"links": [
+				{
+					"id": "",
+					"view": "Data"
+				}
+			]
+		},
+		"cer7&&peo4": {
+			"links": [
+				{
+					"id": "",
+					"view": "Data"
+				}
+			]
+		},
+		"cer8&&peo4": {
+			"links": [
+				{
+					"id": "",
+					"view": "Data"
+				}
+			]
+		},
+		"cer11&&peo5": {
+			"links": [
+				{
+					"id": "",
+					"view": "Data"
+				}
+			]
+		},
+		"cer12&&peo5": {
+			"links": [
+				{
+					"id": "",
+					"view": "Data"
+				}
+			]
+		},
+		"cer7&&cer10": {
+			"links": [
+				{
+					"id": "",
+					"view": "Vll"
+				},
+				{
+					"id": "",
+					"view": "Vll"
+				}
+			]
+		},
+		"cer7&&cer12": {
+			"links": [
+				{
+					"id": "",
+					"view": "Vll"
+				}
+			]
+		},
+		"cer9&&cer11": {
+			"links": [
+				{
+					"id": "",
+					"view": "Vll"
+				}
+			]
+		},
+		"cer9&&cer8": {
+			"links": [
+				{
+					"id": "",
+					"view": "Vll"
+				}
+			]
+		},
+		"cer10&&cer12": {
+			"links": [
+				{
+					"id": "",
+					"view": "Vll"
+				}
+			]
+		},
+		"cer11&&cer8": {
+			"links": [
+				{
+					"id": "",
+					"view": "Vll"
+				},
+				{
+					"id": "",
+					"view": "Vll"
+				}
+			]
+		},
+		"ctr13&&cro2": {
+			"links": [
+				{
+					"id": "",
+					"view": "Data"
+				}
+			]
+		}
+	},
+	"graph_parameters": {
+		"tunneling": "VXLAN",
+		"vlan": 0,
+		"mapped": false,
+		"generated": false,
+		"testbed": "MININET"
+	}
+}
+
