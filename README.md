@@ -28,12 +28,12 @@ Assuming git installed:
 ```sh
 $ git clone https://github.com/netgroup/Dreamer-Topology3D.git
 ```
-**Set the address and the port of the server that runs the Dreamer-Topology-and-Service-Validator and the Dreamer-Experiment-Handler project.** By default Dreamer-Topology-and-Service-Validator endpoints are local (0.0.0.0:8001), otherwise modify the file **js/src/config.js** according to your deployment. 
+**Set the address and the port of the server that runs the Dreamer-Topology-and-Service-Validator and the Dreamer-Experiment-Handler project.** By default Dreamer-Topology-and-Service-Validator endpoints are local (0.0.0.0:8090), otherwise modify the file **js/src/config.js** according to your deployment. 
 By default:
 
 		//Dreamer-Topology-and-Service-Validator
 		this.top_ser_validator = {};
-		this.top_ser_validator.host_port = 8080;
+		this.top_ser_validator.host_port = 8090;
 		this.top_ser_validator.host_name = "127.0.0.1";
 
 		//Experiment Handler

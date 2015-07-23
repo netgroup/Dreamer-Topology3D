@@ -9,7 +9,7 @@ dreamer.Config = (function (global) {
     	
 		//Dreamer-Topology-and-Service-Validator
 		this.top_ser_validator = {};
-		this.top_ser_validator.host_port = 8080;
+		this.top_ser_validator.host_port = 8090;
 		this.top_ser_validator.host_name = "127.0.0.1";
 
 		//Experiment Handler
