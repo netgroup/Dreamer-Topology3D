@@ -44,7 +44,7 @@
 <body>
 
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container-fluid">
+        <div class="container-fluid" id="container_fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -187,7 +187,7 @@
 
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-                <div class="panel panel-default">
+                <div class="panel panel-default" id="panel_big">
                     <div class="panel-heading" id="panel_head" style="padding-bottom: 0px; padding-top: 0px;">
 
                         <input type="file" id="fileElem" style=" width: 0px; height: 0px; ">
@@ -200,7 +200,8 @@
                         </div>
                     </div>
                     <div class="panel-body">
-                        <div class="container-canvas" id="canvas_cont" height="600" style="overflow-y: scroll;max-height: 600px;">
+                       <!-- <div class="container-canvas" id="canvas_cont" height="600" style="overflow-y: scroll;max-height: 600px;"> -->
+                        <div class="container-canvas" id="canvas_cont" >    
                             <div class="canvas-label" >
 
                              <span id="model-label" style="float:left;">
@@ -244,7 +245,7 @@
             </div>
             <!--end col-sm-9...-->
 
-            <div class="col-sm-3 col-md-2 sidebar">
+            <div class="col-sm-3 col-md-2 sidebar" id="sidebar_div">
 
                         <button type="button" id="collapsepalette" class="btn btn-default btn-sm btn-large btn-block" >Drawing Palette-Hide<span class="fa fa-paint-brush"></span> 
                         </button>
@@ -386,24 +387,6 @@
                 </div>
                 <!--end col-sm-3 col-md-2 sidebar-->
 
-
-            </div>
-            <!--end row-->
-
-
-
-            <div class="row">
-                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <hr>
-                    <footer class="text-center">
-                        <!--footer-->
-                        2014 OSHI, Powered by
-                        <a href="https://github.com/rkirov/graph-editor.js" target="_blank"> <i class="fa fa-github" target="_blank"></i> graph-editor.js</a>, <a href="http://getbootstrap.com/" target="_blank"> Bootstrap</a>, <a href="http://jquery.com/" target="_blank"> jQuery </a>
-                        <p style="font-size:12px">This activity has been partially funded by EU in the context of <a href="http://netgroup.uniroma2.it/DREAMER/" target="_blank">DREAMER</a>, which is one of the beneficiary projects of the GÉANT Open Call research initiative, see <a href="http://www.geant.net" target="_blank">www.geant.net</a>. The partners of DREAMER are: CNIT, CREATE-NET and Consortium GARR.</p>
-                    </footer>
-                    <!--end footer-->
-
-
                     <!--ONESTAT SCRIPTCODE START-->
                     <div align="right">
                         <!--
@@ -464,13 +447,12 @@
                     </div>
                     <!--ONESTAT SCRIPTCODE END-->
 
-
-                </div>
-
-
-
-
             </div>
+            <!--end row-->
+
+
+
+
             <!--end col-sm-9..-->
 
             <!-- Modal -->

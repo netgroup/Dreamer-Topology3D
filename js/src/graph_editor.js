@@ -218,7 +218,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             if (edg.links.length < 2) {
                 draw_simple(edg);
             } else {
-               // console.log("draw_multi" + edg.node1.label + "-" + edg.node2.label)
+               // //console.log("draw_multi" + edg.node1.label + "-" + edg.node2.label)
                 draw_multi(edg);
             }
         }
@@ -231,7 +231,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
     function dec_mult(edg) {
-        console.log("dec_mult");
+        //console.log("dec_mult");
         if (edg.links.length > 1) {
             //TODO gestione caso multilink
             remove_edge(edg);
@@ -298,7 +298,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     function newEdgebetween(node1, node2) {
         if ( domainctrl.isValidEdge(node1, node2, edge_list,curLayer.getCurLayer()).error == true ) {
             eventHandeler.fire("alert_warning_msg", "New Edge from node type" + node1.getType() + " to node type " +node2.getType() + " not allowed.");
-            console.log("invalid edge!!")
+            //console.log("invalid edge!!")
             return;
         };
 
@@ -326,11 +326,11 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         }
 
         if (existing) {
-            console.log("edge already existing!!")
+            //console.log("edge already existing!!")
             //edge already existing!!
             return;
         } else if(updated == false) {
-            console.log("edge not already existing!!")
+            //console.log("edge not already existing!!")
             var newEdge = new Edge(node1, node2, curLayer.getCurLayer());
             edge_list.push(newEdge);
         }
@@ -471,7 +471,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         nodes = [];
         edge_list = [];
         graph_parameters = new GraphParameters(domainctrl.getGraphSpecDomine());
-        //console.log(JSON.stringify(graph_parameters));
+        ////console.log(JSON.stringify(graph_parameters));
         draw();
     }
 
@@ -537,13 +537,13 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     this.unselect_object();
                     return;
                 }*/
-                console.log("select_object");
+                //console.log("select_object");
                 if (selected_object) {
                     this.unselect_object();
                 }
                 selected_object = obj;
                 obj.selected = true;
-                console.log('selected_object');
+                //console.log('selected_object');
                 update_infobox(obj);
             },
             set_mouse: function(e) {
@@ -574,12 +574,12 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             update_drag: function(m) {
                 dragging_node.set_pos(m);
                 if (dragging_node === selected_object) {
-                    update_infobox(dragging_node);
+                 //   update_infobox(dragging_node);
                 }
             },
 
             drag_node_stop: function() {
-
+                //console.log("drag_node_stop");
                 if (dragging_frozen_flag === false && dragging_node) {
                     dragging_node.toggle_freeze();
                 }
@@ -612,6 +612,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 }
             },
             mousedown: function() {
+                //console.log('mousedown', closest instanceof Vertex)
                 if (closest && closest instanceof Vertex) {
                     hit_node = closest;
                 }
@@ -619,25 +620,29 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             },
             mouseup: function(e) {
                 var new_v;
+                //console.log(JSON.stringify(dragging_node));
                 if (dragging_node) {
+                    //console.log('mouseup0')
                     this.drag_node_stop();
                 } else if (hit_node && (selected_object === undefined)) {
-                    console.log('mouseup1')
+                    //console.log('mouseup1')
                     this.select_object(hit_node);
                 } else if (hit_node && selected_object instanceof Vertex && (selected_object !== hit_node)) {
                     //toggle_edge(selected_object, hit_node);
-
+                    //console.log('mouseup2')
                     if (!SHIFT) {
-
+                         //console.log('mouseup3')
                         this.unselect_object();
                         this.select_object(hit_node);
                     } else {
+                         //console.log('mouseup4')
                         newEdgebetween(selected_object, hit_node);
                     }
                 } else if (closest) {
-                    console.log('mouseup1')
+                    //console.log('mouseup5')
                     this.select_object(closest);
                 } else {
+                     //console.log('mouseup6')
                     if (SHIFT) {
                         /*if(domainctrl.isInsertEnabled(curLayer.getCurLayer())){
                             new_v = new Vertex(nodes, mouse);
@@ -657,9 +662,11 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 }
             },
             mousemove: function(e) {
+               // //console.log("mousemove")
                 this.set_mouse(e);
-                if (hit_node && !dragging_node) {
-                    this.drag_node_start(hit_node);
+                if (selected_object && hit_node === selected_object && !dragging_node) {
+                    //console.log("drag_node_start");
+                    this.drag_node_start(selected_object);
                 }
                 if (dragging_node) {
                     this.update_drag(mouse);
@@ -678,7 +685,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             keypress: function(e) {
                 var pos, canvaspos, dialog;
                 //charCode has browser problems, check with http://www.quirksmode.org/js/keys.html
-                //console.log(e.charCode,String.fromCharCode(e.charCode));
+                ////console.log(e.charCode,String.fromCharCode(e.charCode));
                 if (String.fromCharCode(e.charCode) === 'd' && selected_object) {
                     if (selected_object instanceof Vertex) {
                         remove_node(selected_object);
@@ -740,7 +747,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         eventHandeler.fire("topology_loaded", args);
         
         live = !nodes_have_position(nodes);
-        console.log("live", live, LIVE, live!=LIVE);
+        //console.log("live", live, LIVE, live!=LIVE);
         if(live != LIVE)
            toggle_live();
         
@@ -891,7 +898,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
 
     function toggle_live(value) {
-        console.log("toggle_live");
+        //console.log("toggle_live");
         if(value != undefined)
             LIVE == value;
         else
@@ -926,7 +933,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
             var info_data = domainctrl.getNodeProperties(obj, nodes);
             info_data['curLayer'] = curLayer.getCurLayer();
-            //console.log(JSON.stringify(info_data));
+            ////console.log(JSON.stringify(info_data));
 
             eventHandeler.fire("update_infobox", info_data);
 
@@ -984,14 +991,14 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
     function set_properties(args, updatebox) {
-        console.log("set_properties: " + JSON.stringify(args));
+        //console.log("set_properties: " + JSON.stringify(args));
         var resetprop = domainctrl.setProperties({
             edges: edge_list,
             vertices: nodes,
             graph_parameters: graph_parameters
         }, args, curLayer.getCurLayer());
         if(resetprop.error){
-            console.log(resetprop.error);
+            //console.log(resetprop.error);
              eventHandeler.fire("alert_warning_msg", resetprop.error);
         }else{
             if (args.node && updatebox) {
@@ -1004,7 +1011,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             }
         }
         
-       // console.log(JSON.stringify(graph_parameters))
+       // //console.log(JSON.stringify(graph_parameters))
 
         draw();
     }
@@ -1014,7 +1021,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
     function get_nodeTypes() {
-        console.log("graph_editor get_nodeTypes");
+        //console.log("graph_editor get_nodeTypes");
         return domainctrl.getNodeTypes();
     }
 
@@ -1097,7 +1104,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         
         var allowed = domainctrl.isNewVertexAllowed(type ,curLayer.getCurLayer());
         if(allowed.error ){
-            console.log(JSON.stringify(allowed))
+            //console.log(JSON.stringify(allowed))
             eventHandeler.fire("alert_warning_msg", allowed.error.message);
         }
         else
@@ -1125,14 +1132,14 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
      }
 
     function load(modelname) {
-        console.log("load");
+        //console.log("load");
         curmodelname = (modelname);
         domainctrl = new dreamer[getDomainController(modelname)];
 
         domainctrl.loadSpec(modelname, function(resload){
-        //     console.log(JSON.stringify(resload));
+        //     //console.log(JSON.stringify(resload));
         if (resload['error'] != undefined ) {
-            console.log("erroreeeeeeeeeeeeee")
+            //console.log("erroreeeeeeeeeeeeee")
             eventHandeler.fire("error_load_spec", resload['error']);
         } else {
             if (options.example[modelname]) {
@@ -1160,12 +1167,12 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             vertices: nodes,
             graph_parameters: graph_parameters
         }, function(resvalidate){
-            //console.log(resvalidate['error'])
+            ////console.log(resvalidate['error'])
             if (resvalidate['error'] != undefined ) {
-            console.log("erroreeeeeeeeeeeeee")
+            //console.log("erroreeeeeeeeeeeeee")
             eventHandeler.fire("INVALID_TOPOLOGY", resvalidate['error']['messages']);
         } else  {
-           console.log(resvalidate)
+           //console.log(resvalidate)
             eventHandeler.fire("VALID_TOPOLOGY");
         }
         });
@@ -1174,12 +1181,12 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
     function getRandomTopology(n,p){
         domainctrl.getRandomTopology(n,p, function(resrandom){
-            console.log(resrandom['error'])
+            //console.log(resrandom['error'])
             if (resrandom['error'] == undefined || resrandom['error'] == true) {
                 eventHandeler.fire("RANDOM_TOPOLOGY", {'error': true});
-            console.log("erroreeeeeeeeeeeeee")
+            //console.log("erroreeeeeeeeeeeeee")
         } else  {
-           console.log(resrandom)
+           //console.log(resrandom)
            import_from_JSON(JSON.stringify(resrandom.topology), true);
             eventHandeler.fire("RANDOM_TOPOLOGY", {'error': false});
             
@@ -1222,11 +1229,11 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
 
     function setvmmcfg(data){
-        console.log("@@@", JSON.stringify(data));
+        //console.log("@@@", JSON.stringify(data));
         var res = domainctrl.setVmmConfig(data);
         
         if(res.error){
-            console.log(res.error);
+            //console.log(res.error);
             eventHandeler.fire("alert_warning_msg", res.error);
         }
         return res;
@@ -1248,14 +1255,14 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             graph_parameters: graph_parameters,
             exp_id: exp_id
         }, function(resneexp){
-            console.log("resneexp", JSON.stringify(resneexp));
+            //console.log("resneexp", JSON.stringify(resneexp));
             if (resneexp['error'] != undefined ) {
-                console.log("erroreeeeeeeeeeeeee" + JSON.stringify(resneexp));
+                //console.log("erroreeeeeeeeeeeeee" + JSON.stringify(resneexp));
                 eventHandeler.fire("EXP_MODE", {exp_id: exp_id, error: resneexp['error']});
             } 
             else  {
-                console.log("newExp fatto");
-                console.log(resneexp)
+                //console.log("newExp fatto");
+                //console.log(resneexp)
                 eventHandeler.fire("EXP_MODE", {exp_id: exp_id});
             }
         });

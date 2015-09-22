@@ -53,8 +53,8 @@
             vmmconfigeditor.refresh();
         });
 
-
-        my_graph_editor.resetCanvasDimension($('#panel_head').width() - 30, 500);
+        resetCanvasDimensions();
+        //my_graph_editor.resetCanvasDimension($('#panel_head').width() - 30, 500);
 
         my_graph_editor.addListener("LiveStatus", function(a, args) {
             console.log("Fired con successoooo " + JSON.stringify(args));
@@ -889,10 +889,17 @@
 
         $(window).resize(function() {
             console.log("RESIZE PAGINA")
-            my_graph_editor.resetCanvasDimension($('#panel_head').width() - 30, 500);
+            resetCanvasDimensions();
         });
 
     });
+
+    function resetCanvasDimensions(){
+        //var width_to_remove = 15;//($('#panel_head').width() > 0) ? $('#panel_head').width()  : 15;
+        var height_to_remove = $('#container_fluid').height() + $('#panel_head').height() +30;
+        //console.log("$('#panel_head').width()", $('#panel_head').width(), "height_to_remove", height_to_remove)
+        my_graph_editor.resetCanvasDimension($('#canvas_cont').width() , $(window).height() - height_to_remove );
+    }
 
     function initClusterSelOption(map) {
         $("#s_cluster").empty();
