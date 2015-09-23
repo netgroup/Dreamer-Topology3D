@@ -317,6 +317,8 @@
             $('#console_div').css('display', 'block');
 
 
+           $('#power_off_button').show();
+
             //nasconodo la barra dei comandi
             $('#panel_head').css('display', 'none');
             $('#collapsepalette').css('display', 'none');
@@ -328,6 +330,22 @@
             $('#myModalLoading').modal('hide');
         });
 
+        my_graph_editor.addListener("DES_MODE", function(a, args) {
+            //rendo visibile la parte con le shell
+            $('#console_div').css('display', 'none');
+
+            $('#power_off_button').hide();
+
+
+            //rattivo la barra dei comandi
+            $('#panel_head').css('display', '');
+            $('#collapsepalette').css('display', '');
+            $('#accordion').css('display', '');
+           
+            ctrlconsole.closeDeployment("deployment");
+            mod = "DES";
+            $('#myModalLoading').modal('hide');
+        });
 
         my_graph_editor.addListener("editor_ready", function(a, args) {
 
@@ -337,7 +355,7 @@
                 $("#dropdown-menu-layer").append("<li> <a href=\"#\" > <span class=\"fa fa-sitemap\"></span> " + layers[i] + "</a> </li>");
             }
 
-
+            $('#power_off_button').hide();
 
             var info_sidebar = '#info_sidebar'
             $(info_sidebar).append("");

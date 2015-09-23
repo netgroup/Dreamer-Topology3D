@@ -33,7 +33,12 @@ dreamer.Ctrlfwc = (function(global) {
 
     };
 
+    Ctrlfwc.prototype.removeConsole = function(nodeid) {
+        if(this._consoles[nodeid] != undefined){
+            this._consoles.splice(nodeid);
+        }
 
+    };
 
     return Ctrlfwc;
 }());
