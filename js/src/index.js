@@ -87,9 +87,11 @@
 
         my_graph_editor.addListener("update_infobox", function(a, args) {
             var info_sidebar = '#info_sidebar';
-
+//if(mod != "EXP"){
             if (args.selected == "Vertex") {
-                $('#box_info').show();
+                if(mod != "EXP")
+                    $('#box_info').show();
+                 
                 var base_info = args.base_info;
                 console.log(JSON.stringify(args));
                 $('#title').html('Node Info');
@@ -195,14 +197,16 @@
                     $('#model_inf_Vll').hide();
                     $('#model_inf_Data').hide();
                 }
-
+//}
 
                 if (mod == "EXP") {
                     ctrlconsole.addConsole(args.base_info.label);
                     //ctrlconsole.addConsole("h2");
                 }
             } else if (args.selected == "Edge") {
-                $('#box_info').show();
+                if(mod != "EXP")
+                    $('#box_info').show();
+                
                 var base_info = args.base_info;
 
                 $('#title').html('Edge Info');
@@ -315,9 +319,8 @@
         my_graph_editor.addListener("EXP_MODE", function(a, args) {
             //rendo visibile la parte con le shell
             $('#console_div').css('display', 'block');
-
-
-           $('#power_off_button').show();
+            $('#exp_msg').show();  
+            $('#power_off_button').show();
 
             //nasconodo la barra dei comandi
             $('#panel_head').css('display', 'none');
@@ -333,7 +336,7 @@
         my_graph_editor.addListener("DES_MODE", function(a, args) {
             //rendo visibile la parte con le shell
             $('#console_div').css('display', 'none');
-
+            $('#exp_msg').hide();
             $('#power_off_button').hide();
 
 
@@ -355,6 +358,7 @@
                 $("#dropdown-menu-layer").append("<li> <a href=\"#\" > <span class=\"fa fa-sitemap\"></span> " + layers[i] + "</a> </li>");
             }
 
+            $('#exp_msg').hide();
             $('#power_off_button').hide();
 
             var info_sidebar = '#info_sidebar'
