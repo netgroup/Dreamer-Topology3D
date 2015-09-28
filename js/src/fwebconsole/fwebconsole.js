@@ -161,6 +161,11 @@ dreamer.Fwc = (function(global) {
         return (text.match(blank) !== null);
     }
 
+    Fwc.prototype.disconnect = function(){
+        console.log("disconnect " + this._channel);
+        this.ws.disconnect();
+    }
+
     Fwc.prototype.initWebSocket = function() {
         console.log("initWebSocket")
         var config = new dreamer.Config();

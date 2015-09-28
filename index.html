@@ -63,6 +63,16 @@
                     <li>
                         <div  id="button-bar" class="btn-group btn-group-sm navbar-btn">
                             <div class="btn-group btn-group-sm navbar-btn">
+                                <button id="model_button" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"><span id="model_button_label" >  Model</span> <span class="fa fa-sort-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="?model=oshi" id="oshi_network" onclick="return confirm('Warning, you will loose unsaved changes in the current topology - are you sure ?');"> OSHI network</a>
+                                    </li>
+                                    <li><a href="?model=openflow" id="of_network" onclick="return confirm('Warning, you will loose unsaved changes in the current topology - are you sure ?');"> OpenFlow network</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="btn-group btn-group-sm navbar-btn">
                                 <button id="topology_button" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown">Topology <span class="fa fa-sort-down"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
@@ -96,16 +106,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="btn-group btn-group-sm navbar-btn">
-                                <button id="model_button" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"><span id="model_button_label" >  Model</span> <span class="fa fa-sort-down"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="?model=oshi" id="oshi_network"> OSHI network</a>
-                                    </li>
-                                    <li><a href="?model=openflow" id="of_network"> OpenFlow network</a>
-                                    </li>
-                                </ul>
-                            </div>
+
                             <div class="btn-group btn-group-sm navbar-btn" id="layer-menu">
                                 <button id="layer_button_group" type="button" class="btn btn-default btn-group-sm dropdown-toggle" data-toggle="dropdown"><span class="fa "></span><span id="layer_button_label" >  View </span> <span class="fa fa-sort-down"></span>
                                 </button>

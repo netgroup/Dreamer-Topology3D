@@ -322,34 +322,24 @@
             $('#exp_msg').show();  
             $('#power_off_button').show();
 
+            //disattivo alcuni menu item 
+            $('#deployment_button_group').prop( "disabled", true );
+            $('#topology_button').prop( "disabled", true );
+            $('#model_button').prop( "disabled", true );
+            $('#tool_button_group').prop( "disabled", true );
+
             //nasconodo la barra dei comandi
             $('#panel_head').css('display', 'none');
             $('#collapsepalette').css('display', 'none');
             $('#accordion').css('display', 'none');
             var exp_name = (args.exp_id)? args.exp_id: "";
             ctrlconsole = new dreamer.Ctrlfwc('myTab', exp_name);
-            ctrlconsole.addConsole("deployment");
+            ctrlconsole.addConsole("deployment", true);
             mod = "EXP";
             $('#myModalLoading').modal('hide');
+            $('html, body').animate({scrollTop:$(document).height()}, 'slow');
         });
-
-        my_graph_editor.addListener("DES_MODE", function(a, args) {
-            //rendo visibile la parte con le shell
-            $('#console_div').css('display', 'none');
-            $('#exp_msg').hide();
-            $('#power_off_button').hide();
-
-
-            //rattivo la barra dei comandi
-            $('#panel_head').css('display', '');
-            $('#collapsepalette').css('display', '');
-            $('#accordion').css('display', '');
-           
-            ctrlconsole.closeDeployment("deployment");
-            mod = "DES";
-            $('#myModalLoading').modal('hide');
-        });
-
+        
         my_graph_editor.addListener("editor_ready", function(a, args) {
 
             var layers = my_graph_editor.get_layers();
@@ -611,6 +601,28 @@
 
             });
 
+        $('#power_off_button').click(function() {
+            //rendo visibile la parte con le shell
+            $('#console_div').css('display', 'none');
+            $('#exp_msg').hide();
+            $('#power_off_button').hide();
+
+            //riattivo alcuni menu item 
+            $('#deployment_button_group').prop( "disabled", false );
+            $('#topology_button').prop( "disabled", false );
+            $('#model_button').prop( "disabled", false );
+            $('#tool_button_group').prop( "disabled", false );
+
+
+            //rattivo la barra dei comandi
+            $('#panel_head').css('display', '');
+            $('#collapsepalette').css('display', '');
+            $('#accordion').css('display', '');
+           
+            ctrlconsole.closeAll();
+            mod = "DES";
+            $('#myModalLoading').modal('hide');
+        });
 
             $('#tun_option').click(function() {
                 my_graph_editor.set_properties({
@@ -750,7 +762,7 @@
             $('#editvmmcfg_button').click(function() {
                 console.log("editvmmcfg_button");
                 var list = my_graph_editor.getvmmcfg();
-                console.log("list: " + JSON.stringify(list));
+                //console.log("list: " + JSON.stringify(list));
                 vmmconfigeditor.setValue(list);
 
             });
@@ -763,7 +775,7 @@
             $('#editvmmap_button').click(function() {
                 console.log("editvmmap_button");
                 var list = my_graph_editor.getNodesProperty("vm");
-                console.log("list: " + JSON.stringify(list));
+                //console.log("list: " + JSON.stringify(list));
                 vmmappingreditor.setValue(list);
 
             });
@@ -774,7 +786,7 @@
                 var clset = JSON.parse(vmmappingreditor.getValue());
                 for (n in clset) {
                     var cindex = n.match(/\d+$/)[0] - 1;
-                    console.log(cindex)
+                    //console.log(cindex)
                     if ((cindex != undefined && cindex > -1) && (clset[n] != undefined)) {
                         my_graph_editor.set_properties({
                             node: {
@@ -802,7 +814,7 @@
                 var modelname = my_graph_editor.getcurmodelname();
 
                 var list = my_graph_editor.getNodesProperty("domain-" + modelname + ".layer-Control.cluster_id");
-                console.log("list: " + JSON.stringify(list));
+                //console.log("list: " + JSON.stringify(list));
                 cmclustereditor.setValue(list);
 
             });
