@@ -49,7 +49,14 @@ dreamer.Fwc = (function(global) {
                 console.log(err);
 
             }
-        } else {
+        } 
+        else if(cmd == 'cmd_reconnect'){
+            this.ws.emit('cmd', {
+                    nodeid: this._channel,
+                    cmd: 'cmd_reconnect'
+                });
+        }
+        else {
             console.log("send cmd: " + cmd + " " + this._channel);
             if (invisible == undefined || invisible == false) {
                 this.cmdHistory.push(cmd);
@@ -187,7 +194,7 @@ dreamer.Fwc = (function(global) {
             self.sendCmd("join", true);
         });
         this.ws.on('cmd_res', function(data) {
-
+            console.log("cmd_res");
             var rows = data.split('\n');
             for (var r in rows) {
                 console.log(rows[r]);
@@ -200,7 +207,7 @@ dreamer.Fwc = (function(global) {
                             $("#" + self._termoutput).append("<div style=\"width: 100%; visibility: visible;\">" + self.toStaticHTML(rows[r]) + "</div>");
                         // }
                     } else {
-                        console.log("deployment");
+                        //console.log("deployment");
                         $("#" + self._termoutput).append("<div style=\"width: 100%; visibility: visible;\">" + self.toStaticHTML(rows[r]) + "</div>");
                     }
                 }
@@ -208,6 +215,12 @@ dreamer.Fwc = (function(global) {
             $(self._div).scrollTop($(self._div)[0].scrollHeight);
 
         });
+        this.ws.on('error_res', function(error_data) {
+            console.log("error_res");
+            if(error_data.msg == "unreachable" || error_data.msg == "notconnected" || error_data.msg == "noresolve")
+                $("#" + self._termoutput).append("<div style=\"width: 100%; visibility: visible;\">Error connecting ssh, please try again. Type: reconnect</div>");
+        });
+
         this.ws.on('disconnect', function() {
             //TODO  
         });
