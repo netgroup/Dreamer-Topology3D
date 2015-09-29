@@ -53,7 +53,7 @@
             vmmconfigeditor.refresh();
         });
 
-        resetCanvasDimensions();
+        //resetCanvasDimensions();
         //my_graph_editor.resetCanvasDimension($('#panel_head').width() - 30, 500);
 
         my_graph_editor.addListener("LiveStatus", function(a, args) {
@@ -61,7 +61,7 @@
             if (args.live) {
                 $('#live_button').text(' Static')
                 $('#live_button').prepend('<span class="fa fa-pause"></span>')
-                
+
                 $('#EdgeLength_label').css("color", "rgb(51,51,51)");
                 $('#EdgeStrength_label').css("color", "rgb(51,51,51)");
 
@@ -70,7 +70,7 @@
             } else {
                 $('#live_button').text('   Live')
                 $('#live_button').prepend('<span class="fa fa-play"></span>')
-                
+
                 $('#EdgeLength_label').css("color", "grey");
                 $('#EdgeStrength_label').css("color", "grey");
 
@@ -87,11 +87,11 @@
 
         my_graph_editor.addListener("update_infobox", function(a, args) {
             var info_sidebar = '#info_sidebar';
-//if(mod != "EXP"){
+            //if(mod != "EXP"){
             if (args.selected == "Vertex") {
-                if(mod != "EXP")
+                if (mod != "EXP")
                     $('#box_info').show();
-                 
+
                 var base_info = args.base_info;
                 console.log(JSON.stringify(args));
                 $('#title').html('Node Info');
@@ -197,16 +197,16 @@
                     $('#model_inf_Vll').hide();
                     $('#model_inf_Data').hide();
                 }
-//}
+                //}
 
                 if (mod == "EXP") {
                     ctrlconsole.addConsole(args.base_info.label);
                     //ctrlconsole.addConsole("h2");
                 }
             } else if (args.selected == "Edge") {
-                if(mod != "EXP")
+                if (mod != "EXP")
                     $('#box_info').show();
-                
+
                 var base_info = args.base_info;
 
                 $('#title').html('Edge Info');
@@ -319,27 +319,31 @@
         my_graph_editor.addListener("EXP_MODE", function(a, args) {
             //rendo visibile la parte con le shell
             $('#console_div').css('display', 'block');
-            $('#exp_msg').show();  
+            $('#exp_msg').show();
             $('#power_off_button').show();
 
             //disattivo alcuni menu item 
-            $('#deployment_button_group').prop( "disabled", true );
-            $('#topology_button').prop( "disabled", true );
-            $('#model_button').prop( "disabled", true );
-            $('#tool_button_group').prop( "disabled", true );
+            $('#deployment_button_group').prop("disabled", true);
+            $('#topology_button').prop("disabled", true);
+            $('#model_button').prop("disabled", true);
+            $('#tool_button_group').prop("disabled", true);
+
+            $('#box_info').hide();
 
             //nasconodo la barra dei comandi
             $('#panel_head').css('display', 'none');
             $('#collapsepalette').css('display', 'none');
             $('#accordion').css('display', 'none');
-            var exp_name = (args.exp_id)? args.exp_id: "";
+            var exp_name = (args.exp_id) ? args.exp_id : "";
             ctrlconsole = new dreamer.Ctrlfwc('myTab', exp_name);
             ctrlconsole.addConsole("deployment", true);
             mod = "EXP";
             $('#myModalLoading').modal('hide');
-            $('html, body').animate({scrollTop:$(document).height()}, 'slow');
+            $('html, body').animate({
+                scrollTop: $(document).height()
+            }, 'slow');
         });
-        
+
         my_graph_editor.addListener("editor_ready", function(a, args) {
 
             var layers = my_graph_editor.get_layers();
@@ -601,28 +605,28 @@
 
             });
 
-        $('#power_off_button').click(function() {
-            //rendo visibile la parte con le shell
-            $('#console_div').css('display', 'none');
-            $('#exp_msg').hide();
-            $('#power_off_button').hide();
+            $('#power_off_button').click(function() {
+                //rendo visibile la parte con le shell
+                $('#console_div').css('display', 'none');
+                $('#exp_msg').hide();
+                $('#power_off_button').hide();
 
-            //riattivo alcuni menu item 
-            $('#deployment_button_group').prop( "disabled", false );
-            $('#topology_button').prop( "disabled", false );
-            $('#model_button').prop( "disabled", false );
-            $('#tool_button_group').prop( "disabled", false );
+                //riattivo alcuni menu item 
+                $('#deployment_button_group').prop("disabled", false);
+                $('#topology_button').prop("disabled", false);
+                $('#model_button').prop("disabled", false);
+                $('#tool_button_group').prop("disabled", false);
 
 
-            //rattivo la barra dei comandi
-            $('#panel_head').css('display', '');
-            $('#collapsepalette').css('display', '');
-            $('#accordion').css('display', '');
-           
-            ctrlconsole.closeAll();
-            mod = "DES";
-            $('#myModalLoading').modal('hide');
-        });
+                //rattivo la barra dei comandi
+                $('#panel_head').css('display', '');
+                $('#collapsepalette').css('display', '');
+                $('#accordion').css('display', '');
+
+                ctrlconsole.closeAll();
+                mod = "DES";
+                $('#myModalLoading').modal('hide');
+            });
 
             $('#tun_option').click(function() {
                 my_graph_editor.set_properties({
@@ -697,54 +701,54 @@
 
             var open_catalogue_item = function(id) {
                 if (confirm("Warning, you will loose unsaved changes in the current topology - are you sure ?")) {
-                   $.getJSON("topocatalogjson/" + id + ".json", function(data) {
+                    $.getJSON("topocatalogjson/" + id + ".json", function(data) {
                         //console.log(data);
                         my_graph_editor.import_from_JSON(data, false, true);
                         //TODO
                         $('#myModalTopoCatalog').modal('hide');
                     });
                 }
-	    };
+            };
 
 
             $('#imp_OSHI_base_7N').click(function(id) {
-                 open_catalogue_item ('OSHI_base_7N');
+                open_catalogue_item('OSHI_base_7N');
             });
 
             $('#imp_OSHI_12N').click(function(id) {
-                 open_catalogue_item ('OSHI_12N');
+                open_catalogue_item('OSHI_12N');
             });
 
             $('#imp_GARR_2014').click(function(id) {
-                 open_catalogue_item ('GARRR_2014');
+                open_catalogue_item('GARRR_2014');
             });
 
             $('#imp_cat_butt_3').click(function(id) {
-                open_catalogue_item (3);
+                open_catalogue_item(3);
             });
 
             $('#imp_5').click(function(id) {
-                open_catalogue_item ('5');
+                open_catalogue_item('5');
             });
 
             $('#imp_6').click(function(id) {
-                open_catalogue_item ('6');
+                open_catalogue_item('6');
             });
 
             $('#imp_7').click(function(id) {
-                open_catalogue_item ('7');
+                open_catalogue_item('7');
             });
 
             $('#imp_8').click(function(id) {
-                open_catalogue_item ('8');
+                open_catalogue_item('8');
             });
 
             $('#imp_9').click(function(id) {
-                open_catalogue_item ('9');
+                open_catalogue_item('9');
             });
 
             $('#imp_cat_butt_10').click(function(id) {
-                open_catalogue_item (10);
+                open_catalogue_item(10);
             });
 
 
@@ -926,13 +930,14 @@
             resetCanvasDimensions();
         });
 
+    resetCanvasDimensions();
     });
 
-    function resetCanvasDimensions(){
+    function resetCanvasDimensions() {
         //var width_to_remove = 15;//($('#panel_head').width() > 0) ? $('#panel_head').width()  : 15;
-        var height_to_remove = $('#container_fluid').height() + $('#panel_head').height() +30;
+        var height_to_remove = $('#container_fluid').height() + $('#panel_head').height() + 30;
         //console.log("$('#panel_head').width()", $('#panel_head').width(), "height_to_remove", height_to_remove)
-        my_graph_editor.resetCanvasDimension($('#canvas_cont').width() , $(window).height() - height_to_remove );
+        my_graph_editor.resetCanvasDimension($('#canvas_cont').width(), $(window).height() - height_to_remove);
     }
 
     function initClusterSelOption(map) {
