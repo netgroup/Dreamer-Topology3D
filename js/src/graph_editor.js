@@ -52,6 +52,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         ORIENTATION = Math.PI,
         SHOWFPS = false,
         SHIFT = false,
+        CTRL = false,
         LOOP = false,
         FPS = options.fps || 60,
         canvastag,
@@ -622,27 +623,29 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 var new_v;
                 //console.log(JSON.stringify(dragging_node));
                 if (dragging_node) {
-                    //console.log('mouseup0')
+                    console.log('mouseup0')
                     this.drag_node_stop();
                 } else if (hit_node && (selected_object === undefined)) {
-                    //console.log('mouseup1')
+                    console.log('mouseup1')
                     this.select_object(hit_node);
                 } else if (hit_node && selected_object instanceof Vertex && (selected_object !== hit_node)) {
                     //toggle_edge(selected_object, hit_node);
                     //console.log('mouseup2')
                     if (!SHIFT) {
-                         //console.log('mouseup3')
+                        console.log('mouseup3')
                         this.unselect_object();
                         this.select_object(hit_node);
-                    } else {
-                         //console.log('mouseup4')
+                    } 
+
+                    else {
+                         console.log('mouseup4')
                         newEdgebetween(selected_object, hit_node);
                     }
                 } else if (closest) {
-                    //console.log('mouseup5')
+                    console.log('mouseup5')
                     this.select_object(closest);
                 } else {
-                     //console.log('mouseup6')
+                     console.log('mouseup6')
                     if (SHIFT) {
                         /*if(domainctrl.isInsertEnabled(curLayer.getCurLayer())){
                             new_v = new Vertex(nodes, mouse);
@@ -675,12 +678,20 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 if (!LIVE) draw();
             },
             keydown: function(e) {
+                console.log("keydown", e.keyCode);
                 if (e.keyCode === 16) {
                     SHIFT = true;
                 }
+                else if(e.keyCode === 17){
+                    CTRL = true;
+                }
             },
             keyup: function(e) {
-                SHIFT = false;
+                console.log("keyup", e.keyCode);
+                if (e.keyCode === 16)
+                    SHIFT = false;
+                else if(e.keyCode === 17)
+                    CTRL = false;
             },
             keypress: function(e) {
                 var pos, canvaspos, dialog;
@@ -934,7 +945,9 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             var info_data = domainctrl.getNodeProperties(obj, nodes);
             info_data['curLayer'] = curLayer.getCurLayer();
             ////console.log(JSON.stringify(info_data));
-
+            if(CTRL == true){
+                eventHandeler.fire("open_console", info_data);
+            }
             eventHandeler.fire("update_infobox", info_data);
 
         } else if (obj && obj instanceof Edge) {
