@@ -935,7 +935,7 @@
 
     function resetCanvasDimensions() {
         //var width_to_remove = 15;//($('#panel_head').width() > 0) ? $('#panel_head').width()  : 15;
-        var height_to_remove = $('#container_fluid').height() + $('#panel_head').height() + 30;
+        var height_to_remove = 30 + $('#container_fluid').height() + (( $('#panel_head').css('display') != 'none' ) ? $('#panel_head').height() : 0) ;
         //console.log("$('#panel_head').width()", $('#panel_head').width(), "height_to_remove", height_to_remove)
         my_graph_editor.resetCanvasDimension($('#canvas_cont').width(), $(window).height() - height_to_remove);
     }
