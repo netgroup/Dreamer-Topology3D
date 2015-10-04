@@ -15,22 +15,31 @@ dreamer.Ctrlfwc = (function(global) {
 
     function addTab (self, nextTab, active) {
       
-        // create the tab
-        $('<li><a href="#tab'+nextTab+'" data-toggle="tab">'+nextTab+'</a></li>').appendTo('#'+self._div);
-    
+       
         // create the tab content
-        if(active)
+        if(active){
+             // create the tab
+            $('<li id="tab_label_'+ nextTab + '" class="active"><a href="#tab'+nextTab+'" data-toggle="tab">'+nextTab+'<span>  <i class="fa fa-times" id="close_'+ nextTab + '" style="cursor: pointer;"></i></span></a></li>').appendTo('#'+self._div);
+   
             $('<div class="tab-pane terminal active" id="tab'+nextTab+'"></div>').appendTo('#myTabContent');
-        else
+        }else{
+            $('<li id="tab_label_'+ nextTab + '"><a href="#tab'+nextTab+'" data-toggle="tab">'+nextTab+'<span>  <i class="fa fa-times" id="close_'+ nextTab + '" style="cursor: pointer;"></i></span></a></li>').appendTo('#'+self._div);
             $('<div class="tab-pane fade terminal" id="tab'+nextTab+'"></div>').appendTo('#myTabContent');
+        
+        }
+        var close_click = function(event){
+            $('#close_'+nextTab).off("click", close_click);
+            console.log("click close", nextTab);
+            self.closeConsole(nextTab);
+        };
 
+        $('#close_'+nextTab).on("click", close_click);
 
-        // make the new tab active
-        $('#tabs a:last').tab('show');
     }
 
     function removeTab(self, tabname){
         $('#tab'+tabname).remove();
+        $('#tab_label_'+tabname).remove();
     }
   
     Ctrlfwc.prototype.addConsole = function(nodeid, active) {
@@ -52,13 +61,18 @@ dreamer.Ctrlfwc = (function(global) {
 
     };
 
+    Ctrlfwc.prototype.closeConsole = function (nodeid){
+        this._consoles[nodeid].disconnect();
+        this.removeConsole(nodeid);
+    }
+
     Ctrlfwc.prototype.closeAll = function() {
         console.log("Ctrlfwc.prototype.close", this._consoles_name.length);
         var self = this;
         this._consoles_name.forEach(function(name, index, array){
             console.log("console index", index, name);
             self._consoles[name].disconnect();
-            self.removeConsole(name)
+            self.removeConsole(name);
         });
         this._consoles = null;
         
