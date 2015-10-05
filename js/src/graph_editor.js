@@ -457,6 +457,9 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         draw();
     }
 
+    function get_vertex_size() {
+        return NODE_RADIUS;
+    }
 
     function change_egde_strength(newval) {
         SPRING = (1 - 1e-2) + 1e-4 * (100 - newval);
@@ -1321,6 +1324,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         setvmmcfg: setvmmcfg,
         getNotSelectedMgtIp: getNotSelectedMgtIp,
         getInterfacesMgtIp: getInterfacesMgtIp,
+        get_vertex_size: get_vertex_size,
         newExp: newExp,
         getcurmodelname: getcurmodelname
     };

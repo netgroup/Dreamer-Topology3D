@@ -524,8 +524,8 @@
             });
 
             $("#vertexSize").slider({
-                min: 0,
-                max: 30,
+                min: my_graph_editor.get_vertex_size(),
+                max: my_graph_editor.get_vertex_size()*3,
                 value: 10,
                 slide: function(event, ui) {
                     my_graph_editor.change_vertex_size(ui.value);
@@ -566,7 +566,7 @@
                     $(this).text("Drawing Palette-Hide");
                     $('#panel_head').css('display', '');
                 }
-
+                resetCanvasDimensions();
 
             });
 
