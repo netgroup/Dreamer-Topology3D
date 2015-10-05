@@ -162,3 +162,13 @@
   border-color: #000000;
   background-color: #111111;
 }
+
+.cmd pre {
+    padding: 0px;
+    margin: 0px 0px 10px;
+    border: 0px;
+    line-height: 1;
+    font-family: FreeMono,monospace;
+    font-size: 13px;
+    color: black;
+}

@@ -17,7 +17,7 @@ dreamer.OpenFlow = (function () {
 	OpenFlow.prototype.setProperties = function(graph, args, layername) {
 		
 		var result = this.parent.setProperties.call(this, graph, args, layername);
-		console.log("OpenFlow-setProperties");
+		//console.log("OpenFlow-setProperties");
 
 		if(result.error){
 			return result;
@@ -28,7 +28,7 @@ dreamer.OpenFlow = (function () {
 			 	if(graph.vertices[args.node.index]){
 	 				 	var n_dOpenFlow = graph.vertices[args.node.index].info.property['domain-OpenFlow'];
 	 				 	for(key in args.node.properties['domain-OpenFlow']){
-	 				 		console.log(key)
+	 				 		//console.log(key)
 	 				 		n_dOpenFlow[key] = args.node.properties['domain-OpenFlow'][key];
 	 				 	}
 	 				 }
@@ -45,16 +45,16 @@ dreamer.OpenFlow = (function () {
                     }
 			 }
 		}
-		console.log(JSON.stringify(graph));
+		//console.log(JSON.stringify(graph));
 		return result;
 	}
 
 	OpenFlow.prototype.buildNodeProperties = function(ntype){ //TODO eliminare param inutili
-		console.log("OpenFlow:buildNodeProperties");
+		//console.log("OpenFlow:buildNodeProperties");
 		
 		var property = this.parent.buildNodeProperties.call(this,ntype);
 		if(ntype != undefined){
-        	console.log(ntype)
+        	//console.log(ntype)
         	for(p in this.spec.nodes[ntype]['properties']){
          			property[p] = JSON.parse(JSON.stringify(this.spec.nodes[ntype]['properties'][p])); 
 
@@ -73,15 +73,15 @@ dreamer.OpenFlow = (function () {
          
          	}
 		}
-		console.log("property: " + JSON.stringify(property));
+		//console.log("property: " + JSON.stringify(property));
         return property;
     };
 
 
 	OpenFlow.prototype.getNodeProperties = function(node, nodes){
-		console.log("OpenFlow:getNodeProperties");
-		console.log(node instanceof dreamer.Vertex);
-		console.log("spec: " + JSON.stringify(this.spec.nodes));
+		//console.log("OpenFlow:getNodeProperties");
+		//console.log(node instanceof dreamer.Vertex);
+		//console.log("spec: " + JSON.stringify(this.spec.nodes));
 		var info_data = this.parent.getNodeProperties.call(this,node, nodes);
 		var ntype = node.getType();
 		if(ntype != undefined){
@@ -94,9 +94,9 @@ dreamer.OpenFlow = (function () {
          	}
          	info_data['model_info'] = {};
          	if(this.spec.nodes[ntype]['properties']["domain-OpenFlow"]){
-         		console.log("#####"+JSON.stringify(this.spec.nodes[ntype]['properties']["domain-OpenFlow"]));
+         		//console.log("#####"+JSON.stringify(this.spec.nodes[ntype]['properties']["domain-OpenFlow"]));
          		for(p in this.spec.nodes[ntype]['properties']["domain-OpenFlow"]){
-         			console.log("dentrooo")
+         			//console.log("dentrooo")
          		 	info_data['model_info'][p] = node['info']['property']["domain-OpenFlow"][p]
          		}
          	}
@@ -117,7 +117,7 @@ dreamer.OpenFlow = (function () {
     };
 
     OpenFlow.prototype.getNodeTypes = function() {
-        console.log("getNodeTypes OpenFlow")
+        //console.log("getNodeTypes OpenFlow")
         return this.spec['list_of_all_node_types'];
     };
 
