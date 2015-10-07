@@ -524,9 +524,9 @@
             });
 
             $("#vertexSize").slider({
-                min: my_graph_editor.get_vertex_size(),
-                max: my_graph_editor.get_vertex_size()*3,
-                value: 10,
+                min: my_graph_editor.get_vertex_size()*0.5,
+                max: my_graph_editor.get_vertex_size()*1.5,
+                value: my_graph_editor.get_vertex_size(),
                 slide: function(event, ui) {
                     my_graph_editor.change_vertex_size(ui.value);
                 }
