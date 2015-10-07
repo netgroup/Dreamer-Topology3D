@@ -726,7 +726,7 @@
             });
 
             $('#imp_GARR_2014').click(function(id) {
-                open_catalogue_item('GARRR_2014');
+                open_catalogue_item('GARR_2014');
             });
 
             $('#imp_cat_butt_3').click(function(id) {
