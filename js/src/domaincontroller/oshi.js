@@ -28,7 +28,7 @@ dreamer.Oshi = (function () {
 	Oshi.prototype.setProperties = function(graph, args, layername) {
 		
 		var result = this.parent.setProperties.call(this, graph, args, layername);
-		console.log("Oshi-setProperties");
+		//console.log("Oshi-setProperties");
 
 		if(result.error){
 			return result;
@@ -39,7 +39,7 @@ dreamer.Oshi = (function () {
 			 	if(graph.vertices[args.node.index]){
 	 				 	var n_doshi = graph.vertices[args.node.index].info.property['domain-oshi'];
 	 				 	for(key in args.node.properties['domain-oshi']){
-	 				 		console.log(key)
+	 				 		//console.log(key)
 	 				 		n_doshi[key] = args.node.properties['domain-oshi'][key];
 	 				 	}
 	 				 }
@@ -56,16 +56,16 @@ dreamer.Oshi = (function () {
                     }
 			 }
 		}
-		console.log(JSON.stringify(graph));
+		//console.log(JSON.stringify(graph));
 		return result;
 	}
 
 	Oshi.prototype.buildNodeProperties = function(ntype){ //TODO eliminare param inutili
-		console.log("Oshi:buildNodeProperties");
+		//console.log("Oshi:buildNodeProperties");
 		
 		var property = this.parent.buildNodeProperties.call(this,ntype);
 		if(ntype != undefined){
-        	console.log(ntype)
+        	//console.log(ntype)
         	for(p in this.spec.nodes[ntype]['properties']){
          			property[p] = JSON.parse(JSON.stringify(this.spec.nodes[ntype]['properties'][p])); 
          	}
@@ -83,15 +83,15 @@ dreamer.Oshi = (function () {
          
          	}
 		}
-		console.log("property: " + JSON.stringify(property));
+		//console.log("property: " + JSON.stringify(property));
         return property;
     };
 
 
 	Oshi.prototype.getNodeProperties = function(node, nodes){
-		console.log("Oshi:getNodeProperties");
-		console.log(node instanceof dreamer.Vertex);
-		console.log("spec: " + JSON.stringify(this.spec.nodes));
+		//console.log("Oshi:getNodeProperties");
+		//console.log(node instanceof dreamer.Vertex);
+		//console.log("spec: " + JSON.stringify(this.spec.nodes));
 		var info_data = this.parent.getNodeProperties.call(this,node, nodes);
 		var ntype = node.getType();
 		if(ntype != undefined){
@@ -104,9 +104,9 @@ dreamer.Oshi = (function () {
          	}
          	info_data['model_info'] = {};
          	if(this.spec.nodes[ntype]['properties']["domain-oshi"]){
-         		console.log("#####"+JSON.stringify(this.spec.nodes[ntype]['properties']["domain-oshi"]));
+         		//console.log("#####"+JSON.stringify(this.spec.nodes[ntype]['properties']["domain-oshi"]));
          		for(p in this.spec.nodes[ntype]['properties']["domain-oshi"]){
-         			console.log("dentrooo")
+         			//console.log("dentrooo")
          		 	info_data['model_info'][p] = node['info']['property']["domain-oshi"][p]
          		}
          	}

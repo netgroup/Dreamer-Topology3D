@@ -28,7 +28,7 @@ dreamer.DomainController = (function() {
 
 
             success: function(result) {
-            	//console.log(JSON.stringify(result));
+            	////console.log(JSON.stringify(result));
                 var response = {};
                 //response['error'] = false;
                 if(! result.error){
@@ -38,9 +38,9 @@ dreamer.DomainController = (function() {
             },
             error: function(xhr, status, errore) {
                 var response = {};
-                // console.log(xhr.statusCode( ))
-                // console.log(status)
-                // console.log(errore)
+                // //console.log(xhr.statusCode( ))
+                // //console.log(status)
+                // //console.log(errore)
                 response['error'] = {"message": "Unable to contact the server, please refresh the page and try again"};
                 callback(response);
             }
@@ -67,13 +67,13 @@ dreamer.DomainController = (function() {
                 var response = {};
                 //response['error'] = false;
                 response = result;
-                //console.log(response);
+                ////console.log(response);
                 callback(response);
             },
             error: function(xhr, status, errore) {
                 var response = {};
                 response['error'] = {"message": errore};
-                console.log(errore);
+                //console.log(errore);
                 callback(response);
             }
 
@@ -109,7 +109,7 @@ dreamer.DomainController = (function() {
 
 
     DomainController.prototype.newExp = function(graph, callback) {
-        console.log("newExp");
+        //console.log("newExp");
         //var modelname = this.spec["model_name"];
         var topology = this.exportJson(graph);
         var self = this;
@@ -128,14 +128,14 @@ dreamer.DomainController = (function() {
                 var response = {};
                 //response['error'] = false;
                 response = result;
-                console.log(response);
+                //console.log(response);
                 callback(response);
             },
             error: function(xhr, status, errore) {
-                console.log("error", "newExp")
+                //console.log("error", "newExp")
                 var response = {};
                 response['error'] = {"message": errore};
-                console.log(xhr, status , errore);
+                //console.log(xhr, status , errore);
                 callback(response);
             }
 
@@ -174,13 +174,13 @@ dreamer.DomainController = (function() {
         var res = {"error": false};
         var from_type = from_.getType();
         var to_type = to_node.getType();
-        console.log(from_type, to_type);
+        //console.log(from_type, to_type);
 
         for (i in lnae) {
 
             if (lnae[i].source == from_type) {
                 if (lnae[i].not_allowed_des.indexOf(to_type) > -1) {
-                    console.log("MALEEEE" + lnae[i].source);
+                    //console.log("MALEEEE" + lnae[i].source);
                    res["error"] = true;
                 }
 
@@ -189,10 +189,10 @@ dreamer.DomainController = (function() {
         }
         //controllo multilink non abilitato "peo6&&cro3"
         if(this.spec['layer_constraints'][layername]['multilink'] != undefined){
-            console.log("multilink");
+            //console.log("multilink");
             var name_a = from_.label + "&&" + to_node.label;
             var name_b = to_node.label + "&&" + from_.label;
-            console.log(name_a, name_b);
+            //console.log(name_a, name_b);
 
             for (i = edges.length - 1; i > -1; i -= 1) {
 
@@ -208,9 +208,9 @@ dreamer.DomainController = (function() {
         }
 
         //
-        console.log("Layer constr " + JSON.stringify(this.spec['layer_constraints'][layername]))
+        //console.log("Layer constr " + JSON.stringify(this.spec['layer_constraints'][layername]))
         if(this.spec['layer_constraints'][layername]['multihoming'] != undefined && this.spec['layer_constraints'][layername]['multihoming'] == false){
-            console.log("Controllo multihoming")
+            //console.log("Controllo multihoming")
         }
 
         return res;
@@ -255,8 +255,8 @@ dreamer.DomainController = (function() {
     };
 
     DomainController.prototype.getNodeTypes = function() {
-        console.log("getNodeTypes");
-        console.log(JSON.stringify(this.spec))
+        //console.log("getNodeTypes");
+        //console.log(JSON.stringify(this.spec))
         //return ["OSHI-CR", "OSHI-PE", "CE", "OF Controller"];
         if(this.spec)
             return this.spec['list_of_all_node_types'];
@@ -342,7 +342,7 @@ dreamer.DomainController = (function() {
             result = this.spec['nodes'][nodetype]['node_label'];
         }
         catch(err){
-            console.log("getNodeLabel Exception: " + err);
+            //console.log("getNodeLabel Exception: " + err);
             result = nodetype;
         }
        
@@ -352,16 +352,16 @@ dreamer.DomainController = (function() {
     };
 
     DomainController.prototype.setProperties = function(graph, args, layername) {
-        console.log("#############DomainController:setProperties" + JSON.stringify(this.spec));
+        //console.log("#############DomainController:setProperties" + JSON.stringify(this.spec));
         var result = {};
 
         if (args.node) {
-            console.log(JSON.stringify(args));
+            //console.log(JSON.stringify(args));
             if (args.node.properties.type){
                 if (this.spec['layer_constraints'][layername].changing_nodes_type == undefined || this.spec['layer_constraints'][layername].changing_nodes_type == true) {
 
                     var new_node_label = this.getNodeLabel(args.node.properties.type);
-                  //  console.log(new_node_label);
+                  //  //console.log(new_node_label);
 
                     graph.vertices[args.node.index].label = new_node_label + (parseInt(args.node.index) + 1);
 
@@ -378,24 +378,24 @@ dreamer.DomainController = (function() {
                 }
             }
             else if(args.node.properties.vm){
-                //console.log("=="+JSON.stringify(graph));
+                ////console.log("=="+JSON.stringify(graph));
                 var mgtip = args.node.properties.vm.mgt_ip;
                 var interfaces =  args.node.properties.vm.interfaces;
                 var type = graph.vertices[args.node.index].info["type"];
-                        //console.log("@@@@@@@@@@@@@@@@@@@")
+                        ////console.log("@@@@@@@@@@@@@@@@@@@")
                         var curnmgtip = graph.vertices[args.node.index].info['property']["vm"]["mgt_ip"];
                         if(curnmgtip != ""){
                             vmmcontroller.deselectMgtIP(type, curnmgtip);
-                            //console.log(args.node.index)
+                            ////console.log(args.node.index)
                             graph.vertices[0]['info']['property']["vm"]["mgt_ip"] = ""
                         }
-                //        console.log("-=="+JSON.stringify(graph));
-                //console.log("-"+mgtip)
+                //        //console.log("-=="+JSON.stringify(graph));
+                ////console.log("-"+mgtip)
                 if(mgtip){
                     if(mgtip != ""){
                     var res = vmmcontroller.selectMgtIP(type, mgtip);
                     if(res.error){
-                        console.log("@@" + res.error)
+                        //console.log("@@" + res.error)
                         result['error'] = res.error;
                     }
                     else {
@@ -420,19 +420,19 @@ dreamer.DomainController = (function() {
                     }
                     
                 }
-             //   console.log("=="+JSON.stringify(graph));
+             //   //console.log("=="+JSON.stringify(graph));
             }
             //else if(args.node.properties.vm){
             else{
-                //console.log("GENERIC PROP")
+                ////console.log("GENERIC PROP")
                 var keys = Object.keys(args.node.properties);
                  
                 for(k in keys){
                      var hasp =  hasProperty(keys[k], graph.vertices[args.node.index].info.property);
-                    // console.log("GENERIC PROP " +keys[k] + "- " +keys[k].indexOf("domain-") + "- " + JSON.stringify(hasp));
+                    // //console.log("GENERIC PROP " +keys[k] + "- " +keys[k].indexOf("domain-") + "- " + JSON.stringify(hasp));
 
                     if(keys[k].indexOf("domain-") < 0 && hasp != null){ // prendo solo quelli base
-                      //  console.log("DENTROOOO")
+                      //  //console.log("DENTROOOO")
                         graph.vertices[args.node.index].info['property'][keys[k]] = args.node.properties[keys[k]];
                     }
                 }
@@ -465,12 +465,12 @@ dreamer.DomainController = (function() {
             }
 
         }
-       //    console.log(JSON.stringify(graph));
+       //    //console.log(JSON.stringify(graph));
         return result;
     };
 
     DomainController.prototype.buildNodeProperties = function(ntype){
-        console.log("DomainController:buildNodeProperties");
+        //console.log("DomainController:buildNodeProperties");
        
         var property = {};
 
@@ -481,16 +481,16 @@ dreamer.DomainController = (function() {
     DomainController.prototype.getNodesProperty = function(property, nodes){
         var dict = {};
         var props = property.split('.');
-        console.log(JSON.stringify(props));
+        //console.log(JSON.stringify(props));
         for(n in nodes){
-            console.log("n: " + n+ " label"+nodes[n].label +" "+ JSON.stringify(nodes[n].info.property));
+            //console.log("n: " + n+ " label"+nodes[n].label +" "+ JSON.stringify(nodes[n].info.property));
             var curNprps = nodes[n].info.property;
-            console.log("curNprps :"+JSON.stringify(curNprps));
+            //console.log("curNprps :"+JSON.stringify(curNprps));
             for(p in props){
-                console.log("chiave: " + props[p]);
+                //console.log("chiave: " + props[p]);
                curNprps = hasProperty(props[p],curNprps);
                 if(curNprps == null){
-                    console.log("NON HA property");
+                    //console.log("NON HA property");
                     break;
                 }
 
@@ -559,7 +559,7 @@ dreamer.DomainController = (function() {
 
         }
         jsongraph.graph_parameters = graph.graph_parameters;
-        //console.log(JSON.stringify(jsongraph));
+        ////console.log(JSON.stringify(jsongraph));
         if (pure) {
             return JSON.stringify(jsongraph);
         }
@@ -645,12 +645,12 @@ dreamer.DomainController = (function() {
     };
 
     function hasProperty(property, obj){
-        console.log("property: " + property);
-        console.log("obj: " + JSON.stringify(obj));
+        //console.log("property: " + property);
+        //console.log("obj: " + JSON.stringify(obj));
         if((typeof obj === "object" )&& ( obj.constructor === Object) ){
-            console.log("QUII" + JSON.stringify(obj["custom_label"]));
+            //console.log("QUII" + JSON.stringify(obj["custom_label"]));
             if(obj.hasOwnProperty(property)){
-                console.log("QUII DENTROOOO" + obj[property.toString()]);
+                //console.log("QUII DENTROOOO" + obj[property.toString()]);
                 return obj[property];
             }
         }

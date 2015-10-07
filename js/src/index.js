@@ -57,7 +57,7 @@
         //my_graph_editor.resetCanvasDimension($('#panel_head').width() - 30, 500);
 
         my_graph_editor.addListener("LiveStatus", function(a, args) {
-            console.log("Fired con successoooo " + JSON.stringify(args));
+            //console.log("Fired con successoooo " + JSON.stringify(args));
             if (args.live) {
                 $('#live_button').text(' Static')
                 $('#live_button').prepend('<span class="fa fa-pause"></span>')
@@ -86,10 +86,10 @@
         });
         //update_infobox
         my_graph_editor.addListener("open_console", function(a, args) {
-                if (mod == "EXP" && args.selected == "Vertex") {
-                    ctrlconsole.addConsole(args.base_info.label);
-                    
-                }
+            if (mod == "EXP" && args.selected == "Vertex") {
+                ctrlconsole.addConsole(args.base_info.label);
+
+            }
         });
         my_graph_editor.addListener("update_infobox", function(a, args) {
             var info_sidebar = '#info_sidebar';
@@ -99,7 +99,7 @@
                     $('#box_info').show();
 
                 var base_info = args.base_info;
-                console.log(JSON.stringify(args));
+                //console.log(JSON.stringify(args));
                 $('#title').html('Node Info');
                 $(info_sidebar + ' .infobox #index').html(base_info.index);
                 $(info_sidebar + ' .infobox #index').hide();
@@ -109,7 +109,7 @@
                 $(info_sidebar + ' .infobox #edge_inf').hide();
                 $(info_sidebar + ' .infobox #vert').hide();
                 $(info_sidebar + ' .infobox #label').html(args.label);
-                //console.log(args.base_info.label)
+                ////console.log(args.base_info.label)
                 $(info_sidebar + ' .infobox #n_name').html(args.base_info.label);
                 $(info_sidebar + ' .infobox #none_selected').hide();
                 $(info_sidebar + ' .infobox #info').show();
@@ -118,7 +118,7 @@
                 if (args.model_info) {
                     if (Object.keys(args.model_info).length > 0) {
                         $('#s_cluster').show();
-                        console.log("mostra " + JSON.stringify(Object.keys(args.model_info)));
+                        //console.log("mostra " + JSON.stringify(Object.keys(args.model_info)));
                         var clustval = ''
                         if (args.model_info['layer-Control']['cluster_id']) {
                             clustval = args.model_info['layer-Control']['cluster_id'];
@@ -137,11 +137,11 @@
 
 
                         var mgt_ip_list = my_graph_editor.getNotSelectedMgtIp(base_info.node_type).list;
-                        console.log(JSON.stringify(mgt_ip_list));
+                        //console.log(JSON.stringify(mgt_ip_list));
 
                         $("#s_mgtip").empty().append('<option value=""></option>')
                         for (i in mgt_ip_list) {
-                            //console.log(mgt_ip_list[i]);
+                            ////console.log(mgt_ip_list[i]);
                             var val = mgt_ip_list[i];
                             $("#s_mgtip").append("<option value='" + val + "'>" + val + "</option>");
                         }
@@ -153,9 +153,9 @@
                         $("#s_interfaces").empty().append('<option value=""></option>')
                         if (type_info.vm['mgt_ip'] != "") {
                             var interfaces = my_graph_editor.getInterfacesMgtIp(base_info.node_type, type_info.vm['mgt_ip']).interfaces;
-                            console.log(JSON.stringify(interfaces));
+                            //console.log(JSON.stringify(interfaces));
                             for (var m in interfaces) {
-                                console.log(interfaces[m])
+                                //console.log(interfaces[m])
                                 var val = interfaces[m];
                                 $("#s_interfaces").append("<option value='" + val + "'>" + val + "</option>");
                             }
@@ -173,11 +173,11 @@
                     if (type_info['custom_label'] != undefined) {
                         $('#cldiv').show();
                         // if(type_info['custom_label'] != ""){
-                        console.log("NON VUOTO")
+                        //console.log("NON VUOTO")
                         $('#clabel_input').val(type_info['custom_label']);
                         //   }
                     } else {
-                        console.log("HIDE custom label")
+                        //console.log("HIDE custom label")
                         $('#cldiv').hide();
                     }
 
@@ -241,8 +241,8 @@
 
 
         my_graph_editor.addListener("INVALID_TOPOLOGY", function(a, args) {
-            console.log('INVALID_TOPOLOGY');
-            console.log(args);
+            //console.log('INVALID_TOPOLOGY');
+            //console.log(args);
 
             $('#myModalLoading').modal('hide');
             // for()
@@ -263,7 +263,7 @@
         });
 
         my_graph_editor.addListener("VALID_TOPOLOGY", function(a, args) {
-            console.log('VALID_TOPOLOGY')
+            //console.log('VALID_TOPOLOGY')
             $('#alert_div').empty();
             $('#alert_div').append('<div id=\"alert_msg\"  class=\"alert alert-success alert-dismissible alert-franz-in \" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button><strong>Well done!</strong> The topology is ready to be executed on the testbed.</div>');
             window.setTimeout(function() {
@@ -273,7 +273,7 @@
         });
 
         my_graph_editor.addListener("alert_warning_msg", function(a, args) {
-            console.log('alert_msg')
+            //console.log('alert_msg')
             $('#alert_div').empty();
             $('#alert_div').append('<div id=\"warning_msg\" class=\"alert alert-danger alert-dismissible alert-franz-in \" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>' + args + '</div>');
             window.setTimeout(function() {
@@ -282,7 +282,7 @@
         });
 
         my_graph_editor.addListener("RANDOM_TOPOLOGY", function(a, args) {
-            console.log('RANDOM_TOPOLOGY')
+            //console.log('RANDOM_TOPOLOGY')
             if (args.error == true) {
 
                 $('#erRandomAlert').append('<div id="alertdiv" class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>There was an error! Please try again!</span></div>')
@@ -299,11 +299,11 @@
 
         my_graph_editor.addListener("error_load_spec", function(a, args) {
 
-            console.log("Male")
+            //console.log("Male")
         });
 
         my_graph_editor.addListener("topology_loaded", function(a, args) {
-            console.log("topology_loaded")
+            //console.log("topology_loaded")
             clearInfoBox();
 
             //imposta layer
@@ -316,8 +316,8 @@
             //imposta testbed
 
             //rileva pro domain
-            console.log("@@@@@@@@@@@@@@@@@");
-            console.log(JSON.stringify(args.domain_data));
+            //console.log("@@@@@@@@@@@@@@@@@");
+            //console.log(JSON.stringify(args.domain_data));
             initClusterSelOption(args.domain_data.clustermap);
 
         });
@@ -342,7 +342,7 @@
             $('#accordion').css('display', 'none');
             var exp_name = (args.exp_id) ? args.exp_id : "";
             ctrlconsole = new dreamer.Ctrlfwc('myTab', exp_name);
-            ctrlconsole.addConsole("deployment", true);
+            ctrlconsole.addConsole("deployment", true, true);
             mod = "EXP";
             $('#myModalLoading').modal('hide');
             $('html, body').animate({
@@ -412,7 +412,7 @@
             });
 
             $('#set_clabel').click(function() {
-                console.log("set_clabel")
+                //console.log("set_clabel")
                 var index = $(info_sidebar + ' .infobox #index').html();
 
                 my_graph_editor.set_properties({
@@ -452,7 +452,7 @@
 
             $('#s_mgtip').change(function() {
                 var index = $(info_sidebar + ' .infobox #index').html();
-                console.log($("#s_mgtip").val());
+                //console.log($("#s_mgtip").val());
                 my_graph_editor.set_properties({
                     node: {
                         index: index,
@@ -471,8 +471,8 @@
 
             $('#s_interfaces').change(function() {
                 var index = $(info_sidebar + ' .infobox #index').html();
-                console.log($("#s_mgtip").val());
-                console.log($("#s_label").val());
+                //console.log($("#s_mgtip").val());
+                //console.log($("#s_label").val());
                 my_graph_editor.set_properties({
                     node: {
                         index: index,
@@ -486,12 +486,12 @@
                     }
                 }, true);
 
-                console.log($("#s_mgtip").val());
+                //console.log($("#s_mgtip").val());
             });
 
 
             my_graph_editor.addListener("RESETTED_CANVAS_DIMENSION", function(a, args) {
-                console.log('RESETTED_CANVAS_DIMENSION')
+                //console.log('RESETTED_CANVAS_DIMENSION')
                 $("#canvdimension").slider('value', 0);
             });
 
@@ -524,8 +524,8 @@
             });
 
             $("#vertexSize").slider({
-                min: 0,
-                max: 30,
+                min: my_graph_editor.get_vertex_size(),
+                max: my_graph_editor.get_vertex_size()*3,
                 value: 10,
                 slide: function(event, ui) {
                     my_graph_editor.change_vertex_size(ui.value);
@@ -566,7 +566,7 @@
                     $(this).text("Drawing Palette-Hide");
                     $('#panel_head').css('display', '');
                 }
-
+                resetCanvasDimensions();
 
             });
 
@@ -612,26 +612,9 @@
             });
 
             $('#power_off_button').click(function() {
-                //rendo visibile la parte con le shell
-                $('#console_div').css('display', 'none');
-                $('#exp_msg').hide();
-                $('#power_off_button').hide();
 
-                //riattivo alcuni menu item 
-                $('#deployment_button_group').prop("disabled", false);
-                $('#topology_button').prop("disabled", false);
-                $('#model_button').prop("disabled", false);
-                $('#tool_button_group').prop("disabled", false);
+                setDesigneMod(ctrlconsole);
 
-
-                //rattivo la barra dei comandi
-                $('#panel_head').css('display', '');
-                $('#collapsepalette').css('display', '');
-                $('#accordion').css('display', '');
-
-                ctrlconsole.closeAll();
-                mod = "DES";
-                $('#myModalLoading').modal('hide');
             });
 
             $('#tun_option').click(function() {
@@ -673,7 +656,7 @@
 
                     reader.onloadend = function() {
                         my_graph_editor.import_from_JSON(this.result, false)
-                        console.log(this.result)
+                        //console.log(this.result)
 
                     }
                 }
@@ -708,7 +691,7 @@
             var open_catalogue_item = function(id) {
                 if (confirm("Warning, you will loose unsaved changes in the current topology - are you sure ?")) {
                     $.getJSON("topocatalogjson/" + id + ".json", function(data) {
-                        //console.log(data);
+                        ////console.log(data);
                         my_graph_editor.import_from_JSON(data, false, true);
                         //TODO
                         $('#myModalTopoCatalog').modal('hide');
@@ -759,7 +742,7 @@
 
 
             $('#set_cfg_mapping').click(function() {
-                console.log("set_cfg_mapping");
+                //console.log("set_cfg_mapping");
 
                 var clset = vmmconfigeditor.getValue();
 
@@ -770,9 +753,9 @@
             });
 
             $('#editvmmcfg_button').click(function() {
-                console.log("editvmmcfg_button");
+                //console.log("editvmmcfg_button");
                 var list = my_graph_editor.getvmmcfg();
-                //console.log("list: " + JSON.stringify(list));
+                ////console.log("list: " + JSON.stringify(list));
                 vmmconfigeditor.setValue(list);
 
             });
@@ -783,20 +766,20 @@
             });
 
             $('#editvmmap_button').click(function() {
-                console.log("editvmmap_button");
+                //console.log("editvmmap_button");
                 var list = my_graph_editor.getNodesProperty("vm");
-                //console.log("list: " + JSON.stringify(list));
+                ////console.log("list: " + JSON.stringify(list));
                 vmmappingreditor.setValue(list);
 
             });
 
             $('#set_mapping').click(function() {
-                console.log("set_mapping");
+                //console.log("set_mapping");
 
                 var clset = JSON.parse(vmmappingreditor.getValue());
                 for (n in clset) {
                     var cindex = n.match(/\d+$/)[0] - 1;
-                    //console.log(cindex)
+                    ////console.log(cindex)
                     if ((cindex != undefined && cindex > -1) && (clset[n] != undefined)) {
                         my_graph_editor.set_properties({
                             node: {
@@ -808,7 +791,7 @@
                             }
                         }, false);
                     } else {
-                        console.log("Errore dati json set_cluster");
+                        //console.log("Errore dati json set_cluster");
                     }
 
                 }
@@ -820,23 +803,23 @@
 
 
             $('#set_cluster_button').click(function() {
-                console.log("setClusterButton");
+                //console.log("setClusterButton");
                 var modelname = my_graph_editor.getcurmodelname();
 
                 var list = my_graph_editor.getNodesProperty("domain-" + modelname + ".layer-Control.cluster_id");
-                //console.log("list: " + JSON.stringify(list));
+                ////console.log("list: " + JSON.stringify(list));
                 cmclustereditor.setValue(list);
 
             });
 
             $('#set_cluster_parse').click(function() {
                 //my_graph_editor.import_from_JSON(cmjsoneditor.getValue(), true);
-                console.log("set_cluster");
+                //console.log("set_cluster");
 
                 var clset = JSON.parse(cmclustereditor.getValue());
                 for (n in clset) {
                     var cindex = n.match(/\d+$/)[0] - 1;
-                    console.log(cindex)
+                    //console.log(cindex)
                     if ((cindex != undefined && cindex > -1) && (clset[n] != undefined)) {
 
                         var modelname = "domain-" + my_graph_editor.getcurmodelname();
@@ -856,7 +839,7 @@
                         };
                         my_graph_editor.set_properties(newpro, false);
                     } else {
-                        console.log("Errore dati json set_cluster");
+                        //console.log("Errore dati json set_cluster");
                     }
 
                 }
@@ -921,7 +904,8 @@
             //var prova = new dreamer.Ctrlfwc('myTab', '');
             // prova.addConsole("h1");
 
-           resetCanvasDimensions();
+            resetCanvasDimensions();
+            setDesigneMod();
         }); ///
 
 
@@ -932,19 +916,42 @@
             my_graph_editor.load("oshi");
 
         $(window).resize(function() {
-            console.log("RESIZE PAGINA")
+            //console.log("RESIZE PAGINA")
             resetCanvasDimensions();
         });
 
-    
+
     });
 
-    function resetCanvasDimensions() {
-        console.log("resetCanvasDimensions", $('#container_fluid').height(), $('#panel_head').height(),( $('#panel_head').css('display') != 'none' ) );
+    function setDesigneMod(ctrlconsole) {
+        //rendo visibile la parte con le shell
+        $('#console_div').css('display', 'none');
+        $('#exp_msg').hide();
+        $('#power_off_button').hide();
 
-        var height_to_remove = 30 + $('#container_fluid').height() + (( $('#panel_head').css('display') != 'none' ) ? $('#panel_head').height() : 0) ;
-        
-        
+        //riattivo alcuni menu item 
+        $('#deployment_button_group').prop("disabled", false);
+        $('#topology_button').prop("disabled", false);
+        $('#model_button').prop("disabled", false);
+        $('#tool_button_group').prop("disabled", false);
+
+
+        //rattivo la barra dei comandi
+        $('#panel_head').css('display', '');
+        $('#collapsepalette').css('display', '');
+        $('#accordion').css('display', '');
+        if (ctrlconsole)
+            ctrlconsole.closeAll();
+        mod = "DES";
+        $('#myModalLoading').modal('hide');
+    }
+
+    function resetCanvasDimensions() {
+        //console.log("resetCanvasDimensions", $('#container_fluid').height(), $('#panel_head').height(), ($('#panel_head').css('display') != 'none'));
+
+        var height_to_remove = 30 + $('#container_fluid').height() + (($('#panel_head').css('display') != 'none') ? $('#panel_head').height() : 0);
+
+
         my_graph_editor.resetCanvasDimension($('#canvas_cont').width(), $(window).height() - height_to_remove);
     }
 
