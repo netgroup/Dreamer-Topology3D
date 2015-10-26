@@ -298,8 +298,14 @@
 
 
         my_graph_editor.addListener("error_load_spec", function(a, args) {
+            
+            console.log("adadaads", JSON.stringify(args))
+            $('#close_mael_button').hide();
 
-            //console.log("Male")
+            $('#alert_error_body').append(args.message);
+
+            $('#myModalLoading').modal('hide');
+            $('#myModalAlertErrorLoading').modal('show');
         });
 
         my_graph_editor.addListener("topology_loaded", function(a, args) {

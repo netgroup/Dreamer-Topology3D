@@ -38,9 +38,9 @@ dreamer.DomainController = (function() {
             },
             error: function(xhr, status, errore) {
                 var response = {};
-                // //console.log(xhr.statusCode( ))
-                // //console.log(status)
-                // //console.log(errore)
+                console.log("loadSpec", errore);
+                console.log(status)
+                console.log(JSON.stringify(xhr))
                 response['error'] = {"message": "Unable to contact the server, please refresh the page and try again"};
                 callback(response);
             }
@@ -73,7 +73,7 @@ dreamer.DomainController = (function() {
             error: function(xhr, status, errore) {
                 var response = {};
                 response['error'] = {"message": errore};
-                //console.log(errore);
+                console.log("validate error",errore);
                 callback(response);
             }
 

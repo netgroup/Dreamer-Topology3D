@@ -785,7 +785,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
 
-                                <h4 class="modal-title" id="myModalLoadingLabel">Topology 3D Loading...</h4>
+                                <h4 class="modal-title" id="myModalLoadingLabel">Loading...</h4>
                             </div>
                             <div id="loading_body" class="modal-body">
 
@@ -824,6 +824,24 @@
                 </div>
                 <!-- End Modal -->
 
+                <!-- Modal -->
+                <div class="modal fade" id="myModalAlertErrorLoading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalAlertErrorLoadingLabel">Error</h4>
+                            </div>
+                            <div id="alert_error_body" class="modal-body">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button id="reload_button" type="button" onclick="window.location.reload()" class="btn btn-primary">Reload</button>
+                                <button id="close_mael_button" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Modal -->
 
                 <!-- Modal -->
                 <div class="modal fade" id="myModalCredits" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
