@@ -1184,7 +1184,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         }, function(resvalidate) {
             //////console.log(resvalidate['error'])
             if (resvalidate['error'] != undefined) {
-                ////console.log("erroreeeeeeeeeeeeee")
+                console.log("erroreeeeeeeeeeeeee")
                 eventHandeler.fire("INVALID_TOPOLOGY", resvalidate['error']['messages']);
             } else {
                 ////console.log(resvalidate)
@@ -1276,7 +1276,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         }, function(resneexp) {
             ////console.log("resneexp", JSON.stringify(resneexp));
             if (resneexp['error'] != undefined) {
-                ////console.log("erroreeeeeeeeeeeeee" + JSON.stringify(resneexp));
+                console.log("erroreeeeeeeeeeeeee" + JSON.stringify(resneexp));
                 eventHandeler.fire("EXP_MODE", {
                     exp_id: exp_id,
                     error: resneexp['error']

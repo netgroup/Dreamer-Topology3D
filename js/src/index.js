@@ -241,24 +241,32 @@
 
 
         my_graph_editor.addListener("INVALID_TOPOLOGY", function(a, args) {
-            //console.log('INVALID_TOPOLOGY');
-            //console.log(args);
-
-            $('#myModalLoading').modal('hide');
-            // for()
-            $('#validationError_list').empty();
-            var counter = 0;
-            for (i in args) {
-                for (k in args[i]) {
-
-                    $('#validationError_list').append('<div class="panel panel-default"><div class="panel-heading"> <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#validationError_list" href="#collapse' + counter + '"> ' + k + ' </a> </h4> </div> <div id="collapse' + counter + '" class="panel-collapse collapse"> <div class="panel-body">' + args[i][k] + '</div></div></div>');
-                    counter++;
-                }
-
+           
+            if(typeof args == "object"){
+                        $('#validationError_list').empty();
+                        var counter = 0;
+            
+                        for (i in args) {
+                            for (k in args[i]) {
+            
+                                $('#validationError_list').append('<div class="panel panel-default"><div class="panel-heading"> <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#validationError_list" href="#collapse' + counter + '"> ' + k + ' </a> </h4> </div> <div id="collapse' + counter + '" class="panel-collapse collapse"> <div class="panel-body">' + args[i][k] + '</div></div></div>');
+                                counter++;
+                            }
+            
+                        }
+            
+                        $('#myModalValidationError').modal('show');
+                        $('#myModalLoading').modal('hide');
             }
+            else{
+                $('#close_mael_button').show();
+                $('#reload_button').hide();
 
-            $('#myModalValidationError').modal('show');
+                $('#alert_error_body').append("Dreamer-Topology-and-Service-Validator has encountered a problem.");
 
+                $('#myModalLoading').modal('hide');
+                $('#myModalAlertErrorLoading').modal('show');
+            }
 
         });
 
@@ -299,8 +307,8 @@
 
         my_graph_editor.addListener("error_load_spec", function(a, args) {
             
-            console.log("adadaads", JSON.stringify(args))
             $('#close_mael_button').hide();
+            $('#reload_button').show();
 
             $('#alert_error_body').append(args.message);
 
@@ -329,31 +337,42 @@
         });
 
         my_graph_editor.addListener("EXP_MODE", function(a, args) {
-            //rendo visibile la parte con le shell
-            $('#console_div').css('display', 'block');
-            $('#exp_msg').show();
-            $('#power_off_button').show();
+            if(!args.error){
+                //rendo visibile la parte con le shell
+                $('#console_div').css('display', 'block');
+                $('#exp_msg').show();
+                $('#power_off_button').show();
 
-            //disattivo alcuni menu item 
-            $('#deployment_button_group').prop("disabled", true);
-            $('#topology_button').prop("disabled", true);
-            $('#model_button').prop("disabled", true);
-            $('#tool_button_group').prop("disabled", true);
+                //disattivo alcuni menu item 
+                $('#deployment_button_group').prop("disabled", true);
+                $('#topology_button').prop("disabled", true);
+                $('#model_button').prop("disabled", true);
+                $('#tool_button_group').prop("disabled", true);
 
-            $('#box_info').hide();
+                $('#box_info').hide();
 
-            //nasconodo la barra dei comandi
-            $('#panel_head').css('display', 'none');
-            $('#collapsepalette').css('display', 'none');
-            $('#accordion').css('display', 'none');
-            var exp_name = (args.exp_id) ? args.exp_id : "";
-            ctrlconsole = new dreamer.Ctrlfwc('myTab', exp_name);
-            ctrlconsole.addConsole("deployment", true, true);
-            mod = "EXP";
-            $('#myModalLoading').modal('hide');
-            $('html, body').animate({
-                scrollTop: $(document).height()
-            }, 'slow');
+                //nasconodo la barra dei comandi
+                $('#panel_head').css('display', 'none');
+                $('#collapsepalette').css('display', 'none');
+                $('#accordion').css('display', 'none');
+                var exp_name = (args.exp_id) ? args.exp_id : "";
+                ctrlconsole = new dreamer.Ctrlfwc('myTab', exp_name);
+                ctrlconsole.addConsole("deployment", true, true);
+                mod = "EXP";
+                $('#myModalLoading').modal('hide');
+                $('html, body').animate({
+                    scrollTop: $(document).height()
+                }, 'slow');
+            }
+            else{
+                console.log("MALE MALE NEW EXP")
+                $('#alert_error_body').replaceWith("Dreamer-Experiment-Handler has encountered a problem.");
+                $('#reload_button').hide();
+                $('#close_mael_button').show();
+                $('#myModalLoading').modal('hide');
+                $('#myModalAlertErrorLoading').modal('show');
+            }
+        
         });
 
         my_graph_editor.addListener("editor_ready", function(a, args) {
