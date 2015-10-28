@@ -17,30 +17,46 @@
             multigraph: true
         });
 
-        var cmjsoneditor = CodeMirror.fromTextArea(document.getElementById("jsonEditor"), {
+        var json_editor_settings = {
             mode: "javascript",
+            showCursorWhenSelecting: true,
+            autofocus: true,
             lineNumbers: true,
-        });
+            lineWrapping: true,
+            foldGutter: true,
+            gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+            autoCloseBrackets: true,
+            matchBrackets: true,
+            extraKeys: {
+                "F11": function(cm) {
+                    cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+                },
+                "Esc": function(cm) {
+                    if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+                },
+                "Ctrl-Q": function(cm){ 
+                    cm.foldCode(cm.getCursor());
+                }
+            },
+            theme: "neat",
+            keyMap: "sublime",
+        }
 
-        var cmclustereditor = CodeMirror.fromTextArea(document.getElementById("clusterEditor"), {
-            mode: "javascript",
-            lineNumbers: true,
-        });
+        var cmjsoneditor = CodeMirror.fromTextArea(document.getElementById("jsonEditor"), json_editor_settings);
 
-        var vmmappingreditor = CodeMirror.fromTextArea(document.getElementById("vmmappingEditor"), {
-            mode: "javascript",
-            lineNumbers: true,
-        });
+        var cmclustereditor = CodeMirror.fromTextArea(document.getElementById("clusterEditor"), json_editor_settings);
 
-        var vmmconfigeditor = CodeMirror.fromTextArea(document.getElementById("vmmconfigEditor"), {
-            mode: "javascript",
-            lineNumbers: true,
-        });
+        var vmmappingreditor = CodeMirror.fromTextArea(document.getElementById("vmmappingEditor"), json_editor_settings);
+
+        var vmmconfigeditor = CodeMirror.fromTextArea(document.getElementById("vmmconfigEditor"), json_editor_settings);
 
         $('#myModalCopy').on('shown.bs.modal', function() {
             cmjsoneditor.refresh();
         });
-
+        $('#myModalCopy').on('show', function () {
+      $('.modal-body',this).css({width:'auto',height:'auto', 'max-height':'100%'});
+});
+        
         $('#myModalCluster').on('shown.bs.modal', function() {
             cmclustereditor.refresh();
         });
