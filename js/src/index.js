@@ -55,7 +55,7 @@
         });
         $('#myModalCopy').on('show', function () {
       $('.modal-body',this).css({width:'auto',height:'auto', 'max-height':'100%'});
-});
+        });
         
         $('#myModalCluster').on('shown.bs.modal', function() {
             cmclustereditor.refresh();
@@ -113,6 +113,8 @@
             if (args.selected == "Vertex") {
                 if (mod != "EXP")
                     $('#box_info').show();
+
+                setOvInfo(null);
 
                 var base_info = args.base_info;
                 //console.log(JSON.stringify(args));
@@ -509,6 +511,8 @@
 
 
             });
+
+        
 
             $('#s_interfaces').change(function() {
                 var index = $(info_sidebar + ' .infobox #index').html();
@@ -963,6 +967,66 @@
 
 
     });
+    
+        function setOvInfo(params, node_name){
+            var params = { peo6 : {mgt_IP: "10.255.252.1", loopback_IP: "172.16.0.4", dpid: "00000000AC100004", interfaces : {peo6_eth1 : {ip :"10.0.2.1/24", mac : "02:9e:fb:26:73:c4", peers : ["cro3"] }, peo6_eth0 : {ip :"10.255.252.1/24", mac : "8a:67:81:17:44:8e", peers : ["mgm1"] }}}};
+            var node_name = 'peo6';
+
+// {
+//   "peo6": {
+//     "mgt_IP": "10.255.252.1",
+//     "loopback_IP": "172.16.0.4",
+//     "dpid": "00000000AC100004",
+//     "interfaces": {
+//       "peo6_eth1": {
+//         "ip": "10.0.2.1/24",
+//         "mac": "02:9e:fb:26:73:c4",
+//         "peers": [
+//           "cro3"
+//         ]
+//       },
+//       "peo6_eth0": {
+//         "ip": "10.255.252.1/24",
+//         "mac": "8a:67:81:17:44:8e",
+//         "peers": [
+//           "mgm1"
+//         ]
+//       }
+//     }
+//   }
+// }             
+            
+
+                $('#ov_info_name').html(node_name);
+                $('#ov_info_mgt_ip').html(params[node_name].mgt_IP);
+                $('#ov_info_loop_ip').html(params[node_name].loopback_IP);
+                $('#ov_info_datapath').html(params[node_name].dpid);
+
+                console.log (params[node_name].interfaces);
+                var my_index = 0;
+                var string_if_name = '#ov_info_if_name_';
+                var string_if_ip = '#ov_info_if_ip_';
+                var string_if_mac = '#ov_info_if_mac_';
+                var string_if_dest = '#ov_info_if_dest_';
+
+                
+                //$('#ov_info_if_name_0').html("ciao");
+               
+                for (var key in params[node_name].interfaces) {
+                      if (params[node_name].interfaces.hasOwnProperty(key)) {
+                        //console.log (key + " -> " + params[node_name].interfaces[key]);
+                        $(string_if_name+my_index.toString()).html(key);
+                        $(string_if_ip+my_index.toString()).html(params[node_name].interfaces[key].ip);
+                        $(string_if_mac+my_index.toString()).html(params[node_name].interfaces[key].mac);
+                        $(string_if_dest+my_index.toString()).html(params[node_name].interfaces[key].peers[my_index]);
+                        my_index = my_index +1;
+                      }
+                    }
+
+                
+
+
+            }
 
     function setDesigneMod(ctrlconsole) {
         //rendo visibile la parte con le shell
