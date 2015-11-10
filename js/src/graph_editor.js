@@ -3,7 +3,8 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
     var modelToController = {
         "oshi": "Oshi",
-        "openflow": "OpenFlow"
+        "openflow": "OpenFlow",
+        "ciscoapic" : "CiscoApic"
     }
 
     var Vertex = dreamer.Vertex;
@@ -1203,7 +1204,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 });
                 ////console.log("erroreeeeeeeeeeeeee")
             } else {
-                ////console.log(resrandom)
+                console.log(JSON.stringify(resrandom.topology))
                 import_from_JSON(JSON.stringify(resrandom.topology), true);
                 eventHandeler.fire("RANDOM_TOPOLOGY", {
                     'error': false
