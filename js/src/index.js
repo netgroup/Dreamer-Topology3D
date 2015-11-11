@@ -6,6 +6,7 @@
     };
     var ctrlconsole;
     var mod = "DES";
+    var popover = false;
 
     $(document).ready(function() {
 
@@ -375,6 +376,7 @@
                 ctrlconsole = new dreamer.Ctrlfwc('myTab', exp_name);
                 ctrlconsole.addConsole("deployment", true, true);
                 mod = "EXP";
+                $('.popover').hide();
                 $('#myModalLoading').modal('hide');
                 $('html, body').animate({
                     scrollTop: $(document).height()
@@ -385,12 +387,77 @@
                 $('#alert_error_body').replaceWith("Dreamer-Experiment-Handler has encountered a problem.");
                 $('#reload_button').hide();
                 $('#close_mael_button').show();
+                $('.popover').hide();
                 $('#myModalLoading').modal('hide');
                 $('#myModalAlertErrorLoading').modal('show');
             }
         
         });
 
+        my_graph_editor.addListener("node_popover", function(a, args) {
+
+            $('.popover').hide();
+            if(args.mode == "show" && mod == "EXP" && popover == true){
+                //NodeTableDataSub
+                var params = { peo6 : {mgt_IP: "10.255.252.1", loopback_IP: "172.16.0.4", dpid: "00000000AC100004", interfaces : {'peo6-eth1' : {ip :"10.0.2.1/24", mac : "02:9e:fb:26:73:c4", peers : ["cro3"] }, 'peo6-eth0' : {ip :"10.255.252.1/24", mac : "8a:67:81:17:44:8e", peers : ["mgm1"] }}}};
+                var node_name = 'peo6';
+
+                $('#ov_info_name').html(node_name);
+                $('#ov_info_mgt_ip').html(params[node_name].mgt_IP);
+                $('#ov_info_loop_ip').html(params[node_name].loopback_IP);
+
+                if (params[node_name].dpid != undefined && params[node_name].dpid !="") {
+                    $('#NodeTableData2 tr').remove();
+                    var table = document.getElementById("NodeTableData2");
+                    var rowCount = table.rows.length;
+                    var row = table.insertRow(rowCount);
+                 
+                    row.insertCell(0).innerHTML= 'DatapathID';
+                    row.insertCell(1).innerHTML= '&nbsp;:&nbsp;';
+                    row.insertCell(2).innerHTML= params[node_name].dpid;
+                }
+
+                 $('#IntfsTableData tr').remove();
+                var table = document.getElementById("IntfsTableData");
+                var rowCount = table.rows.length;
+                var row = table.insertRow(rowCount);
+                 
+                    row.insertCell(0).innerHTML= 'IF name';
+                    row.insertCell(1).innerHTML= 'IP addr';
+                    row.insertCell(2).innerHTML= 'MAC addr';
+                    row.insertCell(3).innerHTML= 'Dest';
+
+                var rowCount = table.rows.length;
+
+
+
+                for (var key in params[node_name].interfaces) {
+                      if (params[node_name].interfaces.hasOwnProperty(key)) {
+                        var row = table.insertRow(rowCount);
+             
+                        //console.log (key + " -> " + params[node_name].interfaces[key]);
+                        //$(string_if_name+my_index.toString()).html(key);
+                        row.insertCell(0).innerHTML=key;
+                        //$(string_if_ip+my_index.toString()).html(params[node_name].interfaces[key].ip);
+                        row.insertCell(1).innerHTML=params[node_name].interfaces[key].ip;
+                        //$(string_if_mac+my_index.toString()).html(params[node_name].interfaces[key].mac);
+                        row.insertCell(2).innerHTML=params[node_name].interfaces[key].mac;
+                        //$(string_if_dest+my_index.toString()).html(params[node_name].interfaces[key].peers[0]);
+                        row.insertCell(3).innerHTML=params[node_name].interfaces[key].peers[0];
+                        rowCount = rowCount +1;
+                      }
+                }
+
+                var left = args.x;
+                var top = args.y;
+                var theHeight = $('.popover').height();
+                $('.popover').show();
+                $('.popover').css('left', (left) + 'px');
+                $('.popover').css('top', (top) + 'px');
+            }
+
+        });
+        
         my_graph_editor.addListener("editor_ready", function(a, args) {
 
             var layers = my_graph_editor.get_layers();
@@ -969,7 +1036,7 @@
         $('#console_div').css('display', 'none');
         $('#exp_msg').hide();
         $('#power_off_button').hide();
-
+        $('.popover').hide();
         //riattivo alcuni menu item 
         $('#deployment_button_group').prop("disabled", false);
         $('#topology_button').prop("disabled", false);

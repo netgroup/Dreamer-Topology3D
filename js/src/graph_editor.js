@@ -812,6 +812,14 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
             imageObj.src = fill_vert(1, vert);
         } else if (vert.closest) {
+            
+            //se è in EXP MODE spara il popover
+            eventHandeler.fire("node_popover", {
+                    mode: "show",
+                    x: vert.pos.x,
+                    y: vert.pos.y,
+                    node: vert.label
+            });
             imageObj.src = fill_vert(1, vert);
         } else {
             if (NODE_LABEL) {
@@ -819,6 +827,8 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             } else {
                 imageObj.src = fill_vert(0, vert);
             }
+           // console.log("hide popover");
+           // eventHandeler.fire("node_popover", {mode: "hide" });
         }
         circle(vert.pos.x, vert.pos.y, NODE_RADIUS);
         ctx.drawImage(imageObj, vert.pos.x - NODE_RADIUS / 1.45, vert.pos.y - NODE_RADIUS / 1.45, 1.4 * NODE_RADIUS, 1.4 * NODE_RADIUS)
