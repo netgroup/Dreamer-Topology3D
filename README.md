@@ -59,6 +59,8 @@ Information can be found here:
 Development documentation (partial...)
 ----------------------------------------
 
+- Extending the system with new models
+
 1)
 the logic related to a model (e.g. node properties and constraints) can be found
 Dreamer-Topology-and-Service-Validator/TopologyDjango/lib/TopoModels/oshi/model.py
@@ -74,7 +76,8 @@ my_graph_editor.addListener("update_infobox", function(a, args) {
 deals with the visualization and update of nodes and links properties in the left panel of the GUI
 
 2.2)
-Dreamer-Topology3D/js/src/domaincontroller/model.js
+Dreamer-Topology3D/js/src/domaincontroller/model.js 
+
 e.g. oshi.js and openflow.js
 
 2.3)
@@ -85,10 +88,15 @@ the list of active models is defined as follows
     "openflow": "OpenFlow"
 }
 
-2.4) in /home/user/workspace/Dreamer-Topology-and-Service-Validator/TopologyDjango/lib/TopoModels/
-create a new folder like oshi or openflow and edit the named your_model and edit your_model.py
+2.4) 
+the logic related to a model (e.g. node properties and constraints) can be found in
+Dreamer-Topology-and-Service-Validator/TopologyDjango/lib/TopoModels/...
+
+in /home/user/workspace/Dreamer-Topology-and-Service-Validator/TopologyDjango/lib/TopoModels/
+create a new folder like oshi or openflow and edit the file named your_model.py
 with the node types and constraints
+
+e.g. you will find oshi.py and openflow.py for the two models that are currently defined
+
 in /home/user/workspace/Dreamer-Topology3D/img/ put the image files corresponding to your node names
 node.png and a 128x128 png named node_det.png with the text of the node name
-
-
