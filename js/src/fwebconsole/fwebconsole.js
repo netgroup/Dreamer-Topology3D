@@ -2,12 +2,17 @@ if (typeof dreamer === 'undefined') {
     var dreamer = {};
 }
 
+// Variabile globale utilizzata per fare il binding tra i tab di #myTab e le "shell". 
+// Cliccando sul tab si apre la shell corrispondente ottenendo automaticamente il focus per
+// poter digitare i comandi.
+var __tabShellArray__ = [];
+
 dreamer.Fwc = (function(global) {
     'use strict';
     var timeout = 5000;
 
     function Fwc(div, channel, expname) {
-        //console.log(div, channel, expname);
+        console.log(div, channel, expname);
         this._div = div;
         this._channel = channel;
         this._expname = expname;
@@ -22,6 +27,8 @@ dreamer.Fwc = (function(global) {
         this.initPromtLine();
         this.initWebSocket();
         this.initListeners();
+	/* Registra l'oggetto corrente nell'array (Andrea Mayer's patch)*/
+	__tabShellArray__[channel] = this;
 
     }
 
@@ -88,6 +95,7 @@ dreamer.Fwc = (function(global) {
 
     Fwc.prototype.initListeners = function() {
         var self = this;
+	console.log("initListeners started...");
 
         $("#" + this._clipboard).on('change keyup paste', function() {
             console.log("-", $("#" + self._clipboard).val(), "-");
@@ -147,13 +155,23 @@ dreamer.Fwc = (function(global) {
         });
 
         $(this._div).click(function(e) {
-            //console.log("CLICKKKKKK")
+            //console.log("___CLICKKKKKK___")
             self.toggleCursor(true);
             $("#" + self._clipboard).focus();
             return false;
         });
 
+	/* La console acquisisce il focus non appena il mouse transita su di essa. */
+	$(this._div).mouseover(function(e) {
+	    $("#" + self._clipboard).focus();
+            return false;
+	});
 
+	/* La console rilascia il focus non appena il mouse esce da essa. */
+	$(this._div).mouseleave(function(e) {
+            $("#" + self._clipboard).blur();
+            return false;
+	});
     };
 
     Fwc.prototype.toggleCursor = function(selected) {
