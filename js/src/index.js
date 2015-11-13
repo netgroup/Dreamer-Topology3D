@@ -7,8 +7,8 @@
 
     };
     var ctrlconsole;
-    var mod = "DES";
-    var popover = false;
+    mod = "DES";  // DES = Design EXP = Experiment
+    var popover = true;
 
     $(document).ready(function() {
 

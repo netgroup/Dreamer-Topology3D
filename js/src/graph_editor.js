@@ -54,6 +54,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         SHOWFPS = false,
         SHIFT = false,
         CTRL = false,
+        ALT = false,
         LOOP = false,
         FPS = options.fps || 60,
         canvastag,
@@ -636,13 +637,13 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                 } else if (hit_node && selected_object instanceof Vertex && (selected_object !== hit_node)) {
                     //toggle_edge(selected_object, hit_node);
                     ////console.log('mouseup2')
-                    if (!SHIFT) {
+                    if (SHIFT && window.mod == "DES") {
                         //console.log('mouseup3')
-                        this.unselect_object();
-                        this.select_object(hit_node);
+                        newEdgebetween(selected_object, hit_node);
                     } else {
                         //console.log('mouseup4')
-                        newEdgebetween(selected_object, hit_node);
+                        this.unselect_object();
+                        this.select_object(hit_node);
                     }
                 } else if (closest) {
                     //console.log('mouseup5')
@@ -686,6 +687,8 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     SHIFT = true;
                 } else if (e.keyCode === 17) {
                     CTRL = true;
+                } else if (e.keyCode === 18) {
+                    ALT = true;
                 }
             },
             keyup: function(e) {
@@ -694,6 +697,8 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     SHIFT = false;
                 else if (e.keyCode === 17)
                     CTRL = false;
+                else if (e.keyCode === 18)
+                    ALT = false;
             },
             keypress: function(e) {
                 var pos, canvaspos, dialog;
@@ -814,13 +819,13 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             imageObj.src = fill_vert(1, vert);
         } else if (vert.closest) {
             
-            //se è in EXP MODE spara il popover
-            eventHandeler.fire("node_popover", {
-                    mode: "show",
-                    x: vert.pos.x,
-                    y: vert.pos.y,
-                    node: vert.label
-            });
+            // //se è in EXP MODE spara il popover
+            // eventHandeler.fire("node_popover", {
+            //         mode: "show",
+            //         x: vert.pos.x,
+            //         y: vert.pos.y,
+            //         node: vert.label
+            // });
             imageObj.src = fill_vert(1, vert);
         } else {
             if (NODE_LABEL) {
@@ -946,21 +951,33 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         draw();
     }
 
+    /**
+     * It is called when a node or a link is selected 
+    */
     function update_infobox(obj) {
-
 
         var pos, index, node, edge;
         if (obj && obj instanceof Vertex) {
             var vertype = obj.info["type"] || "none";
 
-
             var info_data = domainctrl.getNodeProperties(obj, nodes);
             info_data['curLayer'] = curLayer.getCurLayer();
             //////console.log(JSON.stringify(info_data));
+            console.log ("update_infobox - CTRL " + CTRL + " SHIFT " + SHIFT + " ALT " + ALT);
             if (CTRL == true) {
-                eventHandeler.fire("open_console", info_data);
+                eventHandeler.fire("open_console", info_data); //it opens the console only if windows.mod == "EXP"
+            }
+            if (SHIFT == true) {
+                eventHandeler.fire("node_popover", {
+                    mode: "show",
+                    x: obj.pos.x,
+                    y: obj.pos.y,
+                    node: obj.label
+                    });
             }
             eventHandeler.fire("update_infobox", info_data);
+
+
 
         } else if (obj && obj instanceof Edge) {
             edge = obj;
@@ -1097,6 +1114,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             controller.mousedown(e);
         });
         canvastag.mouseup(function(e) {
+            //console.log("MOOOOUSEAP");
             controller.mouseup(e);
         });
         canvastag.mousemove(function(e) {
