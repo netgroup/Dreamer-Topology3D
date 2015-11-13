@@ -1051,6 +1051,45 @@
         <script src="js/src/fwebconsole/ctrlWebconsole.js"></script>
         <script src="js/src/graph_editor.js"></script>
         <script src="js/src/index.js"></script>
+        <script>
+            /*Andrea Mayer's patch to directly type in the shell when the mouse is on the tab (no need to click)*/
+            $(document).ready(function(){ 
+                /* Quando il DOM è pronto, fa il binding */
+                console.log('document_Ready');
+                    $("#myTab").click(function(event){  
+                        /* 
+                         * L'esecuzione ritardata è un workaround che permette di inviare un click automaticamente 
+                         * alla shell selezionata una volta che questa è stata mostrata a video nel tabbed pane.
+                         * Il timeout è impostato a circa 200 millisecondi; senza il timeout non funziona nulla.
+                         */
+                        setTimeout(function() {
+                            var obj = null;
+                            var index = null;
+                            if (__tabShellArray__ == null) {
+                                console.log("my_array is not defined.");
+                                return;
+                            }
+                            //Lista di tutte le chiavi dell'array
+                            //console.log(Object.keys(__tabShellArray__));                  
+                            index = event.target.text;
+                            if (index == null) {
+                                return;
+                            }   
+                            index = index.trim();
+                            if (index.length <= 0 || !(index in __tabShellArray__)) {
+                                console.log("invalid key.");                            
+                                return;                     
+                            }
+                            obj = __tabShellArray__[index];
+                            if (obj != null) {          
+                                $(obj._div).click();
+                            }
+                            return;
+                       }, 200);
+                    return;     
+                });
+            });
+        </script>
 
 </body>
 
