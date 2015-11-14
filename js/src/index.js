@@ -37,7 +37,7 @@
                 "Esc": function(cm) {
                     if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
                 },
-                "Ctrl-Q": function(cm){ 
+                "Ctrl-Q": function(cm){
                     cm.foldCode(cm.getCursor());
                 }
             },
@@ -59,7 +59,7 @@
         $('#myModalCopy').on('show', function () {
       $('.modal-body',this).css({width:'auto',height:'auto', 'max-height':'100%'});
 });
-        
+
         $('#myModalCluster').on('shown.bs.modal', function() {
             cmclustereditor.refresh();
         });
@@ -260,20 +260,19 @@
 
 
         my_graph_editor.addListener("INVALID_TOPOLOGY", function(a, args) {
-           
+
             if(typeof args == "object"){
                         $('#validationError_list').empty();
                         var counter = 0;
-            
+
                         for (i in args) {
                             for (k in args[i]) {
-            
+
                                 $('#validationError_list').append('<div class="panel panel-default"><div class="panel-heading"> <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#validationError_list" href="#collapse' + counter + '"> ' + k + ' </a> </h4> </div> <div id="collapse' + counter + '" class="panel-collapse collapse"> <div class="panel-body">' + args[i][k] + '</div></div></div>');
                                 counter++;
                             }
-            
                         }
-            
+
                         $('#myModalValidationError').modal('show');
                         $('#myModalLoading').modal('hide');
             }
@@ -325,7 +324,7 @@
 
 
         my_graph_editor.addListener("error_load_spec", function(a, args) {
-            
+
             $('#close_mael_button').hide();
             $('#reload_button').show();
 
@@ -393,12 +392,12 @@
                 $('#myModalLoading').modal('hide');
                 $('#myModalAlertErrorLoading').modal('show');
             }
-        
+
         });
 
         my_graph_editor.addListener("node_popover", function(a, args) {
 
-            $('.popover').hide();
+            //$('.node_popover').hide();
             if(args.mode == "show" && mod == "EXP" && popover == true){
                 //NodeTableDataSub
                 var params = { peo6 : {mgt_IP: "10.255.252.1", loopback_IP: "172.16.0.4", dpid: "00000000AC100004", interfaces : {'peo6-eth1' : {ip :"10.0.2.1/24", mac : "02:9e:fb:26:73:c4", peers : ["cro3"] }, 'peo6-eth0' : {ip :"10.255.252.1/24", mac : "8a:67:81:17:44:8e", peers : ["mgm1"] }}}};
@@ -413,7 +412,7 @@
                     var table = document.getElementById("NodeTableData2");
                     var rowCount = table.rows.length;
                     var row = table.insertRow(rowCount);
-                 
+
                     row.insertCell(0).innerHTML= 'DatapathID';
                     row.insertCell(1).innerHTML= '&nbsp;:&nbsp;';
                     row.insertCell(2).innerHTML= params[node_name].dpid;
@@ -423,7 +422,7 @@
                 var table = document.getElementById("IntfsTableData");
                 var rowCount = table.rows.length;
                 var row = table.insertRow(rowCount);
-                 
+
                     row.insertCell(0).innerHTML= 'IF name';
                     row.insertCell(1).innerHTML= 'IP addr';
                     row.insertCell(2).innerHTML= 'MAC addr';
@@ -436,7 +435,7 @@
                 for (var key in params[node_name].interfaces) {
                       if (params[node_name].interfaces.hasOwnProperty(key)) {
                         var row = table.insertRow(rowCount);
-             
+
                         //console.log (key + " -> " + params[node_name].interfaces[key]);
                         //$(string_if_name+my_index.toString()).html(key);
                         row.insertCell(0).innerHTML=key;
@@ -453,13 +452,19 @@
                 var left = args.x;
                 var top = args.y;
                 var theHeight = $('.popover').height();
-                $('.popover').show();
-                $('.popover').css('left', (left) + 'px');
-                $('.popover').css('top', (top) + 'px');
+                // $('.popover').show();
+                // $('.popover').css('left', (left) + 'px');
+                // $('.popover').css('top', (top) + 'px');
+                //$('#node_popover').show();
+                //$("[data-toggle='popover']").popover('show');
+                //$('#node_popover').popover('show');
+                $('#element_to_pop_up').bPopup({
+                    opacity: 0.1
+                });
             }
 
         });
-        
+
         my_graph_editor.addListener("editor_ready", function(a, args) {
 
             var layers = my_graph_editor.get_layers();
@@ -478,7 +483,7 @@
             var nodeTypes = my_graph_editor.get_nodeTypes();
             $("#drag_drop_toolbar").append("<ul style=\"padding-left: 0px;\" id=\"drag_drop_toolbar_ul\"></ul>");
             for (n in nodeTypes) {
-                //set option value 
+                //set option value
                 var ntype = nodeTypes[n];
 
                 $("#s_label").append("<option value='" + ntype + "'>" + ntype + "</option>");
@@ -962,10 +967,16 @@
             });
 
             $('#rest').css('clear', 'both');
-            $("[data-toggle=popover]").popover({
-                container: 'body',
-                html: 'true'
-            })
+
+            // Select all elements with data-toggle="popover" in the document and activate them
+            //$("[data-toggle=popover]").popover({})
+
+            // $("[data-toggle=popover]").popover({
+            //     container: 'body',
+            //     html: 'true',
+            //     title: 'Header',
+            //     trigger: 'focus'
+            // })
 
             $("#coreslider").slider({
                 min: 1,
