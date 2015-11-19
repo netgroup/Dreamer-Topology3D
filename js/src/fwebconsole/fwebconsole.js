@@ -247,11 +247,17 @@ dreamer.Fwc = (function(global) {
             $(self._div).scrollTop($(self._div)[0].scrollHeight);
 
         });
+        this.ws.on('info_nodes', function(data) {
+            console.log("info_nodes " + data);
+           
+        });
+
         this.ws.on('error_res', function(error_data) {
             //console.log("error_res");
             if (error_data.msg == "unreachable" || error_data.msg == "notconnected" || error_data.msg == "noresolve")
                 $("#" + self._termoutput).append("<div style=\"width: 100%; visibility: visible;\">Error connecting ssh, please try again. Type: cmd_reconnect</div>");
         });
+
 
         this.ws.on('disconnect', function() {
             //TODO  

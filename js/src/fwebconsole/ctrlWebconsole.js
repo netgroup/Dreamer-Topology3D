@@ -4,13 +4,14 @@ if (typeof dreamer === 'undefined') {
 
 dreamer.Ctrlfwc = (function(global) {
     'use strict';
-
+    var EventHandeler = dreamer.Event;
 
     function Ctrlfwc(div, expname) {
         this._div = div;
         this._expname = expname;
         this._consoles = {};
         this._consoles_name = [];
+        this._event_handler = new EventHandeler();
     }
 
     function addTab(self, nextTab, active, fixed) {
