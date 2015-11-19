@@ -54,7 +54,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         SHOWFPS = false,
         SHIFT = false,
         CTRL = false,
-        ALT = false,
         LOOP = false,
         FPS = options.fps || 60,
         canvastag,
@@ -687,18 +686,15 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     SHIFT = true;
                 } else if (e.keyCode === 17) {
                     CTRL = true;
-                } else if (e.keyCode === 18) {
-                    ALT = true;
                 }
             },
             keyup: function(e) {
                 //console.log("keyup", e.keyCode);
-                if (e.keyCode === 16)
+                if (e.keyCode === 16) {
                     SHIFT = false;
-                else if (e.keyCode === 17)
+                } else if (e.keyCode === 17) {
                     CTRL = false;
-                else if (e.keyCode === 18)
-                    ALT = false;
+                }
             },
             keypress: function(e) {
                 var pos, canvaspos, dialog;
@@ -963,7 +959,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             var info_data = domainctrl.getNodeProperties(obj, nodes);
             info_data['curLayer'] = curLayer.getCurLayer();
             //////console.log(JSON.stringify(info_data));
-            console.log ("update_infobox - CTRL " + CTRL + " SHIFT " + SHIFT + " ALT " + ALT);
+            //console.log ("update_infobox - CTRL " + CTRL + " SHIFT " + SHIFT );
             if (CTRL == true) {
                 eventHandeler.fire("open_console", info_data); //it opens the console only if windows.mod == "EXP"
             }
@@ -976,8 +972,6 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
                     });
             }
             eventHandeler.fire("update_infobox", info_data);
-
-
 
         } else if (obj && obj instanceof Edge) {
             edge = obj;
