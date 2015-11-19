@@ -54,7 +54,7 @@
 
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container-fluid" id="container_fluid">
-            <div class="navbar-header">
+            <div class="navbar-header" >
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
@@ -63,7 +63,7 @@
                 </button>
                 <a class="navbar-brand" href="http://netgroup.uniroma2.it/OSHI" target="_blank">OSHI</a>
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse"  >
                 <ul class="nav navbar-nav ">
                     <li><a class="navbar-brand" href="#">- Topology 3D </a>
                     </li>
@@ -211,9 +211,9 @@
 
                         </div>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" >
                         <!-- <div class="container-canvas" id="canvas_cont" height="600" style="overflow-y: scroll;max-height: 600px;"> -->
-                        <div class="container-canvas" id="canvas_cont">
+                        <div class="container-canvas" id="canvas_cont" >
                             <div class="canvas-label">
 
                                 <span id="model-label" style="float:left;">
@@ -985,9 +985,10 @@
                     </div>
                 </div>
                 <!-- End Modal -->
-                <div class="popover" zIndex="-1" style="height:auto;max-width:100%;">
-                    <div>
-                        <table id="NodeTableData">
+                <!-- <div class="popover" zIndex="-1" style="height:auto;max-width:100%;"> -->
+
+                <div id="element_to_pop_up" >    
+                        <table id="NodeTableData" bgcolor="#00FF00">
                             <tr>  <td>Node</td>  <td>&nbsp;:&nbsp;</td><td id='ov_info_name'></td>  </tr>
                             <tr>  <td>mgt_IP</td> <td>&nbsp;:&nbsp;</td> <td id='ov_info_mgt_ip'></td>  </tr>
                             <tr>  <td>loopback IP</td> <td>&nbsp;:&nbsp;</td> <td id='ov_info_loop_ip'></td>  </tr>
@@ -999,14 +1000,13 @@
                         <table id="IntfsTableData" >
                             <tr> <td>IF name</td> <td>IP addr</td> <td>MAC addr</td> <td>Dest</td> </tr>
                         </table>  
-                    </div>
-       
                 </div>
 
             </div>
 
 
         </div>
+
 
         <!-- Bootstrap core JavaScript
         ================================================== -->
@@ -1019,6 +1019,7 @@
         <!-- <script src="js/jquery-1.9.1.min.js"></script>
     <script src="js/jquery-ui-1.8.1.custom.min.js"></script>-->
         <script src="js/bootstrap/bootstrap.min.js"></script>
+        <script src="js/jquery-bpopup-0.11.0.js"></script>
         <script src="js/json2.js"></script>
         <script src="lib/codemirror/lib/codemirror.js"></script>
   <script src="lib/codemirror/addon/fold/foldcode.js"></script>

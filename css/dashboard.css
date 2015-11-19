@@ -2,6 +2,31 @@
 * Base structure
 */
 
+#element_to_pop_up { 
+display:none;
+background-color:#fff;
+border-radius:15px;
+padding:25px;
+}
+
+.b-close {
+border-radius: 7px;
+font: bold 131% sans-serif;
+padding: 0 6px 2px;
+background-color: #2b91af;
+color: #fff;
+cursor: pointer;
+text-align: center;
+text-decoration: none;
+position: absolute;
+right: -7px;
+top: -7px;
+}
+.b-close:hover {
+background-color: #1e1e1e;
+}
+
+
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
   padding-top: 50px;
