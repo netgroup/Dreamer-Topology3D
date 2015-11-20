@@ -66,6 +66,15 @@ dreamer.Ctrlfwc = (function(global) {
 
     };
 
+    Ctrlfwc.prototype.addListenerToConsole = function(nodeid, type, callback) {
+        if (this._consoles[nodeid] != undefined) {
+           // this._event_handler.addL(type, callback);
+
+           this._consoles[nodeid].addEventListener(type, callback);
+        }
+
+    };
+
     Ctrlfwc.prototype.removeConsole = function(nodeid) {
         if (this._consoles[nodeid] != undefined) {
             removeTab(this, nodeid);

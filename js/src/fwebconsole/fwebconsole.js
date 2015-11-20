@@ -10,6 +10,7 @@ var __tabShellArray__ = [];
 dreamer.Fwc = (function(global) {
     'use strict';
     var timeout = 5000;
+    var EventHandeler = dreamer.Event;
 
     function Fwc(div, channel, expname) {
         console.log(div, channel, expname);
@@ -27,6 +28,8 @@ dreamer.Fwc = (function(global) {
         this.initPromtLine();
         this.initWebSocket();
         this.initListeners();
+        this._event_handler = new EventHandeler();
+
 	/* Registra l'oggetto corrente nell'array (Andrea Mayer's patch)*/
 	__tabShellArray__[channel] = this;
 
@@ -205,6 +208,10 @@ dreamer.Fwc = (function(global) {
         this.ws.disconnect();
     }
 
+    Fwc.prototype.addEventListener = function(type, listener) {
+        this._event_handler.addL(type, listener);
+    }
+
     Fwc.prototype.initWebSocket = function() {
         //console.log("initWebSocket")
         var config = new dreamer.Config();
@@ -249,6 +256,7 @@ dreamer.Fwc = (function(global) {
         });
         this.ws.on('info_nodes', function(data) {
             console.log("info_nodes " + data);
+            self._event_handler.fire('info_nodes', data);
            
         });
 
