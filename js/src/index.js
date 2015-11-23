@@ -7,9 +7,16 @@
 
     };
 
+    /**
+     * mod is a global variable that is also accessed in graph_editor.js
+     * it describes the status of the web front end:
+     * DES = Design mode
+     * EXP = Experiment running
+    */
+    mod = "DES";  
+
     var info_nodes = {};
     var ctrlconsole;
-    mod = "DES";  // DES = Design EXP = Experiment
     var popover = true;
 
     $(document).ready(function() {
@@ -371,7 +378,7 @@
 
                 $('#box_info').hide();
 
-                //nasconodo la barra dei comandi
+                //hide command bar
                 $('#panel_head').css('display', 'none');
                 $('#collapsepalette').css('display', 'none');
                 $('#accordion').css('display', 'none');
@@ -402,57 +409,84 @@
 
         });
 
+        function my_add_row_tag_value(my_table,my_tag, my_value) {
+            var rowCount = my_table.rows.length;
+            var row = my_table.insertRow(rowCount);
+            row.insertCell(0).innerHTML= my_tag;
+            row.insertCell(1).innerHTML= '&nbsp;:&nbsp;';
+            row.insertCell(2).innerHTML= my_value;
+        }
+
+        function my_add_row(my_table,my_cells) {
+            var rowCount = my_table.rows.length;
+            var row = my_table.insertRow(rowCount);
+            var index = 0;
+            var arrayLength = my_cells.length;
+            for (var i = 0; i < arrayLength; i++) {
+                if (index>0) {
+                    row.insertCell(index).innerHTML= '&nbsp;:&nbsp;';   
+                    index = index+1; 
+                }
+                row.insertCell(index).innerHTML= my_cells[i];
+                index = index+1; 
+            }
+        }
+
+
         my_graph_editor.addListener("node_popover", function(a, args) {
             
             //$('.node_popover').hide();
-            if(args.mode == "show" && mod == "EXP" && popover == true){
+            //console.log (Object.keys(info_nodes).length);
+            if(args.mode == "show" && mod == "EXP" && popover == true && Object.keys(info_nodes).length > 0){
                 //NodeTableDataSub
                 var params =  info_nodes;//{ peo6 : {mgt_IP: "10.255.252.1", loopback_IP: "172.16.0.4", dpid: "00000000AC100004", interfaces : {'peo6-eth1' : {ip :"10.0.2.1/24", mac : "02:9e:fb:26:73:c4", peers : ["cro3"] }, 'peo6-eth0' : {ip :"10.255.252.1/24", mac : "8a:67:81:17:44:8e", peers : ["mgm1"] }}}};
                 var node_name = args.node;
 
-                $('#ov_info_name').html(node_name);
-                $('#ov_info_mgt_ip').html(params[node_name].mgt_IP);
-                $('#ov_info_loop_ip').html(params[node_name].loopback_IP);
+                var table = document.getElementById("NodeTableData");
+                my_add_row_tag_value(table,'Node', node_name);
+                my_add_row_tag_value(table,'Mgt_IP', params[node_name].mgt_IP);
+                my_add_row_tag_value(table,'Loopback IP', params[node_name].loopback_IP);
 
                 if (params[node_name].dpid != undefined && params[node_name].dpid !="") {
-                    $('#NodeTableData2 tr').remove();
-                    var table = document.getElementById("NodeTableData2");
-                    var rowCount = table.rows.length;
-                    var row = table.insertRow(rowCount);
-
-                    row.insertCell(0).innerHTML= 'DatapathID';
-                    row.insertCell(1).innerHTML= '&nbsp;:&nbsp;';
-                    row.insertCell(2).innerHTML= params[node_name].dpid;
+                    my_add_row_tag_value(table,'DatapathID', params[node_name].dpid);
                 }
 
-                 $('#IntfsTableData tr').remove();
+                //$('#IntfsTableData tr').remove();
                 var table = document.getElementById("IntfsTableData");
                 var rowCount = table.rows.length;
                 var row = table.insertRow(rowCount);
+                var my_cells = ['IF name','IP addr','MAC addr','Dest'];
+                    // my_cells.push();
+                    // row.insertCell(0).innerHTML= 'IF name';
+                    // row.insertCell(1).innerHTML= 'IP addr';
+                    // row.insertCell(2).innerHTML= 'MAC addr';
+                    // row.insertCell(3).innerHTML= 'Dest';
+                my_add_row(table, my_cells);
 
-                    row.insertCell(0).innerHTML= 'IF name';
-                    row.insertCell(1).innerHTML= 'IP addr';
-                    row.insertCell(2).innerHTML= 'MAC addr';
-                    row.insertCell(3).innerHTML= 'Dest';
+                //var rowCount = table.rows.length;
 
-                var rowCount = table.rows.length;
-
-
-
+                
                 for (var key in params[node_name].interfaces) {
                       if (params[node_name].interfaces.hasOwnProperty(key)) {
-                        var row = table.insertRow(rowCount);
+                        my_cells = [];
+                        //var row = table.insertRow(rowCount);
 
                         //console.log (key + " -> " + params[node_name].interfaces[key]);
                         //$(string_if_name+my_index.toString()).html(key);
-                        row.insertCell(0).innerHTML=key;
+                        //row.insertCell(0).innerHTML=key;
+                        my_cells.push(key);
                         //$(string_if_ip+my_index.toString()).html(params[node_name].interfaces[key].ip);
-                        row.insertCell(1).innerHTML=params[node_name].interfaces[key].ip;
+                        //row.insertCell(1).innerHTML=params[node_name].interfaces[key].ip;
+                        my_cells.push(params[node_name].interfaces[key].ip);
                         //$(string_if_mac+my_index.toString()).html(params[node_name].interfaces[key].mac);
-                        row.insertCell(2).innerHTML=params[node_name].interfaces[key].mac;
+                        //row.insertCell(2).innerHTML=params[node_name].interfaces[key].mac;
+                        my_cells.push(params[node_name].interfaces[key].mac);
                         //$(string_if_dest+my_index.toString()).html(params[node_name].interfaces[key].peers[0]);
-                        row.insertCell(3).innerHTML=params[node_name].interfaces[key].peers[0];
-                        rowCount = rowCount +1;
+                        //row.insertCell(3).innerHTML=params[node_name].interfaces[key].peers[0];
+                        my_cells.push(params[node_name].interfaces[key].peers[0]);
+                        my_add_row(table, my_cells);
+
+                        //rowCount = rowCount +1;
                       }
                 }
 
