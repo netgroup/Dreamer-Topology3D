@@ -442,6 +442,7 @@
                 var params =  info_nodes;//{ peo6 : {mgt_IP: "10.255.252.1", loopback_IP: "172.16.0.4", dpid: "00000000AC100004", interfaces : {'peo6-eth1' : {ip :"10.0.2.1/24", mac : "02:9e:fb:26:73:c4", peers : ["cro3"] }, 'peo6-eth0' : {ip :"10.255.252.1/24", mac : "8a:67:81:17:44:8e", peers : ["mgm1"] }}}};
                 var node_name = args.node;
 
+                $('#NodeTableData tr').remove();
                 var table = document.getElementById("NodeTableData");
                 my_add_row_tag_value(table,'Node', node_name);
                 my_add_row_tag_value(table,'Mgt_IP', params[node_name].mgt_IP);
@@ -451,7 +452,7 @@
                     my_add_row_tag_value(table,'DatapathID', params[node_name].dpid);
                 }
 
-                //$('#IntfsTableData tr').remove();
+                $('#IntfsTableData tr').remove();
                 var table = document.getElementById("IntfsTableData");
                 var rowCount = table.rows.length;
                 var row = table.insertRow(rowCount);
