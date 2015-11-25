@@ -410,16 +410,9 @@
         });
 
         /**
-         * adds a row to a table made by a tag and a value
+         * adds a row to a table
+         * my_cells is an array of strings that contains the cells to be added
          */
-        function my_add_row_tag_value(my_table, my_tag, my_value) {
-            var rowCount = my_table.rows.length;
-            var row = my_table.insertRow(rowCount);
-            row.insertCell(0).innerHTML= my_tag;
-            row.insertCell(1).innerHTML= '&nbsp;:&nbsp;';
-            row.insertCell(2).innerHTML= my_value;
-        }
-
         function my_add_row(my_table,my_cells) {
             var rowCount = my_table.rows.length;
             var row = my_table.insertRow(rowCount);
@@ -447,9 +440,6 @@
 
                 $('#NodeTableData tr').remove();
                 var table = document.getElementById("NodeTableData");
-                // my_add_row_tag_value(table,'Node', node_name);
-                // my_add_row_tag_value(table,'Mgt_IP', params[node_name].mgt_IP);
-                // my_add_row_tag_value(table,'Loopback IP', params[node_name].loopback_IP);
                 my_add_row(table,['Node', node_name]);
                 my_add_row(table, ['Mgt_IP', params[node_name].mgt_IP]);
                 my_add_row(table,['Loopback IP', params[node_name].loopback_IP]);
