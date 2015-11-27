@@ -920,11 +920,16 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         eventHandeler.addL(type, listener);
     }
 
-
+    /**
+     * switches between live and static topology display mode
+     * true : live
+     * false : static
+     * undefined: toggles 
+     */
     function toggle_live(value) {
-        ////console.log("toggle_live");
+        //console.log("toggle_live "+ value);
         if (value != undefined)
-            LIVE == value;
+            LIVE = value;
         else
             LIVE = !LIVE;
 

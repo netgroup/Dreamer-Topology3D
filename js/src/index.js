@@ -87,8 +87,8 @@
         my_graph_editor.addListener("LiveStatus", function(a, args) {
             //console.log("Fired con successoooo " + JSON.stringify(args));
             if (args.live) {
-                $('#live_button').text(' Static')
-                $('#live_button').prepend('<span class="fa fa-pause"></span>')
+                $('#layout_button_group').html(' Layout (Live) <span class="fa fa-sort-down"></span>')
+                //$('#layout_button_group').prepend('<span class="fa fa-pause"></span>')
 
                 $('#EdgeLength_label').css("color", "rgb(51,51,51)");
                 $('#EdgeStrength_label').css("color", "rgb(51,51,51)");
@@ -96,8 +96,9 @@
                 $('#edgeLength').slider('enable');
                 $('#edgeStrength').slider('enable');
             } else {
-                $('#live_button').text('   Live')
-                $('#live_button').prepend('<span class="fa fa-play"></span>')
+                //$('#layout_button_group').text(' Layout (Static)')
+                $('#layout_button_group').html(' Layout (Static) <span class="fa fa-sort-down"></span>')
+                //$('#live_button').prepend('<span class="fa fa-play"></span>')
 
                 $('#EdgeLength_label').css("color", "grey");
                 $('#EdgeStrength_label').css("color", "grey");
@@ -838,7 +839,11 @@
             });
 
             $('#live_button').click(function() {
-                my_graph_editor.toggle_live();
+                my_graph_editor.toggle_live(true);
+            });
+
+            $('#static_button').click(function() {
+                my_graph_editor.toggle_live(false);
             });
 
             var open_catalogue_item = function(id) {
