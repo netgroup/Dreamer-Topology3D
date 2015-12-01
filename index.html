@@ -4,33 +4,45 @@ This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Topology 3D</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.5 -->
-  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Topology 3D</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Ion Slider -->
-  <link rel="stylesheet" href="plugins/ionslider/ion.rangeSlider.css">
-  <!-- ion slider Nice -->
-  <link rel="stylesheet" href="plugins/ionslider/ion.rangeSlider.skinNice.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+    <link rel="stylesheet" href="plugins/ionslider/ion.rangeSlider.css">
+    <!-- ion slider Nice -->
+    <link rel="stylesheet" href="plugins/ionslider/ion.rangeSlider.skinNice.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect.
   -->
-  <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+    <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
+
+
+
+
+    <!-- Codemirror core CSS -->
+    <link rel="stylesheet" href="lib/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="lib/codemirror/addon/fold/foldgutter.css" />
+    <link rel="stylesheet" href="lib/codemirror/theme/neat.css">
+    <link rel="stylesheet" href="lib/codemirror/addon/dialog/dialog.css">
+    <link rel="stylesheet" href="lib/codemirror/addon/display/fullscreen.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
@@ -55,383 +67,1005 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
+
 <body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+    <div class="wrapper">
 
-  <!-- Main Header -->
-  <header class="main-header">
+        <!-- Main Header -->
+        <header class="main-header">
 
-    <!-- Logo -->
-    <a href="index2.html" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>T</b>3D</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Topology</b>3D</span>
-    </a>
+            <!-- Logo -->
+            <a href="index2.html" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>T</b>3D</span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>Topology</b>3D</span>
+            </a>
 
-    <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top" role="navigation">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-      <!-- Navbar Right Menu -->
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-            <li class="dropdown">
-              <a id="model_button" href="#" class="dropdown-toggle" data-toggle="dropdown">Model <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                                    <li><a href="?model=oshi" id="oshi_network" onclick="return confirm('Warning, you will loose unsaved changes in the current topology - are you sure ?');"> OSHI network</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li><a href="?model=openflow" id="of_network" onclick="return confirm('Warning, you will loose unsaved changes in the current topology - are you sure ?');"> OpenFlow network</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li><a href="?model=ciscoapic" id="of_network" onclick="return confirm('Warning, you will loose unsaved changes in the current topology - are you sure ?');"> Cisco APIC</a>
-                                    </li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a id="topology_button" href="#" class="dropdown-toggle" data-toggle="dropdown">Topology <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#" id="catalog_button" data-toggle="modal" data-target="#myModalTopoCatalog"><span class="fa fa-archive"></span> Open from catalog...</a>
-                                    </li>
-                                    <li><a href="#" id="imp_button"><span class="fa fa-folder-open"></span> Import Topology file</a>
-                                    </li>
-                                    <li><a href="#" id="edit_topo_button" data-toggle="modal" data-target="#myModalCopy"><span class="fa fa-pencil-square-o"></span> Edit Topology File</a>
-                                    </li>
-                                    <li><a href="#" id="random_button" data-toggle="modal" data-target="#myModalRandom"><span class="fa  fa-random"></span> Random</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" id="reset_button"><span class="fa fa-eraser"></span> Reset</a>
-                                    </li>
-                                    <li  class="divider"></li>
-                                    <li><a href="#" id="exp_button" data-toggle="modal" data-target="#myModalDownload"><span class="fa fa fa-floppy-o"></span> Export to file</a>
-                                    </li>
-                                    <li><a href="#" id="image_button"><span class="fa fa-picture-o"></span> Get Image</a>
-                                    </li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a id="layout_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">Layout (Static) <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#" id="static_button"><span class="fa fa-pause"></span> Static</a>
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a id="model_button" href="#" class="dropdown-toggle" data-toggle="dropdown">Model <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="?model=oshi" id="oshi_network" onclick="return confirm('Warning, you will loose unsaved changes in the current topology - are you sure ?');"> OSHI network</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="?model=openflow" id="of_network" onclick="return confirm('Warning, you will loose unsaved changes in the current topology - are you sure ?');"> OpenFlow network</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="?model=ciscoapic" id="of_network" onclick="return confirm('Warning, you will loose unsaved changes in the current topology - are you sure ?');"> Cisco APIC</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a id="topology_button" href="#" class="dropdown-toggle" data-toggle="dropdown">Topology <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#" id="catalog_button" data-toggle="modal" data-target="#myModalTopoCatalog"><span class="fa fa-archive"></span> Open from catalog...</a>
+                                </li>
+                                <li><a href="#" id="imp_button"><span class="fa fa-folder-open"></span> Import Topology file</a>
+                                </li>
+                                <li><a href="#" id="edit_topo_button" data-toggle="modal" data-target="#myModalCopy"><span class="fa fa-pencil-square-o"></span> Edit Topology File</a>
+                                </li>
+                                <li><a href="#" id="random_button" data-toggle="modal" data-target="#myModalRandom"><span class="fa  fa-random"></span> Random</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="reset_button"><span class="fa fa-eraser"></span> Reset</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="#" id="exp_button" data-toggle="modal" data-target="#myModalDownload"><span class="fa fa fa-floppy-o"></span> Export to file</a>
+                                </li>
+                                <li><a href="#" id="image_button"><span class="fa fa-picture-o"></span> Get Image</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a id="layout_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">Layout (Static) <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#" id="static_button"><span class="fa fa-pause"></span> Static</a>
                                     <li><a href="#" id="live_button"><span class="fa fa-play"></span> Live</a>
                                     </li>
-                                    </li>
-                                    <li role="presentation" class="divider"></li>
-                                    <li><a href="#" id="circular"><span class="fa fa-spinner"></span> Circular</a>
-                                    </li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a id="layer_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">View <span class="caret"></span></a>
-              <ul id="dropdown-menu-layer" class="dropdown-menu" role="menu">
+                                </li>
+                                <li role="presentation" class="divider"></li>
+                                <li><a href="#" id="circular"><span class="fa fa-spinner"></span> Circular</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a id="layer_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">View <span class="caret"></span></a>
+                            <ul id="dropdown-menu-layer" class="dropdown-menu" role="menu">
 
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a id="tool_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">Tools <span class="caret"></span></a>
-              <ul id="dropdown-menu-tool" class="dropdown-menu" role="menu">
-<li id="impexpmap">
-                                        <a href="#" id="editvmmcfg_button" data-toggle="modal" data-target="#myModalMappingCfg"> <span class="fa fa-sitemap"></span> Import and edit mapping file
-                                        </a>
-                                    </li>
-                                    <li id="editmap">
-                                        <a href="#" id="editvmmap_button" data-toggle="modal" data-target="#myModalMapping"> <span class="fa fa-sitemap"></span> Edit VM mapping
-                                        </a>
-                                    </li>
-                                    <li id="setcl">
-                                        <a href="#" id="set_cluster_button" data-toggle="modal" data-target="#myModalCluster"> <span class="fa fa-sitemap"></span> Set Cluster
-                                        </a>
-                                    </li>
-                                    <li id="settunneling">
-                                        <a href="#" id="settunneling_button" data-toggle="modal" data-target="#myModalTunnel"> <span class="fa fa-sitemap"></span> Set Tunneling <span id="tunneling_cur"></span></a>
-                                    </li>
-                                    <li id="settestbed">
-                                        <a href="#" id="settestbed_button" data-toggle="modal" data-target="#myModalTestBed"> <span class="fa fa-sitemap"></span> Set TestBed <span id="testbed_cur"></span></a>
-                                    </li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a id="deployment_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">Deployment <span class="caret"></span></a>
-              <ul id="dropdown-menu-deployment" class="dropdown-menu" role="menu">
-                                    <li id="validate">
-                                        <a href="#" id="validate_button"> <span class="fa fa-check-square-o"></span> Validate</a>
-                                    </li>
-                                    <li id="deployr">
-                                        <a href="#" id="deploy_button"> <span class="fa fa-desktop"></span> Deploy</a>
-                                    </li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a id="infohelp_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">Info/Help <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="#" id="help_button" data-toggle="modal" data-target="#myModal"> <span class="fa fa-question"></span> Help</a>
-                                    </li>
-                                    <li>
-                                        <a href="#" id="credits_button" data-toggle="modal" data-target="#myModalCredits"> <span class="fa fa-bookmark"></span> Credits</a>
-                                    </li>
-              </ul>
-            </li>
-         
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a id="tool_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">Tools <span class="caret"></span></a>
+                            <ul id="dropdown-menu-tool" class="dropdown-menu" role="menu">
+                                <li id="impexpmap">
+                                    <a href="#" id="editvmmcfg_button" data-toggle="modal" data-target="#myModalMappingCfg"> <span class="fa fa-sitemap"></span> Import and edit mapping file
+                                    </a>
+                                </li>
+                                <li id="editmap">
+                                    <a href="#" id="editvmmap_button" data-toggle="modal" data-target="#myModalMapping"> <span class="fa fa-sitemap"></span> Edit VM mapping
+                                    </a>
+                                </li>
+                                <li id="setcl">
+                                    <a href="#" id="set_cluster_button" data-toggle="modal" data-target="#myModalCluster"> <span class="fa fa-sitemap"></span> Set Cluster
+                                    </a>
+                                </li>
+                                <li id="settunneling">
+                                    <a href="#" id="settunneling_button" data-toggle="modal" data-target="#myModalTunnel"> <span class="fa fa-sitemap"></span> Set Tunneling <span id="tunneling_cur"></span>
+                                    </a>
+                                </li>
+                                <li id="settestbed">
+                                    <a href="#" id="settestbed_button" data-toggle="modal" data-target="#myModalTestBed"> <span class="fa fa-sitemap"></span> Set TestBed <span id="testbed_cur"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a id="deployment_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">Deployment <span class="caret"></span></a>
+                            <ul id="dropdown-menu-deployment" class="dropdown-menu" role="menu">
+                                <li id="validate">
+                                    <a href="#" id="validate_button"> <span class="fa fa-check-square-o"></span> Validate</a>
+                                </li>
+                                <li id="deployr">
+                                    <a href="#" id="deploy_button"> <span class="fa fa-desktop"></span> Deploy</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a id="infohelp_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">Info/Help <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="#" id="help_button" data-toggle="modal" data-target="#myModal"> <span class="fa fa-question"></span> Help</a>
+                                </li>
+                                <li>
+                                    <a href="#" id="credits_button" data-toggle="modal" data-target="#myModalCredits"> <span class="fa fa-bookmark"></span> Credits</a>
+                                </li>
+                            </ul>
+                        </li>
 
-          <!-- Control Sidebar Toggle Button -->
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
 
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
+                        <!-- Control Sidebar Toggle Button -->
+                        <li>
+                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
 
-      <!-- Sidebar Menu -->
-      <ul class="sidebar-menu">
-        <li class="header">Editor tools</li>
-        <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a id="collapsepalette" href="#"><i class="fa fa-compress"></i> <span>Hide Drawing Palette</span></a></li>
-        <li><a href="#"><i class="fa-compress"></i> <span>Another Link</span></a></li>
-        <li class="treeview">
-          <a id="collapsesettings" href="#"><i class="fa fa-edit"></i> <span>Editor Settings</span> <i class="fa fa-angle-left pull-right"></i></a>
-          <ul class="treeview-menu">
-            <li>
-              
-              <div class="row margin">
-                <label id="canvd_label">Canvas Dimension:</label>
-                <div class="col-sm-12">
-                  <input id="canvdimension" type="text" name="canvdimension" value="10000;100000">
-                </div>
-              </div>
-              <div class="row margin">
-                <label id="Orientation_label">Orientation</label>
-                <div class="col-sm-12">
-                  <input id="orientation" type="text" name="orientation" value="10000;100000">
-                </div>
-              </div>
-              <div class="row margin">
-                 <label id="VertexSize_label">Node Size</label>
-                <div class="col-sm-12">
-                  <input id="vertexSize" type="text" id="vertexSize" value="10000;100000">
-                </div>
-              </div>
-              <div class="row margin">
-                 <label id="EdgeStrength_label">Edge Strength</label>
-                <div class="col-sm-12">
-                  <input id="edgeStrength" type="text" name="edgeStrength" value="10000;100000">
-                </div>
-              </div>
-              <div class="row margin">
-                <label id="EdgeLength_label">Edge Length</label>
-                <div class="col-sm-12">
-                  <input id="edgeLength" type="text" name="edgeLength" value="10000;100000">
-                </div>
-              </div>
-              <li>
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+
+                <!-- Sidebar Menu -->
+                <ul class="sidebar-menu">
+                    <li class="header">Editor tools</li>
+                    <!-- Optionally, you can add icons to the links -->
+                    <li class="active"><a id="collapsepalette" href="#"><i class="fa fa-compress"></i> <span>Hide Drawing Palette</span></a>
+                    </li>
+                    <li><a href="#"><i class="fa-compress"></i> <span>Another Link</span></a>
+                    </li>
+                    <li class="treeview">
+                        <a id="collapsesettings" href="#"><i class="fa fa-edit"></i> <span>Editor Settings</span> <i class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li>
+
+                                <div class="row margin">
+                                    <label id="canvd_label">Canvas Dimension:</label>
+                                    <div class="col-sm-12">
+                                        <input id="canvdimension" type="text" name="canvdimension" value="10000;100000">
+                                    </div>
+                                </div>
+                                <div class="row margin">
+                                    <label id="Orientation_label">Orientation</label>
+                                    <div class="col-sm-12">
+                                        <input id="orientation" type="text" name="orientation" value="10000;100000">
+                                    </div>
+                                </div>
+                                <div class="row margin">
+                                    <label id="VertexSize_label">Node Size</label>
+                                    <div class="col-sm-12">
+                                        <input id="vertexSize" type="text" id="vertexSize" value="10000;100000">
+                                    </div>
+                                </div>
+                                <div class="row margin">
+                                    <label id="EdgeStrength_label">Edge Strength</label>
+                                    <div class="col-sm-12">
+                                        <input id="edgeStrength" type="text" name="edgeStrength" value="10000;100000">
+                                    </div>
+                                </div>
+                                <div class="row margin">
+                                    <label id="EdgeLength_label">Edge Length</label>
+                                    <div class="col-sm-12">
+                                        <input id="edgeLength" type="text" name="edgeLength" value="10000;100000">
+                                    </div>
+                                </div>
+                                <li>
                                     <div class="checkbox">
-                                        <label><input id="showLabelCheckbox" type="checkbox"></input>
-                                          Node Id
+                                        <label>
+                                            <input id="showLabelCheckbox" type="checkbox"></input>
+                                            Node Id
                                         </label>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="checkbox">
-                                        <label><input id="showCustomLabelCheckbox" checked type="checkbox"></input>
-                                          Node label
+                                        <label>
+                                            <input id="showCustomLabelCheckbox" checked type="checkbox"></input>
+                                            Node label
                                         </label>
                                     </div>
                                 </li>
-            </li>
-            <li><a href="#">Link in level 2</a></li>
-          </ul>
-        </li>
-      </ul>
-      <!-- /.sidebar-menu -->
-    </section>
-    <!-- /.sidebar -->
-  </aside>
+                            </li>
+                            <li><a href="#">Link in level 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- /.sidebar-menu -->
+            </section>
+            <!-- /.sidebar -->
+        </aside>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
         Page Header
         <small>Optional description</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
-    </section>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Level</a>
+                    </li>
+                    <li class="active">Here</li>
+                </ol>
+            </section>
 
-    <!-- Main content -->
-    <section class="content">
+            <!-- Main content -->
+            <section class="content">
 
-      <!-- Your Page Content Here -->
+                <div class="panel panel-default" id="panel_big">
+                    <div class="panel-heading" id="panel_head" style="padding-bottom: 0px; padding-top: 0px;">
 
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
+                        <input type="file" id="fileElem" style=" width: 0px; height: 0px; ">
+                        <div id="drag_drop_toolbar" align="left" style="display: block; padding-top: 5px;">
 
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="pull-right hidden-xs">
-      Anything you want
+                        </div>
+
+                        <div id="alert_div" class="alert-franz">
+
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <!-- <div class="container-canvas" id="canvas_cont" height="600" style="overflow-y: scroll;max-height: 600px;"> -->
+                        <div class="container-canvas" id="canvas_cont">
+                            <div class="canvas-label">
+
+                                <span id="model-label" style="float:left;">
+                                
+                            </span>
+                                <span id="layer-label" style="float:center;">
+                            </span>
+
+                                <span id="tunnel-label" style="float:right;">
+                                
+                            </span>
+                            </div>
+
+                            <div id='graph_ed'></div>
+                        </div>
+                        <!--container-canvas-->
+                    </div>
+                </div>
+
+
+                <div id="console_div" style="display: none;">
+                    <ul id="myTab" class="nav nav-tabs" role="tablist">
+                        <!--                         <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Home</a>
+                        </li>
+                        <li class="" role="presentation"><a aria-expanded="false" href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile">Profile</a>
+                        </li> -->
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <!--                         <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade terminal" id="profile" aria-labelledby="profile-tab">
+
+                        </div> -->
+
+                    </div>
+                </div>
+
+
+        </div>
+
+        </section>
+        <!-- /.content -->
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Topology 3D Help</h4>
+                    </div>
+                    <div id="help_body" class="modal-body">
+                        <div class="keyBoard">
+
+                            <ul>
+                                <li>
+                                    <span>Create vertex: Simply by using the drag and drop icons of the nodes,
+                                              or pressing </span><kbd>Shift</kbd> +<span>left-click</span>
+                                </li>
+                                <li>
+                                    <span>Create edge: Select the first vertex by clicking on it. </span><kbd>Shift</kbd> +<span>left-click  on another vertex (different than the selected one).</span>
+                                </li>
+                                <li>
+                                    <span>Delete a vertex/edge: </span><kbd> d</kbd><span>when vertex/edge is selected.</span>
+                                </li>
+                                <li>
+                                    <span>Freeze/unfrees a vertex: press </span> <kbd> f</kbd> <span> when the node is selected (a frozen node does not move in live mode)</span>
+                                </li>
+                                <li>
+                                    <span>Undo vertex deletion: Click on the Undo button. Only the last deleted vertex can be recovered.</span>
+                                </li>
+                                <li>
+                                    <span>Switch to automatic node positioning: Menu Layout -> Live</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModalTopoCatalog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalTopoCatalogLabel">Topology Catalogue</h4>
+                    </div>
+                    <div id="myModalTopoCatalog_body" class="modal-body">
+                        <div class="row">
+                            <!-- start carousel -->
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <h3>Select Topology:</h3>
+                                </div>
+                                <div class="col-md-3">
+                                    <!-- Controls -->
+                                    <div class="controls pull-right hidden-xs">
+                                        <a class="left fa fa-chevron-left btn btn-success" href="#carousel-example" data-slide="prev"></a>
+                                        <a class="right fa fa-chevron-right btn btn-success" href="#carousel-example" data-slide="next"></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div id="carousel-example" class="carousel slide hidden-xs" data-ride="carousel"> -->
+                            <div id="carousel-example" class="carousel slide hidden-xs">
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner">
+
+
+                                    <!-- START ROW WITH TWO TOPOLOGIES -->
+                                    <div class="item active">
+                                        <div class="row">
+
+
+                                            <!-- START TOPOLOGY -->
+                                            <div class="col-sm-6">
+                                                <div class="col-item">
+                                                    <div class="photo">
+                                                        <img src="img/catalogTopo/OSHI_base_7N.png" class="img-responsive" alt="a" />
+                                                    </div>
+                                                    <div class="info">
+                                                        <div class="row">
+                                                            <div class="price col-md-6">
+                                                                <h5>OSHI_base_7N</h5>
+                                                                <button type="button" id="imp_OSHI_base_7N" class="btn btn-success">Load</button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="clearfix">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END TOPOLOGY -->
+
+                                            <!-- START TOPOLOGY -->
+                                            <div class="col-sm-6">
+                                                <div class="col-item">
+                                                    <div class="photo">
+                                                        <img src="img/catalogTopo/OSHI_12N.png" class="img-responsive" alt="a" />
+                                                    </div>
+                                                    <div class="info">
+                                                        <div class="row">
+                                                            <div class="price col-md-6">
+                                                                <h5>OSHI_12N</h5>
+
+                                                                <button type="button" id="imp_OSHI_12N" class="btn btn-success">Load</button>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="clearfix">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- END TOPOLOGY -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END ROW WITH TWO TOPOLOGIES -->
+
+                                    <!-- START ROW WITH TWO TOPOLOGIES -->
+                                    <div class="item">
+                                        <div class="row">
+
+
+                                            <!-- START TOPOLOGY -->
+                                            <div class="col-sm-6">
+                                                <div class="col-item">
+                                                    <div class="photo">
+                                                        <img src="img/catalogTopo/GARR_2014.png" class="img-responsive" alt="a" />
+                                                    </div>
+                                                    <div class="info">
+                                                        <div class="row">
+                                                            <div class="price col-md-6">
+                                                                <h5>GARR_2014</h5>
+
+                                                                <button type="button" id="imp_GARR_2014" class="btn btn-success">Load</button>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="clearfix">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END TOPOLOGY -->
+
+                                            <!-- START TOPOLOGY 
+                                                    <div class="col-sm-6">
+                                                        <div class="col-item">
+                                                            <div class="photo">
+                                                                <img src="img/catalogTopo/ex3.png" class="img-responsive" alt="a" />
+                                                            </div>
+                                                            <div class="info">
+                                                                <div class="row">
+                                                                    <div class="price col-md-6">
+                                                                        <h5>Example 3</h5>
+                                                                        <button type="button" id="imp_cat_butt_3" class="btn btn-success">Load</button>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="clearfix">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                     END TOPOLOGY -->
+                                        </div>
+                                    </div>
+                                    <!-- END ROW WITH TWO TOPOLOGIES -->
+
+                                    <!-- START ROW WITH TWO TOPOLOGIES 
+                                            <div class="item">
+                                                <div class="row">
+
+
+
+                                                </div>
+                                            </div>
+                                             END ROW WITH TWO TOPOLOGIES -->
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END carousel -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModalTunnel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalTunnelLabel">Select Tunneling</h4>
+                    </div>
+                    <div id="tunnel_body" class="modal-body">
+                        <div id="tunneling_mechanism_sec">
+                            <label>Tunneling:</label>
+                            <select id='tun_option'>
+                                <option value=''></option>
+                                <option value='VXLAN'>VXLAN</option>
+                                <option value='OPENVPN'>OPENVPN</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModalTestBed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalTestBedlLabel">Select TestBed</h4>
+                    </div>
+                    <div id="tunnel_body" class="modal-body">
+                        <div id="testbed_mechanism_sec">
+                            <label>TestBed:</label>
+                            <select id='tb_option'>
+                                <option value=''></option>
+                                <option value='MININET'>MININET</option>
+                                <option value='OFELIA'>OFELIA</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModalRandom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalRandomLabel">Select Parameters for random topology generator</h4>
+                    </div>
+                    <div id="random_body" class="modal-body">
+                        <div id="erRandomAlert">
+                        </div>
+
+                        <label for="corenum">Total number of CORE nodes:</label>
+                        <input type="text" id="corenum" style="border:0; color:#f6931f; font-weight:bold;" />
+                        <div class="slider" id="coreslider"></div>
+                        <br>
+                        <label for="prob">Interconnection Probability:</label>
+                        <input type="text" id="prob" style="border:0; color:#f6931f; font-weight:bold;" />
+                        <div class="slider" id="probslider"></div>
+                        <br>
+                        <div class="progress progress-striped active" id="randomprogbar" hidden="true">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="start_random_button" class="btn btn-success">Generate</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModalValidationError" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalValidationErrorLabel">Select the item to see the detail of the errors</h4>
+                    </div>
+                    <div id="validationError_body" class="modal-body">
+
+
+                        <div class="panel-group" id="validationError_list">
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModalLoading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <h4 class="modal-title" id="myModalLoadingLabel">Loading...</h4>
+                    </div>
+                    <div id="loading_body" class="modal-body">
+
+                        <div class="progress">
+                            <div class="progress progress-striped active" id="loadingprogbar">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModalAlert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <h4 class="modal-title" id="myModalAlertLabel">Topology 3D</h4>
+                    </div>
+                    <div id="alert_body" class="modal-body">
+                        It is not possible to automatically deploy the topology on this public demo of the Topology 3D tool. You should download and install on your server the Topology 3D tool, please refer to the section "Software Download" of the OSHI home page
+                        <a href="http://netgroup.uniroma2.it/OSHI" target="_blank">http://netgroup.uniroma2.it/OSHI</a>.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModalAlertErrorLoading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalAlertErrorLoadingLabel">Error</h4>
+                    </div>
+                    <div id="alert_error_body" class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button id="reload_button" type="button" onclick="window.location.reload()" class="btn btn-primary">Reload</button>
+                        <button id="close_mael_button" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModalCredits" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabelCredits">Topology 3D Credits</h4>
+                    </div>
+                    <div id="credits_body" class="modal-body">
+                        Dreamer-Topology-Designer Simple Topology 3D, a customization of JS GRAPH EDITOR Based JS GRAPH EDITOR written by Radoslav Kirov.
+                        <br>
+                        <br>This activity has been partially funded by EU in the context of <a href="http://netgroup.uniroma2.it/DREAMER/" target="_blank">DREAMER</a> , which is one of the beneficiary projects of the GÉANT Open Call research initiative, see <a href="http://www.geant.net" target="_blank">www.geant.net</a>. The partners of DREAMER are: CNIT, CREATE-NET and Consortium GARR.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModalDownload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabelDownload">Download Json file</h4>
+                    </div>
+                    <div id="download_body" class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModalCopy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabelCopy">Edit Json data</h4>
+                    </div>
+                    <div id="copy_body" class="modal-body">
+                        Edit the JSON representation of the graph:
+                        <br>
+                        <textarea id="jsonEditor" rows="5" cols="100">
+                        </textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="set_json" class="btn btn-success">Parse</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModalCluster" tabindex="-1" role="dialog" aria-labelledby="myModalCluster" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabelCluster">Set Cluster</h4>
+                    </div>
+                    <div id="paste_body" class="modal-body">
+                        Set the cluster ID:
+                        <br>
+                        <br>
+                        <textarea id="clusterEditor" rows="5" cols="50">
+                        </textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="set_cluster_parse" class="btn btn-success">Parse</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModalMapping" tabindex="-1" role="dialog" aria-labelledby="myModalMapping" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabelMapping">Edit VM Mapping</h4>
+                    </div>
+                    <div id="vmmapping_body" class="modal-body">
+                        Edit VM Mapping:
+                        <br>
+                        <br>
+                        <textarea id="vmmappingEditor" rows="5" cols="50">
+                        </textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="set_mapping" class="btn btn-success">Save</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModalMappingCfg" tabindex="-1" role="dialog" aria-labelledby="myModalMappingCfg" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabelMappingCfg">Edit Config VM Mapping</h4>
+                    </div>
+                    <div id="vmmapping_body" class="modal-body">
+                        Edit Config VM Mapping:
+                        <br>
+                        <br>
+                        <textarea id="vmmconfigEditor" rows="5" cols="50">
+                        </textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="set_cfg_mapping" class="btn btn-success">Save</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
     </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2015 <a href="#">Company</a>.</strong> All rights reserved.
-  </footer>
+    <!-- /.content-wrapper -->
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Create the tabs -->
-    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-      <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-      <!-- Home tab content -->
-      <div class="tab-pane active" id="control-sidebar-home-tab">
-        <h3 class="control-sidebar-heading">Recent Activity</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript::;">
-              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <!-- To the right -->
+        <div class="pull-right hidden-xs">
+            Anything you want
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2015 <a href="#">Company</a>.</strong> All rights reserved.
+    </footer>
 
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                <p>Will be 23 on April 24th</p>
-              </div>
-            </a>
-          </li>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a>
+            </li>
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a>
+            </li>
         </ul>
-        <!-- /.control-sidebar-menu -->
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane active" id="control-sidebar-home-tab">
+                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript::;">
+                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
-        <h3 class="control-sidebar-heading">Tasks Progress</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript::;">
-              <h4 class="control-sidebar-subheading">
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                                <p>Will be 23 on April 24th</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+                <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript::;">
+                            <h4 class="control-sidebar-subheading">
                 Custom Template Design
                 <span class="label label-danger pull-right">70%</span>
               </h4>
 
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
 
-      </div>
-      <!-- /.tab-pane -->
-      <!-- Stats tab content -->
-      <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-      <!-- /.tab-pane -->
-      <!-- Settings tab content -->
-      <div class="tab-pane" id="control-sidebar-settings-tab">
-        <form method="post">
-          <h3 class="control-sidebar-heading">General Settings</h3>
+            </div>
+            <!-- /.tab-pane -->
+            <!-- Stats tab content -->
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+            <!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <form method="post">
+                    <h3 class="control-sidebar-heading">General Settings</h3>
 
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Report panel usage
-              <input type="checkbox" class="pull-right" checked>
-            </label>
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Report panel usage
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
 
-            <p>
-              Some information about this general settings option
-            </p>
-          </div>
-          <!-- /.form-group -->
-        </form>
-      </div>
-      <!-- /.tab-pane -->
-    </div>
-  </aside>
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
+                        <p>
+                            Some information about this general settings option
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+                </form>
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
-</div>
-<!-- ./wrapper -->
+    <div class="control-sidebar-bg"></div>
+    </div>
+    <!-- ./wrapper -->
 
-<!-- REQUIRED JS SCRIPTS -->
+    <!-- REQUIRED JS SCRIPTS -->
 
-<!-- jQuery 2.1.4 -->
-<script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
-<!-- Bootstrap 3.3.5 -->
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/app.min.js"></script>
-<!-- Ion Slider -->
-<script src="plugins/ionslider/ion.rangeSlider.min.js"></script>
-<script>
-  $(function () {
+    <!-- jQuery 2.1.4 -->
+    <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/app.min.js"></script>
+    <!-- Ion Slider -->
+    <script src="plugins/ionslider/ion.rangeSlider.min.js"></script>
 
-    /* ION SLIDER */
-    $("#canvdimension").ionRangeSlider({
-      type: "single",
-      step: 100,
-      postfix: " ",
-      from: 55000,
-      hideMinMax: true,
-      hideFromTo: false
-    });
+    <script type="text/javascript" src="js/jquery-ui.js"></script>
+    <script src="js/socket.io-1.2.0.js"></script>
+    <script src="js/json2.js"></script>
+    <script src="lib/codemirror/lib/codemirror.js"></script>
+    <script src="lib/codemirror/addon/fold/foldcode.js"></script>
+    <script src="lib/codemirror/addon/fold/foldgutter.js"></script>
+    <script src="lib/codemirror/addon/fold/brace-fold.js"></script>
+    <script src="lib/codemirror/mode/javascript/javascript.js"></script>
+    <script src="lib/codemirror/mode/xml/xml.js"></script>
+    <script src="lib/codemirror/mode/markdown/markdown.js"></script>
+    <script src="lib/codemirror/addon/search/searchcursor.js"></script>
+    <script src="lib/codemirror/addon/search/search.js"></script>
+    <script src="lib/codemirror/addon/dialog/dialog.js"></script>
+    <script src="lib/codemirror/addon/edit/matchbrackets.js"></script>
+    <script src="lib/codemirror/addon/edit/closebrackets.js"></script>
+    <script src="lib/codemirror/addon/display/fullscreen.js"></script>
+    <script src="lib/codemirror/keymap/sublime.js"></script>
+    <script src="js/src/config.js"></script>
+    <script src="js/src/vmmcontroller.js"></script>
+    <script src="js/src/vertex.js"></script>
+    <script src="js/src/domaincontroller/domaincontroller.js"></script>
+    <script src="js/src/domaincontroller/oshi.js"></script>
+    <script src="js/src/domaincontroller/openflow.js"></script>
+    <script src="js/src/domaincontroller/ciscoapic.js"></script>
+    <script src="js/src/link.js"></script>
+    <script src="js/src/layer.js"></script>
+    <script src="js/src/event.js"></script>
+    <script src="js/src/algebra.js"></script>
+    <script src="js/src/graph_parameters.js"></script>
+    <script src="js/src/edge.js"></script>
+    <script src="js/src/fwebconsole/fwebconsole.js"></script>
+    <script src="js/src/fwebconsole/ctrlWebconsole.js"></script>
+    <script src="js/src/graph_editor.js"></script>
+    <script src="js/src/index.js"></script>
 
-    $("#orientation").ionRangeSlider({
-      type: "single",
-      step: 100,
-      postfix: " ",
-      from: 55000,
-      hideMinMax: true,
-      hideFromTo: false
-    });
+    <script>
+        $(function() {
 
-    $("#vertexSize").ionRangeSlider({
-      type: "single",
-      step: 100,
-      postfix: " ",
-      from: 55000,
-      hideMinMax: true,
-      hideFromTo: false
-    });
+            /* ION SLIDER */
+            $("#canvdimension").ionRangeSlider({
+                type: "single",
+                step: 100,
+                postfix: " ",
+                from: 55000,
+                hideMinMax: true,
+                hideFromTo: false
+            });
 
-    $("#edgeStrength").ionRangeSlider({
-      type: "single",
-      step: 100,
-      postfix: " ",
-      from: 55000,
-      hideMinMax: true,
-      hideFromTo: false
-    });
+            $("#orientation").ionRangeSlider({
+                type: "single",
+                step: 100,
+                postfix: " ",
+                from: 55000,
+                hideMinMax: true,
+                hideFromTo: false
+            });
 
-    $("#edgeLength").ionRangeSlider({
-      type: "single",
-      step: 100,
-      postfix: " ",
-      from: 55000,
-      hideMinMax: true,
-      hideFromTo: false
-    });
+            $("#vertexSize").ionRangeSlider({
+                type: "single",
+                step: 100,
+                postfix: " ",
+                from: 55000,
+                hideMinMax: true,
+                hideFromTo: false
+            });
 
-  });
-</script>
+            $("#edgeStrength").ionRangeSlider({
+                type: "single",
+                step: 100,
+                postfix: " ",
+                from: 55000,
+                hideMinMax: true,
+                hideFromTo: false
+            });
 
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
+            $("#edgeLength").ionRangeSlider({
+                type: "single",
+                step: 100,
+                postfix: " ",
+                from: 55000,
+                hideMinMax: true,
+                hideFromTo: false
+            });
+
+        });
+    </script>
+
+    <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the
      fixed layout. -->
 </body>
+
 </html>
