@@ -13,6 +13,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/bootstrap-slider/slider.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -137,7 +138,7 @@ desired effect
                                 </li>
                             </ul>
                         </li>
-                        <li id="layer-menu"  class="dropdown">
+                        <li id="layer-menu" class="dropdown">
                             <a id="layer_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">View <span class="caret"></span></a>
                             <ul id="dropdown-menu-layer" class="dropdown-menu" role="menu">
 
@@ -163,7 +164,7 @@ desired effect
                     <!-- Optionally, you can add icons to the links -->
                     <li class="active"><a id="collapsepalette" href="#"><i class="fa fa-compress"></i> <span>Hide Drawing Palette</span></a>
                     </li>
-                    <li><a id="undo_button" href="#" ><i class="fa fa-undo"></i> <span>Undo action</span></a>
+                    <li><a id="undo_button" href="#"><i class="fa fa-undo"></i> <span>Undo action</span></a>
                     </li>
                     <li class="treeview">
                         <a id="collapsesettings" href="#"><i class="fa fa-edit"></i> <span>Editor Settings</span> <i class="fa fa-angle-left pull-right"></i></a>
@@ -173,87 +174,91 @@ desired effect
                                 <div class="row margin">
                                     <label id="canvd_label">Canvas Dimension:</label>
                                     <div class="col-sm-12">
-                                        <input id="canvdimension" type="text" name="canvdimension" value="10000;100000">
+                                        <input id="canvdimension" type="text" name="canvdimension">
                                     </div>
                                 </div>
                                 <div class="row margin">
                                     <label id="Orientation_label">Orientation</label>
                                     <div class="col-sm-12">
-                                        <input id="orientation" type="text" name="orientation" value="10000;100000">
+                                        <input id="orientation" type="text" name="orientation">
                                     </div>
                                 </div>
                                 <div class="row margin">
                                     <label id="VertexSize_label">Node Size</label>
                                     <div class="col-sm-12">
-                                        <input id="vertexSize" type="text" id="vertexSize" value="10000;100000">
+                                        <input id="vertexSize" type="text" id="vertexSize">
                                     </div>
                                 </div>
                                 <div class="row margin">
                                     <label id="EdgeStrength_label">Edge Strength</label>
                                     <div class="col-sm-12">
-                                        <input id="edgeStrength" type="text" name="edgeStrength" value="10000;100000">
+                                        <input id="edgeStrength" type="text" name="edgeStrength">
                                     </div>
                                 </div>
+
+
                                 <div class="row margin">
                                     <label id="EdgeLength_label">Edge Length</label>
                                     <div class="col-sm-12">
-                                        <input id="edgeLength" type="text" name="edgeLength" value="10000;100000">
+                                        <input id="edgeLength" type="text" name="edgeLength">
                                     </div>
                                 </div>
-                                <li>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input id="showLabelCheckbox" checked type="checkbox"></input>
-                                            Node Id
-                                        </label>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input id="showCustomLabelCheckbox" checked type="checkbox"></input>
-                                            Node label
-                                        </label>
-                                    </div>
-                                </li>
+
                             </li>
-                            <li><a href="#">Link in level 2</a>
+                            <li>
+                                <div class="checkbox">
+                                    <label>
+                                        <input id="showLabelCheckbox" checked type="checkbox"></input>
+                                        Node Id
+                                    </label>
+                                </div>
                             </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label>
+                                        <input id="showCustomLabelCheckbox" checked type="checkbox"></input>
+                                        Node label
+                                    </label>
+                                </div>
+                            </li>
+
                         </ul>
                     </li>
                     <li class="treeview" id="collapsetools">
-                        <a  href="#"><i class="fa fa-wrench"></i> <span>Tools</span><i class="fa fa-angle-left pull-right"></i></a>
+                        <a href="#"><i class="fa fa-wrench"></i> <span>Tools</span><i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
-                             <li id="impexpmap">
-                                        <a href="#" id="editvmmcfg_button" data-toggle="modal" data-target="#myModalMappingCfg"> <span class="fa fa-sitemap"></span> Edit mapping file
-                                        </a>
-                                    </li>
-                                    <li id="editmap">
-                                        <a href="#" id="editvmmap_button" data-toggle="modal" data-target="#myModalMapping"> <span class="fa fa-sitemap"></span> Edit VM mapping
-                                        </a>
-                                    </li>
-                                    <li id="setcl">
-                                        <a href="#" id="set_cluster_button" data-toggle="modal" data-target="#myModalCluster"> <span class="fa fa-sitemap"></span> Set Cluster
-                                        </a>
-                                    </li>
-                                    <li id="settunneling">
-                                        <a href="#" id="settunneling_button" data-toggle="modal" data-target="#myModalTunnel"> <span class="fa fa-sitemap"></span> Set Tunneling <span id="tunneling_cur"></span></a>
-                                    </li>
-                                    <li id="settestbed">
-                                        <a href="#" id="settestbed_button" data-toggle="modal" data-target="#myModalTestBed"> <span class="fa fa-sitemap"></span> Set TestBed <span id="testbed_cur"></span></a>
-                                    </li>
+                            <li id="impexpmap">
+                                <a href="#" id="editvmmcfg_button" data-toggle="modal" data-target="#myModalMappingCfg"> <span class="fa fa-sitemap"></span> Edit mapping file
+                                </a>
                             </li>
-                        </ul>
+                            <li id="editmap">
+                                <a href="#" id="editvmmap_button" data-toggle="modal" data-target="#myModalMapping"> <span class="fa fa-sitemap"></span> Edit VM mapping
+                                </a>
+                            </li>
+                            <li id="setcl">
+                                <a href="#" id="set_cluster_button" data-toggle="modal" data-target="#myModalCluster"> <span class="fa fa-sitemap"></span> Set Cluster
+                                </a>
+                            </li>
+                            <li id="settunneling">
+                                <a href="#" id="settunneling_button" data-toggle="modal" data-target="#myModalTunnel"> <span class="fa fa-sitemap"></span> Set Tunneling <span id="tunneling_cur"></span>
+                                </a>
+                            </li>
+                            <li id="settestbed">
+                                <a href="#" id="settestbed_button" data-toggle="modal" data-target="#myModalTestBed"> <span class="fa fa-sitemap"></span> Set TestBed <span id="testbed_cur"></span>
+                                </a>
+                            </li>
+                    </li>
+                    </ul>
                     </li>
                     <li class="treeview" d="deployment_button_group">
-                        <a  href="#"><i class="fa fa-tachometer"></i> <span>Deployment</span><i class="fa fa-angle-left pull-right"></i></a>
+                        <a href="#"><i class="fa fa-tachometer"></i> <span>Deployment</span><i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
-                                <li id="validate">
-                                    <a href="#" id="validate_button"> <span class="fa fa-check-square-o"></span> Validate</a>
-                                </li>
-                                <li id="deployr">
-                                    <a href="#" id="deploy_button"> <span class="fa fa-desktop"></span> Deploy</a>
-                                </li>
+                            <li id="validate">
+                                <a href="#" id="validate_button"> <span class="fa fa-check-square-o"></span> Validate</a>
+                            </li>
+                            <li id="deployr">
+                                <a href="#" id="deploy_button"> <span class="fa fa-desktop"></span> Deploy</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -868,7 +873,7 @@ desired effect
             <strong>Topology 3D</strong>
         </div>
         <!-- Default to the left -->
-        
+
     </footer>
 
     <!-- Control Sidebar -->
@@ -885,28 +890,27 @@ desired effect
             <!-- Home tab content -->
             <div class="tab-pane active" id="control-sidebar-home-tab">
                 <h3 class="control-sidebar-heading">Help</h3>
-                <ul >
-                   
-                                        <li >
-                                            <p>Create vertex: Simply by using the drag and drop icons of the nodes,
-                                              or pressing <kbd>Shift</kbd> + left-click</p>
-                                        </li>
-                                        <li >
-                                            <p>Create edge: Select the first vertex by clicking on it. <kbd>Shift</kbd> +left-click  on another vertex (different than the selected one).</p>
-                                        </li>
-                                        <li >
-                                            <p>Delete a vertex/edge:<kbd> d</kbd> when vertex/edge is selected.</p>
-                                        </li>
-                                        <li >
-                                            <p>Freeze/unfrees a vertex: press <kbd> f</kbd> when the node is selected (a frozen node does not move in live mode)</p>
-                                        </li>
-                                        <li >
-                                            <p>Undo vertex deletion: Click on the Undo button. Only the last deleted vertex can be recovered.</p>
-                                        </li>
-                                        <li >
-                                            <p>Switch to automatic node positioning: Menu Layout -> Live</p>
-                                        </li>
-                               
+                <ul>
+
+                    <li>
+                        <p>Create vertex: Simply by using the drag and drop icons of the nodes, or pressing <kbd>Shift</kbd> + left-click</p>
+                    </li>
+                    <li>
+                        <p>Create edge: Select the first vertex by clicking on it. <kbd>Shift</kbd> +left-click on another vertex (different than the selected one).</p>
+                    </li>
+                    <li>
+                        <p>Delete a vertex/edge:<kbd> d</kbd> when vertex/edge is selected.</p>
+                    </li>
+                    <li>
+                        <p>Freeze/unfrees a vertex: press <kbd> f</kbd> when the node is selected (a frozen node does not move in live mode)</p>
+                    </li>
+                    <li>
+                        <p>Undo vertex deletion: Click on the Undo button. Only the last deleted vertex can be recovered.</p>
+                    </li>
+                    <li>
+                        <p>Switch to automatic node positioning: Menu Layout -> Live</p>
+                    </li>
+
                 </ul>
                 <!-- /.control-sidebar-menu -->
 
@@ -920,12 +924,12 @@ desired effect
                 <form method="post">
                     <h3 class="control-sidebar-heading">Credits</h3>
 
-                        <p>
-                                                    Dreamer-Topology-Designer Simple Topology 3D, a customization of JS GRAPH EDITOR Based JS GRAPH EDITOR written by Radoslav Kirov.
+                    <p>
+                        Dreamer-Topology-Designer Simple Topology 3D, a customization of JS GRAPH EDITOR Based JS GRAPH EDITOR written by Radoslav Kirov.
                         <br>
                         <br>This activity has been partially funded by EU in the context of <a href="http://netgroup.uniroma2.it/DREAMER/" target="_blank">DREAMER</a> , which is one of the beneficiary projects of the GÉANT Open Call research initiative, see <a href="http://www.geant.net" target="_blank">www.geant.net</a>. The partners of DREAMER are: CNIT, CREATE-NET and Consortium GARR.
-                        </p>
-                   
+                    </p>
+
                     <!-- /.form-group -->
                 </form>
             </div>
@@ -988,51 +992,8 @@ desired effect
     <script>
         $(function() {
 
-            /* ION SLIDER */
-            $("#canvdimension").ionRangeSlider({
-                type: "single",
-                step: 100,
-                postfix: " ",
-                from: 55000,
-                hideMinMax: true,
-                hideFromTo: false
-            });
 
-            $("#orientation").ionRangeSlider({
-                type: "single",
-                step: 100,
-                postfix: " ",
-                from: 55000,
-                hideMinMax: true,
-                hideFromTo: false
-            });
 
-            $("#vertexSize").ionRangeSlider({
-                type: "single",
-                step: 100,
-                postfix: " ",
-                from: 55000,
-                hideMinMax: true,
-                hideFromTo: false
-            });
-
-            $("#edgeStrength").ionRangeSlider({
-                type: "single",
-                step: 100,
-                postfix: " ",
-                from: 55000,
-                hideMinMax: true,
-                hideFromTo: false
-            });
-
-            $("#edgeLength").ionRangeSlider({
-                type: "single",
-                step: 100,
-                postfix: " ",
-                from: 55000,
-                hideMinMax: true,
-                hideFromTo: false
-            });
 
         });
     </script>

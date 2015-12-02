@@ -21,6 +21,8 @@
 
     $(document).ready(function() {
 
+        
+
         $('#myModalLoading').modal('show');
         my_graph_editor = new GraphEditor('#graph_ed', {
             // JSONdata: example,
@@ -659,48 +661,59 @@
                 $('#collapsesettings').find('span').toggleClass('fa-sort-up fa-sort-down')
             });
 
-            $("#canvdimension").slider({
+            
+
+            $("#canvdimension").ionRangeSlider({
+                type: "single",
                 min: 0,
                 max: 600,
-                value: 50,
-                slide: function(event, ui) {
-                    my_graph_editor.resizeCanvasWith(ui.value);
+                step: 10,
+                from: 50,
+                onChange: function(obj) {
+                        my_graph_editor.resizeCanvasWith(obj["fromNumber"]);
                 }
             });
 
-            $("#orientation").slider({
+
+            $("#orientation").ionRangeSlider({
+                type: "single",
                 min: 0,
                 max: 360,
-                value: 0,
-                slide: function(event, ui) {
-                    my_graph_editor.change_orientation(ui.value);
+                step: 10,
+                from: 0,
+                onChange: function(obj) {
+                        my_graph_editor.change_orientation(obj["fromNumber"]);
                 }
             });
 
-            $("#vertexSize").slider({
+            $("#vertexSize").ionRangeSlider({
+                type: "single",
                 min: my_graph_editor.get_vertex_size()*0.5,
                 max: my_graph_editor.get_vertex_size()*1.5,
-                value: my_graph_editor.get_vertex_size(),
-                slide: function(event, ui) {
-                    my_graph_editor.change_vertex_size(ui.value);
+                from: my_graph_editor.get_vertex_size(),
+                onChange: function(obj) {
+                    my_graph_editor.change_vertex_size(obj["fromNumber"]);
                 }
             });
 
-            $("#edgeStrength").slider({
+            $("#edgeStrength").ionRangeSlider({
+                type: "single",
                 min: 0,
                 max: 100,
-                value: 50,
-                slide: function(event, ui) {
-                    my_graph_editor.change_egde_strength(ui.value);
+                from: 50,
+                onChange: function(obj) {
+                    my_graph_editor.change_egde_strength(obj["fromNumber"]);
                 }
             });
 
-            $("#edgeLength").slider({
+            $("#edgeLength").ionRangeSlider({
+                type: "single",
                 min: 0,
                 max: 100,
-                value: 50,
-                slide: function(event, ui) {
-                    my_graph_editor.change_egde_length(ui.value);
+                from: 50,
+                step: 10,
+                onChange: function(obj) {
+                    my_graph_editor.change_egde_length(obj["fromNumber"]);
                 }
             });
 
