@@ -143,22 +143,9 @@ desired effect
 
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <a id="infohelp_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">Info/Help <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="#" id="help_button" data-toggle="modal" data-target="#myModal"> <span class="fa fa-question"></span> Help</a>
-                                </li>
-                                <li>
-                                    <a href="#" id="credits_button" data-toggle="modal" data-target="#myModalCredits"> <span class="fa fa-bookmark"></span> Credits</a>
-                                </li>
-                            </ul>
-                        </li>
-
-
                         <!-- Control Sidebar Toggle Button -->
                         <li>
-                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-info"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -888,45 +875,38 @@ desired effect
     <aside class="control-sidebar control-sidebar-dark">
         <!-- Create the tabs -->
         <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-            <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a>
+            <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-question"></i></a>
             </li>
-            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a>
+            <li><a href="#control-sidebar-credits-tab" data-toggle="tab"><i class="fa fa-bookmark"></i></a>
             </li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
             <!-- Home tab content -->
             <div class="tab-pane active" id="control-sidebar-home-tab">
-                <h3 class="control-sidebar-heading">Recent Activity</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript::;">
-                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-                            <div class="menu-info">
-                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                                <p>Will be 23 on April 24th</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <!-- /.control-sidebar-menu -->
-
-                <h3 class="control-sidebar-heading">Tasks Progress</h3>
-                <ul class="control-sidebar-menu">
-                    <li>
-                        <a href="javascript::;">
-                            <h4 class="control-sidebar-subheading">
-                Custom Template Design
-                <span class="label label-danger pull-right">70%</span>
-              </h4>
-
-                            <div class="progress progress-xxs">
-                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                            </div>
-                        </a>
-                    </li>
+                <h3 class="control-sidebar-heading">Help</h3>
+                <ul >
+                   
+                                        <li >
+                                            <p>Create vertex: Simply by using the drag and drop icons of the nodes,
+                                              or pressing <kbd>Shift</kbd> + left-click</p>
+                                        </li>
+                                        <li >
+                                            <p>Create edge: Select the first vertex by clicking on it. <kbd>Shift</kbd> +left-click  on another vertex (different than the selected one).</p>
+                                        </li>
+                                        <li >
+                                            <p>Delete a vertex/edge:<kbd> d</kbd> when vertex/edge is selected.</p>
+                                        </li>
+                                        <li >
+                                            <p>Freeze/unfrees a vertex: press <kbd> f</kbd> when the node is selected (a frozen node does not move in live mode)</p>
+                                        </li>
+                                        <li >
+                                            <p>Undo vertex deletion: Click on the Undo button. Only the last deleted vertex can be recovered.</p>
+                                        </li>
+                                        <li >
+                                            <p>Switch to automatic node positioning: Menu Layout -> Live</p>
+                                        </li>
+                               
                 </ul>
                 <!-- /.control-sidebar-menu -->
 
@@ -936,20 +916,16 @@ desired effect
             <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
             <!-- /.tab-pane -->
             <!-- Settings tab content -->
-            <div class="tab-pane" id="control-sidebar-settings-tab">
+            <div class="tab-pane" id="control-sidebar-credits-tab">
                 <form method="post">
-                    <h3 class="control-sidebar-heading">General Settings</h3>
-
-                    <div class="form-group">
-                        <label class="control-sidebar-subheading">
-                            Report panel usage
-                            <input type="checkbox" class="pull-right" checked>
-                        </label>
+                    <h3 class="control-sidebar-heading">Credits</h3>
 
                         <p>
-                            Some information about this general settings option
+                                                    Dreamer-Topology-Designer Simple Topology 3D, a customization of JS GRAPH EDITOR Based JS GRAPH EDITOR written by Radoslav Kirov.
+                        <br>
+                        <br>This activity has been partially funded by EU in the context of <a href="http://netgroup.uniroma2.it/DREAMER/" target="_blank">DREAMER</a> , which is one of the beneficiary projects of the GÉANT Open Call research initiative, see <a href="http://www.geant.net" target="_blank">www.geant.net</a>. The partners of DREAMER are: CNIT, CREATE-NET and Consortium GARR.
                         </p>
-                    </div>
+                   
                     <!-- /.form-group -->
                 </form>
             </div>
