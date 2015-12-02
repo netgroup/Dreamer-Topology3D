@@ -541,7 +541,7 @@
 
             }
 
-            $("#drag_drop_toolbar_ul").append("<li  style=\"display: inline; list-style: none;\"><button id=\"undo_button\" type=\"button\" class=\"btn btn-default btn-group-sm navbar-btn\"><span class=\"fa fa-undo\"></span> Undo</button></li>");
+           // $("#drag_drop_toolbar_ul").append("<li  style=\"display: inline; list-style: none;\"><button id=\"undo_button\" type=\"button\" class=\"btn btn-default btn-group-sm navbar-btn\"><span class=\"fa fa-undo\"></span> Undo</button></li>");
 
 
             setTunnelLabel(args.graph_parameters.tunneling);
@@ -705,6 +705,7 @@
             });
 
             $("#layer-menu .dropdown-menu li a").click(function() {
+                console.log("layer");
                 my_graph_editor.set_layer($(this).text().replace(/ /g, ''));
                 setLayerView($(this).text().replace(/ /g, ''));
 
@@ -712,12 +713,11 @@
             });
 
             $('#collapsepalette').click(function(t) {
-
-                if ($(this).text() == "Drawing Palette-Hide") {
-                    $(this).text("Drawing Palette-Show");
+                if ($(this).text() == " Hide Drawing Palette") {
+                    $(this).html("<i class=\"fa fa-expand\"></i> <span>Show Drawing Palette</span>");
                     $('#panel_head').css('display', 'none');
                 } else {
-                    $(this).text("Drawing Palette-Hide");
+                    $(this).html("<i class=\"fa fa-compress\"></i> <span>Hide Drawing Palette</span>");
                     $('#panel_head').css('display', '');
                 }
                 resetCanvasDimensions();

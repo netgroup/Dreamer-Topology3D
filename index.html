@@ -137,46 +137,10 @@ desired effect
                                 </li>
                             </ul>
                         </li>
-                        <li class="dropdown">
+                        <li id="layer-menu"  class="dropdown">
                             <a id="layer_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">View <span class="caret"></span></a>
                             <ul id="dropdown-menu-layer" class="dropdown-menu" role="menu">
 
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a id="tool_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">Tools <span class="caret"></span></a>
-                            <ul id="dropdown-menu-tool" class="dropdown-menu" role="menu">
-                                <li id="impexpmap">
-                                    <a href="#" id="editvmmcfg_button" data-toggle="modal" data-target="#myModalMappingCfg"> <span class="fa fa-sitemap"></span> Import and edit mapping file
-                                    </a>
-                                </li>
-                                <li id="editmap">
-                                    <a href="#" id="editvmmap_button" data-toggle="modal" data-target="#myModalMapping"> <span class="fa fa-sitemap"></span> Edit VM mapping
-                                    </a>
-                                </li>
-                                <li id="setcl">
-                                    <a href="#" id="set_cluster_button" data-toggle="modal" data-target="#myModalCluster"> <span class="fa fa-sitemap"></span> Set Cluster
-                                    </a>
-                                </li>
-                                <li id="settunneling">
-                                    <a href="#" id="settunneling_button" data-toggle="modal" data-target="#myModalTunnel"> <span class="fa fa-sitemap"></span> Set Tunneling <span id="tunneling_cur"></span>
-                                    </a>
-                                </li>
-                                <li id="settestbed">
-                                    <a href="#" id="settestbed_button" data-toggle="modal" data-target="#myModalTestBed"> <span class="fa fa-sitemap"></span> Set TestBed <span id="testbed_cur"></span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a id="deployment_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">Deployment <span class="caret"></span></a>
-                            <ul id="dropdown-menu-deployment" class="dropdown-menu" role="menu">
-                                <li id="validate">
-                                    <a href="#" id="validate_button"> <span class="fa fa-check-square-o"></span> Validate</a>
-                                </li>
-                                <li id="deployr">
-                                    <a href="#" id="deploy_button"> <span class="fa fa-desktop"></span> Deploy</a>
-                                </li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -212,7 +176,7 @@ desired effect
                     <!-- Optionally, you can add icons to the links -->
                     <li class="active"><a id="collapsepalette" href="#"><i class="fa fa-compress"></i> <span>Hide Drawing Palette</span></a>
                     </li>
-                    <li><a href="#"><i class="fa-compress"></i> <span>Another Link</span></a>
+                    <li><a id="undo_button" href="#" ><i class="fa fa-undo"></i> <span>Undo action</span></a>
                     </li>
                     <li class="treeview">
                         <a id="collapsesettings" href="#"><i class="fa fa-edit"></i> <span>Editor Settings</span> <i class="fa fa-angle-left pull-right"></i></a>
@@ -252,7 +216,7 @@ desired effect
                                 <li>
                                     <div class="checkbox">
                                         <label>
-                                            <input id="showLabelCheckbox" type="checkbox"></input>
+                                            <input id="showLabelCheckbox" checked type="checkbox"></input>
                                             Node Id
                                         </label>
                                     </div>
@@ -270,6 +234,41 @@ desired effect
                             </li>
                         </ul>
                     </li>
+                    <li class="treeview" id="collapsetools">
+                        <a  href="#"><i class="fa fa-wrench"></i> <span>Tools</span><i class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                             <li id="impexpmap">
+                                        <a href="#" id="editvmmcfg_button" data-toggle="modal" data-target="#myModalMappingCfg"> <span class="fa fa-sitemap"></span> Edit mapping file
+                                        </a>
+                                    </li>
+                                    <li id="editmap">
+                                        <a href="#" id="editvmmap_button" data-toggle="modal" data-target="#myModalMapping"> <span class="fa fa-sitemap"></span> Edit VM mapping
+                                        </a>
+                                    </li>
+                                    <li id="setcl">
+                                        <a href="#" id="set_cluster_button" data-toggle="modal" data-target="#myModalCluster"> <span class="fa fa-sitemap"></span> Set Cluster
+                                        </a>
+                                    </li>
+                                    <li id="settunneling">
+                                        <a href="#" id="settunneling_button" data-toggle="modal" data-target="#myModalTunnel"> <span class="fa fa-sitemap"></span> Set Tunneling <span id="tunneling_cur"></span></a>
+                                    </li>
+                                    <li id="settestbed">
+                                        <a href="#" id="settestbed_button" data-toggle="modal" data-target="#myModalTestBed"> <span class="fa fa-sitemap"></span> Set TestBed <span id="testbed_cur"></span></a>
+                                    </li>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="treeview" d="deployment_button_group">
+                        <a  href="#"><i class="fa fa-tachometer"></i> <span>Deployment</span><i class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                                <li id="validate">
+                                    <a href="#" id="validate_button"> <span class="fa fa-check-square-o"></span> Validate</a>
+                                </li>
+                                <li id="deployr">
+                                    <a href="#" id="deploy_button"> <span class="fa fa-desktop"></span> Deploy</a>
+                                </li>
+                        </ul>
+                    </li>
                 </ul>
                 <!-- /.sidebar-menu -->
             </section>
@@ -278,7 +277,7 @@ desired effect
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
+            <!-- Content Header (Page header) 
             <section class="content-header">
                 <h1>
         Page Header
@@ -290,10 +289,12 @@ desired effect
                     <li class="active">Here</li>
                 </ol>
             </section>
-
+            -->
             <!-- Main content -->
             <section class="content">
+                <div id="alert_div" class="alert-franz">
 
+                </div>
                 <div class="panel panel-default" id="panel_big">
                     <div class="panel-heading" id="panel_head" style="padding-bottom: 0px; padding-top: 0px;">
 
@@ -302,9 +303,7 @@ desired effect
 
                         </div>
 
-                        <div id="alert_div" class="alert-franz">
 
-                        </div>
                     </div>
                     <div class="panel-body">
                         <!-- <div class="container-canvas" id="canvas_cont" height="600" style="overflow-y: scroll;max-height: 600px;"> -->
@@ -879,10 +878,10 @@ desired effect
     <footer class="main-footer">
         <!-- To the right -->
         <div class="pull-right hidden-xs">
-            Anything you want
+            <strong>Topology 3D</strong>
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2015 <a href="#">Company</a>.</strong> All rights reserved.
+        
     </footer>
 
     <!-- Control Sidebar -->
