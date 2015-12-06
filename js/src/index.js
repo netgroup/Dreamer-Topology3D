@@ -663,57 +663,48 @@
 
             
 
-            $("#canvdimension").ionRangeSlider({
-                type: "single",
+            $("#canvdimension").slider({
                 min: 0,
                 max: 600,
-                step: 10,
-                from: 50,
-                onChange: function(obj) {
-                        my_graph_editor.resizeCanvasWith(obj["fromNumber"]);
+                value: 50,
+                slide: function(event, ui) {
+                    my_graph_editor.resizeCanvasWith(ui.value);
                 }
             });
 
-
-            $("#orientation").ionRangeSlider({
-                type: "single",
+            $("#orientation").slider({
                 min: 0,
                 max: 360,
-                step: 10,
-                from: 0,
-                onChange: function(obj) {
-                        my_graph_editor.change_orientation(obj["fromNumber"]);
+                value: 0,
+                slide: function(event, ui) {
+                    my_graph_editor.change_orientation(ui.value);
                 }
             });
 
-            $("#vertexSize").ionRangeSlider({
-                type: "single",
+            $("#vertexSize").slider({
                 min: my_graph_editor.get_vertex_size()*0.5,
                 max: my_graph_editor.get_vertex_size()*1.5,
-                from: my_graph_editor.get_vertex_size(),
-                onChange: function(obj) {
-                    my_graph_editor.change_vertex_size(obj["fromNumber"]);
+                value: my_graph_editor.get_vertex_size(),
+                slide: function(event, ui) {
+                    my_graph_editor.change_vertex_size(ui.value);
                 }
             });
 
-            $("#edgeStrength").ionRangeSlider({
-                type: "single",
+            $("#edgeStrength").slider({
                 min: 0,
                 max: 100,
-                from: 50,
-                onChange: function(obj) {
-                    my_graph_editor.change_egde_strength(obj["fromNumber"]);
+                value: 50,
+                slide: function(event, ui) {
+                    my_graph_editor.change_egde_strength(ui.value);
                 }
             });
 
-            $("#edgeLength").ionRangeSlider({
-                type: "single",
+            $("#edgeLength").slider({
                 min: 0,
                 max: 100,
-                from: 50,
-                step: 10,
-                onChange: function(obj) {
-                    my_graph_editor.change_egde_length(obj["fromNumber"]);
+                value: 50,
+                slide: function(event, ui) {
+                    my_graph_editor.change_egde_length(ui.value);
                 }
             });
 

@@ -13,22 +13,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="plugins/bootstrap-slider/slider.css">
+   
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Ion Slider -->
-    <link rel="stylesheet" href="plugins/ionslider/ion.rangeSlider.css">
-    <!-- ion slider Nice -->
-    <link rel="stylesheet" href="plugins/ionslider/ion.rangeSlider.skinNice.css">
+  
+
+   <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
-        page. However, you can choose any other skin. Make sure you
-        apply the skin class to the body tag so the changes take effect.
-  -->
+    <!-- AdminLTE Skins. -->
     <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+
+     <!-- graph_editor core CSS -->
+    <link href="css/graph_editor.css" rel="stylesheet">   
+
+
+    <!-- jQueryUI -->
+    <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
+     <!-- fwebconsole CSS-->
+    <link href="css/fwebconsole.css" rel="stylesheet"> 
 
 
 
@@ -169,38 +176,34 @@ desired effect
                     <li class="treeview">
                         <a id="collapsesettings" href="#"><i class="fa fa-edit"></i> <span>Editor Settings</span> <i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
+
                             <li>
 
                                 <div class="row margin">
-                                    <label id="canvd_label">Canvas Dimension:</label>
-                                    <div class="col-sm-12">
-                                        <input id="canvdimension" type="text" name="canvdimension">
+                                    <label id="canvd_label" class="label-sidebar">Canvas Dimension:</label>
+                                    <div class="col-sm-12" id="canvdimension">
                                     </div>
                                 </div>
                                 <div class="row margin">
-                                    <label id="Orientation_label">Orientation</label>
-                                    <div class="col-sm-12">
-                                        <input id="orientation" type="text" name="orientation">
+                                    <label id="Orientation_label" class="label-sidebar">Orientation</label>
+                                    <div class="col-sm-12" id="orientation">
                                     </div>
                                 </div>
                                 <div class="row margin">
-                                    <label id="VertexSize_label">Node Size</label>
-                                    <div class="col-sm-12">
-                                        <input id="vertexSize" type="text" id="vertexSize">
+                                    <label id="VertexSize_label" class="label-sidebar">Node Size</label>
+                                    <div class="col-sm-12" id="vertexSize" >
                                     </div>
                                 </div>
                                 <div class="row margin">
-                                    <label id="EdgeStrength_label">Edge Strength</label>
-                                    <div class="col-sm-12">
-                                        <input id="edgeStrength" type="text" name="edgeStrength">
+                                    <label id="EdgeStrength_label" class="label-sidebar">Edge Strength</label>
+                                    <div class="col-sm-12" id="edgeStrength" >
                                     </div>
                                 </div>
 
 
                                 <div class="row margin">
-                                    <label id="EdgeLength_label">Edge Length</label>
-                                    <div class="col-sm-12">
-                                        <input id="edgeLength" type="text" name="edgeLength">
+                                    <label id="EdgeLength_label" class="label-sidebar">Edge Length</label>
+                                    <div class="col-sm-12" id="edgeLength">
                                     </div>
                                 </div>
 
@@ -947,14 +950,22 @@ desired effect
 
     <!-- jQuery 2.1.4 -->
     <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
+     <script type="text/javascript" src="js/jquery-ui.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
+
     <!-- AdminLTE App -->
     <script src="dist/js/app.min.js"></script>
     <!-- Ion Slider -->
     <script src="plugins/ionslider/ion.rangeSlider.min.js"></script>
+    <!-- Bootstrap slider -->
+<script src="plugins/bootstrap-slider/bootstrap-slider.js"></script>
 
-    <script type="text/javascript" src="js/jquery-ui.js"></script>
+
+     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+     <!--
+   
+-->
     <script src="js/socket.io-1.2.0.js"></script>
     <script src="js/json2.js"></script>
     <script src="lib/codemirror/lib/codemirror.js"></script>
@@ -989,9 +1000,10 @@ desired effect
     <script src="js/src/graph_editor.js"></script>
     <script src="js/src/index.js"></script>
 
-    <script>
-        $(function() {
-
+<script>
+  $(function () {
+    /* BOOTSTRAP SLIDER */
+    $('.slider').slider();
 
 
 
