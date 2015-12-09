@@ -9,33 +9,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Topology 3D</title>
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-   
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  
 
-   <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />
+
+    <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. -->
     <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
 
-     <!-- graph_editor core CSS -->
-    <link href="css/graph_editor.css" rel="stylesheet">   
+    <!-- graph_editor core CSS -->
+    <link href="css/graph_editor.css" rel="stylesheet">
 
 
     <!-- jQueryUI -->
     <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
-     <!-- fwebconsole CSS-->
-    <link href="css/fwebconsole.css" rel="stylesheet"> 
+    <!-- fwebconsole CSS-->
+    <link href="css/fwebconsole.css" rel="stylesheet">
 
 
 
@@ -83,7 +84,7 @@ desired effect
         <header class="main-header">
 
             <!-- Logo -->
-            <a href="index2.html" class="logo">
+            <a href="index.html" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>T</b>3D</span>
                 <!-- logo for regular state and mobile devices -->
@@ -191,18 +192,18 @@ desired effect
                                 </div>
                                 <div class="row margin">
                                     <label id="VertexSize_label" class="label-sidebar">Node Size</label>
-                                    <div class="col-sm-12" id="vertexSize" >
+                                    <div class="col-sm-12" id="vertexSize">
                                     </div>
                                 </div>
                                 <div class="row margin">
-                                    <label id="EdgeStrength_label" class="label-sidebar">Edge Strength</label>
-                                    <div class="col-sm-12" id="edgeStrength" >
+                                    <label id="EdgeStrength_label" class="label-sidebar" style="color: rgb(128, 128, 128);">Edge Strength</label>
+                                    <div class="col-sm-12" id="edgeStrength">
                                     </div>
                                 </div>
 
 
                                 <div class="row margin">
-                                    <label id="EdgeLength_label" class="label-sidebar">Edge Length</label>
+                                    <label id="EdgeLength_label" class="label-sidebar" style="color: rgb(128, 128, 128);">Edge Length</label>
                                     <div class="col-sm-12" id="edgeLength">
                                     </div>
                                 </div>
@@ -210,7 +211,7 @@ desired effect
                             </li>
                             <li>
                                 <div class="checkbox">
-                                    <label>
+                                    <label class="label-sidebar">
                                         <input id="showLabelCheckbox" checked type="checkbox"></input>
                                         Node Id
                                     </label>
@@ -218,7 +219,7 @@ desired effect
                             </li>
                             <li>
                                 <div class="checkbox">
-                                    <label>
+                                    <label class="label-sidebar">
                                         <input id="showCustomLabelCheckbox" checked type="checkbox"></input>
                                         Node label
                                     </label>
@@ -227,7 +228,7 @@ desired effect
 
                         </ul>
                     </li>
-                    <li class="treeview" id="collapsetools">
+                    <li class="treeview" id="tool_button_group">
                         <a href="#"><i class="fa fa-wrench"></i> <span>Tools</span><i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
                             <li id="impexpmap">
@@ -250,10 +251,9 @@ desired effect
                                 <a href="#" id="settestbed_button" data-toggle="modal" data-target="#myModalTestBed"> <span class="fa fa-sitemap"></span> Set TestBed <span id="testbed_cur"></span>
                                 </a>
                             </li>
+                        </ul>
                     </li>
-                    </ul>
-                    </li>
-                    <li class="treeview" d="deployment_button_group">
+                    <li class="treeview" id="deployment_button_group">
                         <a href="#"><i class="fa fa-tachometer"></i> <span>Deployment</span><i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
                             <li id="validate">
@@ -950,7 +950,7 @@ desired effect
 
     <!-- jQuery 2.1.4 -->
     <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script>
-     <script type="text/javascript" src="js/jquery-ui.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
 
@@ -959,11 +959,11 @@ desired effect
     <!-- Ion Slider -->
     <script src="plugins/ionslider/ion.rangeSlider.min.js"></script>
     <!-- Bootstrap slider -->
-<script src="plugins/bootstrap-slider/bootstrap-slider.js"></script>
+    <script src="plugins/bootstrap-slider/bootstrap-slider.js"></script>
 
 
-     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-     <!--
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <!--
    
 -->
     <script src="js/socket.io-1.2.0.js"></script>
@@ -1000,10 +1000,10 @@ desired effect
     <script src="js/src/graph_editor.js"></script>
     <script src="js/src/index.js"></script>
 
-<script>
-  $(function () {
-    /* BOOTSTRAP SLIDER */
-    $('.slider').slider();
+    <script>
+        $(function() {
+            /* BOOTSTRAP SLIDER */
+            $('.slider').slider();
 
 
 
