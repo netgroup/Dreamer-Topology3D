@@ -713,8 +713,9 @@
 
             $("#layer-menu .dropdown-menu li a").click(function() {
                 console.log("layer");
-                my_graph_editor.set_layer($(this).text().replace(/ /g, ''));
-                setLayerView($(this).text().replace(/ /g, ''));
+                var layer_selected = $(this).text().replace(/ /g, '');
+                my_graph_editor.set_layer(layer_selected);
+                setLayerView(layer_selected);
 
 
             });
@@ -1142,7 +1143,7 @@
     }
 
     function setLayerLabel(layer) {
-        $('#layer_button_label').text("View (" + layer + ")");
+        $('#layer_button_group').html('View (' + layer + ') <span class=\"fa fa-sort-down\"></span>');
     };
 
     function setTunnelLabel(tunnel) {
@@ -1151,14 +1152,17 @@
 
 
     function setModelLabel(model) {
-        $('#model_button_label').text("Model (" + model + ")");
+        $('#model_button_group').html('Model (' + model + ') <span class=\"fa fa-sort-down\"></span>');
+    };
+
+    function setDisplayLabel(display) {
+        $('#model_button_group').html('Display (' + display + ') <span class=\"fa fa-sort-down\"></span>');
     };
 
     function setLayerView(layer) {
         setLayerLabel(layer);
         setToolsDropMenu(layer);
     };
-
 
     function setToolsDropMenu(layer) {
         // $('#dropdown-menu-tool').empty();

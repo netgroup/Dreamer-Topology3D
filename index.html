@@ -101,7 +101,7 @@ desired effect
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
-                            <a id="model_button" href="#" class="dropdown-toggle" data-toggle="dropdown">Model <span class="caret"></span></a>
+                            <a id="model_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">Model <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="?model=oshi" id="oshi_network" onclick="return confirm('Warning, you will loose unsaved changes in the current topology - are you sure ?');"> OSHI network</a>
                                 </li>
@@ -142,6 +142,13 @@ desired effect
                                 <li role="presentation" class="divider"></li>
                                 <li><a href="#" id="circular"><span class="fa fa-spinner"></span> Circular</a>
                                 </li>
+                            </ul>
+                        </li>                        
+                        <li id="layer_type_menu" class="dropdown">
+                            <a id="layer_type_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">Display (Topology) <span class="caret"></span></a>
+                            <ul id="dropdown_menu_layer_type" class="dropdown-menu" role="menu">
+                                <li><a href="#" id="display_topo_button"><span class="fa fa-sitemap"></span> Topology</a></li>
+                                <li><a href="#" id="display_tab_button"><span class="fa fa-table"></span> Tabular</a></li>
                             </ul>
                         </li>
                         <li id="layer-menu" class="dropdown">
