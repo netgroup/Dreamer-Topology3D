@@ -373,7 +373,7 @@
                 $('#power_off_button').show();
 
                 //disattivo alcuni menu item 
-                $('#deployment_button_group').prop("disabled", true);
+                $('#deployment_button_group').hide();
                 $('#topology_button').prop("disabled", true);
                 $('#model_button').prop("disabled", true);
                 $('#tool_button_group').prop("disabled", true);
@@ -382,7 +382,8 @@
 
                 //hide command bar
                 $('#panel_head').css('display', 'none');
-                $('#collapsepalette').css('display', 'none');
+                $('#collapsepalette').hide();
+                //$('#collapsepalette').css('display', 'none');
                 $('#accordion').css('display', 'none');
                 var exp_name = (args.exp_id) ? args.exp_id : "";
                 ctrlconsole = new dreamer.Ctrlfwc('myTab', exp_name);
@@ -650,6 +651,7 @@
                 $("#canvdimension").slider('value', 0);
             });
 
+            /*
             $('#accordion').on('hidden.bs.collapse', function() {
                 //$('#collapsesettings').text(' Static')
                 $('#collapsesettings').find('span').toggleClass('fa-sort-down fa-sort-up')
@@ -659,7 +661,7 @@
 
                 $('#collapsesettings').find('span').toggleClass('fa-sort-up fa-sort-down')
             });
-
+            */
             
 
             $("#canvdimension").slider({
@@ -1099,7 +1101,7 @@
         $('#power_off_button').hide();
         $('.popover').hide();
         //riattivo alcuni menu item 
-        $('#deployment_button_group').prop("disabled", false);
+        $('#deployment_button_group').show();
         $('#topology_button').prop("disabled", false);
         $('#model_button').prop("disabled", false);
         $('#tool_button_group').prop("disabled", false);

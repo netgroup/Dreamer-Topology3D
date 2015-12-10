@@ -27,7 +27,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- AdminLTE Skins. -->
     <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
 
-    <!-- graph_editor core CSS -->
+    <!-- graph_editor core CSS-->
     <link href="css/graph_editor.css" rel="stylesheet">
 
 
@@ -109,7 +109,7 @@ desired effect
                                 <li><a href="?model=openflow" id="of_network" onclick="return confirm('Warning, you will loose unsaved changes in the current topology - are you sure ?');"> OpenFlow network</a>
                                 </li>
                                 <li class="divider"></li>
-                                <li><a href="?model=ciscoapic" id="of_network" onclick="return confirm('Warning, you will loose unsaved changes in the current topology - are you sure ?');"> Cisco APIC</a>
+                                <li><a href="?model=ciscoapic" id="ca_network" onclick="return confirm('Warning, you will loose unsaved changes in the current topology - are you sure ?');"> Cisco APIC</a>
                                 </li>
                             </ul>
                         </li>
@@ -137,10 +137,8 @@ desired effect
                         <li class="dropdown">
                             <a id="layout_button_group" href="#" class="dropdown-toggle" data-toggle="dropdown">Layout (Static) <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#" id="static_button"><span class="fa fa-pause"></span> Static</a>
-                                    <li><a href="#" id="live_button"><span class="fa fa-play"></span> Live</a>
-                                    </li>
-                                </li>
+                                <li><a href="#" id="static_button"><span class="fa fa-pause"></span> Static</a></li>
+                                <li><a href="#" id="live_button"><span class="fa fa-play"></span> Live</a></li>
                                 <li role="presentation" class="divider"></li>
                                 <li><a href="#" id="circular"><span class="fa fa-spinner"></span> Circular</a>
                                 </li>
@@ -170,12 +168,12 @@ desired effect
                 <ul class="sidebar-menu">
                     <li class="header">Editor tools</li>
                     <!-- Optionally, you can add icons to the links -->
-                    <li class="active"><a id="collapsepalette" href="#"><i class="fa fa-compress"></i> <span>Hide Drawing Palette</span></a>
+                    <li ><a id="collapsepalette" href="#"><i class="fa fa-compress"></i> <span>Hide Drawing Palette</span></a>
                     </li>
                     <li><a id="undo_button" href="#"><i class="fa fa-undo"></i> <span>Undo action</span></a>
                     </li>
-                    <li class="treeview">
-                        <a id="collapsesettings" href="#"><i class="fa fa-edit"></i> <span>Editor Settings</span> <i class="fa fa-angle-left pull-right"></i></a>
+                    <li class="treeview" id="collapsesettings">
+                        <a  href="#"><i class="fa fa-edit"></i> <span>Editor Settings</span> <i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
 
                             <li>
@@ -263,6 +261,9 @@ desired effect
                                 <a href="#" id="deploy_button"> <span class="fa fa-desktop"></span> Deploy</a>
                             </li>
                         </ul>
+                    </li>
+                    <li >
+                        <a id="power_off_button" href="#"><i class="fa fa-compress"></i> <span>Stop Deploy</span></a>
                     </li>
                 </ul>
                 <!-- /.sidebar-menu -->
@@ -586,7 +587,7 @@ desired effect
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title" id="myModalTestBedlLabel">Select TestBed</h4>
                     </div>
-                    <div id="tunnel_body" class="modal-body">
+                    <div id="test_bed_body" class="modal-body">
                         <div id="testbed_mechanism_sec">
                             <label>TestBed:</label>
                             <select id='tb_option'>
@@ -850,7 +851,7 @@ desired effect
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title" id="myModalLabelMappingCfg">Edit Config VM Mapping</h4>
                     </div>
-                    <div id="vmmapping_body" class="modal-body">
+                    <div id="vmmapping_body_cfg" class="modal-body">
                         Edit Config VM Mapping:
                         <br>
                         <br>
