@@ -270,7 +270,7 @@ desired effect
                         </ul>
                     </li>
                     <li >
-                        <a id="power_off_button" href="#"><i class="fa fa-compress"></i> <span>Stop Deploy</span></a>
+                        <a id="power_off_button" href="#"><i class="fa fa-power-off"></i> <span>Stop Deploy</span></a>
                     </li>
                 </ul>
                 <!-- /.sidebar-menu -->
@@ -873,6 +873,114 @@ desired effect
             </div>
         </div>
         <!-- End Modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="element_to_pop_up" tabindex="-1" role="dialog" aria-labelledby="myModalMappingCfg" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabelMappingCfg">Edit Config VM Mapping</h4>
+                    </div>
+                    <div id="element_to_pop_up_body" class="modal-body">
+                        <table id="NodeTableData" bgcolor="#00FF00">
+                        </table>
+                        <br>Interfaces<br>
+                        <table id="IntfsTableData" >
+<!--                            <tr> <td>IF name</td> <td>IP addr</td> <td>MAC addr</td> <td>Dest</td> </tr> -->
+                        </table>  
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModalNodeInfo" tabindex="-1" role="dialog" aria-labelledby="myModalNodeInfo" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalNodeInfoTitle">Node Info</h4>
+                    </div>
+                    <div id="myModalNodeInfoBody" class="modal-body">
+                       <div id='node_inf'>
+                                        <label id='index_label'>Index:</label> <span id='index'></span>
+                                        <label>Node ID:</label> <span id='n_name'></span>
+                                        <br>
+                                        <label>Type:</label>
+                                        <select id='s_label'>
+                                            <option value=''></option>
+                                        </select>
+                                        <br>
+                                        <div id="type_inf">
+                                            <label>Custom label:</span>
+                                                <div id="cldiv" class="input-group input-group-sm">
+                                                    <input type="text" id="clabel_input" class="form-control">
+                                                    <span class="input-group-btn">
+                                            <button id="set_clabel" class="btn btn-default" type="button">Set</button>
+                                        </span>
+                                                </div>
+                                                </br>
+                                                <div id="model_inf_Data">
+                                                    <div id="vm">
+                                                        <label>VM Mapping:</label>
+                                                        <select id='s_mgtip'>
+                                                            <option value=''></option>
+                                                        </select>
+                                                        </br>
+                                                        <label>Interfaces:</label>
+                                                        <select id='s_interfaces'>
+                                                            <option value=''></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div id="model_inf">
+                                            <div id="model_inf_Control">
+                                                <label>Cluster:</label>
+                                                <select id='s_cluster'>
+                                                    <option value=''></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModalEdgeInfo" tabindex="-1" role="dialog" aria-labelledby="myModalEdgeInfo" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalEdgeInfoTitle">Edge Info</h4>
+                    </div>
+                    <div id="mmyModalEdgeInfoBody" class="modal-body">
+                        <label id='index_label'>Index:</label> <span id='index'></span>
+                        <label id='vert'>Nodes: <span id='v1'></span> -- <span id='v2'></span>
+                        <br>
+                        </label>
+                        <div id='edge_inf'>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+
 
     </div>
     <!-- /.content-wrapper -->

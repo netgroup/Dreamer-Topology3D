@@ -11,8 +11,8 @@
      * it describes the status of the web front end:
      * DES = Design mode
      * EXP = Experiment running
-    */
-    mod = "DES";  
+     */
+    mod = "DES";
 
     var info_nodes = {};
     var ctrlconsole;
@@ -20,11 +20,10 @@
 
     $(document).ready(function() {
 
-        
+
 
         $('#myModalLoading').modal('show');
         my_graph_editor = new GraphEditor('#graph_ed', {
-            // JSONdata: example,
             example: example,
             node_radius: 18.0,
             multigraph: true
@@ -47,7 +46,7 @@
                 "Esc": function(cm) {
                     if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
                 },
-                "Ctrl-Q": function(cm){
+                "Ctrl-Q": function(cm) {
                     cm.foldCode(cm.getCursor());
                 }
             },
@@ -66,9 +65,13 @@
         $('#myModalCopy').on('shown.bs.modal', function() {
             cmjsoneditor.refresh();
         });
-        $('#myModalCopy').on('show', function () {
-      $('.modal-body',this).css({width:'auto',height:'auto', 'max-height':'100%'});
-});
+        $('#myModalCopy').on('show', function() {
+            $('.modal-body', this).css({
+                width: 'auto',
+                height: 'auto',
+                'max-height': '100%'
+            });
+        });
 
         $('#myModalCluster').on('shown.bs.modal', function() {
             cmclustereditor.refresh();
@@ -89,7 +92,7 @@
             //console.log("Fired con successoooo " + JSON.stringify(args));
             if (args.live) {
                 $('#layout_button_group').html(' Layout (Live) <span class="fa fa-sort-down"></span>')
-                //$('#layout_button_group').prepend('<span class="fa fa-pause"></span>')
+                    //$('#layout_button_group').prepend('<span class="fa fa-pause"></span>')
 
                 $('#EdgeLength_label').css("color", "rgb(138, 164, 175)");
                 $('#EdgeStrength_label').css("color", "rgb(138, 164, 175)");
@@ -99,7 +102,7 @@
             } else {
                 //$('#layout_button_group').text(' Layout (Static)')
                 $('#layout_button_group').html(' Layout (Static) <span class="fa fa-sort-down"></span>')
-                //$('#live_button').prepend('<span class="fa fa-play"></span>')
+                    //$('#live_button').prepend('<span class="fa fa-play"></span>')
 
                 $('#EdgeLength_label').css("color", "grey");
                 $('#EdgeStrength_label').css("color", "grey");
@@ -114,180 +117,184 @@
                 setTunnelLabel(args.tunneling);
             }
         });
-        //update_infobox
         my_graph_editor.addListener("open_console", function(a, args) {
             if (mod == "EXP" && args.selected == "Vertex") {
                 ctrlconsole.addConsole(args.base_info.label);
 
             }
         });
-        my_graph_editor.addListener("update_infobox", function(a, args) {
-            var info_sidebar = '#info_sidebar';
-            //if(mod != "EXP"){
-            if (args.selected == "Vertex") {
-                if (mod != "EXP")
-                    $('#box_info').show();
 
-                var base_info = args.base_info;
-                //console.log(JSON.stringify(args));
-                $('#title').html('Node Info');
-                $(info_sidebar + ' .infobox #index').html(base_info.index);
-                $(info_sidebar + ' .infobox #index').hide();
-                $(info_sidebar + ' .infobox #index_label').hide();
-                $(info_sidebar + ' .infobox #pos').hide();
-                $(info_sidebar + ' .infobox #node_inf').show();
-                $(info_sidebar + ' .infobox #edge_inf').hide();
-                $(info_sidebar + ' .infobox #vert').hide();
-                $(info_sidebar + ' .infobox #label').html(args.label);
-                ////console.log(args.base_info.label)
-                $(info_sidebar + ' .infobox #n_name').html(args.base_info.label);
-                $(info_sidebar + ' .infobox #none_selected').hide();
-                $(info_sidebar + ' .infobox #info').show();
-                $('#s_label').val(base_info.node_type)
+        my_graph_editor.addListener("object_info", function(a, args) {
+            if (mod == "EXP" && args.selected == "Vertex") {
 
-                if (args.model_info) {
-                    if (Object.keys(args.model_info).length > 0) {
-                        $('#s_cluster').show();
-                        //console.log("mostra " + JSON.stringify(Object.keys(args.model_info)));
+                if (Object.keys(info_nodes).length > 0) {
+                    //NodeTableDataSub
+                    var params = info_nodes; //{ peo6 : {mgt_IP: "10.255.252.1", loopback_IP: "172.16.0.4", dpid: "00000000AC100004", interfaces : {'peo6-eth1' : {ip :"10.0.2.1/24", mac : "02:9e:fb:26:73:c4", peers : ["cro3"] }, 'peo6-eth0' : {ip :"10.255.252.1/24", mac : "8a:67:81:17:44:8e", peers : ["mgm1"] }}}};
+                    var node_name = args.base_info.label;
+                    console.log("node_popover");
+                    $('#NodeTableData tr').remove();
+                    var table = document.getElementById("NodeTableData");
+                    my_add_row(table, ['Node', node_name]);
+                    my_add_row(table, ['Mgt_IP', params[node_name].mgt_IP]);
+                    my_add_row(table, ['Loopback IP', params[node_name].loopback_IP]);
+
+                    if (params[node_name].dpid != undefined && params[node_name].dpid != "") {
+                        my_add_row(table, ['DatapathID', params[node_name].dpid]);
+                    }
+
+                    $('#IntfsTableData tr').remove();
+                    var table = document.getElementById("IntfsTableData");
+                    var rowCount = table.rows.length;
+                    var row = table.insertRow(rowCount);
+                    var my_cells = ['IF name', 'IP addr', 'MAC addr', 'Dest'];
+
+                    my_add_row(table, my_cells);
+
+
+                    for (var key in params[node_name].interfaces) {
+                        if (params[node_name].interfaces.hasOwnProperty(key)) {
+                            my_cells = [];
+                            my_cells.push(key);
+                            my_cells.push(params[node_name].interfaces[key].ip);
+                            my_cells.push(params[node_name].interfaces[key].mac);
+                            my_cells.push(params[node_name].interfaces[key].peers[0]);
+                            my_add_row(table, my_cells);
+                        }
+                    }
+
+                    $('#element_to_pop_up').modal('show')
+                } else {
+                    //TODO show alert
+                }
+
+            } else if (mod == "DES") {
+                if (args.selected == "Vertex") {
+                    //show modal myModalNodeInfo
+                    var base_info = args.base_info;
+                    $('#index_node').html(base_info.index);
+                    $('#index_node').hide();
+                    $('#n_name').html(args.base_info.label);
+                    $('#s_label').val(base_info.node_type)
+                    if (args.model_info && Object.keys(args.model_info).length > 0) {
+
                         var clustval = ''
                         if (args.model_info['layer-Control']['cluster_id']) {
                             clustval = args.model_info['layer-Control']['cluster_id'];
+                            $('#s_cluster').show();
                         }
                         $('#s_cluster').val(clustval);
+
+                    } else {
+                        $('#model_inf').hide();
                     }
 
-                } else {
-                    $('#model_inf').hide();
-                }
+                    var type_info = args.type_info;
+                    if (type_info) {
+                        if (type_info.vm) {
 
 
-                var type_info = args.type_info;
-                if (type_info) {
-                    if (type_info.vm) {
+                            var mgt_ip_list = my_graph_editor.getNotSelectedMgtIp(base_info.node_type).list;
+                            //console.log(JSON.stringify(mgt_ip_list));
 
-
-                        var mgt_ip_list = my_graph_editor.getNotSelectedMgtIp(base_info.node_type).list;
-                        //console.log(JSON.stringify(mgt_ip_list));
-
-                        $("#s_mgtip").empty().append('<option value=""></option>')
-                        for (i in mgt_ip_list) {
-                            ////console.log(mgt_ip_list[i]);
-                            var val = mgt_ip_list[i];
-                            $("#s_mgtip").append("<option value='" + val + "'>" + val + "</option>");
-                        }
-                        if (type_info.vm['mgt_ip'])
-                            $("#s_mgtip").append("<option value='" + type_info.vm['mgt_ip'] + "' >" + type_info.vm['mgt_ip'] + "</option>");
-                        $('#s_mgtip').val(type_info.vm['mgt_ip']);
-
-
-                        $("#s_interfaces").empty().append('<option value=""></option>')
-                        if (type_info.vm['mgt_ip'] != "") {
-                            var interfaces = my_graph_editor.getInterfacesMgtIp(base_info.node_type, type_info.vm['mgt_ip']).interfaces;
-                            //console.log(JSON.stringify(interfaces));
-                            for (var m in interfaces) {
-                                //console.log(interfaces[m])
-                                var val = interfaces[m];
-                                $("#s_interfaces").append("<option value='" + val + "'>" + val + "</option>");
+                            $("#s_mgtip").empty().append('<option value=""></option>')
+                            for (i in mgt_ip_list) {
+                                ////console.log(mgt_ip_list[i]);
+                                var val = mgt_ip_list[i];
+                                $("#s_mgtip").append("<option value='" + val + "'>" + val + "</option>");
                             }
-                            if (type_info.vm['interfaces'])
-                                $("#s_interfaces").append("<option value='" + type_info.vm['interfaces'] + "' >" + type_info.vm['interfaces'] + "</option>");
-                            $('#s_interfaces').val(type_info.vm['interfaces']);
+                            if (type_info.vm['mgt_ip'])
+                                $("#s_mgtip").append("<option value='" + type_info.vm['mgt_ip'] + "' >" + type_info.vm['mgt_ip'] + "</option>");
+                            $('#s_mgtip').val(type_info.vm['mgt_ip']);
+
+
+                            $("#s_interfaces").empty().append('<option value=""></option>')
+                            if (type_info.vm['mgt_ip'] != "") {
+                                var interfaces = my_graph_editor.getInterfacesMgtIp(base_info.node_type, type_info.vm['mgt_ip']).interfaces;
+                                //console.log(JSON.stringify(interfaces));
+                                for (var m in interfaces) {
+                                    //console.log(interfaces[m])
+                                    var val = interfaces[m];
+                                    $("#s_interfaces").append("<option value='" + val + "'>" + val + "</option>");
+                                }
+                                if (type_info.vm['interfaces'])
+                                    $("#s_interfaces").append("<option value='" + type_info.vm['interfaces'] + "' >" + type_info.vm['interfaces'] + "</option>");
+                                $('#s_interfaces').val(type_info.vm['interfaces']);
+                            }
+
+
+                            $('#vm').show();
+                        } else {
+                            $('#vm').hide();
                         }
 
+                        if (type_info['custom_label'] != undefined) {
+                            $('#cldiv').show();
+                            $('#clabel_input').val(type_info['custom_label']);
 
-                        $('#vm').show();
+                        } else {
+                            //console.log("HIDE custom label")
+                            $('#cldiv').hide();
+                        }
+
                     } else {
-                        $('#vm').hide();
+                        $('#type_inf').hide();
                     }
 
-                    if (type_info['custom_label'] != undefined) {
-                        $('#cldiv').show();
-                        // if(type_info['custom_label'] != ""){
-                        //console.log("NON VUOTO")
-                        $('#clabel_input').val(type_info['custom_label']);
-                        //   }
-                    } else {
-                        //console.log("HIDE custom label")
-                        $('#cldiv').hide();
+                    var curlayer = args.curLayer;
+                    if (curlayer == "Data") {
+                        $('#model_inf_Data').show();
+                        $('#model_inf_Control').hide();
+                        $('#model_inf_Vll').hide();
+                    } else if (curlayer == "Vll") {
+                        $('#model_inf_Vll').show();
+                        $('#model_inf_Control').hide();
+                        $('#model_inf_Data').hide();
+                    } else if (curlayer == "Control") {
+                        $('#model_inf_Control').show();
+                        $('#model_inf_Vll').hide();
+                        $('#model_inf_Data').hide();
                     }
 
+                    $('#myModalNodeInfo').modal('show')
+                } else if (args.selected == "Edge") {
+                    //show modal myModalEdgeInfo
+                    var base_info = args.base_info;
 
+                    $('#index_edge').html(base_info.index);
+                    $('#index_edge').hide();
+                    $('#v1').html(base_info.nodes.node1);
+                    $('#v2').html(base_info.nodes.node2);
 
+                    $('#label').val(base_info.label || "none");
 
-                } else {
-                    $('#type_inf').hide();
+                    $('#myModalEdgeInfo').modal('show')
+                } else if (args.selected == "graph_parameters") {
+                    $("#tun_option").val(args.tunneling);
+                    $("#tb_option").val(args.testbed);
+                } else if (args.selected == "none") {
+                    clearInfoBox();
                 }
-
-
-                var curlayer = args.curLayer;
-                if (curlayer == "Data") {
-                    $('#model_inf_Data').show();
-                    $('#model_inf_Control').hide();
-                    $('#model_inf_Vll').hide();
-                } else if (curlayer == "Vll") {
-                    $('#model_inf_Vll').show();
-                    $('#model_inf_Control').hide();
-                    $('#model_inf_Data').hide();
-                } else if (curlayer == "Control") {
-                    $('#model_inf_Control').show();
-                    $('#model_inf_Vll').hide();
-                    $('#model_inf_Data').hide();
-                }
-                //}
-                /*
-                if (mod == "EXP") {
-                    ctrlconsole.addConsole(args.base_info.label);
-                    //ctrlconsole.addConsole("h2");
-                }*/
-            } else if (args.selected == "Edge") {
-                if (mod != "EXP")
-                    $('#box_info').show();
-
-                var base_info = args.base_info;
-
-                $('#title').html('Edge Info');
-                $(info_sidebar + ' .infobox #index').html(base_info.index);
-                $(info_sidebar + ' .infobox #pos').hide();
-                $(info_sidebar + ' .infobox #vert').show();
-
-                $(info_sidebar + ' .infobox #edge_inf').hide();
-
-                $(info_sidebar + ' .infobox #node_inf').hide();
-
-                $(info_sidebar + ' .infobox #v1').html(base_info.nodes.node1);
-                $(info_sidebar + ' .infobox #v2').html(base_info.nodes.node2);
-
-                $(info_sidebar + ' .infobox #label').val(base_info.label || "none");
-                $(info_sidebar + ' .infobox #none_selected').hide();
-                $(info_sidebar + ' .infobox #info').show();
-            } else if (args.selected == "graph_parameters") {
-                $("#tun_option").val(args.tunneling);
-                $("#tb_option").val(args.testbed);
-            } else if (args.selected == "none") {
-                clearInfoBox();
             }
-
         });
 
 
         my_graph_editor.addListener("INVALID_TOPOLOGY", function(a, args) {
 
-            if(typeof args == "object"){
-                        $('#validationError_list').empty();
-                        var counter = 0;
+            if (typeof args == "object") {
+                $('#validationError_list').empty();
+                var counter = 0;
 
-                        for (i in args) {
-                            for (k in args[i]) {
+                for (i in args) {
+                    for (k in args[i]) {
 
-                                $('#validationError_list').append('<div class="panel panel-default"><div class="panel-heading"> <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#validationError_list" href="#collapse' + counter + '"> ' + k + ' </a> </h4> </div> <div id="collapse' + counter + '" class="panel-collapse collapse"> <div class="panel-body">' + args[i][k] + '</div></div></div>');
-                                counter++;
-                            }
-                        }
+                        $('#validationError_list').append('<div class="panel panel-default"><div class="panel-heading"> <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#validationError_list" href="#collapse' + counter + '"> ' + k + ' </a> </h4> </div> <div id="collapse' + counter + '" class="panel-collapse collapse"> <div class="panel-body">' + args[i][k] + '</div></div></div>');
+                        counter++;
+                    }
+                }
 
-                        $('#myModalValidationError').modal('show');
-                        $('#myModalLoading').modal('hide');
-            }
-            else{
+                $('#myModalValidationError').modal('show');
+                $('#myModalLoading').modal('hide');
+            } else {
                 $('#close_mael_button').show();
                 $('#reload_button').hide();
 
@@ -366,7 +373,7 @@
         });
 
         my_graph_editor.addListener("EXP_MODE", function(a, args) {
-            if(!args.error){
+            if (!args.error) {
                 //rendo visibile la parte con le shell
                 $('#console_div').css('display', 'block');
                 $('#exp_msg').show();
@@ -388,10 +395,10 @@
                 var exp_name = (args.exp_id) ? args.exp_id : "";
                 ctrlconsole = new dreamer.Ctrlfwc('myTab', exp_name);
                 ctrlconsole.addConsole("deployment", true, true);
-                ctrlconsole.addListenerToConsole("deployment", "info_nodes",function(a, data){
-                    console.log("info nodes arrivati" + data );
-                        info_nodes = JSON.parse(data);
-                        console.log("info nodes arrivati" + info_nodes);
+                ctrlconsole.addListenerToConsole("deployment", "info_nodes", function(a, data) {
+                    console.log("info nodes arrivati" + data);
+                    info_nodes = JSON.parse(data);
+                    console.log("info nodes arrivati" + info_nodes);
                 });
                 mod = "EXP";
                 $('.popover').hide();
@@ -399,8 +406,7 @@
                 $('html, body').animate({
                     scrollTop: $(document).height()
                 }, 'slow');
-            }
-            else{
+            } else {
                 console.log("MALE MALE NEW EXP")
                 $('#alert_error_body').replaceWith("Dreamer-Experiment-Handler has encountered a problem.");
                 $('#reload_button').hide();
@@ -416,95 +422,21 @@
          * adds a row to a table
          * my_cells is an array of strings that contains the cells to be added
          */
-        function my_add_row(my_table,my_cells) {
+        function my_add_row(my_table, my_cells) {
             var rowCount = my_table.rows.length;
             var row = my_table.insertRow(rowCount);
             var index = 0;
             var arrayLength = my_cells.length;
             for (var i = 0; i < arrayLength; i++) {
-                if (index>0) {
-                    row.insertCell(index).innerHTML= '&nbsp;:&nbsp;';   
-                    index = index+1; 
+                if (index > 0) {
+                    row.insertCell(index).innerHTML = '&nbsp;:&nbsp;';
+                    index = index + 1;
                 }
-                row.insertCell(index).innerHTML= my_cells[i];
-                index = index+1; 
+                row.insertCell(index).innerHTML = my_cells[i];
+                index = index + 1;
             }
         }
 
-
-        my_graph_editor.addListener("node_popover", function(a, args) {
-            
-            //$('.node_popover').hide();
-            //console.log (Object.keys(info_nodes).length);
-            if(args.mode == "show" && mod == "EXP" && popover == true && Object.keys(info_nodes).length > 0){
-                //NodeTableDataSub
-                var params =  info_nodes;//{ peo6 : {mgt_IP: "10.255.252.1", loopback_IP: "172.16.0.4", dpid: "00000000AC100004", interfaces : {'peo6-eth1' : {ip :"10.0.2.1/24", mac : "02:9e:fb:26:73:c4", peers : ["cro3"] }, 'peo6-eth0' : {ip :"10.255.252.1/24", mac : "8a:67:81:17:44:8e", peers : ["mgm1"] }}}};
-                var node_name = args.node;
-
-                $('#NodeTableData tr').remove();
-                var table = document.getElementById("NodeTableData");
-                my_add_row(table,['Node', node_name]);
-                my_add_row(table, ['Mgt_IP', params[node_name].mgt_IP]);
-                my_add_row(table,['Loopback IP', params[node_name].loopback_IP]);
-
-                if (params[node_name].dpid != undefined && params[node_name].dpid !="") {
-                    my_add_row(table,['DatapathID', params[node_name].dpid]);
-                }
-
-                $('#IntfsTableData tr').remove();
-                var table = document.getElementById("IntfsTableData");
-                var rowCount = table.rows.length;
-                var row = table.insertRow(rowCount);
-                var my_cells = ['IF name','IP addr','MAC addr','Dest'];
-                    // my_cells.push();
-                    // row.insertCell(0).innerHTML= 'IF name';
-                    // row.insertCell(1).innerHTML= 'IP addr';
-                    // row.insertCell(2).innerHTML= 'MAC addr';
-                    // row.insertCell(3).innerHTML= 'Dest';
-                my_add_row(table, my_cells);
-
-                //var rowCount = table.rows.length;
-
-                
-                for (var key in params[node_name].interfaces) {
-                      if (params[node_name].interfaces.hasOwnProperty(key)) {
-                        my_cells = [];
-                        //var row = table.insertRow(rowCount);
-
-                        //console.log (key + " -> " + params[node_name].interfaces[key]);
-                        //$(string_if_name+my_index.toString()).html(key);
-                        //row.insertCell(0).innerHTML=key;
-                        my_cells.push(key);
-                        //$(string_if_ip+my_index.toString()).html(params[node_name].interfaces[key].ip);
-                        //row.insertCell(1).innerHTML=params[node_name].interfaces[key].ip;
-                        my_cells.push(params[node_name].interfaces[key].ip);
-                        //$(string_if_mac+my_index.toString()).html(params[node_name].interfaces[key].mac);
-                        //row.insertCell(2).innerHTML=params[node_name].interfaces[key].mac;
-                        my_cells.push(params[node_name].interfaces[key].mac);
-                        //$(string_if_dest+my_index.toString()).html(params[node_name].interfaces[key].peers[0]);
-                        //row.insertCell(3).innerHTML=params[node_name].interfaces[key].peers[0];
-                        my_cells.push(params[node_name].interfaces[key].peers[0]);
-                        my_add_row(table, my_cells);
-
-                        //rowCount = rowCount +1;
-                      }
-                }
-
-                var left = args.x;
-                var top = args.y;
-                var theHeight = $('.popover').height();
-                // $('.popover').show();
-                // $('.popover').css('left', (left) + 'px');
-                // $('.popover').css('top', (top) + 'px');
-                //$('#node_popover').show();
-                //$("[data-toggle='popover']").popover('show');
-                //$('#node_popover').popover('show');
-                $('#element_to_pop_up').bPopup({
-                    opacity: 0.1
-                });
-            }
-
-        });
 
         my_graph_editor.addListener("editor_ready", function(a, args) {
 
@@ -543,22 +475,22 @@
 
             }
 
-           // $("#drag_drop_toolbar_ul").append("<li  style=\"display: inline; list-style: none;\"><button id=\"undo_button\" type=\"button\" class=\"btn btn-default btn-group-sm navbar-btn\"><span class=\"fa fa-undo\"></span> Undo</button></li>");
+            // $("#drag_drop_toolbar_ul").append("<li  style=\"display: inline; list-style: none;\"><button id=\"undo_button\" type=\"button\" class=\"btn btn-default btn-group-sm navbar-btn\"><span class=\"fa fa-undo\"></span> Undo</button></li>");
 
 
             setTunnelLabel(args.graph_parameters.tunneling);
             setModelLabel(args.modelname);
             initClusterSelOption(args.domain_data.clustermap);
 
-            $(info_sidebar + ' .infobox #s_label').change(function() {
-                var index = $(info_sidebar + ' .infobox #index').html(),
+            $('#s_label').change(function() {
+                var index = $('#index_node').html(),
                     title = $('#title').html();
                 if (title === "Node Info") {
                     my_graph_editor.set_properties({
                         node: {
                             index: index,
                             properties: {
-                                type: $(info_sidebar + ' .infobox #s_label').val()
+                                type: $('#s_label').val()
                             }
 
                         }
@@ -626,7 +558,7 @@
             });
 
             $('#s_interfaces').change(function() {
-                var index = $(info_sidebar + ' .infobox #index').html();
+                var index = $('#index_node').html();
                 //console.log($("#s_mgtip").val());
                 //console.log($("#s_label").val());
                 my_graph_editor.set_properties({
@@ -651,18 +583,6 @@
                 $("#canvdimension").slider('value', 0);
             });
 
-            /*
-            $('#accordion').on('hidden.bs.collapse', function() {
-                //$('#collapsesettings').text(' Static')
-                $('#collapsesettings').find('span').toggleClass('fa-sort-down fa-sort-up')
-
-            });
-            $('#accordion').on('show.bs.collapse', function() {
-
-                $('#collapsesettings').find('span').toggleClass('fa-sort-up fa-sort-down')
-            });
-            */
-            
 
             $("#canvdimension").slider({
                 min: 0,
@@ -683,8 +603,8 @@
             });
 
             $("#vertexSize").slider({
-                min: my_graph_editor.get_vertex_size()*0.5,
-                max: my_graph_editor.get_vertex_size()*1.5,
+                min: my_graph_editor.get_vertex_size() * 0.5,
+                max: my_graph_editor.get_vertex_size() * 1.5,
                 value: my_graph_editor.get_vertex_size(),
                 slide: function(event, ui) {
                     my_graph_editor.change_vertex_size(ui.value);
@@ -818,7 +738,7 @@
 
                     reader.onloadend = function() {
                         my_graph_editor.import_from_JSON(this.result, false)
-                        //console.log(this.result)
+                            //console.log(this.result)
 
                     }
                 }
@@ -1018,16 +938,6 @@
             });
 
             $('#rest').css('clear', 'both');
-
-            // Select all elements with data-toggle="popover" in the document and activate them
-            //$("[data-toggle=popover]").popover({})
-
-            // $("[data-toggle=popover]").popover({
-            //     container: 'body',
-            //     html: 'true',
-            //     title: 'Header',
-            //     trigger: 'focus'
-            // })
 
             $("#coreslider").slider({
                 min: 1,

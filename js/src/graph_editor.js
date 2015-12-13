@@ -963,20 +963,17 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
             var info_data = domainctrl.getNodeProperties(obj, nodes);
             info_data['curLayer'] = curLayer.getCurLayer();
-            //////console.log(JSON.stringify(info_data));
-            //console.log ("update_infobox - CTRL " + CTRL + " SHIFT " + SHIFT );
+            console.log(JSON.stringify(info_data));
+            console.log ("update_infobox - CTRL " + CTRL + " SHIFT " + SHIFT );
             if (CTRL == true) {
                 eventHandeler.fire("open_console", info_data); //it opens the console only if windows.mod == "EXP"
             }
             if (SHIFT == true) {
-                eventHandeler.fire("node_popover", {
-                    mode: "show",
-                    x: obj.pos.x,
-                    y: obj.pos.y,
-                    node: obj.label
-                    });
+                eventHandeler.fire("object_info", info_data);
+                
             }
-            eventHandeler.fire("update_infobox", info_data);
+            //eventHandeler.fire("update_infobox", info_data);
+            
 
         } else if (obj && obj instanceof Edge) {
             edge = obj;
@@ -1000,15 +997,18 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
                 }
             }
-
-            eventHandeler.fire("update_infobox", info_data);
+            if (SHIFT == true) {
+                eventHandeler.fire("object_info", info_data);
+               
+            }
+            
 
         } else {
 
             var data = {
                 selected: "none"
             };
-            eventHandeler.fire("update_infobox", data);
+            eventHandeler.fire("object_info", data);
 
         }
     }
