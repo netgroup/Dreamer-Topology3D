@@ -483,9 +483,10 @@
             initClusterSelOption(args.domain_data.clustermap);
 
             $('#s_label').change(function() {
-                var index = $('#index_node').html(),
-                    title = $('#title').html();
-                if (title === "Node Info") {
+                console.log("s_label");
+                var index = $('#index_node').html();
+            
+                     console.log("s_label", index);
                     my_graph_editor.set_properties({
                         node: {
                             index: index,
@@ -495,13 +496,11 @@
 
                         }
                     }, true);
-                }
-
             });
 
             $('#set_clabel').click(function() {
                 //console.log("set_clabel")
-                var index = $(info_sidebar + ' .infobox #index').html();
+                var index = $('#index_node').html();
 
                 my_graph_editor.set_properties({
                     node: {
@@ -517,7 +516,7 @@
             });
 
             $('#s_cluster').change(function() {
-                var index = $(info_sidebar + ' .infobox #index').html();
+                var index = $('#index_node').html();
                 var modelname = "domain-" + my_graph_editor.getcurmodelname();
                 var newpro = {
                     node: {
@@ -539,7 +538,7 @@
             });
 
             $('#s_mgtip').change(function() {
-                var index = $(info_sidebar + ' .infobox #index').html();
+                var index = $('#index_node').html();
                 //console.log($("#s_mgtip").val());
                 my_graph_editor.set_properties({
                     node: {
