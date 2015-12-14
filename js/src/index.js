@@ -17,9 +17,9 @@
     var info_nodes = {};
     var ctrlconsole;
     var popover = true;
+    var th = new TableHelper();
 
     $(document).ready(function() {
-
 
 
         $('#myModalLoading').modal('show');
@@ -61,6 +61,7 @@
         var vmmappingreditor = CodeMirror.fromTextArea(document.getElementById("vmmappingEditor"), json_editor_settings);
 
         var vmmconfigeditor = CodeMirror.fromTextArea(document.getElementById("vmmconfigEditor"), json_editor_settings);
+
 
         $('#myModalCopy').on('shown.bs.modal', function() {
             cmjsoneditor.refresh();
@@ -440,6 +441,11 @@
 
         my_graph_editor.addListener("editor_ready", function(a, args) {
 
+
+    
+
+            ///
+
             var layers = my_graph_editor.get_layers();
 
             for (i in layers) {
@@ -636,6 +642,29 @@
                 my_graph_editor.set_layer(layer_selected);
                 setLayerView(layer_selected);
 
+
+            });
+
+            $("#layer_type_menu .dropdown-menu li a").click(function() {
+                
+                var layer_type_selected = $(this).text().replace(/ /g, '');
+                console.log("layer_type", layer_type_selected);
+                if(layer_type_selected == "Tabular"){
+                    if(my_graph_editor.getcurmodelname() == "ciscoapic"){
+                        $("#panel_big").hide();
+                        $("#table_container").show();
+                            var ciscoapic_data =my_graph_editor.export_json();
+                            console.log(ciscoapic_data);
+                        th.drawTableCiscoAPIC($('#table_container'),['Custom Label','Device Type','Family'], ['custom_label','devicetype','family'], JSON.parse(ciscoapic_data), {});   
+                    }
+                                        
+                }
+                else if(layer_type_selected == "Topology"){
+                    if(my_graph_editor.getcurmodelname() == "ciscoapic"){
+                        $("#panel_big").show();
+                        $("#table_container").hide();
+                    }
+                }
 
             });
 

@@ -27,6 +27,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- AdminLTE Skins. -->
     <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
 
+    <link rel="stylesheet" href="plugins/datatables/jquery.dataTables.css" />
+
     <!-- graph_editor core CSS-->
     <link href="css/graph_editor.css" rel="stylesheet">
 
@@ -328,6 +330,10 @@ desired effect
                         </div>
                         <!--container-canvas-->
                     </div>
+                </div>
+
+                <div id="table_container" hidden>
+
                 </div>
 
 
@@ -1077,6 +1083,10 @@ desired effect
     <!-- Bootstrap slider -->
     <script src="plugins/bootstrap-slider/bootstrap-slider.js"></script>
 
+    <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="plugins/datatables/dataTable.bootstrap.min.js"></script>
+    <script src="js/src/TableHelper.js"></script>
+
 
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <!--
@@ -1114,22 +1124,20 @@ desired effect
     <script src="js/src/fwebconsole/fwebconsole.js"></script>
     <script src="js/src/fwebconsole/ctrlWebconsole.js"></script>
     <script src="js/src/graph_editor.js"></script>
+    <script src="js/src/TableHelper.js"></script>
     <script src="js/src/index.js"></script>
 
     <script>
         $(function() {
             /* BOOTSTRAP SLIDER */
-            $('.slider').slider();
+           // $('.slider').slider();
 
 
 
         });
     </script>
 
-    <!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. Slimscroll is required when using the
-     fixed layout. -->
+
 </body>
 
 </html>
