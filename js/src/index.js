@@ -660,6 +660,8 @@
                             addKey: true,
                             clickCallback: function(event) {
                                 var node_id = $(this).children('td:first').text();
+                                console.log("node_id" + node_id);
+                                console.log(JSON.stringify(my_graph_editor.getNodeInfo(node_id)))
                                 fillNodeInfo(my_graph_editor.getNodeInfo(node_id));
                             }
                         });

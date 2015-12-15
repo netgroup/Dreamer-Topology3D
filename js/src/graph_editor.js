@@ -768,9 +768,19 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
     }
 
     function getNodeInfo(node_id){
-        var info_data = domainctrl.getNodeProperties(nodes[node_id], nodes);
-        info_data['curLayer'] = curLayer.getCurLayer();
-        return info_data;
+        console.log(JSON.stringify(nodes[node_id]));
+        var selected_node = undefined;
+        nodes.forEach(function(node) {
+            if(node.label == node_id){
+                selected_node = node;
+                return;
+            }
+        });
+        if(selected_node != undefined){
+            var info_data = domainctrl.getNodeProperties(selected_node, nodes);
+            info_data['curLayer'] = curLayer.getCurLayer();
+            return info_data;
+        }
     }
 
     function export_json() {
