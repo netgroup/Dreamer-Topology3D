@@ -767,6 +767,11 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
     }
 
+    function getNodeInfo(node_id){
+        var info_data = domainctrl.getNodeProperties(nodes[node_id], nodes);
+        info_data['curLayer'] = curLayer.getCurLayer();
+        return info_data;
+    }
 
     function export_json() {
 
@@ -963,8 +968,8 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
 
             var info_data = domainctrl.getNodeProperties(obj, nodes);
             info_data['curLayer'] = curLayer.getCurLayer();
-            console.log(JSON.stringify(info_data));
-            console.log ("update_infobox - CTRL " + CTRL + " SHIFT " + SHIFT );
+            //console.log(JSON.stringify(info_data));
+            //console.log ("update_infobox - CTRL " + CTRL + " SHIFT " + SHIFT );
             if (CTRL == true) {
                 eventHandeler.fire("open_console", info_data); //it opens the console only if windows.mod == "EXP"
             }
@@ -1354,6 +1359,7 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         getInterfacesMgtIp: getInterfacesMgtIp,
         get_vertex_size: get_vertex_size,
         newExp: newExp,
-        getcurmodelname: getcurmodelname
+        getcurmodelname: getcurmodelname,
+        getNodeInfo: getNodeInfo
     };
 };

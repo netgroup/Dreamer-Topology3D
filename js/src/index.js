@@ -13,7 +13,6 @@
      * EXP = Experiment running
      */
     mod = "DES";
-
     var info_nodes = {};
     var ctrlconsole;
     var popover = true;
@@ -442,7 +441,7 @@
         my_graph_editor.addListener("editor_ready", function(a, args) {
 
 
-    
+
 
             ///
 
@@ -491,17 +490,17 @@
             $('#s_label').change(function() {
                 console.log("s_label");
                 var index = $('#index_node').html();
-            
-                     console.log("s_label", index);
-                    my_graph_editor.set_properties({
-                        node: {
-                            index: index,
-                            properties: {
-                                type: $('#s_label').val()
-                            }
 
+                console.log("s_label", index);
+                my_graph_editor.set_properties({
+                    node: {
+                        index: index,
+                        properties: {
+                            type: $('#s_label').val()
                         }
-                    }, true);
+
+                    }
+                }, true);
             });
 
             $('#set_clabel').click(function() {
@@ -645,22 +644,29 @@
 
             });
 
+
+
             $("#layer_type_menu .dropdown-menu li a").click(function() {
-                
+
                 var layer_type_selected = $(this).text().replace(/ /g, '');
                 console.log("layer_type", layer_type_selected);
-                if(layer_type_selected == "Tabular"){
-                    if(my_graph_editor.getcurmodelname() == "ciscoapic"){
+                if (layer_type_selected == "Tabular") {
+                    if (my_graph_editor.getcurmodelname() == "ciscoapic") {
                         $("#panel_big").hide();
                         $("#table_container").show();
-                            var ciscoapic_data =my_graph_editor.export_json();
-                            console.log(ciscoapic_data);
-                        th.drawTableCiscoAPIC($('#table_container'),['Custom Label','Device Type','Family'], ['custom_label','devicetype','family'], JSON.parse(ciscoapic_data), {});   
+                        var ciscoapic_data = my_graph_editor.export_json();
+                        console.log(ciscoapic_data);
+                        th.drawTableCiscoAPIC($('#table_container'), ['Id', 'Custom Label', 'Device Type', 'Family'], ['custom_label', 'devicetype', 'family'], JSON.parse(ciscoapic_data), {
+                            addKey: true,
+                            clickCallback: function(event) {
+                                var node_id = $(this).children('td:first').text();
+                                fillNodeInfo(my_graph_editor.getNodeInfo(node_id));
+                            }
+                        });
                     }
-                                        
-                }
-                else if(layer_type_selected == "Topology"){
-                    if(my_graph_editor.getcurmodelname() == "ciscoapic"){
+
+                } else if (layer_type_selected == "Topology") {
+                    if (my_graph_editor.getcurmodelname() == "ciscoapic") {
                         $("#panel_big").show();
                         $("#table_container").hide();
                     }
@@ -1072,13 +1078,103 @@
         }
     }
 
+    function fillNodeInfo(args) {
+        //show modal myModalNodeInfo
+        var base_info = args.base_info;
+        $('#index_node').html(base_info.index);
+        $('#index_node').hide();
+        $('#n_name').html(args.base_info.label);
+        $('#s_label').val(base_info.node_type)
+        if (args.model_info && Object.keys(args.model_info).length > 0) {
+
+            var clustval = ''
+            if (args.model_info['layer-Control']['cluster_id']) {
+                clustval = args.model_info['layer-Control']['cluster_id'];
+                $('#s_cluster').show();
+            }
+            $('#s_cluster').val(clustval);
+
+        } else {
+            $('#model_inf').hide();
+        }
+
+        var type_info = args.type_info;
+        if (type_info) {
+            if (type_info.vm) {
+
+
+                var mgt_ip_list = my_graph_editor.getNotSelectedMgtIp(base_info.node_type).list;
+                //console.log(JSON.stringify(mgt_ip_list));
+
+                $("#s_mgtip").empty().append('<option value=""></option>')
+                for (i in mgt_ip_list) {
+                    ////console.log(mgt_ip_list[i]);
+                    var val = mgt_ip_list[i];
+                    $("#s_mgtip").append("<option value='" + val + "'>" + val + "</option>");
+                }
+                if (type_info.vm['mgt_ip'])
+                    $("#s_mgtip").append("<option value='" + type_info.vm['mgt_ip'] + "' >" + type_info.vm['mgt_ip'] + "</option>");
+                $('#s_mgtip').val(type_info.vm['mgt_ip']);
+
+
+                $("#s_interfaces").empty().append('<option value=""></option>')
+                if (type_info.vm['mgt_ip'] != "") {
+                    var interfaces = my_graph_editor.getInterfacesMgtIp(base_info.node_type, type_info.vm['mgt_ip']).interfaces;
+                    //console.log(JSON.stringify(interfaces));
+                    for (var m in interfaces) {
+                        //console.log(interfaces[m])
+                        var val = interfaces[m];
+                        $("#s_interfaces").append("<option value='" + val + "'>" + val + "</option>");
+                    }
+                    if (type_info.vm['interfaces'])
+                        $("#s_interfaces").append("<option value='" + type_info.vm['interfaces'] + "' >" + type_info.vm['interfaces'] + "</option>");
+                    $('#s_interfaces').val(type_info.vm['interfaces']);
+                }
+
+
+                $('#vm').show();
+            } else {
+                $('#vm').hide();
+            }
+
+            if (type_info['custom_label'] != undefined) {
+                $('#cldiv').show();
+                $('#clabel_input').val(type_info['custom_label']);
+
+            } else {
+                //console.log("HIDE custom label")
+                $('#cldiv').hide();
+            }
+
+        } else {
+            $('#type_inf').hide();
+        }
+
+        var curlayer = args.curLayer;
+        if (curlayer == "Data") {
+            $('#model_inf_Data').show();
+            $('#model_inf_Control').hide();
+            $('#model_inf_Vll').hide();
+        } else if (curlayer == "Vll") {
+            $('#model_inf_Vll').show();
+            $('#model_inf_Control').hide();
+            $('#model_inf_Data').hide();
+        } else if (curlayer == "Control") {
+            $('#model_inf_Control').show();
+            $('#model_inf_Vll').hide();
+            $('#model_inf_Data').hide();
+        }
+
+        $('#myModalNodeInfo').modal('show')
+    };
+
     function clearInfoBox() {
         var info_sidebar = '#info_sidebar';
         $('#title').html('');
         $(info_sidebar + ' .infobox #none_selected').show();
         $(info_sidebar + ' .infobox #info').hide();
         $('#box_info').hide();
-    }
+    };
 
     function setLayerLabel(layer) {
         $('#layer_button_group').html('View (' + layer + ') <span class=\"fa fa-sort-down\"></span>');

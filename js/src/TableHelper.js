@@ -223,8 +223,14 @@ function TableHelper() {
     this.drawTable = function(container, header, data, options) {
         container.html(this.getHtml(header, data, options));
         this.initTable();
+        if(options.clickCallback)
+            this.setClickListener(options.clickCallback);
     };
-    
+
+    this.setClickListener = function(callback){
+        $('#curtable > tbody > tr').click(callback);
+    }
+
     
     /**
      * 
@@ -240,11 +246,16 @@ function TableHelper() {
         for (var k in data['vertices']) {
             prop = data['vertices'][k]['info']['property'];
             x = [];
+
+            if(options.addKey)
+                x.push(k);
+
             property_list.forEach(function(e, i, a) {
                 x.push(prop[e]);
             });
             //x = [prop['acl_applied'], prop['custom_label'], prop['devicetype']];
             console.log('PUSHING '+x);
+
             ret.push(x);
         }
         return ret;
