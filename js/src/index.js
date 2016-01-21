@@ -656,7 +656,7 @@
                         $("#table_container").show();
                         var ciscoapic_data = my_graph_editor.export_json();
                         console.log(ciscoapic_data);
-                        th.drawTableCiscoAPIC($('#table_container'), ['Id', 'Custom Label', 'Device Type', 'Family'], ['custom_label', 'devicetype', 'family'], JSON.parse(ciscoapic_data), {
+                        th.drawTableCiscoAPIC($('#table_container'), ['Id', 'Custom Label', 'Device Type', 'Device Role', 'Family'], ['custom_label', 'devicetype', 'role','family'], JSON.parse(ciscoapic_data), {
                             addKey: true,
                             clickCallback: function(event) {
                                 var node_id = $(this).children('td:first').text();
