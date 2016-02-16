@@ -7,6 +7,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content = "-1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Topology 3D</title>
     <link rel="shortcut icon" type="image/png" href="favicon.png" />
@@ -28,6 +30,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="dist/css/skins/skin-blue.min.css">
 
     <link rel="stylesheet" href="plugins/datatables/jquery.dataTables.css" />
+    <link rel="stylesheet" href="css/html.css">
 
     <!-- graph_editor core CSS-->
     <link href="css/graph_editor.css" rel="stylesheet">
@@ -332,7 +335,7 @@ desired effect
                     </div>
                 </div>
 
-                <div id="table_container" hidden>
+                <div id="table_container" hidden= "false">
 
                 </div>
 
@@ -897,10 +900,121 @@ desired effect
                         </table>  
                     </div>
                     <div class="modal-footer">
+                        <button id="tablerouting" type="button" class="btn btn-primary" >Table Traffic</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
+        </div>
+        <!-- End Modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="edges_to_pop_up" tabindex="-1" role="dialog" aria-labelledby="myModalEdgeInfo" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalEdgeInfoTitle">Edges config : <span id='name_edge'></span></h4>
+                    </div>
+                    <div  id = "nocer">
+                        <div > <h4 class="modal-title" id="show" align="center">Form for graph</h4></div>
+                           <div class="container" id="form_graph" style="display:none">
+                              <form class="form-inline" role="form" id="graphfrm">
+                                <div class="form-group" aria-labelledby="dropdownMenu1">
+                                    <select class="form-control" id="pk">
+                                    </select>
+                                </div>
+                                <div class="form-group" aria-labelledby="dropdownMenu1">
+                                    <select class="form-control" id="times">
+                                        <option value ="10m">10_mins</option>
+                                        <option value ="1h">1_hour</option>
+                                        <option value ="1d">1_day</option>
+                                        <option value ="1w">1_week</option>
+                                        <option value ="1M">1_month</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" aria-labelledby="dropdownMenu1">
+                                    <select class="form-control" id="type">
+                                        <option value ="1">rx_bytes</option>
+                                        <option value ="2">tx_bytes</option>
+                                        <option value ="3">rx_packets</option>
+                                        <option value ="4">tx_packets</option>
+                                        <option value ="5">sdn_rx_bytes</option>
+                                        <option value ="6">sdn_tx_bytes</option>
+                                        <option value ="7">sdn_rx_packets</option>
+                                        <option value ="8">sdn_tx_packets</option>
+                                    </select>
+                                </div>
+                            <button type="button" class="btn btn-primary" id="graph" >Graph</button>
+                            <button type="button" class="btn btn-primary" id="clear" >Clear</button>
+                            </form>
+                        </div>
+                    </div>
+                    <br clear= "all">
+                    <div id="img_graph">
+                    </div>
+                    <div class="modal-footer">
+                        <button id="edgetraffic" type="button" class="btn btn-primary" >Table Traffic</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="divedgetable" tabindex="-1" role="dialog" aria-labelledby="myModalNodeInfo" aria-hidden="true">
+            <div class="modal-dialog" style="width:auto;margin-right:auto; margin-left:auto;margin-top:auto; margin-bottom:auto">
+                <div class="modal-content" style="width:auto;margin-right:auto; margin-left:auto; margin-top:auto; margin-bottom:auto">
+                    <div class="modal-header" style="width:auto;margin-right:auto; margin-left:auto;margin-top:auto; margin-bottom:auto">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModeltable">Table of traffic</h4>
+                    </div>
+                    <div id="table_statconteiner1" style = "height:auto"></div>
+                    <div class="modal-footer">
+                        <button id ="reloadTable1" type="button" class="btn btn btn-primary" >
+                            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> 
+                        </button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+        
+        <!-- Modal -->
+        <div class="modal fade" id="divtablerouting" tabindex="-1" role="dialog" aria-labelledby="myModalNodeInfo" aria-hidden="true">
+            <div class="modal-dialog" style="width:auto;margin-right:auto; margin-left:auto;margin-top:auto; margin-bottom:auto">
+                <div class="modal-content" style="width:auto;margin-right:auto; margin-left:auto;margin-top:auto; margin-bottom:auto">
+                    <div class="modal-header" style="width:auto;margin-right:auto; margin-left:auto;margin-top:auto; margin-bottom:auto">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModeltable">Table of traffic</h4>
+                    </div>
+                    <div id="table_statconteiner" style="height:auto"></div>
+                    <div class="modal-footer">
+                        <button id = "reloadTable" type="button" class="btn btn btn-primary" >
+                            <span class=" glyphicon glyphicon-refresh " aria-hidden="true" ></span> 
+                        </button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
+        <!-- Modal -->
+        <div id="nodati" class="modal fade" role="dialog" tabindex = "-1" aria-labelledby="myModalNodeInfo" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Attention</h4>
+              </div>
+              <div class="modal-body">
+                <p><b>the data isn't avaible</b></p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
         </div>
         <!-- End Modal -->
 
@@ -1086,6 +1200,7 @@ desired effect
     <script src="plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="plugins/datatables/dataTable.bootstrap.min.js"></script>
     <script src="js/src/TableHelper.js"></script>
+    <script src="js/src/GrapHelper.js"></script>
 
 
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -1126,6 +1241,7 @@ desired effect
     <script src="js/src/graph_editor.js"></script>
     <script src="js/src/TableHelper.js"></script>
     <script src="js/src/index.js"></script>
+    <script src="js/src/GrapHelper.js"></script>
 
     <script>
         $(function() {

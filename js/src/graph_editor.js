@@ -1333,12 +1333,60 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
             }
         });
     }
+// restituisce l'url del grafico.
+    function getUrlGraph(arg1,arg2,arg3){
+        // console.log(arg1);
+        // console.log(arg2);
+        // console.log(arg3);
+        console.log("prepare Url Graph");
+        var res = domainctrl.getGraph(arg1,arg2,arg3);
+        console.log(res.message);
+        var data = res.message;
+        return data;
+    }
+// il valore del traffico istantaneo
+    function getValueNode(args){
+        console.log(args);
+        console.log("prepare the data for the table");
+        var data_node = [];
+        var res = domainctrl.getValueDataNode(args);
+        var x = JSON.stringify(res);
+        //console.log(x);
+        var parsed = JSON.parse(x);
+        var i;
+        for(i = 0; i <parsed.message.length; i ++){
+                var data_i_node=[]
+                data_i_node.push((parsed.message[i][0].node_id).replace(".rrd",""));
+                data_i_node.push(parsed.message[i][1].rx_bytes);
+                data_i_node.push(parsed.message[i][2].tx_bytes);
+                data_i_node.push(parsed.message[i][3].rx_packets);
+                data_i_node.push(parsed.message[i][4].tx_packets);
+                data_i_node.push(parsed.message[i][5].sdn_rx_bytes);
+                data_i_node.push(parsed.message[i][6].sdn_tx_bytes);
+                data_i_node.push(parsed.message[i][7].sdn_rx_packets);
+                data_i_node.push(parsed.message[i][8].sdn_tx_packets);
+                data_node.push(data_i_node);
+        }
+        return data_node;
+    }
+// restituisce i pk per le select dei grafici
+    function getFileAvaible(arg1,arg2){
+        console.log(arg1);
+        console.log(arg2);
+        console.log("file avaible for link");
+        var data_link = [];
+        var res = domainctrl.getFileAvaible(arg1,arg2);
+        var x = res.message
+        // console.log(x);
+        return x;
+    }
 
     init();
 
 
     //an global object graph_editor is created containing all global functions
     return {
+        getValueNode: getValueNode,
         set_properties: set_properties,
         import_from_JSON: import_from_JSON,
         export_json: export_json,
@@ -1370,6 +1418,10 @@ var GraphEditor = this.GraphEditor = function GraphEditor(div, options) {
         get_vertex_size: get_vertex_size,
         newExp: newExp,
         getcurmodelname: getcurmodelname,
-        getNodeInfo: getNodeInfo
+        getNodeInfo: getNodeInfo,
+        getUrlGraph: getUrlGraph,
+        getFileAvaible: getFileAvaible,
+
+
     };
 };

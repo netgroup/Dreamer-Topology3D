@@ -78,9 +78,100 @@ dreamer.DomainController = (function() {
             }
 
         });
-
-
     };
+
+    DomainController.prototype.getValueDataNode = function getValueDataNode(args,callback){
+        var response = {};
+        $.ajax({
+            url: "http://"+tsv_base+"/getValueNode",
+            type: "POST",
+            dataType: "json",
+            //contentType: 'application/json; charset=utf-8;',  
+            data: {
+                "node_id": args
+            },
+            async:false,
+            success: function(result) {
+                //response['error'] = false;
+                response = result;
+                //console.log(response);
+                //callback(response);
+            },
+            error: function(xhr, status, errore) {
+                var response = {};
+                response['error'] = {"message": errore};
+                console.log("get value erroe :" , errore);
+                callback(response);
+            }
+
+        });
+        return response;
+    };
+
+
+    DomainController.prototype.getGraph = function getGraph(arg1,arg2,arg3,callback){
+        var response = {};
+
+        $.ajax({
+            url: "http://"+tsv_base+"/getGraph",
+            type: "POST",
+            dataType: "json",
+            //contentType: 'application/json; charset=utf-8;',  
+            data: {
+                "node_interface": arg1,
+                "series_time": arg2,
+                "type": arg3,
+            },
+            async:false,
+            cache:false,
+            success: function(result) {
+                //response['error'] = false;
+                response = result;
+                //console.log(response);
+                //callback(response);
+            },
+            error: function(xhr, status, errore) {
+                var response = {};
+                response['error'] = {"message": errore};
+                console.log("get value erroe :" , errore);
+                callback(response);
+            }
+        });
+
+        return response;
+    };
+
+    DomainController.prototype.getFileAvaible = function getFileAvaible(arg1,arg2,callback){
+        var response = {};
+
+        $.ajax({
+            url: "http://"+tsv_base+"/getFileAvaible",
+            type: "POST",
+            dataType: "json",
+            //contentType: 'application/json; charset=utf-8;',  
+            data: {
+                "node_first": arg1,
+                "node_second": arg2,
+            },
+            async:false,
+            cache:false,
+            success: function(result) {
+                //response['error'] = false;
+                response = result;
+                //console.log(response);
+                //callback(response);
+            },
+            error: function(xhr, status, errore) {
+                var response = {};
+                response['error'] = {"message": errore};
+                console.log("get value erroe :" , errore);
+                callback(response);
+            }
+        });
+
+        return response;
+    };    
+
 
     DomainController.prototype.getRandomTopology = function(n, p, callback) {
 
@@ -140,8 +231,6 @@ dreamer.DomainController = (function() {
             }
 
         });
-
-
     };
 
     DomainController.prototype.isVisible = function(element, layername) {
@@ -656,8 +745,6 @@ dreamer.DomainController = (function() {
         }
         return null;
     }
-
-
 
     return DomainController;
 

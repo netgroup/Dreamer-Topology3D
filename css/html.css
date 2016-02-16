@@ -1,0 +1,25 @@
+#divedgetable {
+	width:1024px; 
+	margin-right:auto; 
+	margin-left:auto;
+}
+#divedgetable {
+	width:1024px;
+	margin-right:auto; 
+	margin-left:auto;
+	margin-top:auto;
+	margin-bottom:auto;
+}
+
+#img_graph {
+	margin-left: 15px;
+	margin-top:10px;
+}
+
+#divedgetable, #divtablerouting {
+	width:auto;
+	margin-right:auto;
+	margin-left:auto;
+	margin-top:auto;
+	margin-bottom:auto;
+}

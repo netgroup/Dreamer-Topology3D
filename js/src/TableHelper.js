@@ -191,8 +191,7 @@ function TableHelper() {
         $table = this.getJQueryTable();
         $table.dataTable();
     };
-    
-    
+        
     /**
      * 
      * @param {Array} header as list of string (columns header)
@@ -211,6 +210,7 @@ function TableHelper() {
         return ret.html();
     };
 
+ 
 
     /**
      * 

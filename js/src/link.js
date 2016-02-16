@@ -1,7 +1,7 @@
 if (typeof dreamer === 'undefined') {
     var dreamer = {};
 }
-
+//costructor
 dreamer.Link = (function (global) {
     'use strict';
 

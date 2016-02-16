@@ -17,6 +17,13 @@
     var ctrlconsole;
     var popover = true;
     var th = new TableHelper();
+    var sh = new TableHelper();
+    var rh = new TableHelper();
+    var rh1 = new TableHelper();
+    var ed1 = new TableHelper();
+    var ed2 = new TableHelper();
+    var gr  = new GrapHelper();
+
 
     $(document).ready(function() {
 
@@ -124,49 +131,197 @@
             }
         });
 
-        my_graph_editor.addListener("object_info", function(a, args) {
-            if (mod == "EXP" && args.selected == "Vertex") {
+        my_graph_editor.addListener("drawGraph",function(a,args) {
+            if(mod =="EXP"){
+                if(args.selected == "Edge"){
 
-                if (Object.keys(info_nodes).length > 0) {
-                    //NodeTableDataSub
-                    var params = info_nodes; //{ peo6 : {mgt_IP: "10.255.252.1", loopback_IP: "172.16.0.4", dpid: "00000000AC100004", interfaces : {'peo6-eth1' : {ip :"10.0.2.1/24", mac : "02:9e:fb:26:73:c4", peers : ["cro3"] }, 'peo6-eth0' : {ip :"10.255.252.1/24", mac : "8a:67:81:17:44:8e", peers : ["mgm1"] }}}};
-                    var node_name = args.base_info.label;
-                    console.log("node_popover");
-                    $('#NodeTableData tr').remove();
-                    var table = document.getElementById("NodeTableData");
-                    my_add_row(table, ['Node', node_name]);
-                    my_add_row(table, ['Mgt_IP', params[node_name].mgt_IP]);
-                    my_add_row(table, ['Loopback IP', params[node_name].loopback_IP]);
-
-                    if (params[node_name].dpid != undefined && params[node_name].dpid != "") {
-                        my_add_row(table, ['DatapathID', params[node_name].dpid]);
-                    }
-
-                    $('#IntfsTableData tr').remove();
-                    var table = document.getElementById("IntfsTableData");
-                    var rowCount = table.rows.length;
-                    var row = table.insertRow(rowCount);
-                    var my_cells = ['IF name', 'IP addr', 'MAC addr', 'Dest'];
-
-                    my_add_row(table, my_cells);
-
-
-                    for (var key in params[node_name].interfaces) {
-                        if (params[node_name].interfaces.hasOwnProperty(key)) {
-                            my_cells = [];
-                            my_cells.push(key);
-                            my_cells.push(params[node_name].interfaces[key].ip);
-                            my_cells.push(params[node_name].interfaces[key].mac);
-                            my_cells.push(params[node_name].interfaces[key].peers[0]);
-                            my_add_row(table, my_cells);
-                        }
-                    }
-
-                    $('#element_to_pop_up').modal('show')
-                } else {
-                    //TODO show alert
                 }
+            }
+        });
+        
+        my_graph_editor.addListener("object_info", function(a, args) {
+            if (mod == "EXP"){
+                if(args.selected == "Vertex" ){
+                    if (Object.keys(info_nodes).length > 0) {
+                        //NodeTableDataSub
+                        var params = info_nodes; //{ peo6 : {mgt_IP: "10.255.252.1", loopback_IP: "172.16.0.4", dpid: "00000000AC100004", interfaces : {'peo6-eth1' : {ip :"10.0.2.1/24", mac : "02:9e:fb:26:73:c4", peers : ["cro3"] }, 'peo6-eth0' : {ip :"10.255.252.1/24", mac : "8a:67:81:17:44:8e", peers : ["mgm1"] }}}};
+                        var node_name = args.base_info.label;
+                        var temp = node_name.slice(0,2);
+                        if(temp == "cr" || temp == "pe"){
+                            $('#tablerouting').show();
+                        }else{
+                          $('#tablerouting').hide();
+                        }
+                        console.log("node_popover");
+                        $('#NodeTableData tr').remove();
+                        var table = document.getElementById("NodeTableData");
+                        my_add_row(table, ['Node', node_name]);
+                        my_add_row(table, ['Mgt_IP', params[node_name].mgt_IP]);
+                        my_add_row(table, ['Loopback IP', params[node_name].loopback_IP]);
 
+                        if (params[node_name].dpid != undefined && params[node_name].dpid != "") {
+                            my_add_row(table, ['DatapathID', params[node_name].dpid]);
+                        }
+
+                        $('#IntfsTableData tr').remove();
+                        var table = document.getElementById("IntfsTableData");
+                        var rowCount = table.rows.length;
+                        var row = table.insertRow(rowCount);
+                        var my_cells = ['IF name', 'IP addr', 'MAC addr', 'Dest'];
+
+                        my_add_row(table, my_cells);
+
+
+                        for (var key in params[node_name].interfaces) {
+                            if (params[node_name].interfaces.hasOwnProperty(key)) {
+                                my_cells = [];
+                                my_cells.push(key);
+                                my_cells.push(params[node_name].interfaces[key].ip);
+                                my_cells.push(params[node_name].interfaces[key].mac);
+                                my_cells.push(params[node_name].interfaces[key].peers[0]);
+                                my_add_row(table, my_cells);
+                            }
+                        }
+
+                        $('#element_to_pop_up').modal('show')
+                    } else {
+                        //TODO show alert
+                    }
+
+                    $('#tablerouting').click(function(){
+                        if(location.hostname != "stud.netgroup.uniroma2.it"){
+                            var data_node = my_graph_editor.getValueNode(args.base_info.label);
+                            console.log(data_node);
+                            var x = data_node.length;
+                            if(x == 0){
+                                $('#nodati').modal('show');
+                            }
+                            else{
+                                
+                                var header_tipe = [' ','rx_bytes','tx_bytes','rx_packets', 'tx_packets','sdn_rx_bytes','sdn_tx_bytes','sdn_rx_pack', 'sdn_tx_pack'];
+                                sh.drawTable($('#table_statconteiner'), header_tipe, data_node,{});
+                                $('#divtablerouting').modal('show');
+                                $('#table_statconteiner').show();
+                            }
+                    }});
+
+                    $('#reloadTable').click(function(){
+                        $('#table_statconteiner').empty();
+                        var data_node = my_graph_editor.getValueNode(args.base_info.label);
+                        console.log(data_node);
+                        var x = data_node.length;
+                        if(x == 0){
+                            $('#nodati').modal('show');
+                        }
+                        else{
+                            var header_tipe = [' ','rx_bytes','tx_bytes','rx_packets', 'tx_packets','sdn_rx_bytes','sdn_tx_bytes','sdn_rx_pack', 'sdn_tx_pack'];
+                            rh.drawTable($('#table_statconteiner'), header_tipe, data_node,{});
+                            $('#table_statconteiner').show();
+                            $('#divtablerouting').modal('show');
+                        }
+                    });  
+
+                }else if (args.selected == "Edge"){
+                        var base_info = args.base_info;
+                        var nod1 = base_info.nodes.node1;
+                        var nod2 = base_info.nodes.node2;
+                        console.log(base_info);
+                        console.log(info_nodes);
+                        var temp1 = nod1.slice(0,2);
+                        var temp2 = nod2.slice(0,2);
+                        if((temp1 == "ce" ||temp1 == "ct") || (temp2== "ce" || temp2 == "ct")){
+                            $('#edgetraffic').hide();
+                            $('#nocer').hide();
+                        }else{
+                            var opFile = my_graph_editor.getFileAvaible(nod1,nod2);
+                            $('#pk').empty();
+                            $('#nocer').show();
+                            $('#img_graph').empty();
+                            for(file in opFile){
+                                pk.add(new Option(opFile[file]));
+                            }
+                            $('#edgetraffic').show();
+                            $('#show').show();
+                        }
+
+                        $('#clear').click(function(){
+                            $('#img_graph').empty();
+                        });
+
+                        var name_edge = nod1 + "-" + nod2;
+                        $('#name_edge').html(name_edge);
+                        $('#edges_to_pop_up').modal('show');
+
+                        $('#edgetraffic').click(function(){
+                            if(location.hostname != "stud.netgroup.uniroma2.it"){
+                                var data_nod1 = my_graph_editor.getValueNode(nod1);
+                                var data_nod2 = my_graph_editor.getValueNode(nod2);
+                                var header_tipe = [' ','rx_bytes','tx_bytes','rx_packets', 'tx_packets','sdn_rx_bytes','sdn_tx_bytes','sdn_rx_pack', 'sdn_tx_pack'];
+                                var x = data_nod1.length;
+                                var y = data_nod2.length;
+                                
+                                if(x == 0 || y == 0){
+                                    $('#nodati').modal('show');
+                                }
+                                else{
+                                    for (i in data_nod2){
+                                        data_nod1.push(data_nod2[i]);
+                                    }
+                                    ed1.drawTable($('#table_statconteiner1'), header_tipe,data_nod1,{});
+                                    $('#divedgetable').modal('show');
+                                }    
+                            }
+                        });
+
+                        $('#reloadTable1').click(function(){
+                            $('#table_statconteiner1').empty();
+                            var data_nod1 = my_graph_editor.getValueNode(nod1);
+                            var data_nod2 = my_graph_editor.getValueNode(nod2);
+
+                            var header_tipe = [' ','rx_bytes','tx_bytes','rx_packets', 'tx_packets','sdn_rx_bytes','sdn_tx_bytes','sdn_rx_pack', 'sdn_tx_pack'];
+                            var x = data_nod1.length;
+                            var y = data_nod2.length;
+                            if(x == 0 || y == 0){
+                                $('#nodati').modal('show');
+                            }
+                            else{
+
+                                for (i in data_nod2){
+                                    data_nod1.push(data_nod2[i]);
+                                }
+                                rh1.drawTable($('#table_statconteiner1'), header_tipe,data_nod1,{});
+                                $('#table_statconteiner10').show();
+                                $('#divedgetable').modal('show');
+                            }
+                        });
+
+                        $(document).ready(function(){
+                           $('#show').click(function(){
+                                $('#form_graph').slideDown("slow");
+                            });  
+                        });
+
+                       $('#graph').click(function(){
+                            //$('#img_graph').empty();
+                            var nome = $("#pk option:selected").text();
+                            var tempo = $("#times option:selected").text();
+                            var type = $("#type option:selected").text();
+                            console.log(nome);
+                            console.log(tempo);
+                            console.log(type);
+                            var url  = my_graph_editor.getUrlGraph(nome,tempo,type);
+                            if(url == 0){
+                                alert(" the data isn't good")
+                            }
+                            else{
+                                $('#img_graph').empty();
+                                console.log(url);
+                                $('#img_graph').load(url);
+                                gr.drawGraph($('#img_graph'),url);
+                            }
+                        });  
+                                
+                }
             } else if (mod == "DES") {
                 if (args.selected == "Vertex") {
                     //show modal myModalNodeInfo
@@ -656,7 +811,7 @@
                         $("#table_container").show();
                         var ciscoapic_data = my_graph_editor.export_json();
                         console.log(ciscoapic_data);
-                        th.drawTableCiscoAPIC($('#table_container'), ['Id', 'Custom Label', 'Device Type', 'Device Role', 'Family'], ['custom_label', 'devicetype', 'role','family'], JSON.parse(ciscoapic_data), {
+                        th.drawTableCiscoAPIC($('#table_container'), ['Id', 'Custom Label', 'Device Type', 'Family'], ['custom_label', 'devicetype', 'family'], JSON.parse(ciscoapic_data), {
                             addKey: true,
                             clickCallback: function(event) {
                                 var node_id = $(this).children('td:first').text();
