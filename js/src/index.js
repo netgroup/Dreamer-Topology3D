@@ -131,14 +131,6 @@
             }
         });
 
-        my_graph_editor.addListener("drawGraph",function(a,args) {
-            if(mod =="EXP"){
-                if(args.selected == "Edge"){
-
-                }
-            }
-        });
-        
         my_graph_editor.addListener("object_info", function(a, args) {
             if (mod == "EXP"){
                 if(args.selected == "Vertex" ){
